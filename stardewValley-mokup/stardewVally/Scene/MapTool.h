@@ -8,7 +8,7 @@ class MapTool : public Scene
 {
 protected:
 
-	TileMap* tilemap = nullptr;
+	TileMap* tilemap1 = nullptr;
 
 public:
 	MapTool();

@@ -6,7 +6,7 @@ TileMap::TileMap(const std::string& name)
 {
 }
 
-void TileMap::Set(const sf::Vector2i& count, const sf::Vector2f& size)
+void TileMap::SetTool(const sf::Vector2i& count, const sf::Vector2f& size)
 {
 	cellCount = count;
 	cellSize = size;
@@ -102,7 +102,7 @@ void TileMap::Init()
 	sortingLayer = SortingLayers::Background;
 	sortingOrder = 0;
 
-	Set({ 24, 25 }, {16.f, 16.f});
+	SetType(type);
 }
 
 void TileMap::Release()
@@ -128,4 +128,19 @@ void TileMap::Draw(sf::RenderWindow& window)
 	state.texture = texture;
 	state.transform = transform;
 	window.draw(va, state);
+}
+
+void TileMap::SetType(ToolType type)
+{
+	this->type = type;
+	switch (this->type)
+	{
+	case ToolType::Map:
+		SetTool({ 100, 100 }, { 16.f,16.f });
+		break;
+	case ToolType::Farm_spring:
+		SetTool({ 24, 25 }, { 16.f, 16.f });
+		spriteSheetId = "graphics/≥Û¿Â(∫Ω).bmp";
+		break;
+	}
 }

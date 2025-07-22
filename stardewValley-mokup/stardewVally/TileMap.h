@@ -2,20 +2,29 @@
 #include "GameObject.h"
 class TileMap : public GameObject
 {
+public:
+	enum class ToolType
+	{
+		Map,
+		Farm_spring,
+		
+	};
 protected:
 	sf::VertexArray va;
-	std::string spriteSheetId = "graphics/≥Û¿Â(∫Ω).bmp";
+	std::string spriteSheetId;
 	sf::Texture* texture = nullptr;
 	sf::Transform transform;
 
 	sf::Vector2i cellCount;
 	sf::Vector2f cellSize;
 
+	ToolType type = ToolType::Map;
+
 public:
 	TileMap(const std::string& name = "");
 	virtual ~TileMap() = default;
 
-	void Set(const sf::Vector2i& count, const sf::Vector2f& size);
+	void SetTool(const sf::Vector2i& count, const sf::Vector2f& size);
 	void UpdateTransform();
 
 	void SetPosition(const sf::Vector2f& pos) override;
@@ -29,5 +38,7 @@ public:
 	void Reset() override;
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
+
+	void SetType(ToolType type);
 };
 
