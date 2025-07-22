@@ -26,5 +26,18 @@ void MapTool::Enter()
 
 void MapTool::Update(float dt)
 {
+	sf::Vector2i screenPos = InputMgr::GetMousePosition();
+	sf::RenderWindow& window = FRAMEWORK.GetWindow();
+	sf::Vector2f worldPos = window.mapPixelToCoords(screenPos);
+
 	Scene::Update(dt);
+	//if (InputMgr::GetMouseButtonDown(sf::Mouse::Left))
+	//{
+	//	tilemap1->GetPosition();
+	//}
+	//if (InputMgr::GetMouseButtonDown(sf::Mouse::Right))
+	//{
+	//	tilemap1->SetPosition(worldPos);
+	//}
+
 }

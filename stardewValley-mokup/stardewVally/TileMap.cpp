@@ -15,15 +15,6 @@ void TileMap::SetTool(const sf::Vector2i& count, const sf::Vector2f& size)
 	va.setPrimitiveType(sf::Quads);
 	va.resize(count.x * count.y * 4);
 
-	sf::Vector2f posOffset[4] =
-	{
-		{ 0.f, 0.f },
-		{ size.x, 0.f },
-		{ size.x, size.y },
-		{ 0.f, size.y },
-	};
-	
-
 	sf::Vector2f texCoords[4] =
 	{	
 		{ 0.f, 0.f },
@@ -42,7 +33,7 @@ void TileMap::SetTool(const sf::Vector2i& count, const sf::Vector2f& size)
 			for (int k = 0; k < 4; ++k)
 			{
 				int vertexIndex = quadIndex * 4 + k;
-				va[vertexIndex].position = quadPos + posOffset[k];
+				va[vertexIndex].position = quadPos + texCoords[k];
 				va[vertexIndex].texCoords = {texCoords[k].x + j * 16.f , texCoords[k].y + i * 16.f};
 			}
 		}

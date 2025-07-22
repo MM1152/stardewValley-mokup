@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "HitBox.h"
 class TileMap : public GameObject
 {
 public:
@@ -20,6 +21,8 @@ protected:
 
 	ToolType type = ToolType::Map;
 
+	HitBox hitBox;
+
 public:
 	TileMap(const std::string& name = "");
 	virtual ~TileMap() = default;
@@ -38,6 +41,7 @@ public:
 	void Reset() override;
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
+
 
 	void SetType(ToolType type);
 };
