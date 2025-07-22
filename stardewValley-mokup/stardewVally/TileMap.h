@@ -4,7 +4,7 @@ class TileMap : public GameObject
 {
 protected:
 	sf::VertexArray va;
-	std::string spriteSheetId = "graphics/background_sheet.png";
+	std::string spriteSheetId = "graphics/≥Û¿Â(∫Ω).bmp";
 	sf::Texture* texture = nullptr;
 	sf::Transform transform;
 

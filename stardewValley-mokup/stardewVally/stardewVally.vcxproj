@@ -148,9 +148,7 @@
     <ClInclude Include="Framework\TextGo.h" />
     <ClInclude Include="Framework\Utils.h" />
     <ClInclude Include="HitBox.h" />
-    <ClInclude Include="SceneDev1.h" />
-    <ClInclude Include="SceneDev2.h" />
-    <ClInclude Include="SceneGame.h" />
+    <ClInclude Include="Scene\MapTool.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="TileMap.h" />
     <ClInclude Include="Variables.h" />
@@ -166,9 +164,7 @@
     <ClCompile Include="Framework\Utils.cpp" />
     <ClCompile Include="HitBox.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="SceneDev1.cpp" />
-    <ClCompile Include="SceneDev2.cpp" />
-    <ClCompile Include="SceneGame.cpp" />
+    <ClCompile Include="Scene\MapTool.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>

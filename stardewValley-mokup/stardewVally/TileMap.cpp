@@ -22,25 +22,20 @@ void TileMap::Set(const sf::Vector2i& count, const sf::Vector2f& size)
 		{ size.x, size.y },
 		{ 0.f, size.y },
 	};
+	
 
 	sf::Vector2f texCoords[4] =
-	{
+	{	
 		{ 0.f, 0.f },
-		{ 50.f, 0.f },
-		{ 50.f, 50.f },
-		{ 0.f, 50.f },
+		{ size.x, 0.f },
+		{ size.x, size.y },
+		{ 0.f, size.y },
 	};
 
 	for (int i = 0; i < count.y; ++i)
 	{
 		for (int j = 0; j < count.x; ++j)
 		{
-			int texIndex = Utils::RandomRange(0, 3);
-			if (i == 0 || i == count.y - 1 || j == 0 || j == count.x - 1)
-			{
-				texIndex = 3;
-			}
-
 			int quadIndex = i * count.x + j;
 			sf::Vector2f quadPos(j * size.x, i * size.y);
 
@@ -48,8 +43,7 @@ void TileMap::Set(const sf::Vector2i& count, const sf::Vector2f& size)
 			{
 				int vertexIndex = quadIndex * 4 + k;
 				va[vertexIndex].position = quadPos + posOffset[k];
-				va[vertexIndex].texCoords = texCoords[k];
-				va[vertexIndex].texCoords.y += texIndex * 50.f;
+				va[vertexIndex].texCoords = {texCoords[k].x + j * 16.f , texCoords[k].y + i * 16.f};
 			}
 		}
 	}
@@ -108,7 +102,7 @@ void TileMap::Init()
 	sortingLayer = SortingLayers::Background;
 	sortingOrder = 0;
 
-	Set({ 50, 50 }, {50.f, 50.f});
+	Set({ 24, 25 }, {16.f, 16.f});
 }
 
 void TileMap::Release()
