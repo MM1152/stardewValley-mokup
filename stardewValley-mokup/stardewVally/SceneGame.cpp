@@ -2,6 +2,7 @@
 #include "SceneGame.h"
 #include "TileMap.h"
 #include "SpriteGo.h"
+#include "Player.h"
 SceneGame::SceneGame() 
 	: Scene(SceneIds::Game)
 {
@@ -9,9 +10,11 @@ SceneGame::SceneGame()
 
 void SceneGame::Init()
 {
-	SpriteGo* sp = new SpriteGo("assets100V20104.png");
+	texIds.push_back("graphics/testC.png");
 
-	AddGameObject(sp);
+	player = new Player("Player");
+	AddGameObject(player);
+
 	Scene::Init();
 }
 
@@ -26,8 +29,7 @@ void SceneGame::Enter()
 
 	uiView.setSize(windowSize);
 	uiView.setCenter(windowSize * 0.5f);
-
-	Scene::Enter();
+	Scene::Enter(); //push_back
 
 }
 
@@ -40,10 +42,7 @@ void SceneGame::Exit()
 
 void SceneGame::Update(float dt)
 {
-
 	Scene::Update(dt);
-
-	
 }
 
 void SceneGame::Draw(sf::RenderWindow& window)
@@ -51,9 +50,5 @@ void SceneGame::Draw(sf::RenderWindow& window)
 	Scene::Draw(window);
 
 	window.setView(uiView);
-	window.draw(cursor);
 }
 
-void SceneGame::SpawnZombies(int count)
-{
-}
