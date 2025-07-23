@@ -64,6 +64,18 @@ public:
 	static bool PolygonsIntersect(const std::vector<sf::Vector2f>& polygonA, const sf::Transform& transformA,
 		const std::vector<sf::Vector2f>& polygonB, const sf::Transform& transformB);
 
+	// ToString
+	static std::string Tostring(sf::Vector2f vec)
+	{
+		std::string str;
+		str += "(";
+		str += std::to_string(vec.x);
+		str += ",";
+		str += std::to_string(vec.y);
+		str += ")";
+
+		return str;
+	}
 };
 
 

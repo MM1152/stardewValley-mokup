@@ -168,7 +168,7 @@ void TileMap::Update(float dt){
 
 	if (type == VertexType::Draw) 
 	{
-		if (InputMgr::GetMouseButton(sf::Mouse::Left) && InArea((sf::Vector2f)InputMgr::GetMousePosition())) {
+		if (InputMgr::GetMouseButtonDown(sf::Mouse::Left) && InArea((sf::Vector2f)InputMgr::GetMousePosition())) {
 			int xIndex = (int)((int)(InputMgr::GetMousePosition().x - GetPosition().x)) / 16 * 4;
 			int yIndex = (int)((int)(InputMgr::GetMousePosition().y - GetPosition().y)) / 16 * 4;
 			index = xIndex + cellCount.x * yIndex;
@@ -189,28 +189,10 @@ void TileMap::Update(float dt){
 
 				rapidcsv::Document doc;
 
-				std::to_string(va[index].texCoords.x);
-				std::to_string(va[index+1].texCoords.x);
-				std::to_string(va[index+2].texCoords.x);
-				std::to_string(va[index+3].texCoords.x);
+				std::string str;
+				str = Utils::Tostring(va[index].texCoords);
 
-				std::to_string(va[index].texCoords.y);
-				std::to_string(va[index+1].texCoords.y);
-				std::to_string(va[index+2].texCoords.y);
-				std::to_string(va[index+3].texCoords.y);
-
-				doc.SetCell<std::string>(std::to_string(va[index].texCoords.x)
-					, std::to_string(va[index].texCoords.y)
-					, std::to_string(1));
-				doc.SetCell<std::string>(std::to_string(va[index+1].texCoords.x)
-					, std::to_string(va[index+1].texCoords.y)
-					, std::to_string(1));
-				doc.SetCell<std::string>(std::to_string(va[index+2].texCoords.x)
-					, std::to_string(va[index+2].texCoords.y)
-					, std::to_string(1));
-				doc.SetCell<std::string>(std::to_string(va[index+3].texCoords.x)
-					, std::to_string(va[index+3].texCoords.y)
-					, std::to_string(1));
+				doc.SetCell<std::string>(xIndex, yIndex, str);
 
 				doc.Save("Map.csv");
 			}
