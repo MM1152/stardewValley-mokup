@@ -6,7 +6,7 @@ TileMap::TileMap(const std::string& name)
 {
 }
 
-void TileMap::SetTool(const sf::Vector2i& count, const sf::Vector2f& size)
+void TileMap::Set(const sf::Vector2i& count, const sf::Vector2f& size)
 {
 	cellCount = count;
 	cellSize = size;
@@ -34,7 +34,7 @@ void TileMap::SetTool(const sf::Vector2i& count, const sf::Vector2f& size)
 			{
 				int vertexIndex = quadIndex * 4 + k;
 				va[vertexIndex].position = quadPos + texCoords[k];
-				va[vertexIndex].texCoords = {texCoords[k].x + j * 16.f , texCoords[k].y + i * 16.f};
+				va[vertexIndex].texCoords = {texCoords[k].x + j * size.x , texCoords[k].y + i * size.y};
 			}
 		}
 	}
@@ -92,8 +92,6 @@ void TileMap::Init()
 {
 	sortingLayer = SortingLayers::Background;
 	sortingOrder = 0;
-
-	SetType(type);
 }
 
 void TileMap::Release()
@@ -118,20 +116,27 @@ void TileMap::Draw(sf::RenderWindow& window)
 	sf::RenderStates state;
 	state.texture = texture;
 	state.transform = transform;
-	window.draw(va, state);
+	window.draw(va, state);	
 }
-
-void TileMap::SetType(ToolType type)
-{
-	this->type = type;
-	switch (this->type)
-	{
-	case ToolType::Map:
-		SetTool({ 100, 100 }, { 16.f,16.f });
-		break;
-	case ToolType::Farm_spring:
-		SetTool({ 24, 25 }, { 16.f, 16.f });
-		spriteSheetId = "graphics/≥Û¿Â(∫Ω).bmp";
-		break;
+void TileMap::drawGrid(const sf::Vector2i& count, const sf::Vector2f& size) {
+	// initialize values
+	int numLines = count * size;
+	va.setPrimitiveType(sf::Lines);
+	float rowH = size.y / count.y;
+	float colW = size.x / count.x;
+	// row separators
+	for (int i = 0; i < rows - 1; i++) {
+		int r = i + 1;
+		float rowY = rowHr;
+		grid[i2].position = { 0, rowY };
+		grid[i2 + 1].position = { size.x, rowY };
 	}
+	// column separators
+	for (int i = rows - 1; i < numLines; i++) {
+		int c = i - rows + 2;
+		float colX = colWc;
+		grid[i2].position = { colX, 0 };
+		grid[i * 2 + 1].position = { colX, size.y };
+	}
+
 }

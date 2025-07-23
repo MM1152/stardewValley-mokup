@@ -7,8 +7,13 @@ class TileMap;
 class MapTool : public Scene
 {
 protected:
+	bool isTile = false;
 
 	TileMap* tilemap1 = nullptr;
+
+
+	sf::Vector2f mousePos;
+	sf::FloatRect bouns;
 
 public:
 	MapTool();

@@ -1,15 +1,9 @@
 #pragma once
 #include "GameObject.h"
-#include "HitBox.h"
 class TileMap : public GameObject
 {
 public:
-	enum class ToolType
-	{
-		Map,
-		Farm_spring,
-		
-	};
+
 protected:
 	sf::VertexArray va;
 	std::string spriteSheetId;
@@ -19,15 +13,12 @@ protected:
 	sf::Vector2i cellCount;
 	sf::Vector2f cellSize;
 
-	ToolType type = ToolType::Map;
-
-	HitBox hitBox;
 
 public:
 	TileMap(const std::string& name = "");
 	virtual ~TileMap() = default;
 
-	void SetTool(const sf::Vector2i& count, const sf::Vector2f& size);
+	void Set(const sf::Vector2i& count, const sf::Vector2f& size);
 	void UpdateTransform();
 
 	void SetPosition(const sf::Vector2f& pos) override;
@@ -41,8 +32,10 @@ public:
 	void Reset() override;
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
-
-
-	void SetType(ToolType type);
+	void drawGrid(const sf::Vector2i& count, const sf::Vector2f& size);
+	void SetId(std::string id)
+	{
+		spriteSheetId = id;
+	}
 };
 
