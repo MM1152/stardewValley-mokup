@@ -2,12 +2,17 @@
 #include "Scene.h"
 
 class Player;
+class NpcMgr;
+class Shop;
+class Collider;
 
 class SceneGame : public Scene
 {
 protected:
 	Player* player = nullptr;
-
+	NpcMgr* npc = nullptr;
+	Shop* shop = nullptr;
+	Collider* collider = nullptr;
 
 public:
 	SceneGame();

@@ -1,9 +1,10 @@
 #include "stdafx.h"
 #include "Player.h"
+#include "NpcMgr.h"
 
 
 Player::Player(const std::string name)
-	:GameObject(name)
+	:Collider(name)
 {
 }
 
@@ -11,7 +12,7 @@ void Player::SetPosition(const sf::Vector2f& pos)
 {
 	GameObject::SetPosition(pos);
 	sprite.setPosition(pos);
-}
+} 
 
 void Player::SetRotation(float rot)
 {
@@ -33,17 +34,8 @@ void Player::SetOrigin(const sf::Vector2f& o)
 
 void Player::Init()
 {
-	SetPosition({0.f, 0.f});
-	shape.setPosition(100.f, 100.f);
-	shape.setSize({ 20.f,20.f });
-	shape.setFillColor(sf::Color::Red);
-
-	shape2.setPosition(70.f, 70.f);
-	shape2.setSize({ 100.f,20.f });
-	shape2.setFillColor(sf::Color::Red);
-
-	shapes.push_back(shape);
-	shapes.push_back(shape2);
+	SetPosition({-50.f, -50.f});
+	Collider::Init();
 }
 
 void Player::Release()
@@ -67,63 +59,15 @@ void Player::Update(float dt)
 
 	std::vector<sf::RectangleShape> shapes;
 
-	/*SetPosition(movement + position);*/
+	sf::Vector2f moveOffset(movement.x, movement.y);
 
-	areaBlocked(movement);
+	Collider::areaBlocked(position, sprite, moveOffset);
 }
 
 void Player::Draw(sf::RenderWindow& window)
 {
 	window.draw(sprite);
-	for (auto shape : shapes)
-	{
-		window.draw(shape);
-	}
-	
-
 }
-
-bool Player::IsColliding(sf::RectangleShape rect)
-{
-	sf::Vector2f playerPos = sprite.getPosition();
-	sf::Vector2f playerSize = sprite.getGlobalBounds().getSize();
-
-	sf::Vector2f rectPos = rect.getPosition();
-	sf::Vector2f rectSize = rect.getGlobalBounds().getSize(); // ask 민성오빠
-
-	return playerPos.x < rectPos.x + rectSize.x &&
-		   rectPos.x < playerPos.x + playerSize.x &&
-		   playerPos.y < rectPos.y + rectSize.y &&
-		   rectPos.y < playerPos.y + playerSize.y;
-}
-
-void Player::areaBlocked(sf::Vector2f moveOffset)
-{
-	position.x += moveOffset.x;
-	sprite.setPosition(position);
-	for (auto shape : shapes)
-	{
-		if (IsColliding(shape))
-		{
-			position.x -= moveOffset.x;
-			sprite.setPosition(position);
-			std::cout << "side 충돌" << std::endl;
-		}
-	}
-
-	position.y += moveOffset.y;
-	sprite.setPosition(position);
-	for (auto shape : shapes)
-	{
-		if (IsColliding(shape))
-		{
-			position.y -= moveOffset.y;
-			sprite.setPosition(position);
-			std::cout << "up&down 충돌" << std::endl;
-		}
-	}
-}
-
 
 
 

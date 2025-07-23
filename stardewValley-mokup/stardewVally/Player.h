@@ -1,8 +1,9 @@
 #pragma once
-#include "GameObject.h"
+#include "Collider.h"
 #include "stdafx.h"
 
-class Player : public GameObject
+class NpcMgr;
+class Player : public Collider
 {
 protected:
 
@@ -12,13 +13,14 @@ protected:
 	sf::RectangleShape shape2;
 	std::vector<sf::RectangleShape> shapes;
 
+	NpcMgr* npcMgr = nullptr;
+
 public:
 	void SetActive(bool a) { active = a; };
 	void SetPosition(const sf::Vector2f& pos);
 	void SetRotation(float rot);
 	void SetScale(const sf::Vector2f& s);
 	void SetOrigin(const sf::Vector2f& o);
-
 
 	Player(const std::string name = "Player");
 	virtual ~Player() = default;
@@ -30,7 +32,4 @@ public:
 	void Update(float dt);
 	void Draw(sf::RenderWindow& window);
 
-	bool IsColliding(sf::RectangleShape rect);
-	void areaBlocked(sf::Vector2f moveOffset);
 };
-
