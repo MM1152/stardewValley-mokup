@@ -9,6 +9,8 @@ private:
 
 	std::string fontId;
 	std::string texId;
+
+	Origins textOrigin = Origins::BC;
 public:
 	Button(const std::string fontId, const std::string texId = "", const std::string name = "");
 	~Button() override = default;
@@ -27,5 +29,8 @@ public:
 	void SetScale(const sf::Vector2f& s) override;
 	void SetOrigin(const sf::Vector2f& o) override;
 	void SetOrigin(Origins preset) override;
+
+	void SetString(const std::string word);
+	void SetTextColor(sf::Color color);
 };
 

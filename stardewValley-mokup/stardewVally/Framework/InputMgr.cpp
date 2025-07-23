@@ -7,6 +7,7 @@ std::list<int> InputMgr::heldKeys;
 std::list<int> InputMgr::upKeys;
 sf::RectangleShape InputMgr::rect;
 sf::Keyboard::Key InputMgr::keyInfo;
+float InputMgr::wheel;
 
 std::unordered_map<Axis, AxisInfo> InputMgr::axisInfoMap;
 
@@ -36,6 +37,7 @@ void InputMgr::Init()
 
 void InputMgr::Clear() 
 {
+	wheel = 0;
 	downKeys.clear();
 	upKeys.clear();
 }
@@ -44,6 +46,9 @@ void InputMgr::UpdateEvent(const sf::Event& ev)
 {
 	switch (ev.type)
 	{
+	case sf::Event::MouseWheelMoved:
+		wheel = ev.mouseWheel.delta;
+		break;
 	case sf::Event::KeyPressed:
 		if (!Contains(heldKeys, ev.key.code))
 		{
@@ -178,6 +183,11 @@ bool InputMgr::GetMouseButton(sf::Mouse::Button key)
 sf::Keyboard::Key InputMgr::GetInputKey()
 {
 	return keyInfo;
+}
+
+float InputMgr::GetMouseWheel()
+{
+	return wheel;
 }
 
 sf::FloatRect InputMgr::GetMouseUIRect()
