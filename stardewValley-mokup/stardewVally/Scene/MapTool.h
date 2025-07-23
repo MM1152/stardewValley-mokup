@@ -19,6 +19,7 @@ protected:
 	sf::Vector2f texcoor[4];
 
 	sf::RectangleShape mouseRect;
+
 public:
 	MapTool();
 	~MapTool() = default;

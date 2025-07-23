@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "MapTool.h"
 #include "TileMap.h"
+#include "rapidcsv.h"
 
 MapTool::MapTool()
 	: Scene(SceneIds::Maptool)
@@ -68,6 +69,7 @@ void MapTool::Update(float dt)
 	Scene::Update(dt);
 
 	mouseRect.setPosition((sf::Vector2f)InputMgr::GetMousePosition());
+
 
 }
 

@@ -140,6 +140,7 @@
     <ClInclude Include="Framework\Framework.h" />
     <ClInclude Include="Framework\GameObject.h" />
     <ClInclude Include="Framework\InputMgr.h" />
+    <ClInclude Include="Framework\rapidcsv.h" />
     <ClInclude Include="Framework\ResourceMgr.h" />
     <ClInclude Include="Framework\Scene.h" />
     <ClInclude Include="Framework\SceneMgr.h" />

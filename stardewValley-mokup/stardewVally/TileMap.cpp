@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "TileMap.h"
+#include "rapidcsv.h"
 
 TileMap::TileMap(VertexType type, const std::string& name)
 	:GameObject(name)
@@ -10,7 +11,6 @@ TileMap::TileMap(VertexType type, const std::string& name)
 void TileMap::Set(const sf::Vector2i& count, const sf::Vector2f& size , const std::string texId)
 {
 	texture = &TEXTURE_MGR.Get(texId);
-
 	cellCount = count;
 	cellSize = size;
 
@@ -145,7 +145,8 @@ void TileMap::Reset()
 //4.3
 void TileMap::Update(float dt){
 	
-	if (type == VertexType::Palette) {
+	if (type == VertexType::Palette) 
+	{
 		if (InputMgr::GetMouseButtonDown(sf::Mouse::Left) && InArea((sf::Vector2f)InputMgr::GetMousePosition())) {
 			int xIndex = (int)((int)(InputMgr::GetMousePosition().x - GetPosition().x)) / 16 * 4;
 			int yIndex = (int)((int)(InputMgr::GetMousePosition().y - GetPosition().y)) / 16 * 4;
@@ -161,17 +162,17 @@ void TileMap::Update(float dt){
 				texcoor[3] = va[index + 3].texCoords;
 
 				getIndexFunc(texcoor);
-				
 			}
 		}
 	}
 
-	if (type == VertexType::Draw) {
-		if (InputMgr::GetMouseButtonDown(sf::Mouse::Left) && InArea((sf::Vector2f)InputMgr::GetMousePosition())) {
+	if (type == VertexType::Draw) 
+	{
+		if (InputMgr::GetMouseButton(sf::Mouse::Left) && InArea((sf::Vector2f)InputMgr::GetMousePosition())) {
 			int xIndex = (int)((int)(InputMgr::GetMousePosition().x - GetPosition().x)) / 16 * 4;
 			int yIndex = (int)((int)(InputMgr::GetMousePosition().y - GetPosition().y)) / 16 * 4;
 			index = xIndex + cellCount.x * yIndex;
-			
+
 			if (index >= cellCount.x * cellCount.y * 4) index = -1;
 
 			if (setTextCoorFunc) {
@@ -185,6 +186,17 @@ void TileMap::Update(float dt){
 				std::cout << texCoor[1].x << ", " << texCoor[1].y << std::endl;
 				std::cout << texCoor[2].x << ", " << texCoor[2].y << std::endl;
 				std::cout << texCoor[3].x << ", " << texCoor[3].y << std::endl;
+
+				std::to_string(va[index].texCoords.x);
+				std::to_string(va[index+1].texCoords.x);
+				std::to_string(va[index+2].texCoords.x);
+				std::to_string(va[index+3].texCoords.x);
+
+				std::to_string(va[index].texCoords.y);
+				std::to_string(va[index+1].texCoords.y);
+				std::to_string(va[index+2].texCoords.y);
+				std::to_string(va[index+3].texCoords.y);
+
 			}
 		}
 	}
@@ -201,7 +213,6 @@ void TileMap::Draw(sf::RenderWindow& window)
 void TileMap::drawGrid(const sf::Vector2i& count, const sf::Vector2f& size) {
 	int numLines = count.x + 1 + count.y + 1;
     va.setPrimitiveType(sf::Lines);
-
 	va.clear();
 	va.resize(numLines * 2);
 	

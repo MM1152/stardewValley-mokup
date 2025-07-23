@@ -15,6 +15,7 @@ protected:
 
 	sf::VertexArray va;
 
+
 	std::string spriteSheetId;
 	sf::Texture* texture = nullptr;
 	sf::Transform transform;
