@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Inventory.h"
 #include "ItemSlot.h"
-
+#include "QuickBar.h"
 Inventory::Inventory(const std::string& texId, const std::string& name)
 	:GameObject(name)
 	, texId(texId)
@@ -31,6 +31,12 @@ void Inventory::Init()
 			unEquipSlots.push_back(itemSlot);
 		}
 	}
+	ItemInfo sword = { "galaxy_sword" , ITEM_IMG_PATH"galaxy_sword.png" , ItemType::EquipMent };
+	item = new Item(sword);
+
+	item->Init();
+
+
 }
 
 void Inventory::Release()
@@ -40,18 +46,24 @@ void Inventory::Release()
 void Inventory::Reset()
 {
 	inv_BackGround.setTexture(&TEXTURE_MGR.Get(texId));
+
 	for (auto slot : equipSlots) {
 		slot->Reset();
+		
 	}
 	for (auto slot : unEquipSlots) {
 		slot->Reset();
 	}
+	item->Reset();
+	SetItem(item);
+
 }
 
 void Inventory::Update(float dt)
 {
-	for (auto slot : equipSlots) {
-		slot->Update(dt);
+	for (int i = 0; i < equipSlots.size(); i++) {
+		equipSlots[i]->Update(dt);
+		quickBar->SetItem(equipSlots[i]->GetItem(), i);
 	}
 	for (auto slot : unEquipSlots) {
 		slot->Update(dt);
@@ -59,6 +71,7 @@ void Inventory::Update(float dt)
 	if (ItemSlot::dragItem) {
 		ItemSlot::dragItem->Update(dt);
 	}
+	
 }
 
 void Inventory::Draw(sf::RenderWindow& window)

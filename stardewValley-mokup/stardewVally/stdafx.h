@@ -23,4 +23,5 @@
 #include "Scene.h"
 #include "SceneMgr.h"
 #include "Framework.h"
+#include "ItemInfo.h"
 

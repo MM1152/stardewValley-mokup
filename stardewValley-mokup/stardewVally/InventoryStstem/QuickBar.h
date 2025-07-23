@@ -1,15 +1,14 @@
 #pragma once
 #include "GameObject.h"
-#include "Inventory.h"
 #include "ItemSlot.h"
+#include "QuickBar_Slot.h"
 class QuickBar : public GameObject
 {
 private:
 	std::string texId;
 	sf::RectangleShape quickBar;
 	sf::RectangleShape outLine;
-	std::vector<ItemSlot*> quickBar_Slots;
-	
+	std::vector<QuickBar_Slot*> quickBar_Slots;		
 public:
 	QuickBar(const std::string& texId = "" , const std::string& name = "");
 	~QuickBar() override = default;
@@ -20,5 +19,7 @@ public:
 	void Reset() override;
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
+
+	void SetItem(Item* item , int idx);
 };
 

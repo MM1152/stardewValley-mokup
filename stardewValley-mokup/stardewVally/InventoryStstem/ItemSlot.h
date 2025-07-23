@@ -8,9 +8,7 @@ private:
 	std::string texId;
 	sf::RectangleShape slot;
 	
-	
 	Item* item = nullptr;
-	bool startDragSlot;
 public:
 	static Item* dragItem;
 
@@ -25,7 +23,8 @@ public:
 	void Draw(sf::RenderWindow& window) override;
 
 	void SetPosition(const sf::Vector2f& pos) override;
-	void SetItem(Item* item);
+	virtual bool SetItem(Item* item);
+	Item* GetItem() { return item; };
 	bool IsSetting() { return item; };
 	void RemoveItem() { item = nullptr; };
 };

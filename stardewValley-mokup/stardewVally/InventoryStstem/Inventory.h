@@ -3,6 +3,7 @@
 #include "Item.h"
 
 class ItemSlot;
+class QuickBar;
 class Inventory : public GameObject
 {
 private:
@@ -15,8 +16,9 @@ private:
 
 	int slotSize;
 
+	QuickBar* quickBar;
 	//TEST
-	Item item;
+	Item* item;
 public:
 	Inventory(const std::string& texId = "" , const std::string& name = "");
 	~Inventory() override = default;
@@ -29,5 +31,6 @@ public:
 	void Draw(sf::RenderWindow& window) override;
 
 	bool SetItem(Item* item);
+	void SetQuickBar(QuickBar* quickBar) { this->quickBar = quickBar; };
 };
 

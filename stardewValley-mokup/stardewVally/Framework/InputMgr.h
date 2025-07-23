@@ -26,6 +26,7 @@ private:
 	static std::unordered_map<Axis, AxisInfo> axisInfoMap;
 	static sf::Vector2i mousePosition;
 
+	static sf::Keyboard::Key keyInfo;
 public:
 	static sf::RectangleShape rect;
 	static void Init();
@@ -47,7 +48,8 @@ public:
 	static bool GetMouseButtonDown(sf::Mouse::Button key);
 	static bool GetMouseButtonUp(sf::Mouse::Button key);
 	static bool GetMouseButton(sf::Mouse::Button key);
-	
+	static sf::Keyboard::Key GetInputKey();
+
 	static sf::FloatRect GetMouseUIRect();
 
 	static sf::Vector2i GetMousePosition();

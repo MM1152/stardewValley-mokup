@@ -1,7 +1,8 @@
 #pragma once
 
 #define DEF_DEV
-
+#define INVEN_IMG_PATH "InventoryImg/"
+#define ITEM_IMG_PATH "ItemImg/"
 enum class SortingLayers
 {
 	Background,

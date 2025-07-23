@@ -3,10 +3,14 @@
 
 class TextGo;
 class Inventory;
+class QuickBar;
 class SceneDev1 : public Scene
 {
 protected:
 	Inventory* inven;
+	QuickBar* quickBar;
+	/*Item* item = nullptr;
+	Item copyItem;*/
 public:
 	SceneDev1();
 	~SceneDev1() override;

@@ -28,33 +28,30 @@ void ItemSlot::Update(float dt)
 {
 	if (slot.getGlobalBounds().intersects(InputMgr::GetMouseUIRect())) {
 		slot.setFillColor(sf::Color(187, 187, 187));
-		//FIX : 인벤토리 단계에서 처리해주기
+
 		if (InputMgr::GetMouseButtonDown(sf::Mouse::Left)) {
-			if (item != nullptr) {
+			if (item) {
 				item->DragItem();
 				dragItem = item;
 				item = nullptr;
 			}
 		}
-		if (InputMgr::GetMouseButtonUp(sf::Mouse::Left)) {
-			if (dragItem != nullptr) {
-				SetItem(dragItem);
-				dragItem = nullptr;
-			}
+		if (InputMgr::GetMouseButtonUp(sf::Mouse::Left) && dragItem != nullptr) {
+			SetItem(dragItem);
+			dragItem = nullptr;
 		}
 	}
 	else {
 		slot.setFillColor(sf::Color::White);
+
+
 	}
-
-
-	
 }
 
 void ItemSlot::Draw(sf::RenderWindow& window)
 {
 	window.draw(slot);
-	if (item != nullptr) {
+	if (item) {
 		item->Draw(window);
 	}
 }
@@ -65,10 +62,15 @@ void ItemSlot::SetPosition(const sf::Vector2f& pos)
 	slot.setPosition(pos);
 }
 
-void ItemSlot::SetItem(Item* item)
+bool ItemSlot::SetItem(Item* item)
 {
 	this->item = item;
+	if (!item) {
+		return false;
+	}
 
-	sf::FloatRect bound = slot.getLocalBounds();
-	item->SetPosition({ bound.width / 2 + slot.getPosition().x ,bound.height / 2 + slot.getPosition().y });
+	item->SetItemInfo(item);
+	item->SetPosition({ GetPosition().x + slot.getSize().x / 2 , GetPosition().y + slot.getSize().y / 2 });
+
+	return true;
 }

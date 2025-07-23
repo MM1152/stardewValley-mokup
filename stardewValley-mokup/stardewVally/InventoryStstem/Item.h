@@ -1,20 +1,18 @@
 #pragma once
+#include "stdafx.h"
 #include "GameObject.h"
 
 class ItemSlot;
+
 class Item : public GameObject
 {
 private:
-	sf::Sprite sp;
-	std::string texId;
-
-	sf::CircleShape testItemImage;
-
+	sf::Sprite itemSp;
+	ItemInfo iteminfo;
 	bool isDrag = false;
 public:
-	bool isSetting = true;
-
-	Item(const std::string& texId = "" , const std::string& name = "");
+	Item(ItemInfo type);
+	Item() = default;
 	~Item() override = default;
 
 	// GameObject을(를) 통해 상속됨
@@ -28,8 +26,9 @@ public:
 	void SetScale(const sf::Vector2f& s) override;
 	void SetPosition(const sf::Vector2f& pos) override;
 
+	ItemInfo* GetItemInfo() { return &iteminfo; };
+	void SetItemInfo(Item* item);
 	void DragItem();
 	bool GetDrag() { return isDrag; };
-	
 };
 
