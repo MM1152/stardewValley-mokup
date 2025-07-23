@@ -9,13 +9,11 @@ MapTool::MapTool()
 
 void MapTool::Init()
 {
-	worldView.setSize(FRAMEWORK.GetWindowSizeF());
-	worldView.setCenter({ FRAMEWORK.GetWindowSizeF().x / 4 , FRAMEWORK.GetWindowSizeF().y / 2});
-
 	texIds.push_back("graphics/³óÀå(º½).bmp");
 
 	tilemap1 = (TileMap*)AddGameObject(new TileMap());
-	tilemap1->Set({ 24, 25 }, { 16.f, 16.f });
+	tilemap1->Set({24, 25}, {16.f, 16.f});
+	tilemap1->drawGrid({25, 24}, {16.f, 16.f});
 	tilemap1->SetId("graphics/³óÀå(º½).bmp");
 
 	Scene::Init();
@@ -45,4 +43,6 @@ void MapTool::Update(float dt)
 		tilemap1->SetPosition(worldPos);
 	}
 
+
 }
+

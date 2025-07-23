@@ -6,12 +6,17 @@ public:
 
 protected:
 	sf::VertexArray va;
+	sf::VertexArray grid;
+
 	std::string spriteSheetId;
 	sf::Texture* texture = nullptr;
 	sf::Transform transform;
 
 	sf::Vector2i cellCount;
 	sf::Vector2f cellSize;
+
+	sf::Vector2i gridcount;
+	sf::Vector2f gridSize;
 
 
 public:

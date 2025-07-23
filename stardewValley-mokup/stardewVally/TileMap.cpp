@@ -117,26 +117,33 @@ void TileMap::Draw(sf::RenderWindow& window)
 	state.texture = texture;
 	state.transform = transform;
 	window.draw(va, state);	
+	window.draw(grid, state);
 }
-void TileMap::drawGrid(const sf::Vector2i& count, const sf::Vector2f& size) {
-	// initialize values
-	int numLines = count * size;
-	va.setPrimitiveType(sf::Lines);
-	float rowH = size.y / count.y;
-	float colW = size.x / count.x;
+void TileMap::drawGrid(const sf::Vector2i& count, const sf::Vector2f& size)
+{
+	int numLines = count.x + count.y - 2;
+
+	grid.clear();
+	grid.setPrimitiveType(sf::Lines);
+	grid.resize(2 * numLines);
+
+	float rowH = size.x;
+	float colW = size.y;
+
 	// row separators
-	for (int i = 0; i < rows - 1; i++) {
+	for (int i = 0; i < count.x - 1; i++)
+	{
 		int r = i + 1;
-		float rowY = rowHr;
-		grid[i2].position = { 0, rowY };
-		grid[i2 + 1].position = { size.x, rowY };
+		float rowY = rowH * r;
+		grid[i * 2].position = { 0, rowY };
+		grid[i * 2 + 1].position = { size.x * count.y, rowY };
 	}
 	// column separators
-	for (int i = rows - 1; i < numLines; i++) {
-		int c = i - rows + 2;
-		float colX = colWc;
-		grid[i2].position = { colX, 0 };
-		grid[i * 2 + 1].position = { colX, size.y };
+	for (int j = count.x - 1; j < numLines; j++)
+	{
+		int c = j - count.x + 2;
+		float colX = colW * c;
+		grid[j * 2].position = { colX, 0 };
+		grid[j * 2 + 1].position = { colX, size.y * count.x };
 	}
-
 }
