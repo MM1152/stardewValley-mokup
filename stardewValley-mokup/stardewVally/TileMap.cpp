@@ -1,13 +1,16 @@
 #include "stdafx.h"
 #include "TileMap.h"
 
-TileMap::TileMap(const std::string& name)
-	: GameObject(name)
+TileMap::TileMap(VertexType type, const std::string& name)
+	:GameObject(name)
+	,type(type)
 {
 }
 
-void TileMap::Set(const sf::Vector2i& count, const sf::Vector2f& size)
+void TileMap::Set(const sf::Vector2i& count, const sf::Vector2f& size , const std::string texId)
 {
+	texture = &TEXTURE_MGR.Get(texId);
+
 	cellCount = count;
 	cellSize = size;
 
@@ -39,6 +42,42 @@ void TileMap::Set(const sf::Vector2i& count, const sf::Vector2f& size)
 		}
 	}
 }
+
+void TileMap::Set(const sf::Vector2i& count, const sf::Vector2f& size)
+{
+	cellCount = count;
+	cellSize = size;
+
+	va.clear();
+	va.setPrimitiveType(sf::Quads);
+	va.resize(count.x * count.y * 4);
+
+	sf::Vector2f texCoords[4] =
+	{
+		{ 0.f, 0.f },
+		{ size.x, 0.f },
+		{ size.x, size.y },
+		{ 0.f, size.y },
+	};
+
+	for (int i = 0; i < count.y; ++i)
+	{
+		for (int j = 0; j < count.x; ++j)
+		{
+			int quadIndex = i * count.x + j;
+			sf::Vector2f quadPos(j * size.x, i * size.y);
+
+			for (int k = 0; k < 4; ++k)
+			{
+				int vertexIndex = quadIndex * 4 + k;
+				va[vertexIndex].position = quadPos + texCoords[k];
+				//va[vertexIndex].texCoords = { texCoords[k].x + j * size.x , texCoords[k].y + i * size.y };
+			}
+		}
+	}
+}
+
+
 
 void TileMap::UpdateTransform()
 {
@@ -100,15 +139,55 @@ void TileMap::Release()
 
 void TileMap::Reset()
 {
-	texture = &TEXTURE_MGR.Get(spriteSheetId);
 
-	SetOrigin(Origins::MC);
-	SetScale({ 1.f, 1.f });
-	SetPosition({ 0.f, 0.f });
 }
+//16.9
+//4.3
+void TileMap::Update(float dt){
+	
+	if (type == VertexType::Palette) {
+		if (InputMgr::GetMouseButtonDown(sf::Mouse::Left) && InArea((sf::Vector2f)InputMgr::GetMousePosition())) {
+			int xIndex = (int)((int)(InputMgr::GetMousePosition().x - GetPosition().x)) / 16 * 4;
+			int yIndex = (int)((int)(InputMgr::GetMousePosition().y - GetPosition().y)) / 16 * 4;
+			index = xIndex + cellCount.x * yIndex;
 
-void TileMap::Update(float dt)
-{
+			if (index >= cellCount.x * cellCount.y * 4) index = -1;
+
+			if (getIndexFunc && index != -1) {
+				sf::Vector2f texcoor[4];
+				texcoor[0] = va[index].texCoords;
+				texcoor[1] = va[index + 1].texCoords;
+				texcoor[2] = va[index + 2].texCoords;
+				texcoor[3] = va[index + 3].texCoords;
+
+				getIndexFunc(texcoor);
+				
+			}
+		}
+	}
+
+	if (type == VertexType::Draw) {
+		if (InputMgr::GetMouseButtonDown(sf::Mouse::Left) && InArea((sf::Vector2f)InputMgr::GetMousePosition())) {
+			int xIndex = (int)((int)(InputMgr::GetMousePosition().x - GetPosition().x)) / 16 * 4;
+			int yIndex = (int)((int)(InputMgr::GetMousePosition().y - GetPosition().y)) / 16 * 4;
+			index = xIndex + cellCount.x * yIndex;
+			
+			if (index >= cellCount.x * cellCount.y * 4) index = -1;
+
+			if (setTextCoorFunc) {
+				sf::Vector2f* texCoor = setTextCoorFunc();
+
+				va[index].texCoords = texCoor[0];
+				va[index + 1].texCoords = texCoor[1];
+				va[index + 2].texCoords = texCoor[2];
+				va[index + 3].texCoords = texCoor[3];
+				std::cout << texCoor[0].x << ", " << texCoor[0].y << std::endl;
+				std::cout << texCoor[1].x << ", " << texCoor[1].y << std::endl;
+				std::cout << texCoor[2].x << ", " << texCoor[2].y << std::endl;
+				std::cout << texCoor[3].x << ", " << texCoor[3].y << std::endl;
+			}
+		}
+	}
 }
 
 void TileMap::Draw(sf::RenderWindow& window)
@@ -117,33 +196,42 @@ void TileMap::Draw(sf::RenderWindow& window)
 	state.texture = texture;
 	state.transform = transform;
 	window.draw(va, state);	
-	window.draw(grid, state);
 }
-void TileMap::drawGrid(const sf::Vector2i& count, const sf::Vector2f& size)
-{
-	int numLines = count.x + count.y - 2;
+ 
+void TileMap::drawGrid(const sf::Vector2i& count, const sf::Vector2f& size) {
+	int numLines = count.x + 1 + count.y + 1;
+    va.setPrimitiveType(sf::Lines);
 
-	grid.clear();
-	grid.setPrimitiveType(sf::Lines);
-	grid.resize(2 * numLines);
+	va.clear();
+	va.resize(numLines * 2);
+	
+    for(int i=0; i < count.x + 1; i++){
+		float rowX = size.x * (i);
+        float rowY = size.y * count.y;
+        va[i*2].position = {rowX, 0};
+		va[i * 2].color = sf::Color::Green;
+        va[i*2+1].position = {rowX , rowY};
+		va[i * 2 + 1].color = sf::Color::Green;
+    }
 
-	float rowH = size.x;
-	float colW = size.y;
+	for (int i = 0; i < count.y + 1; i++) {
+		int curIdx = count.x + 1 + i;
+		float colX = size.x * count.x;
+		float colY = size.y * (i);
 
-	// row separators
-	for (int i = 0; i < count.x - 1; i++)
-	{
-		int r = i + 1;
-		float rowY = rowH * r;
-		grid[i * 2].position = { 0, rowY };
-		grid[i * 2 + 1].position = { size.x * count.y, rowY };
-	}
-	// column separators
-	for (int j = count.x - 1; j < numLines; j++)
-	{
-		int c = j - count.x + 2;
-		float colX = colW * c;
-		grid[j * 2].position = { colX, 0 };
-		grid[j * 2 + 1].position = { colX, size.y * count.x };
-	}
+		va[curIdx * 2].position = { 0 , colY };
+		va[curIdx * 2].color = sf::Color::Green;
+		va[curIdx * 2 + 1].position = { colX , colY };
+		va[curIdx * 2 + 1].color = sf::Color::Green;
+	}	
+}
+
+bool TileMap::InArea(sf::Vector2f mousePos)
+{	
+	bool left = mousePos.x - (va.getBounds().left + GetPosition().x) > 0;
+	bool right = mousePos.x - (va.getBounds().width + GetPosition().x) < 0;
+	bool top = mousePos.y - (va.getBounds().top + GetPosition().y) > 0;
+	bool height = mousePos.y - (va.getBounds().height + GetPosition().y) < 0;
+
+	return left && right && top && height;
 }
