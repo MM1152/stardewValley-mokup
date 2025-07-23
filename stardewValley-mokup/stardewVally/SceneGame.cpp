@@ -9,6 +9,7 @@ SceneGame::SceneGame()
 
 void SceneGame::Init()
 {
+	texIds.push_back("assets100V20104.png");
 	SpriteGo* sp = new SpriteGo("assets100V20104.png");
 
 	AddGameObject(sp);
@@ -43,7 +44,9 @@ void SceneGame::Update(float dt)
 
 	Scene::Update(dt);
 
-	
+	if (InputMgr::GetKeyDown(sf::Keyboard::E)) {
+
+	}
 }
 
 void SceneGame::Draw(sf::RenderWindow& window)

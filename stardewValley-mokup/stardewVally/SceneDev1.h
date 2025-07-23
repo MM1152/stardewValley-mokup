@@ -2,26 +2,11 @@
 #include "Scene.h"
 
 class TextGo;
-
+class Inventory;
 class SceneDev1 : public Scene
 {
 protected:
-	enum class CollisionMode
-	{
-		Rectangle,
-		Circle
-	};
-
-	sf::RectangleShape* rect1;
-	sf::RectangleShape* rect2;
-	sf::CircleShape* circle1;
-	sf::CircleShape* circle2;
-	TextGo* collisionText;
-	TextGo* modeText;
-	
-	CollisionMode currentMode = CollisionMode::Rectangle;
-	bool isColliding = false;
-
+	Inventory* inven;
 public:
 	SceneDev1();
 	~SceneDev1() override;

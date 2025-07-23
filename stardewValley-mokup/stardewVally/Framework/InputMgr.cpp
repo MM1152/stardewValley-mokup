@@ -4,6 +4,7 @@
 std::list<int> InputMgr::downKeys;
 std::list<int> InputMgr::heldKeys;
 std::list<int> InputMgr::upKeys;
+sf::RectangleShape InputMgr::rect;
 
 std::unordered_map<Axis, AxisInfo> InputMgr::axisInfoMap;
 
@@ -11,6 +12,10 @@ sf::Vector2i InputMgr::mousePosition;
 
 void InputMgr::Init()
 {
+	rect.setSize({ 10 , 10 });
+	rect.setFillColor(sf::Color::Green);
+	Utils::SetOrigin(rect , Origins::MC);
+
 	AxisInfo infoH;
 	infoH.axis = Axis::Horizontal;
 	infoH.positives.push_back(sf::Keyboard::D);
@@ -90,7 +95,7 @@ void InputMgr::Update(float dt)
 			axisInfo.value = 0.f;
 		}
 	}
-
+	rect.setPosition((sf::Vector2f)SCENE_MGR.GetCurrentScene()->ScreenToUi(mousePosition));
 }
 
 bool InputMgr::GetKeyDown(sf::Keyboard::Key key)
@@ -165,6 +170,11 @@ bool InputMgr::GetMouseButtonUp(sf::Mouse::Button key)
 bool InputMgr::GetMouseButton(sf::Mouse::Button key)
 {
 	return Contains(heldKeys, sf::Keyboard::KeyCount + key);;
+}
+
+sf::FloatRect InputMgr::GetMouseUIRect()
+{
+	return rect.getGlobalBounds();
 }
 
 sf::Vector2i InputMgr::GetMousePosition()

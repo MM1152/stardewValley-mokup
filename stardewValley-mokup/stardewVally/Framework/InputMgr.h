@@ -27,6 +27,7 @@ private:
 	static sf::Vector2i mousePosition;
 
 public:
+	static sf::RectangleShape rect;
 	static void Init();
 	static void Clear();
 
@@ -46,6 +47,8 @@ public:
 	static bool GetMouseButtonDown(sf::Mouse::Button key);
 	static bool GetMouseButtonUp(sf::Mouse::Button key);
 	static bool GetMouseButton(sf::Mouse::Button key);
+	
+	static sf::FloatRect GetMouseUIRect();
 
 	static sf::Vector2i GetMousePosition();
 };
