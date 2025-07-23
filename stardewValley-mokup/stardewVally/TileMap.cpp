@@ -15,41 +15,26 @@ void TileMap::Set(const sf::Vector2i& count, const sf::Vector2f& size)
 	va.setPrimitiveType(sf::Quads);
 	va.resize(count.x * count.y * 4);
 
-	sf::Vector2f posOffset[4] =
-	{
+	sf::Vector2f texCoords[4] =
+	{	
 		{ 0.f, 0.f },
 		{ size.x, 0.f },
 		{ size.x, size.y },
 		{ 0.f, size.y },
 	};
 
-	sf::Vector2f texCoords[4] =
-	{
-		{ 0.f, 0.f },
-		{ 50.f, 0.f },
-		{ 50.f, 50.f },
-		{ 0.f, 50.f },
-	};
-
 	for (int i = 0; i < count.y; ++i)
 	{
 		for (int j = 0; j < count.x; ++j)
 		{
-			int texIndex = Utils::RandomRange(0, 3);
-			if (i == 0 || i == count.y - 1 || j == 0 || j == count.x - 1)
-			{
-				texIndex = 3;
-			}
-
 			int quadIndex = i * count.x + j;
 			sf::Vector2f quadPos(j * size.x, i * size.y);
 
 			for (int k = 0; k < 4; ++k)
 			{
 				int vertexIndex = quadIndex * 4 + k;
-				va[vertexIndex].position = quadPos + posOffset[k];
-				va[vertexIndex].texCoords = texCoords[k];
-				va[vertexIndex].texCoords.y += texIndex * 50.f;
+				va[vertexIndex].position = quadPos + texCoords[k];
+				va[vertexIndex].texCoords = {texCoords[k].x + j * size.x , texCoords[k].y + i * size.y};
 			}
 		}
 	}
@@ -107,8 +92,6 @@ void TileMap::Init()
 {
 	sortingLayer = SortingLayers::Background;
 	sortingOrder = 0;
-
-	Set({ 50, 50 }, {50.f, 50.f});
 }
 
 void TileMap::Release()
@@ -133,5 +116,27 @@ void TileMap::Draw(sf::RenderWindow& window)
 	sf::RenderStates state;
 	state.texture = texture;
 	state.transform = transform;
-	window.draw(va, state);
+	window.draw(va, state);	
+}
+void TileMap::drawGrid(const sf::Vector2i& count, const sf::Vector2f& size) {
+	// initialize values
+	int numLines = count * size;
+	va.setPrimitiveType(sf::Lines);
+	float rowH = size.y / count.y;
+	float colW = size.x / count.x;
+	// row separators
+	for (int i = 0; i < rows - 1; i++) {
+		int r = i + 1;
+		float rowY = rowHr;
+		grid[i2].position = { 0, rowY };
+		grid[i2 + 1].position = { size.x, rowY };
+	}
+	// column separators
+	for (int i = rows - 1; i < numLines; i++) {
+		int c = i - rows + 2;
+		float colX = colWc;
+		grid[i2].position = { colX, 0 };
+		grid[i * 2 + 1].position = { colX, size.y };
+	}
+
 }

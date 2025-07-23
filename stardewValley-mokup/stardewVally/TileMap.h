@@ -2,14 +2,17 @@
 #include "GameObject.h"
 class TileMap : public GameObject
 {
+public:
+
 protected:
 	sf::VertexArray va;
-	std::string spriteSheetId = "graphics/background_sheet.png";
+	std::string spriteSheetId;
 	sf::Texture* texture = nullptr;
 	sf::Transform transform;
 
 	sf::Vector2i cellCount;
 	sf::Vector2f cellSize;
+
 
 public:
 	TileMap(const std::string& name = "");
@@ -29,5 +32,10 @@ public:
 	void Reset() override;
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
+	void drawGrid(const sf::Vector2i& count, const sf::Vector2f& size);
+	void SetId(std::string id)
+	{
+		spriteSheetId = id;
+	}
 };
 
