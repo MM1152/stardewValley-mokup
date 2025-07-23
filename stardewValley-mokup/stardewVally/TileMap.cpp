@@ -187,6 +187,8 @@ void TileMap::Update(float dt){
 				std::cout << texCoor[2].x << ", " << texCoor[2].y << std::endl;
 				std::cout << texCoor[3].x << ", " << texCoor[3].y << std::endl;
 
+				rapidcsv::Document doc;
+
 				std::to_string(va[index].texCoords.x);
 				std::to_string(va[index+1].texCoords.x);
 				std::to_string(va[index+2].texCoords.x);
@@ -197,6 +199,20 @@ void TileMap::Update(float dt){
 				std::to_string(va[index+2].texCoords.y);
 				std::to_string(va[index+3].texCoords.y);
 
+				doc.SetCell<std::string>(std::to_string(va[index].texCoords.x)
+					, std::to_string(va[index].texCoords.y)
+					, std::to_string(1));
+				doc.SetCell<std::string>(std::to_string(va[index+1].texCoords.x)
+					, std::to_string(va[index+1].texCoords.y)
+					, std::to_string(1));
+				doc.SetCell<std::string>(std::to_string(va[index+2].texCoords.x)
+					, std::to_string(va[index+2].texCoords.y)
+					, std::to_string(1));
+				doc.SetCell<std::string>(std::to_string(va[index+3].texCoords.x)
+					, std::to_string(va[index+3].texCoords.y)
+					, std::to_string(1));
+
+				doc.Save("Map.csv");
 			}
 		}
 	}
