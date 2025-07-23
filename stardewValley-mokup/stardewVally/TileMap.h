@@ -1,11 +1,20 @@
 #pragma once
 #include "GameObject.h"
+enum class VertexType {
+	Palette,
+	Draw,
+	Grid,
+};
+
 class TileMap : public GameObject
 {
-public:
-
+private:
+	bool InArea(sf::Vector2f mousePos);
 protected:
+	VertexType type;
+
 	sf::VertexArray va;
+
 	std::string spriteSheetId;
 	sf::Texture* texture = nullptr;
 	sf::Transform transform;
@@ -13,11 +22,15 @@ protected:
 	sf::Vector2i cellCount;
 	sf::Vector2f cellSize;
 
-
+	int index = -1;
 public:
-	TileMap(const std::string& name = "");
+	std::function<void(sf::Vector2f*)> getIndexFunc;
+	std::function<sf::Vector2f* ()> setTextCoorFunc;
+
+	TileMap(VertexType type, const std::string& name = "");
 	virtual ~TileMap() = default;
 
+	void Set(const sf::Vector2i& count, const sf::Vector2f& size, const std::string texId);
 	void Set(const sf::Vector2i& count, const sf::Vector2f& size);
 	void UpdateTransform();
 
@@ -33,9 +46,7 @@ public:
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
 	void drawGrid(const sf::Vector2i& count, const sf::Vector2f& size);
-	void SetId(std::string id)
-	{
-		spriteSheetId = id;
-	}
+
+	void SetTexture(sf::Texture* tex) { texture = tex; };
 };
 
