@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "InputMgr.h"
+#include <SFML/Window/Event.hpp>
 
 std::list<int> InputMgr::downKeys;
 std::list<int> InputMgr::heldKeys;

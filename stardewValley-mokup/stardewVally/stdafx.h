@@ -7,6 +7,7 @@
 #include <list>
 #include <unordered_map>
 #include <algorithm>
+#include <functional>
 
 // SFML
 #include <SFML/Graphics.hpp>

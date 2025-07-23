@@ -1,8 +1,7 @@
 #pragma once
 #include "stdafx.h"
 #include "GameObject.h"
-
-class ItemSlot;
+#include "ItemInfo.h"
 
 class Item : public GameObject
 {

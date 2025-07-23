@@ -3,6 +3,8 @@
 #define DEF_DEV
 #define INVEN_IMG_PATH "InventoryImg/"
 #define ITEM_IMG_PATH "ItemImg/"
+#define FONT_PATH "Font/"
+
 enum class SortingLayers
 {
 	Background,
@@ -25,6 +27,7 @@ enum class SceneIds
 	Game,
 	Dev1,
 	Dev2,
+	Animator,
 	Count,
 };
 

@@ -136,6 +136,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Button.h" />
     <ClInclude Include="Framework\Defines.h" />
     <ClInclude Include="Framework\Framework.h" />
     <ClInclude Include="Framework\GameObject.h" />
@@ -154,6 +155,7 @@
     <ClInclude Include="InventoryStstem\QuickBar.h" />
     <ClInclude Include="ItemInfo.h" />
     <ClInclude Include="InventoryStstem\QuickBar_Slot.h" />
+    <ClInclude Include="SceneAnimator.h" />
     <ClInclude Include="SceneDev1.h" />
     <ClInclude Include="SceneDev2.h" />
     <ClInclude Include="SceneGame.h" />
@@ -162,6 +164,7 @@
     <ClInclude Include="Variables.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Button.cpp" />
     <ClCompile Include="Framework\Framework.cpp" />
     <ClCompile Include="Framework\GameObject.cpp" />
     <ClCompile Include="Framework\InputMgr.cpp" />
@@ -177,6 +180,7 @@
     <ClCompile Include="InventoryStstem\QuickBar.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="InventoryStstem\QuickBar_Slot.cpp" />
+    <ClCompile Include="SceneAnimator.cpp" />
     <ClCompile Include="SceneDev1.cpp" />
     <ClCompile Include="SceneDev2.cpp" />
     <ClCompile Include="SceneGame.cpp" />
