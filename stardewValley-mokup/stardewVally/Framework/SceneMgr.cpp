@@ -2,11 +2,13 @@
 #include "SceneMgr.h"
 #include "MapTool.h"
 #include "SceneTest.h"
+#include "SceneGame.h"
 
 void SceneMgr::Init()
 {
 	scenes.push_back(new MapTool());
 	scenes.push_back(new SceneTest());
+	scenes.push_back(new SceneGame());
 
 	for (auto scene : scenes)
 	{

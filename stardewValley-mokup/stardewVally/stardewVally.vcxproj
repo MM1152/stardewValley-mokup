@@ -152,9 +152,7 @@
     <ClInclude Include="HitBox.h" />
     <ClInclude Include="NpcMgr.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="SceneDev1.h" />
-    <ClInclude Include="SceneDev2.h" />
-    <ClInclude Include="SceneGame.h" />
+    <ClInclude Include="Scene\SceneGame.h" />
     <ClInclude Include="Shop.h" />
     <ClInclude Include="Inventory.h" />
     <ClInclude Include="Item.h" />
@@ -183,9 +181,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="NpcMgr.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="SceneDev1.cpp" />
-    <ClCompile Include="SceneDev2.cpp" />
-    <ClCompile Include="SceneGame.cpp" />
+    <ClCompile Include="Scene\SceneGame.cpp" />
     <ClCompile Include="Shop.cpp" />
     <ClCompile Include="Scene\SceneTest.cpp" />
     <ClCompile Include="Scene\MapTool.cpp" />
