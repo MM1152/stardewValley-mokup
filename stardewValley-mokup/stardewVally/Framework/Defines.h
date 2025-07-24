@@ -5,6 +5,7 @@
 #define ITEM_IMG_PATH "ItemImg/"
 #define FONT_PATH "Font/"
 #define MAP_PATH "MapData/"
+#define GRAPHICS_PATH "graphics/"
 enum class SortingLayers
 {
 	Background,
@@ -27,6 +28,7 @@ enum class SceneIds
 	Dev1,
 	Animator,
 	Maptool,
+	LoadMapTest,
 	Count,
 };
 

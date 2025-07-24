@@ -4,6 +4,7 @@ enum class VertexType {
 	Palette,
 	Draw,
 	Grid,
+	Game,
 };
 
 class TileMap : public GameObject

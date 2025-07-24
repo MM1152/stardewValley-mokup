@@ -67,7 +67,7 @@ void TileMap::Set(const sf::Vector2i& count, const sf::Vector2f& size)
 		{
 			int quadIndex = i * count.x + j;
 			sf::Vector2f quadPos(j * size.x, i * size.y);
-
+				
 			for (int k = 0; k < 4; ++k)
 			{
 				int vertexIndex = quadIndex * 4 + k;
@@ -75,13 +75,17 @@ void TileMap::Set(const sf::Vector2i& count, const sf::Vector2f& size)
 				//va[vertexIndex].texCoords = { texCoords[k].x + j * size.x , texCoords[k].y + i * size.y };
 			}
 		}
-	}
+	}	
 }
 
 void TileMap::Set(sf::VertexArray& va, const std::string texId)
 {
 	this->va.clear();
-	this->va = va;
+	this->va.resize(va.getVertexCount());
+	for (int i = 0; i < va.getVertexCount(); i++) {
+		this->va[i].texCoords = va[i].texCoords;
+		this->va[i].position = va[i].position;
+	}
 	texture = &TEXTURE_MGR.Get(texId);
 }
 
@@ -145,7 +149,7 @@ void TileMap::Release()
 
 void TileMap::Reset()
 {
-
+	
 }
 //16.9
 //4.3

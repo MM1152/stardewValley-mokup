@@ -82,7 +82,7 @@ public:
 
 	static bool SaveMapData(const std::string filePath ,sf::VertexArray& va , sf::Vector2i count , const std::string textureId);
 	static sf::VertexArray& LoadMapData(const std::string filePath);
-	static std::string LoadTextureId() { return texId; };
+	static std::string LoadTextureId();
 	static std::vector<std::string> Split(std::string word , const char spilitWord);
 };
 

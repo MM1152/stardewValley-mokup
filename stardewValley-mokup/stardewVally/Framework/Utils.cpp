@@ -356,7 +356,7 @@ bool Utils::SaveMapData(const std::string filePath , sf::VertexArray& va , sf::V
     int plusIdx = 1;
     
     doc.SetCell<std::string>(0, 0 , textureId);
-
+    doc.SetCell<int>(1, 0, va.getVertexCount());
     for (int i = 0; i < count.y; i++) {
         std::vector<std::string> texCoor;
         for (int j = 0; j < count.x; j++) {
@@ -411,14 +411,38 @@ sf::VertexArray& Utils::LoadMapData(const std::string filePath)
     rapidcsv::Document document(filePath);
 
     if (document.GetRowCount() == 0) return va;
-
+  
+    va.clear();
+    va.resize(document.GetCell<int>(1,0));
     texId = document.GetCell<std::string>(0, 0);
 
-    for (int i = 1; i < document.GetColumnCount(); i++) {
-        
+    int quadIndex = 0;
+    int i = 1;
+    for (i; i < document.GetRowCount(); i++) {
+        auto row = document.GetRow<std::string>(i);
+        if (row[0] == "") break;
+        for (int j = 0; j < row.size(); j++) {
+            std::vector<std::string> splitword = Split(row[j], ',');
+            va[quadIndex++].texCoords = { std::stof(splitword[0]) , std::stof(splitword[1])};
+        }
+    }
+
+    i++;
+    quadIndex = 0;
+    for (i; i < document.GetRowCount(); i++) {
+        auto row = document.GetRow<std::string>(i);
+        for (int j = 0; j < row.size(); j++) {
+            std::vector<std::string> splitword = Split(row[j], ',');
+            va[quadIndex++].position = { std::stof(splitword[0]) , std::stof(splitword[1]) };
+        }
     }
 
     return va;
+}
+
+std::string Utils::LoadTextureId()
+{
+    return texId;
 }
 
 std::vector<std::string> Utils::Split(std::string word, const char spilitWord)

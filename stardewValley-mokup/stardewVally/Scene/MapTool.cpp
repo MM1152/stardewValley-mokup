@@ -82,7 +82,10 @@ void MapTool::Update(float dt)
 
 	mouseRect.setPosition((sf::Vector2f)InputMgr::GetMousePosition());
 
-		
+	
+	if (InputMgr::GetKeyDown(sf::Keyboard::Enter)) {
+		SCENE_MGR.ChangeScene(SceneIds::LoadMapTest);
+	}
 }
 
 void MapTool::Draw(sf::RenderWindow& window)
