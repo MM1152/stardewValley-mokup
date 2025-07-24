@@ -12,6 +12,7 @@
 // SFML
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
+#include <nlohmann/json.hpp>
 
 // FRAMEWORK
 #include "Defines.h"
