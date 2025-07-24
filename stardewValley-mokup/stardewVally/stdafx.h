@@ -7,7 +7,7 @@
 #include <list>
 #include <unordered_map>
 #include <algorithm>
-#include <functional>
+#include <functional>	
 
 // SFML
 #include <SFML/Graphics.hpp>
@@ -25,4 +25,5 @@
 #include "SceneMgr.h"
 #include "Framework.h"
 #include "ItemInfo.h"
+#include "rapidcsv.h"
 

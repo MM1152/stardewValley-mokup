@@ -9,7 +9,7 @@ protected:
 
 	std::vector<Scene*> scenes;
 
-	SceneIds startScene = SceneIds::Animator;
+	SceneIds startScene = SceneIds::Maptool;
 	SceneIds currentScene = SceneIds::None;
 	SceneIds nextScene = SceneIds::None;
 

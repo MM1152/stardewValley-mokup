@@ -8,6 +8,9 @@ private:
 	static std::mt19937 gen;
 	static const float PI;
 
+	static sf::VertexArray va;
+	static std::string texId;
+
 public:
 	static void Init();
 
@@ -64,6 +67,23 @@ public:
 	static bool PolygonsIntersect(const std::vector<sf::Vector2f>& polygonA, const sf::Transform& transformA,
 		const std::vector<sf::Vector2f>& polygonB, const sf::Transform& transformB);
 
+	// ToString
+	static std::string Tostring(sf::Vector2f vec)
+	{
+		std::string str;
+		str += "(";
+		str += std::to_string(vec.x);
+		str += ",";
+		str += std::to_string(vec.y);
+		str += ")";
+
+		return str;
+	}
+
+	static bool SaveMapData(const std::string filePath ,sf::VertexArray& va , sf::Vector2i count , const std::string textureId);
+	static sf::VertexArray& LoadMapData(const std::string filePath);
+	static std::string LoadTextureId() { return texId; };
+	static std::vector<std::string> Split(std::string word , const char spilitWord);
 };
 
 

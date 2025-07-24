@@ -141,6 +141,7 @@
     <ClInclude Include="Framework\Framework.h" />
     <ClInclude Include="Framework\GameObject.h" />
     <ClInclude Include="Framework\InputMgr.h" />
+    <ClInclude Include="Framework\rapidcsv.h" />
     <ClInclude Include="Framework\ResourceMgr.h" />
     <ClInclude Include="Framework\Scene.h" />
     <ClInclude Include="Framework\SceneMgr.h" />
@@ -155,10 +156,10 @@
     <ClInclude Include="InventoryStstem\QuickBar.h" />
     <ClInclude Include="ItemInfo.h" />
     <ClInclude Include="InventoryStstem\QuickBar_Slot.h" />
+    <ClInclude Include="LoadMapDataScene.h" />
     <ClInclude Include="SceneAnimator.h" />
     <ClInclude Include="SceneDev1.h" />
-    <ClInclude Include="SceneDev2.h" />
-    <ClInclude Include="SceneGame.h" />
+    <ClInclude Include="Scene\MapTool.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="TileMap.h" />
     <ClInclude Include="Variables.h" />
@@ -178,12 +179,12 @@
     <ClCompile Include="InventoryStstem\Item.cpp" />
     <ClCompile Include="InventoryStstem\ItemSlot.cpp" />
     <ClCompile Include="InventoryStstem\QuickBar.cpp" />
+    <ClCompile Include="LoadMapDataScene.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="InventoryStstem\QuickBar_Slot.cpp" />
     <ClCompile Include="SceneAnimator.cpp" />
     <ClCompile Include="SceneDev1.cpp" />
-    <ClCompile Include="SceneDev2.cpp" />
-    <ClCompile Include="SceneGame.cpp" />
+    <ClCompile Include="Scene\MapTool.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>

@@ -1,16 +1,14 @@
 #include "stdafx.h"
 #include "SceneMgr.h"
 #include "SceneDev1.h"
-#include "SceneDev2.h"
-#include "SceneGame.h"
 #include "SceneAnimator.h"
+#include "MapTool.h"
 
 void SceneMgr::Init()
 {
-	scenes.push_back(new SceneGame());
 	scenes.push_back(new SceneDev1());
-	scenes.push_back(new SceneDev2());
 	scenes.push_back(new SceneAnimator());
+	scenes.push_back(new MapTool());
 
 	for (auto scene : scenes)
 	{
