@@ -11,25 +11,25 @@ Shop::Shop(const std::string& name)
 void Shop::SetPosition(const sf::Vector2f& pos)
 {
 	GameObject::SetPosition(pos);
-	sprite.setPosition(pos);
+	backgroundSprite.setPosition(pos);
 }
 
 void Shop::SetRotation(float rot)
 {
 	GameObject::SetRotation(rot);
-	sprite.setRotation(rot);
+	backgroundSprite.setRotation(rot);
 }
 
 void Shop::SetScale(const sf::Vector2f& s)
 {
 	GameObject::SetScale(s);
-	sprite.setScale(s);
+	backgroundSprite.setScale(s);
 }
 
 void Shop::SetOrigin(const sf::Vector2f& o)
 {
 	GameObject::SetOrigin(o);
-	sprite.setOrigin(o);
+	backgroundSprite.setOrigin(o);
 }
 
 void Shop::SetOrigin(Origins preset)
@@ -37,20 +37,39 @@ void Shop::SetOrigin(Origins preset)
 	GameObject::SetOrigin(preset);
 	if (preset != Origins::Custom)
 	{
-		Utils::SetOrigin(sprite, preset);
+		Utils::SetOrigin(backgroundSprite, preset);
 	}
 }
 
 void Shop::Init()
 {
+	backgroundSprite.setTexture(TEXTURE_MGR.Get("graphics/shop_bg.png"));
+	backgroundSprite.setPosition({200.f, 100.f});
+
+	sf::Font& font = FONT_MGR.Get("fonts/main_font.tff");
+
+	itemNameText.setFont(font);
+	itemNameText.setCharacterSize(18);
+	itemNameText.setFillColor(sf::Color::White);
+
+	itemDescText.setFont(font);
+	itemDescText.setCharacterSize(14);
+	itemDescText.setFillColor(sf::Color(200, 200, 200));
+
+	itemPriceText.setFont(font);
+	itemPriceText.setCharacterSize(16);
+	itemPriceText.setFillColor(sf::Color::Yellow);
+	
 }
 
 void Shop::Release()
 {
+
 }
 
 void Shop::Reset()
 {
+
 }
 
 void Shop::Update(float dt)
@@ -71,10 +90,14 @@ void Shop::Draw(sf::RenderWindow& window)
 void Shop::ShowUi()
 {
 	isUiShow = true;
-	SetPosition({ -500.f, 0.f });
+	SetPosition({ 200.f, 100.f }); 
 
 	const std::vector<ItemInfo>& items = itemDataMgr::Instance().GetItem("Pierre's General Store");
 	CreateItemSlots(items);
+
+	itemNameText.setPosition({ GetPosition().x + 400.f, GetPosition().y + 50.f });
+	itemDescText.setPosition({ GetPosition().x + 400.f, GetPosition().y + 80.f });
+	itemPriceText.setPosition({ GetPosition().x + 400.f, GetPosition().y + 140.f });
 }
 
 void Shop::CloseUi()

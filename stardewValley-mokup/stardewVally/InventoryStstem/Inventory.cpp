@@ -19,7 +19,7 @@ void Inventory::Init()
 		itemSlot->Init();
 
 		itemSlot->SetPosition({ inv_BackGround.getPosition().x + 10.f + i * 45 , inv_BackGround.getPosition().y  + 20.f});
-		equipSlots.push_back(itemSlot);
+		equipSlots.push_back(itemSlot); //slot position
 	}
 
 	for (int i = 0; i < 2; i++) {
@@ -91,7 +91,6 @@ void Inventory::Draw(sf::RenderWindow& window)
 	}
 
 }
-
 
 //가방 돌면서 비어있는 슬릇확인, 비어있는 곳은 true 없으면 false
 bool Inventory::SetItem(Item* item)

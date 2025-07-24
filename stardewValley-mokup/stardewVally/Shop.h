@@ -6,11 +6,14 @@
 class Shop : public GameObject
 {
 protected:
-	sf::Sprite sprite;
-
-	bool isUiShow;
+	sf::Sprite backgroundSprite;
+	sf::Text itemNameText;
+	sf::Text itemDescText;
+	sf::Text itemPriceText;
 
 	std::vector<ItemSlot*> itemSlots;
+
+	bool isUiShow;
 
 public:
 	Shop(const std::string& name = "Shop");

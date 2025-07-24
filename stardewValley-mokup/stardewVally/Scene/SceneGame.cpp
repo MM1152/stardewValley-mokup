@@ -18,8 +18,11 @@ void SceneGame::Init()
 	texIds.push_back("graphics/testC.png");
 	texIds.push_back("graphics/npcTest.png");
 	texIds.push_back("graphics/uitest.png");
+	texIds.push_back("graphics/shopSlot_bg.png");
+
 	texIds.push_back("graphics/parsnip_seeds.png");
 	texIds.push_back("graphics/cauliflower_seeds.png");
+
 	worldView.setSize(FRAMEWORK.GetWindowSizeF());
 	worldView.setCenter({ FRAMEWORK.GetWindowSizeF().x / 2 , FRAMEWORK.GetWindowSizeF().y / 2 });
 	uiView.setSize(FRAMEWORK.GetWindowSizeF());
@@ -40,6 +43,7 @@ void SceneGame::Init()
 
 	shop = new Shop("shop");
 	shop->Init();
+	shop->Reset();
 	AddGameObject(shop);
 	
 
@@ -56,9 +60,13 @@ void SceneGame::Init()
 
 	npc->setCallBack([this]() {
 		if (!shop->isUiShowing())
+		{
 			shop->ShowUi();
+		}
 		else
+		{
 			shop->CloseUi();
+		}
 		});
 //>>>>>>>>> Temporary merge branch 2
 
@@ -67,7 +75,7 @@ void SceneGame::Init()
 
 void SceneGame::Enter()
 {
-	FRAMEWORK.GetWindow().setMouseCursorVisible(false);
+	FRAMEWORK.GetWindow().setMouseCursorVisible(true);
 
 	sf::Vector2f windowSize = FRAMEWORK.GetWindowSizeF();
 
