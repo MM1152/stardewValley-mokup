@@ -8,6 +8,7 @@ LoadMapDataScene::LoadMapDataScene()
 
 void LoadMapDataScene::Init()
 {
+	drawCollider = true;
 	texIds.push_back(GRAPHICS_PATH"≥Û¿Â(∫Ω).bmp");
 	texIds.push_back(GRAPHICS_PATH"building.png");
 
@@ -45,12 +46,19 @@ void LoadMapDataScene::Exit()
 void LoadMapDataScene::Draw(sf::RenderWindow& window)
 {
 	Scene::Draw(window);
-	for (auto col : map.GetColliders()) {
-		window.draw(*col);
+	if (drawCollider) {
+		for (auto col : map.GetColliders()) {
+			window.draw(*col);
+		}
 	}
+	
 }
 
 void LoadMapDataScene::Update(float dt)
 {
 	Scene::Update(dt);
+
+	if (InputMgr::GetKeyDown(sf::Keyboard::F9)) {
+		drawCollider = !drawCollider;
+	}
 }

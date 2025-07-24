@@ -8,6 +8,8 @@ private:
 	TileMap* forGround;
 
 	Map map;
+
+	bool drawCollider;
 public:
 	LoadMapDataScene();
 	~LoadMapDataScene() override = default;

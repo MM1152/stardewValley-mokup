@@ -42,8 +42,10 @@ std::vector<sf::RectangleShape*>& Map::Load(const std::string path)
 
         colliders.push_back(new sf::RectangleShape());
         colliders[colliders.size() - 1]->setSize(size);
-        colliders[colliders.size() - 1]->setSize(pos);
-        std::cout << "pos : " << pos.x << ", " << pos.y << std::endl;
+        colliders[colliders.size() - 1]->setPosition(pos);
+        colliders[colliders.size() - 1]->setFillColor(sf::Color::Transparent);
+        colliders[colliders.size() - 1]->setOutlineColor(sf::Color::Green);
+        colliders[colliders.size() - 1]->setOutlineThickness(1.f);
     }
 }
 
