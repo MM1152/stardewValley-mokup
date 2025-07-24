@@ -1,10 +1,12 @@
 #include "stdafx.h"
 #include "SceneMgr.h"
 #include "MapTool.h"
+#include "SceneTest.h"
 
 void SceneMgr::Init()
 {
 	scenes.push_back(new MapTool());
+	scenes.push_back(new SceneTest());
 
 	for (auto scene : scenes)
 	{

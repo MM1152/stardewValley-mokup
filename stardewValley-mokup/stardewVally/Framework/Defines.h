@@ -22,6 +22,7 @@ enum class SceneIds
 {
 	None = -1,
 	Maptool,
+	Test,
 	Count,
 };
 

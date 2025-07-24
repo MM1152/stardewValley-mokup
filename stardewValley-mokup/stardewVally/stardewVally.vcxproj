@@ -152,12 +152,11 @@
     <ClInclude Include="Inventory.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="ItemSlot.h" />
-    <ClInclude Include="SceneDev1.h" />
-    <ClInclude Include="SceneDev2.h" />
-    <ClInclude Include="SceneGame.h" />
+    <ClInclude Include="Scene\SceneTest.h" />
     <ClInclude Include="Scene\MapTool.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="TileMap.h" />
+    <ClInclude Include="TimeMoneyUi.h" />
     <ClInclude Include="Variables.h" />
   </ItemGroup>
   <ItemGroup>
@@ -174,11 +173,13 @@
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="ItemSlot.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Scene\SceneTest.cpp" />
     <ClCompile Include="Scene\MapTool.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="TileMap.cpp" />
+    <ClCompile Include="TimeMoneyUi.cpp" />
     <ClCompile Include="Variables.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
