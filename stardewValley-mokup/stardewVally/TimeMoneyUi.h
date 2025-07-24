@@ -47,7 +47,15 @@ protected:
 	int n8 = -1;
 
 
-	sf::Sprite moneyUi;
+	sf::Sprite m1;
+	sf::Sprite m2;
+	sf::Sprite m3;
+	sf::Sprite m4;
+	sf::Sprite m5;
+	sf::Sprite m6;
+	sf::Sprite m7;
+	sf::Sprite m8;
+
 	std::string moneyUiId = "graphics/µ· ¼ýÀÚ.png";
 	//rect
 
@@ -97,5 +105,7 @@ public:
 	}
 
 	void SettingMoney(int m);
+
+	void ResetSettingMoney();
 };
 
