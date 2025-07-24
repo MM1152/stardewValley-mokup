@@ -190,7 +190,12 @@ void TileMap::Update(float dt){
 				rapidcsv::Document doc;
 
 				std::string str;
-				str = Utils::Tostring(va[index].texCoords);
+				str += Utils::Tostring(va[index].texCoords);
+				str += Utils::Tostring(va[index+1].texCoords);
+				str += Utils::Tostring(va[index+2].texCoords);
+				str += Utils::Tostring(va[index+3].texCoords);
+
+
 
 				doc.SetCell<std::string>(xIndex, yIndex, str);
 
