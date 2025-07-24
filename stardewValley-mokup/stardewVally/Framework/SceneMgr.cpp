@@ -1,6 +1,9 @@
 #include "stdafx.h"
 #include "SceneMgr.h"
 #include "SceneDev1.h"
+#include "MapTool.h"
+#include "SceneTest.h"
+#include "SceneGame.h"
 #include "SceneAnimator.h"
 #include "MapToolScene.h"
 #include "LoadMapDataScene.h"
@@ -11,6 +14,11 @@ void SceneMgr::Init()
 	scenes.push_back(new SceneAnimator());
 	scenes.push_back(new MapToolScene());
 	scenes.push_back(new LoadMapDataScene());
+	scenes.push_back(new MapTool());
+	scenes.push_back(new SceneTest());
+	scenes.push_back(new SceneGame());
+	scenes.push_back(new SceneAnimator());
+
 	for (auto scene : scenes)
 	{
 		scene->Init();

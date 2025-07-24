@@ -84,6 +84,65 @@ public:
 	static sf::VertexArray& LoadMapData(const std::string filePath);
 	static std::string LoadTextureId();
 	static std::vector<std::string> Split(std::string word , const char spilitWord);
+	static std::string TostringTime(int h, int m)
+	{
+		std::string str;
+		str += std::to_string(h);
+		str += ":";
+		if (std::to_string(m) == "0")
+		{
+			str += "00";
+		}
+		else
+		{
+			str += std::to_string(m);
+		}
+
+
+		return str;
+	}
+
+	static std::string TostringDOW(int th)
+	{
+		std::string str;
+		if (th % 7 == 1)
+		{
+			str += "Mon.";
+			str += std::to_string(th);
+		}
+		else if (th % 7 == 2)
+		{
+			str += "Tue.";
+			str += std::to_string(th);
+		}
+		else if (th % 7 == 3)
+		{
+			str += "Wed.";
+			str += std::to_string(th);
+		}
+		else if (th % 7 == 4)
+		{
+			str += "Thu.";
+			str += std::to_string(th);
+		}
+		else if (th % 7 == 5)
+		{
+			str += "Fri.";
+			str += std::to_string(th);
+		}
+		else if (th % 7 == 6)
+		{
+			str += "Sat.";
+			str += std::to_string(th);
+		}
+		else if (th % 7 == 0)
+		{
+			str += "Sun.";
+			str += std::to_string(th);
+		}
+
+		return str;
+	}
 };
 
 

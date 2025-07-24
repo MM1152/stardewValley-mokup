@@ -136,6 +136,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Collider.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="Framework\Defines.h" />
     <ClInclude Include="Framework\Framework.h" />
@@ -151,6 +152,9 @@
     <ClInclude Include="Framework\Utils.h" />
     <ClInclude Include="HitBox.h" />
     <ClInclude Include="InputText.h" />
+    <ClInclude Include="itemDataMgr.h" />
+    <ClInclude Include="NpcMgr.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="InventoryStstem\Inventory.h" />
     <ClInclude Include="InventoryStstem\Item.h" />
     <ClInclude Include="InventoryStstem\ItemSlot.h" />
@@ -162,11 +166,17 @@
     <ClInclude Include="SceneAnimator.h" />
     <ClInclude Include="SceneDev1.h" />
     <ClInclude Include="Scene\MapToolScene.h" />
+    <ClInclude Include="Scene\MapTool.h" />
+    <ClInclude Include="Scene\SceneGame.h" />
+    <ClInclude Include="Scene\SceneTest.h" />
+    <ClInclude Include="Shop.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="TileMap.h" />
+    <ClInclude Include="TimeMoneyUi.h" />
     <ClInclude Include="Variables.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Collider.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Framework\Framework.cpp" />
     <ClCompile Include="Framework\GameObject.cpp" />
@@ -184,16 +194,27 @@
     <ClCompile Include="InventoryStstem\QuickBar.cpp" />
     <ClCompile Include="LoadMapDataScene.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="itemDataMgr.cpp" />
+    <ClCompile Include="NpcMgr.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="InventoryStstem\QuickBar_Slot.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="SceneAnimator.cpp" />
     <ClCompile Include="SceneDev1.cpp" />
     <ClCompile Include="Scene\MapToolScene.cpp" />
+    <ClCompile Include="Scene\SceneGame.cpp" />
+    <ClCompile Include="Shop.cpp" />
+    <ClCompile Include="Scene\SceneTest.cpp" />
+    <ClCompile Include="Scene\MapTool.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="TileMap.cpp" />
+    <ClCompile Include="TimeMoneyUi.cpp" />
     <ClCompile Include="Variables.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Item.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

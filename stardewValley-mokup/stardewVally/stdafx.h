@@ -7,11 +7,12 @@
 #include <list>
 #include <unordered_map>
 #include <algorithm>
-#include <functional>	
+#include <functional>
 
 // SFML
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
+#include <nlohmann/json.hpp>
 
 // FRAMEWORK
 #include "Defines.h"

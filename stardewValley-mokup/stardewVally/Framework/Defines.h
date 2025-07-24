@@ -25,6 +25,9 @@ enum class Origins
 enum class SceneIds
 {
 	None = -1,
+	Maptool,
+	Test,
+	Game,
 	Dev1,
 	Animator,
 	Maptool,

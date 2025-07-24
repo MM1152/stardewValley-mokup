@@ -1,0 +1,145 @@
+#include "stdafx.h"
+#include "Collider.h"
+
+Collider::Collider(const std::string& name)
+	: GameObject(name)
+{
+}
+
+void Collider::SetPosition(const sf::Vector2f& pos)
+{
+	GameObject::SetPosition(pos);
+	shape.setPosition(pos);
+}
+
+void Collider::SetRotation(float rot)
+{
+	GameObject::SetRotation(rot);
+	shape.setRotation(rot);
+}
+
+void Collider::SetScale(const sf::Vector2f& s)
+{
+	GameObject::SetScale(s);
+	shape.setScale(s);
+}
+
+void Collider::SetOrigin(const sf::Vector2f& o)
+{
+	GameObject::SetOrigin(o);
+	shape.setOrigin(o);
+}
+
+void Collider::SetOrigin(Origins preset)
+{
+	GameObject::SetOrigin(preset);
+	if (preset != Origins::Custom)
+	{
+		Utils::SetOrigin(shape, preset);
+	}
+}
+
+void Collider::Init()
+{
+	shape.setPosition(50.f, 50.f);
+	shape.setSize({ 20.f,20.f });
+	shape.setFillColor(sf::Color::Red);
+
+	shape2.setPosition(70.f, 70.f);
+	shape2.setSize({ 100.f,20.f });
+	shape2.setFillColor(sf::Color::Red);
+
+	shapes.push_back(shape);
+	shapes.push_back(shape2);
+}
+
+void Collider::Release()
+{
+}
+
+void Collider::Reset()
+{ 
+}
+
+void Collider::Update(float dt)
+{
+}
+
+void Collider::Draw(sf::RenderWindow& window)
+{
+	for (auto shape : shapes)
+	{
+		window.draw(shape);
+	}
+}
+
+bool Collider::IsColliding(const sf::Sprite sprite)
+{
+	sf::Vector2f characterPos = sprite.getPosition();
+	sf::Vector2f characterSize = sprite.getGlobalBounds().getSize();
+
+	for (const auto& shape : shapes)
+	{
+		sf::Vector2f rectPos = shape.getPosition();
+		sf::Vector2f rectSize = shape.getGlobalBounds().getSize();
+
+		if (characterPos.x < rectPos.x + rectSize.x &&
+			rectPos.x < characterPos.x + characterSize.x &&
+			characterPos.y < rectPos.y + rectSize.y &&
+			rectPos.y < characterPos.y + characterSize.y)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+bool Collider::IsColliding(const sf::FloatRect rect)
+{
+	sf::Vector2f characterPos = rect.getPosition();
+	sf::Vector2f characterSize = rect.getSize();
+
+	for (const auto& shape : shapes)
+	{
+		sf::Vector2f rectPos = shape.getPosition();
+		sf::Vector2f rectSize = shape.getGlobalBounds().getSize();
+
+		if (characterPos.x < rectPos.x + rectSize.x &&
+			rectPos.x < characterPos.x + characterSize.x &&
+			characterPos.y < rectPos.y + rectSize.y &&
+			rectPos.y < characterPos.y + characterSize.y)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+void Collider::areaBlocked(sf::Vector2f& position, sf::Sprite& sprite, const sf::Vector2f& moveOffset)
+{
+	position.x += moveOffset.x;
+	sprite.setPosition(position);
+	for (auto shape : shapes)
+	{
+		if (IsColliding(sprite))
+		{
+			position.x -= moveOffset.x;
+			sprite.setPosition(position);
+			std::cout << "side 충돌" << std::endl;
+		}
+	}
+
+	position.y += moveOffset.y;
+	sprite.setPosition(position);
+	for (auto shape : shapes)
+	{
+		if (IsColliding(sprite))
+		{
+			position.y -= moveOffset.y;
+			sprite.setPosition(position);
+			std::cout << "up&down 충돌" << std::endl;
+		}
+	}
+}
+
+
