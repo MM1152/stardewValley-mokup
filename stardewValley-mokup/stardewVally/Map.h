@@ -22,16 +22,19 @@ class Map
 private:
 	std::string texId;
 	std::unordered_map<int, std::vector<CellData>> cell;
-
+	std::vector<sf::RectangleShape*> colliders;
 	void Reset(int size);
-public:
-	//Load ¶û Save¿¡¼­ ÇÊ¿äÇÑ º¯È¯ÀÌ ÀÌ·ïÁú²¨ÀÓ
-	
-	void Setting(int layer, int idx , CellData data);
 
+public:
+	int GetCellIndex(int idx , int layer);
+
+	std::vector<sf::RectangleShape*>& Load(const std::string path);
 	std::vector<CellData>& Load(const std::string path , int layer);
 	void Save(const std::string path , std::string texId, std::vector<CellData>& cellData , sf::Vector2i count);
-
+	void Save(const std::string path, std::vector<sf::RectangleShape*>& colliderData);
 	std::string GetTextId() { return texId; };
+
+	void Release();
+	std::vector<sf::RectangleShape*>& GetColliders() { return colliders; };
 };
 

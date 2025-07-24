@@ -12,9 +12,39 @@ void Map::Reset(int size)
     cell[1].resize(size);
 }
 
-void Map::Setting(int layer, int idx, CellData textCoord)
+//Idx 값에 맞춰서 행동 수행하면 될듯!
+int Map::GetCellIndex(int idx , int layer)
 {
-    cell[layer][idx] = textCoord;
+    return cell[layer][idx].idx;
+}
+
+std::vector<sf::RectangleShape*>& Map::Load(const std::string path)
+{
+    std::ifstream file(path);
+    
+    if (!file.good()) {
+        std::cout << "FAIL TO LOAD FILE " << path << std::endl;
+        return colliders;
+    }
+
+    rapidcsv::Document document(path);
+
+    if (document.GetColumnCount() == 0) return colliders;
+       
+    
+    for (int i = 0; i < document.GetColumnCount(); i++) {
+        auto cellData = document.GetCell<std::string>(0, i);
+
+        //0 1 size , 2 3 pos
+        auto split = Utils::Split(cellData, ',');
+        sf::Vector2f size = { std::stof(split[0]) , std::stof(split[1]) };
+        sf::Vector2f pos = { std::stof(split[2]) - 300.f, std::stof(split[3]) - 300.f };
+
+        colliders.push_back(new sf::RectangleShape());
+        colliders[colliders.size() - 1]->setSize(size);
+        colliders[colliders.size() - 1]->setSize(pos);
+        std::cout << "pos : " << pos.x << ", " << pos.y << std::endl;
+    }
 }
 
 std::vector<CellData>& Map::Load(const std::string path , int layer)
@@ -90,4 +120,32 @@ void Map::Save(const std::string path, std::string texId, std::vector<CellData>&
     }
     std::cout << "CREATE FILE" << std::endl;
     doc.Save(path);
+}
+
+void Map::Save(const std::string path, std::vector<sf::RectangleShape*>& colliderData)
+{
+    rapidcsv::Document doc;
+    
+    for (int i = 0; i < colliderData.size(); i++) {
+        sf::Vector2f bounds = colliderData[i]->getSize();
+        sf::Vector2f pos = colliderData[i]->getPosition();
+        doc.SetCell<std::string>(0, i, std::to_string(bounds.x) + "," + std::to_string(bounds.y) + "," + std::to_string(pos.x) + "," + std::to_string(pos.y));
+    }
+
+    std::ifstream file(path);
+    if (file.good()) {
+        std::cout << "REMOVE FILE" << std::endl;
+        remove(path.c_str());
+    }
+    std::cout << "CREATE FILE" << std::endl;
+    doc.Save(path);
+}
+
+void Map::Release()
+{
+    for (auto col : colliders) {
+        delete col;
+    }
+    
+    colliders.clear();
 }

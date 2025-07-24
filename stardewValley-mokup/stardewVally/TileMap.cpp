@@ -273,7 +273,7 @@ void TileMap::drawGrid(const sf::Vector2i& count, const sf::Vector2f& size) {
 		va[curIdx * 2 + 1].position = { colX , colY };
 		va[curIdx * 2 + 1].color = sf::Color::Green;
 	}	
-}
+}	
 
 void TileMap::SetTexture(const std::string texId)
 {
@@ -283,8 +283,18 @@ void TileMap::SetTexture(const std::string texId)
 
 void TileMap::SetCellData(int idx, CellData& celldata)
 {
+	if (celldata.idx == -1) {
+		va[idx * 4].color = sf::Color::Transparent;
+		va[idx * 4 + 1].color = sf::Color::Transparent;
+		va[idx * 4 + 2].color = sf::Color::Transparent;
+		va[idx * 4 + 3].color = sf::Color::Transparent;
+
+		cellData[idx].idx = -1;
+		return;
+	}
+
 	cellData[idx] = celldata;
-	
+
 	va[idx * 4].texCoords = cellData[idx].cellTextCoord[0];
 	va[idx * 4 + 1].texCoords = cellData[idx].cellTextCoord[1];
 	va[idx * 4 + 2].texCoords = cellData[idx].cellTextCoord[2];

@@ -12,9 +12,15 @@ protected:
 	int yIndex;
 	int index;
 
+	int yRange;
+	int xRange;
+
 	bool isTile = false;
-	
-	sf::RectangleShape rightBackGround;
+	bool drawCollider = false;
+	bool startDrawCollider = false;
+	std::vector<sf::RectangleShape*> colliders;
+
+	Map map;
 
 	TileMap* tilemap1 = nullptr;
 	TileMap* gridTile = nullptr;
@@ -22,18 +28,25 @@ protected:
 
 	InputText* inputText;
 
+	int prevX = -1;
+	int prevY = -1;
+	std::vector<CellData> cellDatas;
 	CellData cellData;
-	Map map;
 
-	sf::RectangleShape dragAreaRect;
-	sf::Vector2f dragAreaStartPos;
 	bool isDragArea;
 
-	sf::Vector2f mousePos;
 	sf::FloatRect bouns;
+
+	sf::Vector2f dragAreaStartPos;
+	sf::Vector2f mousePos;
 	sf::Vector2f texcoor[4];
-	sf::RectangleShape mouseRect;
 	sf::Vector2f dragStartPos;
+	sf::Vector2f drawColliderStartPos;
+
+	sf::RectangleShape mouseRect;
+	sf::RectangleShape rightBackGround;
+	sf::RectangleShape dragAreaRect;
+
 public:
 	static int drawTileIdx;
 	MapToolScene();

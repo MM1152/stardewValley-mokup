@@ -5,6 +5,8 @@ class LoadMapDataScene : public Scene
 {
 private:
 	TileMap* tile;	
+	TileMap* forGround;
+
 	Map map;
 public:
 	LoadMapDataScene();
@@ -13,6 +15,7 @@ public:
 	void Init() override;
 	void Enter() override;
 	void Exit() override;
+	void Draw(sf::RenderWindow& window);
 	void Update(float dt) override;
 	
 };
