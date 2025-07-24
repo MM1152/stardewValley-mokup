@@ -31,7 +31,7 @@ void Inventory::Init()
 			unEquipSlots.push_back(itemSlot);
 		}
 	}
-	ItemInfo sword = { "galaxy_sword" , ITEM_IMG_PATH"galaxy_sword.png" , ItemType::EquipMent };
+	ItemInfo sword = { "galaxy_sword" ,  ITEM_IMG_PATH"galaxy_sword.png" /*ItemType::EquipMent*/};
 	item = new Item(sword);
 
 	item->Init();

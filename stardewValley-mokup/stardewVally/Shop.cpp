@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "Shop.h"
+#include "itemDataMgr.h"
+#include "Item.h"
 
 Shop::Shop(const std::string& name)
 	: GameObject(name)
@@ -57,9 +59,12 @@ void Shop::Update(float dt)
 
 void Shop::Draw(sf::RenderWindow& window)
 {
-	if (isUiShow == true)
+	if (!isUiShow)
+		return;
+
+	for (ItemSlot* slot : itemSlots)
 	{
-		window.draw(sprite);
+		slot->Draw(window);
 	}
 }
 
@@ -68,7 +73,8 @@ void Shop::ShowUi()
 	isUiShow = true;
 	SetPosition({ -500.f, 0.f });
 
-	sprite.setTexture(TEXTURE_MGR.Get("graphics/uitest.png"));
+	const std::vector<ItemInfo>& items = itemDataMgr::Instance().GetItem("Pierre's General Store");
+	CreateItemSlots(items);
 }
 
 void Shop::CloseUi()
@@ -79,4 +85,35 @@ void Shop::CloseUi()
 bool Shop::isUiShowing()
 {
 	return isUiShow;
+}
+
+void Shop::CreateItemSlots(const std::vector<ItemInfo>& items)
+{
+	for (ItemSlot* slot : itemSlots)
+	{
+		delete slot;
+	}
+	itemSlots.clear();
+
+	float x = GetPosition().x + 50.f;
+	float y = GetPosition().y + 50.f;
+	float spacingY = 80.f;
+
+	for (int i = 0; i < items.size(); ++i)
+	{
+		const ItemInfo& info = items[i];
+
+		Item* item = new Item(info);
+		item->Init();
+		item->Reset();
+
+		ItemSlot* slot = new ItemSlot(info.itemTextureId, info.itemName);
+		slot->Init();
+		slot->Reset();
+		slot->SetPosition({ x,y + i * spacingY });
+
+		slot->SetItem(item);
+
+		itemSlots.push_back(slot);
+	}
 }

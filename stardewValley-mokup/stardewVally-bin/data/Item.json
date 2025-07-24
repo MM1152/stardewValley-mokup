@@ -1,0 +1,21 @@
+{
+  "storeName": "Pierre's General Store",
+  "items": [
+    {
+      "id": "parsnip_seeds",
+      "name": "Parsnip Seeds",
+      "description": "Plant these in the spring. Takes 4 days to mature.",
+      "TextureId": "graphics/parsnip_seeds.png",
+      "price": 20,
+      "stock": 100
+    },
+    {
+      "id": "cauliflower_seeds",
+      "name": "Cauliflower Seeds",
+      "description": "Plant these in the spring. Takes 12 days to produce a large cauliflower.",
+      "TextureId": "graphics/cauliflower_seeds.png",
+      "price": 80,
+      "stock": 100
+    }
+  ]
+}

@@ -1,11 +1,16 @@
 #pragma once
 #include "GameObject.h"
+#include "itemDataMgr.h"
+#include "ItemSlot.h"
+
 class Shop : public GameObject
 {
 protected:
 	sf::Sprite sprite;
 
 	bool isUiShow;
+
+	std::vector<ItemSlot*> itemSlots;
 
 public:
 	Shop(const std::string& name = "Shop");
@@ -26,5 +31,7 @@ public:
 	void ShowUi();
 	void CloseUi();
 	bool isUiShowing();
+
+	void CreateItemSlots(const std::vector<ItemInfo>& items);
 };
 

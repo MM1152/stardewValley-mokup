@@ -150,6 +150,7 @@
     <ClInclude Include="Framework\TextGo.h" />
     <ClInclude Include="Framework\Utils.h" />
     <ClInclude Include="HitBox.h" />
+    <ClInclude Include="itemDataMgr.h" />
     <ClInclude Include="NpcMgr.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="InventoryStstem\Inventory.h" />
@@ -183,6 +184,7 @@
     <ClCompile Include="InventoryStstem\Item.cpp" />
     <ClCompile Include="InventoryStstem\ItemSlot.cpp" />
     <ClCompile Include="InventoryStstem\QuickBar.cpp" />
+    <ClCompile Include="itemDataMgr.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="NpcMgr.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -197,6 +199,9 @@
     </ClCompile>
     <ClCompile Include="TileMap.cpp" />
     <ClCompile Include="Variables.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Item.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,5 +1,6 @@
 #pragma once
 #include "Scene.h"
+#include "Shop.h"
 
 class Player;
 class NpcMgr;

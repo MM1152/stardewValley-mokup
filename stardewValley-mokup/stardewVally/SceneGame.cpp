@@ -17,12 +17,16 @@ void SceneGame::Init()
 	texIds.push_back("graphics/testC.png");
 	texIds.push_back("graphics/npcTest.png");
 	texIds.push_back("graphics/uitest.png");
-
-	shop = new Shop("shop");
-	AddGameObject(shop);
+	texIds.push_back("graphics/parsnip_seeds.png");
+	texIds.push_back("graphics/cauliflower_seeds.png");
 
 	npc = new NpcMgr("Npc");
 	player = new Player("Player");
+
+	shop = new Shop("shop");
+	shop->Init();
+	AddGameObject(shop);
+	
 
 	player->SetNpcMgr(npc);    
 	npc->SetPlayer(player);  
@@ -30,6 +34,7 @@ void SceneGame::Init()
 	AddGameObject(player);
 	AddGameObject(npc);
 
+	itemDataMgr::Instance().LoadJson("data/Item.json");
 
 	collider = new Collider("Collider");
 	AddGameObject(collider);
