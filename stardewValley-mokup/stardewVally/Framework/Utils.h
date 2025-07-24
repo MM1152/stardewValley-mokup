@@ -64,6 +64,78 @@ public:
 	static bool PolygonsIntersect(const std::vector<sf::Vector2f>& polygonA, const sf::Transform& transformA,
 		const std::vector<sf::Vector2f>& polygonB, const sf::Transform& transformB);
 
+	// ToString
+	static std::string Tostring(sf::Vector2f vec)
+	{
+		std::string str;
+		str += "(";
+		str += std::to_string(vec.x);
+		str += ",";
+		str += std::to_string(vec.y);
+		str += ")";
+
+		return str;
+	}
+
+	static std::string TostringTime(int h, int m)
+	{
+		std::string str;
+		str += std::to_string(h);
+		str += ":";
+		if (std::to_string(m) == "0")
+		{
+			str += "00";
+		}
+		else
+		{
+			str += std::to_string(m);
+		}
+
+
+		return str;
+	}
+
+	static std::string TostringDOW(int th)
+	{
+		std::string str;
+		if (th % 7 == 1)
+		{
+			str += "Mon.";
+			str += std::to_string(th);
+		}
+		else if (th % 7 == 2)
+		{
+			str += "Tue.";
+			str += std::to_string(th);
+		}
+		else if (th % 7 == 3)
+		{
+			str += "Wed.";
+			str += std::to_string(th);
+		}
+		else if (th % 7 == 4)
+		{
+			str += "Thu.";
+			str += std::to_string(th);
+		}
+		else if (th % 7 == 5)
+		{
+			str += "Fri.";
+			str += std::to_string(th);
+		}
+		else if (th % 7 == 6)
+		{
+			str += "Sat.";
+			str += std::to_string(th);
+		}
+		else if (th % 7 == 0)
+		{
+			str += "Sun.";
+			str += std::to_string(th);
+		}
+
+		return str;
+	}
 };
 
 
