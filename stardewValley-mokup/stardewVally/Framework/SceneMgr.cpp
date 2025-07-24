@@ -2,14 +2,14 @@
 #include "SceneMgr.h"
 #include "SceneDev1.h"
 #include "SceneAnimator.h"
-#include "MapTool.h"
+#include "MapToolScene.h"
 #include "LoadMapDataScene.h"
 
 void SceneMgr::Init()
 {
 	scenes.push_back(new SceneDev1());
 	scenes.push_back(new SceneAnimator());
-	scenes.push_back(new MapTool());
+	scenes.push_back(new MapToolScene());
 	scenes.push_back(new LoadMapDataScene());
 	for (auto scene : scenes)
 	{

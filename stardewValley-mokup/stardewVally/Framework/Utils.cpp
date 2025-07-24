@@ -402,14 +402,11 @@ sf::VertexArray& Utils::LoadMapData(const std::string filePath)
 {
     std::ifstream file(filePath);
     
-
     if (!file.good()) {
         std::cout << "FAIL TO LOAD FILE " << filePath << std::endl;
         return va;
     }
-
     rapidcsv::Document document(filePath);
-
     if (document.GetRowCount() == 0) return va;
   
     va.clear();

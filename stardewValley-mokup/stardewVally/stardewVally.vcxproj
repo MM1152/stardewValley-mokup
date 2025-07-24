@@ -150,6 +150,7 @@
     <ClInclude Include="Framework\TextGo.h" />
     <ClInclude Include="Framework\Utils.h" />
     <ClInclude Include="HitBox.h" />
+    <ClInclude Include="InputText.h" />
     <ClInclude Include="InventoryStstem\Inventory.h" />
     <ClInclude Include="InventoryStstem\Item.h" />
     <ClInclude Include="InventoryStstem\ItemSlot.h" />
@@ -157,9 +158,10 @@
     <ClInclude Include="ItemInfo.h" />
     <ClInclude Include="InventoryStstem\QuickBar_Slot.h" />
     <ClInclude Include="LoadMapDataScene.h" />
+    <ClInclude Include="Map.h" />
     <ClInclude Include="SceneAnimator.h" />
     <ClInclude Include="SceneDev1.h" />
-    <ClInclude Include="Scene\MapTool.h" />
+    <ClInclude Include="Scene\MapToolScene.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="TileMap.h" />
     <ClInclude Include="Variables.h" />
@@ -175,6 +177,7 @@
     <ClCompile Include="Framework\TextGo.cpp" />
     <ClCompile Include="Framework\Utils.cpp" />
     <ClCompile Include="HitBox.cpp" />
+    <ClCompile Include="InputText.cpp" />
     <ClCompile Include="InventoryStstem\Inventory.cpp" />
     <ClCompile Include="InventoryStstem\Item.cpp" />
     <ClCompile Include="InventoryStstem\ItemSlot.cpp" />
@@ -182,9 +185,10 @@
     <ClCompile Include="LoadMapDataScene.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="InventoryStstem\QuickBar_Slot.cpp" />
+    <ClCompile Include="Map.cpp" />
     <ClCompile Include="SceneAnimator.cpp" />
     <ClCompile Include="SceneDev1.cpp" />
-    <ClCompile Include="Scene\MapTool.cpp" />
+    <ClCompile Include="Scene\MapToolScene.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>

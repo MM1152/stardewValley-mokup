@@ -5,7 +5,7 @@ class LoadMapDataScene : public Scene
 {
 private:
 	TileMap* tile;	
-	sf::VertexArray va;
+	Map map;
 public:
 	LoadMapDataScene();
 	~LoadMapDataScene() override = default;

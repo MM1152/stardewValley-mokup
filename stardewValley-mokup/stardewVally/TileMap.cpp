@@ -10,6 +10,7 @@ TileMap::TileMap(VertexType type, const std::string& name)
 
 void TileMap::Set(const sf::Vector2i& count, const sf::Vector2f& size , const std::string texId)
 {
+	cellData.clear();
 	texture = &TEXTURE_MGR.Get(texId);
 	spriteSheetId = texId;
 	cellCount = count;
@@ -33,19 +34,26 @@ void TileMap::Set(const sf::Vector2i& count, const sf::Vector2f& size , const st
 		{
 			int quadIndex = i * count.x + j;
 			sf::Vector2f quadPos(j * size.x, i * size.y);
-
+			CellData cell;
 			for (int k = 0; k < 4; ++k)
 			{
 				int vertexIndex = quadIndex * 4 + k;
 				va[vertexIndex].position = quadPos + texCoords[k];
 				va[vertexIndex].texCoords = {texCoords[k].x + j * size.x , texCoords[k].y + i * size.y};
+
+				cell.cellPosition[k] = va[vertexIndex].position;
+				cell.cellTextCoord[k] = va[vertexIndex].texCoords;
+				cell.idx = quadIndex;
 			}
+			cellData.push_back(cell);
 		}
 	}
+
 }
 
 void TileMap::Set(const sf::Vector2i& count, const sf::Vector2f& size)
 {
+	cellData.clear();
 	cellCount = count;
 	cellSize = size;
 
@@ -67,29 +75,47 @@ void TileMap::Set(const sf::Vector2i& count, const sf::Vector2f& size)
 		{
 			int quadIndex = i * count.x + j;
 			sf::Vector2f quadPos(j * size.x, i * size.y);
-				
+			CellData cell;
 			for (int k = 0; k < 4; ++k)
 			{
 				int vertexIndex = quadIndex * 4 + k;
 				va[vertexIndex].position = quadPos + texCoords[k];
-
 				va[vertexIndex].color = sf::Color::Transparent;
+
+				cell.cellPosition[k] = va[vertexIndex].position;
+				cell.cellColor[k] = va[vertexIndex].color;
 				//va[vertexIndex].texCoords = { texCoords[k].x + j * size.x , texCoords[k].y + i * size.y };
 			}
+			cellData.push_back(cell);
 		}
 	}	
 }
 
-void TileMap::Set(sf::VertexArray& va, const std::string texId)
+void TileMap::Set(const std::string texId, std::vector<CellData>& cellData)
 {
+	std::cout << texId << std::endl;
 	this->va.clear();
-	this->va.resize(va.getVertexCount());
+	this->va.resize(cellData.size() * 4);
 	this->va.setPrimitiveType(sf::Quads);
-	for (int i = 0; i < va.getVertexCount(); i++) {
-		this->va[i].texCoords = va[i].texCoords;
-		this->va[i].position = va[i].position;
+	
+	for (int i = 0; i < cellData.size(); i++) {
+		va[i * 4].texCoords = cellData[i].cellTextCoord[0];
+		va[i * 4 + 1].texCoords = cellData[i].cellTextCoord[1];
+		va[i * 4 + 2].texCoords = cellData[i].cellTextCoord[2];
+		va[i * 4 + 3].texCoords = cellData[i].cellTextCoord[3];
+
+		va[i * 4].position = cellData[i].cellPosition[0];
+		va[i * 4 + 1].position = cellData[i].cellPosition[1];
+		va[i * 4 + 2].position = cellData[i].cellPosition[2];
+		va[i * 4 + 3].position = cellData[i].cellPosition[3];
 	}
+
 	texture = &TEXTURE_MGR.Get(texId);
+}
+
+void TileMap::SettingCellData(int idx , CellData cellData)
+{
+	this->cellData[idx] = cellData;
 }
 
 void TileMap::UpdateTransform()
@@ -158,7 +184,7 @@ void TileMap::Reset()
 //4.3
 void TileMap::Update(float dt){
 	
-	if (type == VertexType::Palette) 
+	/*if (type == VertexType::Palette) 
 	{
 		if (InputMgr::GetMouseButtonDown(sf::Mouse::Left) && InArea((sf::Vector2f)InputMgr::GetMousePosition())) {
 			int xIndex = (int)((int)(InputMgr::GetMousePosition().x - GetPosition().x)) / 16 * 4;
@@ -211,7 +237,7 @@ void TileMap::Update(float dt){
 				va[index + 3].texCoords = texCoor[3];
 			}
 		}
-	}
+	}*/
 }
 
 void TileMap::Draw(sf::RenderWindow& window)
@@ -253,6 +279,21 @@ void TileMap::SetTexture(const std::string texId)
 {
 	spriteSheetId = texId;
 	texture = &TEXTURE_MGR.Get(texId);
+}
+
+void TileMap::SetCellData(int idx, CellData& celldata)
+{
+	cellData[idx] = celldata;
+	
+	va[idx * 4].texCoords = cellData[idx].cellTextCoord[0];
+	va[idx * 4 + 1].texCoords = cellData[idx].cellTextCoord[1];
+	va[idx * 4 + 2].texCoords = cellData[idx].cellTextCoord[2];
+	va[idx * 4 + 3].texCoords = cellData[idx].cellTextCoord[3];
+
+	va[idx * 4].color = sf::Color::White;;
+	va[idx * 4 + 1].color = sf::Color::White;
+	va[idx * 4 + 2].color = sf::Color::White;
+	va[idx * 4 + 3].color = sf::Color::White;
 }
 
 bool TileMap::InArea(sf::Vector2f mousePos)

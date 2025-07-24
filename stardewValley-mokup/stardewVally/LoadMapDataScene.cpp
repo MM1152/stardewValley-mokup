@@ -8,14 +8,10 @@ LoadMapDataScene::LoadMapDataScene()
 
 void LoadMapDataScene::Init()
 {
-	
 	texIds.push_back(GRAPHICS_PATH"³óÀå(º½).bmp");
 
-	
 	tile = new TileMap(VertexType::Game);
-
 	AddGameObject(tile);
-
 	Scene::Init();	
 }
 
@@ -26,11 +22,13 @@ void LoadMapDataScene::Enter()
 
 	uiView.setSize(FRAMEWORK.GetWindowSizeF());
 	uiView.setCenter({ FRAMEWORK.GetWindowSizeF().x / 2 , FRAMEWORK.GetWindowSizeF().y / 2 });
-	va = Utils::LoadMapData(MAP_PATH"map1.csv");
-
 	Scene::Enter();
+
+	tile->Set(map.GetTextId() ,map.Load(MAP_PATH"map2.csv" , 0));
+
 	
-	tile->Set(va, Utils::LoadTextureId());
+	
+	//tile->Set(va, Utils::LoadTextureId());
 
 }
 
