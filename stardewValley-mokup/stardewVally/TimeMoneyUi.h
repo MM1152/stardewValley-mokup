@@ -41,16 +41,29 @@ protected:
 	bool isTimer = true;
 
 	sf::Sprite ui;
-	std::string uiId = "graphics/시계.bmp";
-
-	sf::Sprite moneyUi;
-	std::string moneyUiId = "graphics/돈 숫자.bmp";
-
+	std::string uiId = "graphics/시계.png";
+	
 	sf::Sprite weatherUi;
 	std::string weatherUiId = "graphics/날씨.bmp";
 
 	sf::Sprite seasonUi;
 	std::string seasonUiId = "graphics/계절.bmp";
+
+	//if money % 10 == 0~9 > if (money % 100 - money % 10) == 0~9 .... 
+	int money;
+	int currentmoney;
+	int n1;
+	int n2;
+	int n3;
+	int n4;
+	int n5;
+	int n6;
+	int n7;
+	int n8;
+
+	MoneyUiType mtype = MoneyUiType::null;
+	sf::Sprite moneyUi;
+	std::string moneyUiId = "graphics/돈 숫자.png";
 
 	//dom = day of week -> th % 7 -> 1 월 , 2 화 , 3 수 , 4 목, 5 금, 6 토, 0 일 / th > 28 {th = 1}
 	//change season
@@ -70,8 +83,7 @@ protected:
 	float minuteTimer = 0.f;
 	float minuteMaxTimer = 0.1f;
 
-	int money;
-	int currentmoney;
+	
 
 public:
 	TimeMoneyUi(const std::string& name = "");
@@ -99,5 +111,7 @@ public:
 	{
 		ampm = true;
 	}
+
+	void DrawMoney(int m);
 };
 

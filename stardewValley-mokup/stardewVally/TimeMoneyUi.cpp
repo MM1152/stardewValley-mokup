@@ -69,7 +69,7 @@ void TimeMoneyUi::Reset()
 
 	dow.setFont(FONT_MGR.Get(dowfont));
 	dow.setString(isdow);
-	
+
 
 	meridiem.setFont(FONT_MGR.Get(meridiemfont));
 	if (!ampm)
@@ -80,8 +80,8 @@ void TimeMoneyUi::Reset()
 	{
 		meridiem.setString(istime + "pm");
 	}
-	
-	
+
+	moneyUi.getTextureRect();
 
 	SetScale({ 1.f, 1.f });
 	SetOrigin(Origins::TR);
@@ -132,6 +132,8 @@ void TimeMoneyUi::Update(float dt)
 	}
 
 	//Money
+	DrawMoney(10000000);
+	std::cout << n8 << std::endl;
 }
 
 void TimeMoneyUi::Draw(sf::RenderWindow& window)
@@ -147,4 +149,41 @@ void TimeMoneyUi::Draw(sf::RenderWindow& window)
 void TimeMoneyUi::isTime()
 {
 
+}
+
+void TimeMoneyUi::DrawMoney(int m)
+{
+	money = m;
+	if (money >= 0)
+	{
+		n1 = money % 10;
+	}
+	if (money >= 10)
+	{
+		n2 = (money % 100 - money % 10) / 10;
+	}
+	if (money >= 100)
+	{
+		n3 = (money % 1000 - money % 100) / 100;
+	}
+	if (money >= 1000)
+	{
+		n4 = (money % 10000 - money % 1000) / 1000;
+	}
+	if (money >= 10000)
+	{
+		n5 = (money % 100000 - money % 10000) / 10000;
+	}
+	if (money >= 100000)
+	{
+		n6 = (money % 1000000 - money % 100000) / 100000;
+	}
+	if (money >= 1000000)
+	{
+		n7 = (money % 10000000 - money % 1000000) / 1000000;
+	}
+	if (money >= 10000000)
+	{
+		n8 = (money % 100000000 - money % 10000000) / 10000000;
+	}
 }

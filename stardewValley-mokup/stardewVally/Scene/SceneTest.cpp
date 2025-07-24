@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "SceneTest.h"
-#include "TimeMoney.h"
+#include "TimeMoneyUi.h"
 
 SceneTest::SceneTest()
 	: Scene(SceneIds::Test)
@@ -14,8 +14,8 @@ void SceneTest::Init()
 	uiView.setSize(FRAMEWORK.GetWindowSizeF());
 	uiView.setCenter({ FRAMEWORK.GetWindowSizeF().x / 2 , FRAMEWORK.GetWindowSizeF().y / 2 });
 
-	texIds.push_back("graphics/시계.bmp");
-	texIds.push_back("graphics/돈 숫자.bmp");
+	texIds.push_back("graphics/시계.png");
+	texIds.push_back("graphics/돈 숫자.png");
 	texIds.push_back("graphics/날씨.bmp");
 	texIds.push_back("graphics/계절.bmp");
 
