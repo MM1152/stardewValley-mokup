@@ -109,7 +109,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <AdditionalIncludeDirectories>.\SFML-2.6.2\include;.\Framework;.\GameObjects;$(ProjectDir);.\Scene;.\Effect;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\SFML-2.6.2\include;.\Framework;.\GameObjects;$(ProjectDir);.\Scene;.\Effect;.\InventoryStstem;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -137,6 +137,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Collider.h" />
+    <ClInclude Include="Button.h" />
     <ClInclude Include="Framework\Defines.h" />
     <ClInclude Include="Framework\Framework.h" />
     <ClInclude Include="Framework\GameObject.h" />
@@ -151,6 +152,13 @@
     <ClInclude Include="HitBox.h" />
     <ClInclude Include="NpcMgr.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="InventoryStstem\Inventory.h" />
+    <ClInclude Include="InventoryStstem\Item.h" />
+    <ClInclude Include="InventoryStstem\ItemSlot.h" />
+    <ClInclude Include="InventoryStstem\QuickBar.h" />
+    <ClInclude Include="ItemInfo.h" />
+    <ClInclude Include="InventoryStstem\QuickBar_Slot.h" />
+    <ClInclude Include="SceneAnimator.h" />
     <ClInclude Include="SceneDev1.h" />
     <ClInclude Include="SceneDev2.h" />
     <ClInclude Include="SceneGame.h" />
@@ -161,6 +169,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Collider.cpp" />
+    <ClCompile Include="Button.cpp" />
     <ClCompile Include="Framework\Framework.cpp" />
     <ClCompile Include="Framework\GameObject.cpp" />
     <ClCompile Include="Framework\InputMgr.cpp" />
@@ -170,9 +179,15 @@
     <ClCompile Include="Framework\TextGo.cpp" />
     <ClCompile Include="Framework\Utils.cpp" />
     <ClCompile Include="HitBox.cpp" />
+    <ClCompile Include="InventoryStstem\Inventory.cpp" />
+    <ClCompile Include="InventoryStstem\Item.cpp" />
+    <ClCompile Include="InventoryStstem\ItemSlot.cpp" />
+    <ClCompile Include="InventoryStstem\QuickBar.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="NpcMgr.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="InventoryStstem\QuickBar_Slot.cpp" />
+    <ClCompile Include="SceneAnimator.cpp" />
     <ClCompile Include="SceneDev1.cpp" />
     <ClCompile Include="SceneDev2.cpp" />
     <ClCompile Include="SceneGame.cpp" />

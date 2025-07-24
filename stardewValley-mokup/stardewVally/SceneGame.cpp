@@ -40,7 +40,6 @@ void SceneGame::Init()
 		else
 			shop->CloseUi();
 		});
-
 	Scene::Init();
 }
 

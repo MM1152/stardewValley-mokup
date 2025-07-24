@@ -1,9 +1,13 @@
 #include "stdafx.h"
 #include "InputMgr.h"
+#include <SFML/Window/Event.hpp>
 
 std::list<int> InputMgr::downKeys;
 std::list<int> InputMgr::heldKeys;
 std::list<int> InputMgr::upKeys;
+sf::RectangleShape InputMgr::rect;
+sf::Keyboard::Key InputMgr::keyInfo;
+float InputMgr::wheel;
 
 std::unordered_map<Axis, AxisInfo> InputMgr::axisInfoMap;
 
@@ -11,6 +15,10 @@ sf::Vector2i InputMgr::mousePosition;
 
 void InputMgr::Init()
 {
+	rect.setSize({ 10 , 10 });
+	rect.setFillColor(sf::Color::Green);
+	Utils::SetOrigin(rect , Origins::MC);
+
 	AxisInfo infoH;
 	infoH.axis = Axis::Horizontal;
 	infoH.positives.push_back(sf::Keyboard::D);
@@ -29,6 +37,7 @@ void InputMgr::Init()
 
 void InputMgr::Clear() 
 {
+	wheel = 0;
 	downKeys.clear();
 	upKeys.clear();
 }
@@ -37,11 +46,15 @@ void InputMgr::UpdateEvent(const sf::Event& ev)
 {
 	switch (ev.type)
 	{
+	case sf::Event::MouseWheelMoved:
+		wheel = ev.mouseWheel.delta;
+		break;
 	case sf::Event::KeyPressed:
 		if (!Contains(heldKeys, ev.key.code))
 		{
 			downKeys.push_back(ev.key.code);
 			heldKeys.push_back(ev.key.code);
+			keyInfo = ev.key.code;
 		}
 		break;
 	case sf::Event::KeyReleased:
@@ -90,7 +103,7 @@ void InputMgr::Update(float dt)
 			axisInfo.value = 0.f;
 		}
 	}
-
+	rect.setPosition((sf::Vector2f)SCENE_MGR.GetCurrentScene()->ScreenToUi(mousePosition));
 }
 
 bool InputMgr::GetKeyDown(sf::Keyboard::Key key)
@@ -167,8 +180,25 @@ bool InputMgr::GetMouseButton(sf::Mouse::Button key)
 	return Contains(heldKeys, sf::Keyboard::KeyCount + key);;
 }
 
+sf::Keyboard::Key InputMgr::GetInputKey()
+{
+	return keyInfo;
+}
+
+float InputMgr::GetMouseWheel()
+{
+	return wheel;
+}
+
+sf::FloatRect InputMgr::GetMouseUIRect()
+{
+	return rect.getGlobalBounds();
+}
+
 sf::Vector2i InputMgr::GetMousePosition()
 {
 	return mousePosition; 
 }
+
+
 

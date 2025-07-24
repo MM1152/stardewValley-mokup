@@ -7,6 +7,7 @@
 #include <list>
 #include <unordered_map>
 #include <algorithm>
+#include <functional>
 
 // SFML
 #include <SFML/Graphics.hpp>
@@ -24,4 +25,5 @@
 #include "Scene.h"
 #include "SceneMgr.h"
 #include "Framework.h"
+#include "ItemInfo.h"
 
