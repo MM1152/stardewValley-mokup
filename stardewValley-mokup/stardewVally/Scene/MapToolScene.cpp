@@ -25,6 +25,10 @@ void MapToolScene::Init()
 	uiView.setSize(FRAMEWORK.GetWindowSizeF());	
 	uiView.setCenter({ FRAMEWORK.GetWindowSizeF().x / 2 , FRAMEWORK.GetWindowSizeF().y / 2 });
 
+	dragAreaRect.setFillColor(sf::Color::Transparent);
+	dragAreaRect.setOutlineColor(sf::Color::Red);
+	dragAreaRect.setOutlineThickness(1.f);
+	dragAreaRect.setSize({ 0,0 });
 #pragma region Buttons
 
 	Button* deleteBNT = new Button(FONT_PATH"DOSGothic.ttf");
@@ -136,7 +140,14 @@ void MapToolScene::Update(float dt)
 		SCENE_MGR.ChangeScene(SceneIds::LoadMapTest);
 	}
 
-	if (InArea(&drawTile[drawTileIdx] , (sf::Vector2i)ScreenToWorld(InputMgr::GetMousePosition())) && index != -1 && InputMgr::GetMouseButton(sf::Mouse::Left)) {
+	if (InArea(tilemap1, InputMgr::GetMousePosition()) && InputMgr::GetMouseButton(sf::Mouse::Left) && isDragArea) {
+		int newX = (int)((int)(InputMgr::GetMousePosition().x - tilemap1->GetPosition().x)) / 16 * 4;
+		int newY = (int)((int)(InputMgr::GetMousePosition().y - tilemap1->GetPosition().y)) / 16 * 4;
+
+		CellData data = tilemap1->GetCellData(index / 4);
+		dragAreaRect.setSize({16.f * ((newX / 4) - (xIndex / 4) + 1), 16.f * ((newY / 4) - (yIndex / 4) + 1)});
+	}
+	if (InArea(&drawTile[drawTileIdx] , (sf::Vector2i)ScreenToWorld(InputMgr::GetMousePosition())) && index != -1 && InputMgr::GetMouseButton(sf::Mouse::Left)) {		
 		xIndex = (int)((int)(ScreenToWorld(InputMgr::GetMousePosition()).x - drawTile->GetPosition().x)) / 16 * 4;
 		yIndex = (int)((int)(ScreenToWorld(InputMgr::GetMousePosition()).y - drawTile->GetPosition().y)) / 16 * 4;
 		index = xIndex + drawTile[drawTileIdx].GetCellCount().x * yIndex;
@@ -144,14 +155,24 @@ void MapToolScene::Update(float dt)
 		drawTile[drawTileIdx].SetCellData(index / 4 , cellData);
 	}
 	else if (InArea(tilemap1, InputMgr::GetMousePosition()) && InputMgr::GetMouseButtonDown(sf::Mouse::Left)) {
+		isDragArea = true;
 		xIndex = (int)((int)(InputMgr::GetMousePosition().x - tilemap1->GetPosition().x)) / 16 * 4;
 		yIndex = (int)((int)(InputMgr::GetMousePosition().y - tilemap1->GetPosition().y)) / 16 * 4;
 		index = xIndex + tilemap1->GetCellCount().x * yIndex;
 			
 		cellData = tilemap1->GetCellData(index / 4);
+		
+		dragAreaStartPos = cellData.cellPosition[0] + tilemap1->GetPosition();
+		dragAreaRect.setSize({ 16, 16 });
+		dragAreaRect.setPosition(dragAreaStartPos);
 	}
 	else if(InputMgr::GetMouseButtonDown(sf::Mouse::Left)) {
 		index = -1;
+		dragAreaRect.setSize({ 0, 0 });
+	}
+
+	if (InputMgr::GetMouseButtonUp(sf::Mouse::Left)) {
+		isDragArea = false;
 	}
 
 	DragToMoveScreen(dt);
@@ -163,9 +184,12 @@ void MapToolScene::Draw(sf::RenderWindow& window)
 	drawTile[0].Draw(window);
 	drawTile[1].Draw(window);
 	gridTile->Draw(window);
+
 	Scene::Draw(window);
 	window.draw(mouseRect);
 
+	window.setView(uiView);
+	window.draw(dragAreaRect);
 
 	//drawTile[2].Draw();
 }

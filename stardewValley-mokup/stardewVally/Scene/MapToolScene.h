@@ -25,6 +25,10 @@ protected:
 	CellData cellData;
 	Map map;
 
+	sf::RectangleShape dragAreaRect;
+	sf::Vector2f dragAreaStartPos;
+	bool isDragArea;
+
 	sf::Vector2f mousePos;
 	sf::FloatRect bouns;
 	sf::Vector2f texcoor[4];
