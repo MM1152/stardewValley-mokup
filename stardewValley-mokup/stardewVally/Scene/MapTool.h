@@ -8,6 +8,8 @@ class MapTool : public Scene
 {
 protected:
 	bool isTile = false;
+	
+	sf::RectangleShape rightBackGround;
 
 	TileMap* tilemap1 = nullptr;
 	TileMap* gridTile = nullptr;
@@ -20,7 +22,10 @@ protected:
 
 	sf::RectangleShape mouseRect;
 
+
+	sf::Vector2f dragStartPos;
 public:
+	static int drawTileIdx;
 	MapTool();
 	~MapTool() = default;
 
@@ -29,5 +34,7 @@ public:
 
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
+	void Exit() override;
+	void DragToMoveScreen(float dt);
 };
 

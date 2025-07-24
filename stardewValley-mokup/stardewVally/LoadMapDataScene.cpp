@@ -21,13 +21,13 @@ void LoadMapDataScene::Init()
 
 void LoadMapDataScene::Enter()
 {
-	va = Utils::LoadMapData(MAP_PATH"map1.csv");
-
 	worldView.setSize(FRAMEWORK.GetWindowSizeF());
 	worldView.setCenter({ FRAMEWORK.GetWindowSizeF().x / 2 , FRAMEWORK.GetWindowSizeF().y / 2 });
 
 	uiView.setSize(FRAMEWORK.GetWindowSizeF());
 	uiView.setCenter({ FRAMEWORK.GetWindowSizeF().x / 2 , FRAMEWORK.GetWindowSizeF().y / 2 });
+	va = Utils::LoadMapData(MAP_PATH"map1.csv");
+
 	Scene::Enter();
 	
 	tile->Set(va, Utils::LoadTextureId());

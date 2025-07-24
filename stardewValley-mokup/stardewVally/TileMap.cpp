@@ -72,6 +72,8 @@ void TileMap::Set(const sf::Vector2i& count, const sf::Vector2f& size)
 			{
 				int vertexIndex = quadIndex * 4 + k;
 				va[vertexIndex].position = quadPos + texCoords[k];
+
+				va[vertexIndex].color = sf::Color::Transparent;
 				//va[vertexIndex].texCoords = { texCoords[k].x + j * size.x , texCoords[k].y + i * size.y };
 			}
 		}
@@ -82,6 +84,7 @@ void TileMap::Set(sf::VertexArray& va, const std::string texId)
 {
 	this->va.clear();
 	this->va.resize(va.getVertexCount());
+	this->va.setPrimitiveType(sf::Quads);
 	for (int i = 0; i < va.getVertexCount(); i++) {
 		this->va[i].texCoords = va[i].texCoords;
 		this->va[i].position = va[i].position;
@@ -178,25 +181,34 @@ void TileMap::Update(float dt){
 
 	if (type == VertexType::Draw) 
 	{
-		if (InputMgr::GetMouseButtonDown(sf::Mouse::Left) && InArea((sf::Vector2f)InputMgr::GetMousePosition())) {
-			int xIndex = (int)((int)(InputMgr::GetMousePosition().x - GetPosition().x)) / 16 * 4;
-			int yIndex = (int)((int)(InputMgr::GetMousePosition().y - GetPosition().y)) / 16 * 4;
+		if (InputMgr::GetMouseButton(sf::Mouse::Left) && InArea(scene->ScreenToWorld(InputMgr::GetMousePosition()))) {
+			int xIndex = (int)((int)(scene->ScreenToWorld(InputMgr::GetMousePosition()).x - GetPosition().x)) / 16 * 4;
+			int yIndex = (int)((int)(scene->ScreenToWorld(InputMgr::GetMousePosition()).y - GetPosition().y)) / 16 * 4;
+
 			index = xIndex + cellCount.x * yIndex;
 
 			if (index >= cellCount.x * cellCount.y * 4) index = -1;
 
 			if (setTextCoorFunc) {
 				sf::Vector2f* texCoor = setTextCoorFunc();
+				
+				if (texCoor[2].x == 0 && texCoor[2].y == 0) {
+					va[index].color = sf::Color::Transparent;
+					va[index + 1].color = sf::Color::Transparent;
+					va[index + 2].color = sf::Color::Transparent;
+					va[index + 3].color = sf::Color::Transparent;
+					return;
+				}
+
+				va[index].color = sf::Color::White;
+				va[index + 1].color = sf::Color::White;
+				va[index + 2].color = sf::Color::White;
+				va[index + 3].color = sf::Color::White;
 
 				va[index].texCoords = texCoor[0];
 				va[index + 1].texCoords = texCoor[1];
 				va[index + 2].texCoords = texCoor[2];
 				va[index + 3].texCoords = texCoor[3];
-				std::cout << texCoor[0].x << ", " << texCoor[0].y << std::endl;
-				std::cout << texCoor[1].x << ", " << texCoor[1].y << std::endl;
-				std::cout << texCoor[2].x << ", " << texCoor[2].y << std::endl;
-				std::cout << texCoor[3].x << ", " << texCoor[3].y << std::endl;
-
 			}
 		}
 	}

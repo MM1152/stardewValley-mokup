@@ -16,6 +16,7 @@ protected:
 
 	sf::VertexArray va;
 
+	Scene* scene;
 
 	std::string spriteSheetId;
 	sf::Texture* texture = nullptr;
@@ -51,6 +52,7 @@ public:
 	void drawGrid(const sf::Vector2i& count, const sf::Vector2f& size);
 
 	void SetTexture(const std::string tex);
+	void SetScene(Scene* scene) { this->scene = scene; };
 	sf::VertexArray& GetVaData() { return va; };
 	sf::Vector2i GetCellCount() { return cellCount; };
 	std::string GetTextureId() { return spriteSheetId; };
