@@ -2,21 +2,6 @@
 #include "GameObject.h"
 class TimeMoneyUi : public GameObject
 {
-	enum class MoneyUiType
-	{
-		null,
-		zero,
-		one,
-		two,
-		three,
-		four,
-		five,
-		six,
-		seven,
-		eight,
-		nine,
-	};
-
 	enum class SeasonType
 	{
 		spring,
@@ -52,18 +37,19 @@ protected:
 	//if money % 10 == 0~9 > if (money % 100 - money % 10) == 0~9 .... 
 	int money;
 	int currentmoney;
-	int n1;
-	int n2;
-	int n3;
-	int n4;
-	int n5;
-	int n6;
-	int n7;
-	int n8;
+	int n1 = -1;
+	int n2 = -1;
+	int n3 = -1;
+	int n4 = -1;
+	int n5 = -1;
+	int n6 = -1;
+	int n7 = -1;
+	int n8 = -1;
 
-	MoneyUiType mtype = MoneyUiType::null;
+
 	sf::Sprite moneyUi;
 	std::string moneyUiId = "graphics/돈 숫자.png";
+	//rect
 
 	//dom = day of week -> th % 7 -> 1 월 , 2 화 , 3 수 , 4 목, 5 금, 6 토, 0 일 / th > 28 {th = 1}
 	//change season
@@ -101,8 +87,6 @@ public:
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
 
-	void isTime();
-
 	void ChangeAm()
 	{
 		ampm = false;
@@ -112,6 +96,6 @@ public:
 		ampm = true;
 	}
 
-	void DrawMoney(int m);
+	void SettingMoney(int m);
 };
 

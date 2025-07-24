@@ -52,6 +52,11 @@ void TimeMoneyUi::Init()
 	dow.setPosition({ 1160.f, 15.f });
 	dow.setFillColor(sf::Color::Black);
 
+	moneyUi.setPosition({ 1108.f, 138.f });
+	
+
+	
+
 	ampm = false;
 	isTimer = true;
 }
@@ -81,8 +86,6 @@ void TimeMoneyUi::Reset()
 		meridiem.setString(istime + "pm");
 	}
 
-	moneyUi.getTextureRect();
-
 	SetScale({ 1.f, 1.f });
 	SetOrigin(Origins::TR);
 	SetPosition({ 1270.f, 10.f });
@@ -90,6 +93,8 @@ void TimeMoneyUi::Reset()
 
 void TimeMoneyUi::Update(float dt)
 {
+
+
 	// Time
 	if (isTimer)
 	{
@@ -132,8 +137,7 @@ void TimeMoneyUi::Update(float dt)
 	}
 
 	//Money
-	DrawMoney(10000000);
-	std::cout << n8 << std::endl;
+	SettingMoney(500);
 }
 
 void TimeMoneyUi::Draw(sf::RenderWindow& window)
@@ -146,17 +150,19 @@ void TimeMoneyUi::Draw(sf::RenderWindow& window)
 	window.draw(meridiem);
 }
 
-void TimeMoneyUi::isTime()
-{
 
-}
-
-void TimeMoneyUi::DrawMoney(int m)
+void TimeMoneyUi::SettingMoney(int m)
 {
+	sf::IntRect zero(0, 0, 14, 20);
+
 	money = m;
 	if (money >= 0)
 	{
 		n1 = money % 10;
+		if (n1 == 0)
+		{
+			moneyUi.setTextureRect(zero);
+		}
 	}
 	if (money >= 10)
 	{
