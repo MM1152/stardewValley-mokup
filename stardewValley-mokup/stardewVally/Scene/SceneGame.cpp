@@ -6,6 +6,7 @@
 #include "NpcMgr.h"
 #include "Shop.h"
 #include "Collider.h"
+#include "TimeMoneyUi.h"
 
 SceneGame::SceneGame() 
 	: Scene(SceneIds::Game)
@@ -19,7 +20,21 @@ void SceneGame::Init()
 	texIds.push_back("graphics/uitest.png");
 	texIds.push_back("graphics/parsnip_seeds.png");
 	texIds.push_back("graphics/cauliflower_seeds.png");
+	worldView.setSize(FRAMEWORK.GetWindowSizeF());
+	worldView.setCenter({ FRAMEWORK.GetWindowSizeF().x / 2 , FRAMEWORK.GetWindowSizeF().y / 2 });
+	uiView.setSize(FRAMEWORK.GetWindowSizeF());
+	uiView.setCenter({ FRAMEWORK.GetWindowSizeF().x / 2 , FRAMEWORK.GetWindowSizeF().y / 2 });
 
+	texIds.push_back("graphics/½Ã°è.png");
+	texIds.push_back("graphics/µ· ¼ýÀÚ.png");
+	texIds.push_back("graphics/³¯¾¾.bmp");
+	texIds.push_back("graphics/°èÀý.bmp");
+
+	fontIds.push_back("fonts/SDMisaeng.ttf");
+	fontIds.push_back("fonts/DOSGothic.ttf");
+	fontIds.push_back("fonts/DungGeunMo.ttf");
+
+	timemoney = (TimeMoneyUi*)AddGameObject(new TimeMoneyUi());
 	npc = new NpcMgr("Npc");
 	player = new Player("Player");
 
@@ -29,7 +44,7 @@ void SceneGame::Init()
 	
 
 	player->SetNpcMgr(npc);    
-	npc->SetPlayer(player);  
+	npc->SetPlayer(player);
 
 	AddGameObject(player);
 	AddGameObject(npc);
@@ -45,7 +60,7 @@ void SceneGame::Init()
 		else
 			shop->CloseUi();
 		});
->>>>>>>>> Temporary merge branch 2
+//>>>>>>>>> Temporary merge branch 2
 
 	Scene::Init();
 }
@@ -73,6 +88,9 @@ void SceneGame::Exit()
 void SceneGame::Update(float dt)
 {
 	Scene::Update(dt);
+
+	timemoney->SettingMoney(player->GetMoney());
+	timemoney->ResetSettingMoney();
 }
 
 void SceneGame::Draw(sf::RenderWindow& window)

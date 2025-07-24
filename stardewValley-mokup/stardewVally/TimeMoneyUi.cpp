@@ -61,9 +61,6 @@ void TimeMoneyUi::Init()
 	m7.setPosition({ 1133.f, 138.f });
 	m8.setPosition({ 1116.f, 138.f });
 
-
-	
-
 	ampm = false;
 	isTimer = true;
 }
@@ -153,11 +150,6 @@ void TimeMoneyUi::Update(float dt)
 			minuteTimer = 0;
 		}
 	}
-
-	//Money
-	SettingMoney(11115000);
-	ResetSettingMoney();
-	SettingMoney(60000);
 }
 
 void TimeMoneyUi::Draw(sf::RenderWindow& window)

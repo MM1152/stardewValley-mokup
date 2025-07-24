@@ -162,8 +162,9 @@
     <ClInclude Include="InventoryStstem\QuickBar_Slot.h" />
     <ClInclude Include="SceneAnimator.h" />
     <ClInclude Include="SceneDev1.h" />
-    <ClInclude Include="SceneDev2.h" />
-    <ClInclude Include="SceneGame.h" />
+    <ClInclude Include="Scene\MapTool.h" />
+    <ClInclude Include="Scene\SceneGame.h" />
+    <ClInclude Include="Scene\SceneTest.h" />
     <ClInclude Include="Shop.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="TileMap.h" />
@@ -193,8 +194,7 @@
     <ClCompile Include="InventoryStstem\QuickBar_Slot.cpp" />
     <ClCompile Include="SceneAnimator.cpp" />
     <ClCompile Include="SceneDev1.cpp" />
-    <ClCompile Include="SceneDev2.cpp" />
-    <ClCompile Include="SceneGame.cpp" />
+    <ClCompile Include="Scene\SceneGame.cpp" />
     <ClCompile Include="Shop.cpp" />
     <ClCompile Include="Scene\SceneTest.cpp" />
     <ClCompile Include="Scene\MapTool.cpp" />

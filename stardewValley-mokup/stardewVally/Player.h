@@ -13,6 +13,8 @@ protected:
 	sf::RectangleShape shape2;
 	std::vector<sf::RectangleShape> shapes;
 
+	int money = 500;
+	
 	NpcMgr* npcMgr = nullptr;
 
 public:
@@ -32,5 +34,10 @@ public:
 
 	void Update(float dt);
 	void Draw(sf::RenderWindow& window);
+
+	int GetMoney()
+	{
+		return money;
+	}
 
 };

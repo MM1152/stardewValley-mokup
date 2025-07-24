@@ -6,6 +6,7 @@ class Player;
 class NpcMgr;
 class Shop;
 class Collider;
+class TimeMoneyUi;
 
 class SceneGame : public Scene
 {
@@ -14,6 +15,7 @@ protected:
 	NpcMgr* npc = nullptr;
 	Shop* shop = nullptr;
 	Collider* collider = nullptr;
+	TimeMoneyUi* timemoney = nullptr;
 
 public:
 	SceneGame();
@@ -24,6 +26,5 @@ public:
 	void Exit() override;
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
-
 };
 

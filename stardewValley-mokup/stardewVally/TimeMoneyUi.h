@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+
 class TimeMoneyUi : public GameObject
 {
 	enum class SeasonType
@@ -77,7 +78,6 @@ protected:
 	float minuteTimer = 0.f;
 	float minuteMaxTimer = 0.1f;
 
-	
 
 public:
 	TimeMoneyUi(const std::string& name = "");

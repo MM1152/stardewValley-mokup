@@ -10,8 +10,6 @@ void SceneMgr::Init()
 	scenes.push_back(new MapTool());
 	scenes.push_back(new SceneTest());
 	scenes.push_back(new SceneGame());
-	scenes.push_back(new SceneDev1());
-	scenes.push_back(new SceneDev2());
 	scenes.push_back(new SceneAnimator());
 
 	for (auto scene : scenes)
