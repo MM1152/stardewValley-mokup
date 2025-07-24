@@ -21,12 +21,15 @@ void SceneGame::Init()
 	shop = new Shop("shop");
 	AddGameObject(shop);
 
-	player = new Player("Player");
-	AddGameObject(player);
-	
 	npc = new NpcMgr("Npc");
-	npc->SetPlayer(player);
+	player = new Player("Player");
+
+	player->SetNpcMgr(npc);    
+	npc->SetPlayer(player);  
+
+	AddGameObject(player);
 	AddGameObject(npc);
+
 
 	collider = new Collider("Collider");
 	AddGameObject(collider);

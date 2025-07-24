@@ -57,38 +57,40 @@ void NpcMgr::Reset()
 
 void NpcMgr::Update(float dt)
 {
-	std::srand(static_cast<unsigned>(std::time(nullptr)));
+	//std::srand(static_cast<unsigned>(std::time(nullptr)));
 
-	float axisX = (std::rand() % 3) - 1;
-	float axisY = (std::rand() % 3) - 1;
+	////float axisX = (std::rand() % 3) - 1;
+	////float axisY = (std::rand() % 3) - 1;
 
-	direction = sf::Vector2f(axisX, axisY);
+	//direction = sf::Vector2f(axisX, axisY);
 
-	sf::Vector2f moveOffset = { axisX * speed * dt, axisY * speed * dt};
+	//sf::Vector2f moveOffset = { axisX * speed * dt, axisY * speed * dt};
 
-	if (isNpcMove)
-	{
-		Collider::areaBlocked(position, npcSprite, moveOffset);
-		npcSprite.setPosition(position);
-	}
+	//if (isNpcMove)
+	//{
+	//	Collider::areaBlocked(position, npcSprite, moveOffset);
+	//	npcSprite.setPosition(position);
+	//}
 
 	playerRect.setPosition(player->GetPosition());
 	playerRect.setSize(player->GetGlobalBounds().getSize());
 
-	//player->SetPosition(playerRect.getPosition());
+	player->SetPosition(playerRect.getPosition());
 
 	if (IsCollidingPlayer(playerRect))
 	{
-		std::cout << "npc面倒" << std::endl; 
+		std::cout << "npc面倒" << std::endl;
 		if (InputMgr::GetKeyDown(sf::Keyboard::Z)) //function's address 
 		{
-			isNpcMove = false;
+			/*isNpcMove = false;*/
 			if (callback)
 			{
 				callback();
 			}
 		}
 	}
+
+	sf::Vector2f playerPos = player->GetPosition();
 }
 
 void NpcMgr::Draw(sf::RenderWindow& window)
@@ -115,32 +117,11 @@ void NpcMgr::setCallBack(std::function<void()> cb)
 	callback = cb;
 }
 
-void NpcMgr::blockedByNpc(sf::Vector2f& playerPos, sf::RectangleShape& playerRect, sf::Vector2f& moveOffset)
+sf::FloatRect NpcMgr::GetGlobalBounds()
 {
-	position.x += moveOffset.x;
-	playerRect.setPosition(position);
-	for (auto shape : shapes)
-	{
-		if (IsCollidingPlayer(playerRect))
-		{
-			position.x -= moveOffset.x;
-			playerRect.setPosition(position);
-			std::cout << "side 面倒" << std::endl;
-		}
-	}
-
-	position.y += moveOffset.y;
-	playerRect.setPosition(position);
-	for (auto shape : shapes)
-	{
-		if (IsCollidingPlayer(playerRect))
-		{
-			position.y -= moveOffset.y;
-			playerRect.setPosition(position);
-			std::cout << "up&down 面倒" << std::endl;
-		}
-	}
+	return npcSprite.getGlobalBounds();
 }
+
 
 
 

@@ -35,7 +35,7 @@ public:
 	void Draw(sf::RenderWindow& window) override;
 	void SetPlayer(Player* p) { player = p; }
 	bool IsCollidingPlayer(sf::RectangleShape rect);
-	void blockedByNpc(sf::Vector2f& playerPos, sf::RectangleShape& playerRect, sf::Vector2f& moveOffset);
 	void setCallBack(std::function<void()> cb);
+	sf::FloatRect GetGlobalBounds();
 };
 
