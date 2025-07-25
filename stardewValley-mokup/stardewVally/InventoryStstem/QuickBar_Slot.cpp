@@ -9,7 +9,7 @@ QuickBar_Slot::QuickBar_Slot(const std::string& texId, const std::string& name)
 
 void QuickBar_Slot::Init()
 {
-	slot.setSize({ 40,70 });
+	slot.setSize({ 40,50 });
 	copyItem.Init();
 }
 

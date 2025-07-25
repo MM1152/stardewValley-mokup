@@ -12,7 +12,7 @@ ItemSlot::ItemSlot(const std::string& texId, const std::string& name)
 
 void ItemSlot::Init()
 {
-	slot.setSize({ 40,70 });
+	slot.setSize({ 40,50 });
 }
 
 void ItemSlot::Release()

@@ -3,8 +3,7 @@
 #include "stdafx.h"
 
 class NpcMgr;
-
-
+class Inventory;
 class Player : public Collider
 {
 protected:
@@ -15,6 +14,7 @@ protected:
 	int money = 500;
 	
 	NpcMgr* npcMgr = nullptr;
+	Inventory* inventory = nullptr;
 
 public:
 	void SetActive(bool a) { active = a; };
@@ -43,6 +43,9 @@ public:
 	{
 		return sprite.getGlobalBounds();
 	}
+
+	void SetInventory(Inventory* inven);
+	Inventory* GetInventory();
 
 	int GetMoney()
 	{

@@ -101,6 +101,11 @@ void NpcMgr::setCallBack(std::function<void()> cb)
 	callback = cb;
 }
 
+sf::RectangleShape NpcMgr::GetPlayerRect()
+{
+	return playerRect;
+}
+
 sf::FloatRect NpcMgr::GetGlobalBounds()
 {
 	return npcSprite.getGlobalBounds();

@@ -10,7 +10,7 @@ Inventory::Inventory(const std::string& texId, const std::string& name)
 
 void Inventory::Init()
 {
-	inv_BackGround.setSize({ 45 * 12 + 20.f , 300 });
+	inv_BackGround.setSize({ 45 * 12 + 20.f , 200 });
 	inv_BackGround.setPosition({ FRAMEWORK.GetWindowSizeF().x / 2 - 400.f , FRAMEWORK.GetWindowSizeF().y / 2});
 	
 	slotSize = 24;
@@ -26,7 +26,7 @@ void Inventory::Init()
 		for (int j = 0; j < slotSize / 2; j++) {
 			ItemSlot* itemSlot = new ItemSlot(INVEN_IMG_PATH"ItemSlot.png");
 			itemSlot->Init();
-			itemSlot->SetPosition({ inv_BackGround.getPosition().x + 10.f + j * 45 , inv_BackGround.getPosition().y + 110.f + (80.f * i)});
+			itemSlot->SetPosition({ inv_BackGround.getPosition().x + 10.f + j * 45 , inv_BackGround.getPosition().y + 80.f + (60.f * i)});
 			
 			unEquipSlots.push_back(itemSlot);
 		}
@@ -35,8 +35,6 @@ void Inventory::Init()
 	item = new Item(sword);
 
 	item->Init();
-
-
 }
 
 void Inventory::Release()
@@ -102,5 +100,23 @@ bool Inventory::SetItem(Item* item)
 		}
 	}
 
+	return false;
+}
+
+bool Inventory::AddItem(const ItemInfo& info)
+{
+	Item* newItem = new Item(info);
+	newItem->Init();
+
+	for (ItemSlot* slot : unEquipSlots)
+	{
+		if (!slot->IsSetting())
+		{
+			slot->SetItem(newItem);
+			return true;
+		}
+	}
+
+	delete newItem;
 	return false;
 }

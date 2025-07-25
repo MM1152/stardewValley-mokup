@@ -33,7 +33,7 @@ void Button::Reset()
 void Button::Update(float dt)
 {
 	if (InputMgr::GetMouseUIRect().intersects(bnt.getGlobalBounds())) {
-		bnt.setFillColor(sf::Color::Green);
+		bnt.setFillColor(sf::Color(210, 180, 140));
 		if (InputMgr::GetMouseButtonDown(sf::Mouse::Left)) {
 			if (onClickFunc) {
 				onClickFunc();

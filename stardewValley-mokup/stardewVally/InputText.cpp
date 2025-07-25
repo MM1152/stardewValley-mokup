@@ -46,7 +46,7 @@ void InputText::Update(float dt)
 			if (input.size() > 0) input.resize(input.size() - 1);
 		}
 		else if(InputMgr::GetAnyKeyDown()){
-			input += InputMgr::GetInputKey();
+			input += InputMgr::GetInputText();
 		}
 		SetString(input);
 	}

@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Player.h"
 #include "NpcMgr.h"
+#include "inventory.h"
 
 
 Player::Player(const std::string name)
@@ -62,11 +63,87 @@ void Player::Update(float dt)
 	sf::Vector2f moveOffset(movement.x, movement.y);
 
 	Collider::areaBlocked(position, sprite, moveOffset);
+
+    /*if (npcMgr != nullptr)
+    {
+        sf::Vector2f npcPos = npcMgr->GetPosition();
+        sf::Vector2f npcSize = npcMgr->GetGlobalBounds().getSize();
+        sf::Vector2f playerSize = sprite.getGlobalBounds().getSize();
+
+        float nextPlayerX = position.x + moveOffset.x;
+        bool colliedX = false;
+
+        if (nextPlayerX < npcPos.x + npcSize.x &&
+            npcPos.x < nextPlayerX + playerSize.x &&
+            position.y < npcPos.y + npcSize.y &&
+            npcPos.y < position.y + playerSize.y)
+        {
+            if (moveOffset.x >= 0.f )
+            {
+                position.x = npcPos.x - playerSize.x;
+                std::cout << "npc colliding" << std::endl;
+            }
+            else if (moveOffset.x <= 0.f)
+            {
+                position.x = npcPos.x + playerSize.x;
+            }
+
+            moveOffset.x = 0.f;
+            colliedX = true;
+        }
+
+        float nextPlayerY = position.y + moveOffset.y;
+        bool colliedY = false;
+
+        if (position.x < npcPos.x + npcSize.x &&
+            npcPos.x < position.x + playerSize.x &&
+            nextPlayerY < npcPos.y + npcSize.y &&
+            npcPos.y < nextPlayerY + playerSize.y)
+        {
+            if (moveOffset.y >= 0.f)
+            {
+                position.y = npcPos.y - playerSize.y;
+            } 
+            else if (position.y <= 0.f)
+            {
+                position.y = npcPos.y + playerSize.y;
+            }
+    
+            moveOffset.y = 0.f;
+            colliedY = true;
+
+        }
+
+        if (!colliedX)
+        {
+            position.x += movement.x;
+        }
+        if (!colliedY)
+        {
+            position.y += movement.y;
+        }
+        sprite.setPosition(position);
+    }*/
+
+    if (InputMgr::GetKeyDown(sf::Keyboard::E)) {
+        inventory->SetActive(!inventory->GetActive());
+    }
+
 }
 
 void Player::Draw(sf::RenderWindow& window)
 {
 	window.draw(sprite);
+}
+
+void Player::SetInventory(Inventory* inven)
+{
+    this->inventory = inven;
+}
+
+Inventory* Player::GetInventory()
+{
+    return inventory;
 }
 
 

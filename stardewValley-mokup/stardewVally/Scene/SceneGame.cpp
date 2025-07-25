@@ -7,6 +7,8 @@
 #include "Shop.h"
 #include "Collider.h"
 #include "TimeMoneyUi.h"
+#include "Inventory.h"
+#include "QuickBar.h"
 
 SceneGame::SceneGame() 
 	: Scene(SceneIds::Game)
@@ -18,15 +20,19 @@ void SceneGame::Init()
 	texIds.push_back("graphics/testC.png");
 	texIds.push_back("graphics/npcTest.png");
 	texIds.push_back("graphics/uitest.png");
-	texIds.push_back("graphics/shopSlot_bg.png");
+	texIds.push_back("graphics/shop_bg.png");
+	texIds.push_back(INVEN_IMG_PATH"ItemSlot.png");
 
 	texIds.push_back("graphics/parsnip_seeds.png");
 	texIds.push_back("graphics/cauliflower_seeds.png");
+	texIds.push_back("graphics/potato_seeds.png");
+	texIds.push_back("graphics/garlic_seeds.png");
 
-	worldView.setSize(FRAMEWORK.GetWindowSizeF());
-	worldView.setCenter({ FRAMEWORK.GetWindowSizeF().x / 2 , FRAMEWORK.GetWindowSizeF().y / 2 });
-	uiView.setSize(FRAMEWORK.GetWindowSizeF());
-	uiView.setCenter({ FRAMEWORK.GetWindowSizeF().x / 2 , FRAMEWORK.GetWindowSizeF().y / 2 });
+	texIds.push_back("graphics/portraitsBox.png");
+	texIds.push_back("graphics/Pierre.png");
+	texIds.push_back("graphics/itemSlot_bg.png");
+
+	texIds.push_back(INVEN_IMG_PATH"CraftImage.bmp");
 
 	texIds.push_back("graphics/½Ã°è.png");
 	texIds.push_back("graphics/µ· ¼ýÀÚ.png");
@@ -36,24 +42,41 @@ void SceneGame::Init()
 	fontIds.push_back("fonts/SDMisaeng.ttf");
 	fontIds.push_back("fonts/DOSGothic.ttf");
 	fontIds.push_back("fonts/DungGeunMo.ttf");
+	fontIds.push_back("fonts/Stardew_Valley.ttf");
+
+	inventory = new Inventory(INVEN_IMG_PATH"CraftImage.bmp");
+	quickBar = new QuickBar(INVEN_IMG_PATH"CraftImage.bmp");
+
+	inventory->sortingLayer = SortingLayers::UI;
+	quickBar->sortingLayer = SortingLayers::UI;
+	
+	AddGameObject(inventory);
+	AddGameObject(quickBar);
+	inventory->SetQuickBar(quickBar);
 
 	timemoney = (TimeMoneyUi*)AddGameObject(new TimeMoneyUi());
 	npc = new NpcMgr("Npc");
 	player = new Player("Player");
 
 	shop = new Shop("shop");
-	shop->Init();
-	shop->Reset();
+	shop->SetInventory(inventory);
 	AddGameObject(shop);
-	
 
 	player->SetNpcMgr(npc);    
+	player->SetInventory(inventory);
 	npc->SetPlayer(player);
 
 	AddGameObject(player);
 	AddGameObject(npc);
 
 	itemDataMgr::Instance().LoadJson("data/Item.json");
+
+	const auto& items = itemDataMgr::Instance().GetItem("Pierre's General Store");
+
+	for (const auto& item : items)
+	{
+		TEXTURE_MGR.Load(item.itemTextureId);
+	}
 
 	collider = new Collider("Collider");
 	AddGameObject(collider);
@@ -63,11 +86,13 @@ void SceneGame::Init()
 		{
 			shop->ShowUi();
 		}
-		else
+		else 
 		{
 			shop->CloseUi();
 		}
 		});
+
+
 //>>>>>>>>> Temporary merge branch 2
 
 	Scene::Init();
@@ -83,9 +108,8 @@ void SceneGame::Enter()
 	worldView.setCenter({0.f, 0.f});
 
 	uiView.setSize(windowSize);
-	uiView.setCenter(windowSize * 0.5f);
+	uiView.setCenter({windowSize.x * 0.5f , windowSize.y * 0.5f});
 	Scene::Enter(); //push_back
-
 }
 
 void SceneGame::Exit()
