@@ -39,6 +39,7 @@ public:
 	std::vector<CellData>& GetCellData(int layer);
 	std::vector<sf::RectangleShape*>& GetColliders() { return colliders; };
 
+
 	void Release();
 };
 

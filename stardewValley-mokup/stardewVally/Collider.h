@@ -1,5 +1,9 @@
 #pragma once
 #include "GameObject.h"
+#include "Map.h"
+
+class Map;
+
 class Collider :
     public GameObject
 {
@@ -7,6 +11,10 @@ protected:
 	sf::RectangleShape shape;
 	sf::RectangleShape shape2;
 	std::vector<sf::RectangleShape> shapes;
+	Map map;
+
+	
+
 public:
 	Collider(const std::string& name = "Collider");
 	virtual ~Collider() = default;

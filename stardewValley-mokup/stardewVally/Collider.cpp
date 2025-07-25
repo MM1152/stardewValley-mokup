@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Collider.h"
+#include "Map.h"
 
 Collider::Collider(const std::string& name)
 	: GameObject(name)
@@ -41,16 +42,6 @@ void Collider::SetOrigin(Origins preset)
 
 void Collider::Init()
 {
-	shape.setPosition(50.f, 50.f);
-	shape.setSize({ 20.f,20.f });
-	shape.setFillColor(sf::Color::Red);
-
-	shape2.setPosition(70.f, 70.f);
-	shape2.setSize({ 100.f,20.f });
-	shape2.setFillColor(sf::Color::Red);
-
-	shapes.push_back(shape);
-	shapes.push_back(shape2);
 }
 
 void Collider::Release()
@@ -67,10 +58,6 @@ void Collider::Update(float dt)
 
 void Collider::Draw(sf::RenderWindow& window)
 {
-	for (auto shape : shapes)
-	{
-		window.draw(shape);
-	}
 }
 
 bool Collider::IsColliding(const sf::Sprite sprite)

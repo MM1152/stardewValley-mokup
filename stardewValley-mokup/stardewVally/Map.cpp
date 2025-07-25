@@ -27,10 +27,10 @@ std::vector<sf::RectangleShape*>& Map::LoadCollider(const std::string path)
 
     rapidcsv::Document document(path);
 
-    if (document.GetColumnCount() == 0) return colliders;
+    if (document.GetRowCount() == 0) return colliders;
        
     
-    for (int i = 0; i < document.GetColumnCount(); i++) {
+    for (int i = 0; i < document.GetRowCount(); i++) {
         auto cellData = document.GetCell<std::string>(0, i);
 
         //0 1 size , 2 3 pos
