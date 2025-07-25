@@ -25,13 +25,14 @@ void SceneGame::Init()
 
 	texIds.push_back("graphics/parsnip_seeds.png");
 	texIds.push_back("graphics/cauliflower_seeds.png");
+	texIds.push_back("graphics/potato_seeds.png");
+	texIds.push_back("graphics/garlic_seeds.png");
+
+	texIds.push_back("graphics/portraitsBox.png");
+	texIds.push_back("graphics/Pierre.png");
+	texIds.push_back("graphics/itemSlot_bg.png");
 
 	texIds.push_back(INVEN_IMG_PATH"CraftImage.bmp");
-
-	worldView.setSize(FRAMEWORK.GetWindowSizeF());
-	worldView.setCenter({ FRAMEWORK.GetWindowSizeF().x / 2 , FRAMEWORK.GetWindowSizeF().y / 2 });
-	uiView.setSize(FRAMEWORK.GetWindowSizeF());
-	uiView.setCenter({ FRAMEWORK.GetWindowSizeF().x / 2 , FRAMEWORK.GetWindowSizeF().y / 2 });
 
 	texIds.push_back("graphics/½Ã°è.png");
 	texIds.push_back("graphics/µ· ¼ýÀÚ.png");
@@ -58,6 +59,7 @@ void SceneGame::Init()
 	player = new Player("Player");
 
 	shop = new Shop("shop");
+	shop->SetInventory(inventory);
 	AddGameObject(shop);
 
 	player->SetNpcMgr(npc);    
@@ -69,6 +71,13 @@ void SceneGame::Init()
 
 	itemDataMgr::Instance().LoadJson("data/Item.json");
 
+	const auto& items = itemDataMgr::Instance().GetItem("Pierre's General Store");
+
+	for (const auto& item : items)
+	{
+		TEXTURE_MGR.Load(item.itemTextureId);
+	}
+
 	collider = new Collider("Collider");
 	AddGameObject(collider);
 
@@ -77,7 +86,7 @@ void SceneGame::Init()
 		{
 			shop->ShowUi();
 		}
-		else
+		else 
 		{
 			shop->CloseUi();
 		}
@@ -99,7 +108,7 @@ void SceneGame::Enter()
 	worldView.setCenter({0.f, 0.f});
 
 	uiView.setSize(windowSize);
-	uiView.setCenter(windowSize * 0.5f);
+	uiView.setCenter({windowSize.x * 0.5f , windowSize.y * 0.5f});
 	Scene::Enter(); //push_back
 }
 

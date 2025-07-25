@@ -36,6 +36,7 @@ public:
 	void SetPlayer(Player* p) { player = p; }
 	bool IsCollidingPlayer(sf::RectangleShape rect);
 	void setCallBack(std::function<void()> cb);
+	sf::RectangleShape GetPlayerRect();
 	sf::FloatRect GetGlobalBounds();
 };
 

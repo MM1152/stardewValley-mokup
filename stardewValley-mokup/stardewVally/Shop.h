@@ -3,11 +3,17 @@
 #include "itemDataMgr.h"
 
 class Inventory;
+class Button;
 class Shop : public GameObject
 {
 protected:
     sf::Sprite backgroundSprite;
+    sf::Sprite portraitBox;
+    sf::Sprite portraitShop;
+    sf::Sprite itemSlot_bg;
+
     bool isUiShow = false;
+   
 
     std::vector<ItemInfo> shopItems;
 
@@ -19,6 +25,8 @@ protected:
     sf::Font font;
 
     Inventory* inventory = nullptr;
+
+    std::vector<Button*> buyButtons;
 
 public:
     Shop(const std::string& name);
@@ -37,6 +45,7 @@ public:
     void ShowUi();
     void CloseUi();
     bool isUiShowing();
+    void SetInventory(Inventory* inv) { inventory = inv; }
 
 private:
     void LoadShopItems(const std::vector<ItemInfo>& items);

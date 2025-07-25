@@ -16,9 +16,9 @@ private:
 
 	int slotSize;
 
-	QuickBar* quickBar;
+	QuickBar* quickBar = nullptr;
 	//TEST
-	Item* item;
+	Item* item = nullptr;
 public:
 	Inventory(const std::string& texId = "" , const std::string& name = "");
 	~Inventory() override = default;
@@ -32,5 +32,7 @@ public:
 
 	bool SetItem(Item* item);
 	void SetQuickBar(QuickBar* quickBar) { this->quickBar = quickBar; };
+	bool AddItem(const ItemInfo& info);
+		;
 };
 
