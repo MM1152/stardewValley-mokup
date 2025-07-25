@@ -26,6 +26,7 @@ protected:
 	Map map;
 
 	bool drawCollider;
+
 public:
 	SceneTest();
 	~SceneTest() = default;

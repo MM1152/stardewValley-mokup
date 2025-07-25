@@ -102,14 +102,10 @@ void TimeMoneyUi::Reset()
 	SetScale({ 1.f, 1.f });
 	SetOrigin(Origins::TR);
 	SetPosition({ 1270.f, 10.f });
-
-	
 }
 
 void TimeMoneyUi::Update(float dt)
 {
-
-
 	// Time
 	if (isTimer)
 	{
@@ -148,6 +144,16 @@ void TimeMoneyUi::Update(float dt)
 			isdow = Utils::TostringDOW(th);
 			Reset();
 			minuteTimer = 0;
+		}
+	}
+	else
+	{
+		if (InputMgr::GetKeyDown(sf::Keyboard::Escape))
+		{
+			ampm = false;
+			hour = 6;
+			minute = 00;
+			isTimer = true;
 		}
 	}
 }

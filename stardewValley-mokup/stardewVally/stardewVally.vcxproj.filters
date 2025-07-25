@@ -126,6 +126,9 @@
     <ClInclude Include="TimeMoneyUi.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Scene\SceneHome.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HitBox.cpp">
@@ -225,6 +228,9 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="TimeMoneyUi.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\SceneHome.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

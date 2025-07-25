@@ -117,20 +117,6 @@ void SceneTest::Update(float dt)
 	if (InputMgr::GetKeyDown(sf::Keyboard::F9)) {
 		drawCollider = !drawCollider;
 	}
-
-	if (InputMgr::GetMouseButtonDown(sf::Mouse::Right))
-	{
-		std::cout << "player.x : " << player->GetPosition().x << std::endl;
-		std::cout << "player.y : " << player->GetPosition().y << std::endl;
-		std::cout << "worldView.x : " << worldView.getSize().x << std::endl;
-		std::cout << "worldView.y : " << worldView.getSize().y << std::endl;
-		std::cout << tile->GetLocalBounds().left << std::endl;
-		std::cout << tile->GetLocalBounds().width << std::endl;
-		std::cout << tile->GetLocalBounds().top << std::endl;
-		std::cout << tile->GetLocalBounds().height << std::endl;
-
-	}
-
 }
 
 void SceneTest::Draw(sf::RenderWindow& window)
