@@ -2,6 +2,7 @@
 #include "Shop.h"
 #include "itemDataMgr.h"
 #include "Item.h"
+#include "Inventory.h"
 
 Shop::Shop(const std::string& name)
 	: GameObject(name)
@@ -43,23 +44,7 @@ void Shop::SetOrigin(Origins preset)
 
 void Shop::Init()
 {
-	backgroundSprite.setTexture(TEXTURE_MGR.Get("graphics/shop_bg.png"));
-	backgroundSprite.setPosition({200.f, 100.f});
 
-	sf::Font& font = FONT_MGR.Get("fonts/main_font.tff");
-
-	itemNameText.setFont(font);
-	itemNameText.setCharacterSize(18);
-	itemNameText.setFillColor(sf::Color::White);
-
-	itemDescText.setFont(font);
-	itemDescText.setCharacterSize(14);
-	itemDescText.setFillColor(sf::Color(200, 200, 200));
-
-	itemPriceText.setFont(font);
-	itemPriceText.setCharacterSize(16);
-	itemPriceText.setFillColor(sf::Color::Yellow);
-	
 }
 
 void Shop::Release()
@@ -69,7 +54,11 @@ void Shop::Release()
 
 void Shop::Reset()
 {
+    backgroundSprite.setTexture(TEXTURE_MGR.Get("graphics/shop_bg.png"));
+    backgroundSprite.setPosition({ -160.f, -150.f });
+    backgroundSprite.setScale({3.f, 3.f});
 
+    font = FONT_MGR.Get("fonts/Stardew_Valley.ttf");
 }
 
 void Shop::Update(float dt)
@@ -78,26 +67,26 @@ void Shop::Update(float dt)
 
 void Shop::Draw(sf::RenderWindow& window)
 {
-	if (!isUiShow)
-		return;
+    if (!isUiShow)
+        return;
 
-	for (ItemSlot* slot : itemSlots)
-	{
-		slot->Draw(window);
-	}
+    window.draw(backgroundSprite);
+
+    for (size_t i = 0; i < shopItems.size(); ++i)
+    {
+        window.draw(itemSprites[i]);
+        window.draw(itemNameTexts[i]);
+        window.draw(itemDescTexts[i]);
+        window.draw(itemPriceTexts[i]);
+    }
 }
 
 void Shop::ShowUi()
 {
-	isUiShow = true;
-	SetPosition({ 200.f, 100.f }); 
+    isUiShow = true;
 
 	const std::vector<ItemInfo>& items = itemDataMgr::Instance().GetItem("Pierre's General Store");
-	CreateItemSlots(items);
-
-	itemNameText.setPosition({ GetPosition().x + 400.f, GetPosition().y + 50.f });
-	itemDescText.setPosition({ GetPosition().x + 400.f, GetPosition().y + 80.f });
-	itemPriceText.setPosition({ GetPosition().x + 400.f, GetPosition().y + 140.f });
+	LoadShopItems(items);
 }
 
 void Shop::CloseUi()
@@ -110,33 +99,55 @@ bool Shop::isUiShowing()
 	return isUiShow;
 }
 
-void Shop::CreateItemSlots(const std::vector<ItemInfo>& items)
+void Shop::LoadShopItems(const std::vector<ItemInfo>& items)
 {
-	for (ItemSlot* slot : itemSlots)
-	{
-		delete slot;
-	}
-	itemSlots.clear();
+    shopItems = items;
 
-	float x = GetPosition().x + 50.f;
-	float y = GetPosition().y + 50.f;
-	float spacingY = 80.f;
+    itemSprites.clear();
+    itemNameTexts.clear();
+    itemDescTexts.clear();
+    itemPriceTexts.clear();
 
-	for (int i = 0; i < items.size(); ++i)
-	{
-		const ItemInfo& info = items[i];
+    font = FONT_MGR.Get("fonts/Stardew_Valley.ttf");
 
-		Item* item = new Item(info);
-		item->Init();
-		item->Reset();
+    float x = GetPosition().x-100;
+    float y = GetPosition().y - 100;
+    float spacingY = 90.f;
 
-		ItemSlot* slot = new ItemSlot(info.itemTextureId, info.itemName);
-		slot->Init();
-		slot->Reset();
-		slot->SetPosition({ x,y + i * spacingY });
+    for (int i = 0; i < items.size(); ++i)
+    {
+        const ItemInfo& info = items[i];
 
-		slot->SetItem(item);
+        sf::Sprite sprite;
+        sprite.setTexture(TEXTURE_MGR.Get(info.itemTextureId));
+        sprite.setScale({2.5f,2.5f});
+        sprite.setPosition(x, y + i * spacingY);
+        itemSprites.push_back(sprite);
 
-		itemSlots.push_back(slot);
-	}
+        sf::Text nameText;
+        nameText.setFont(font);
+        nameText.setString(info.itemName);
+        nameText.setCharacterSize(18);
+        nameText.setFillColor(sf::Color::Black);
+        nameText.setPosition(x + 70.f, y + i * spacingY);
+        itemNameTexts.push_back(nameText);
+
+        sf::Text descText;
+        descText.setFont(font);
+        descText.setString(info.itemDes);
+        descText.setCharacterSize(14);
+        descText.setFillColor(sf::Color::Black);
+        descText.setPosition(x + 70.f, y + i * spacingY + 24.f);
+        itemDescTexts.push_back(descText);
+
+        sf::Text priceText;
+        priceText.setFont(font);
+        priceText.setString("price: " + std::to_string(info.price));
+        priceText.setCharacterSize(16);
+        priceText.setFillColor(sf::Color::Black);
+        priceText.setPosition(x + 70.f, y + i * spacingY + 48.f);
+        itemPriceTexts.push_back(priceText);
+    }
 }
+
+

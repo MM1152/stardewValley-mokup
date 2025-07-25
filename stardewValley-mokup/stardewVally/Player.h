@@ -3,6 +3,7 @@
 #include "stdafx.h"
 
 class NpcMgr;
+class Inventory;
 class Player : public Collider
 {
 protected:
@@ -16,6 +17,7 @@ protected:
 	int money = 500;
 	
 	NpcMgr* npcMgr = nullptr;
+	Inventory* inventory = nullptr;
 
 public:
 	void SetActive(bool a) { active = a; };
@@ -34,6 +36,9 @@ public:
 
 	void Update(float dt);
 	void Draw(sf::RenderWindow& window);
+
+	void SetInventory(Inventory* inven);
+	Inventory* GetInventory();
 
 	int GetMoney()
 	{

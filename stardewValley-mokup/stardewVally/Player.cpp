@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Player.h"
 #include "NpcMgr.h"
+#include "inventory.h"
 
 
 Player::Player(const std::string name)
@@ -124,11 +125,25 @@ void Player::Update(float dt)
         sprite.setPosition(position);
     }*/
 
+    if (InputMgr::GetKeyDown(sf::Keyboard::E)) {
+        inventory->SetActive(!inventory->GetActive());
+    }
+
 }
 
 void Player::Draw(sf::RenderWindow& window)
 {
 	window.draw(sprite);
+}
+
+void Player::SetInventory(Inventory* inven)
+{
+    this->inventory = inven;
+}
+
+Inventory* Player::GetInventory()
+{
+    return inventory;
 }
 
 

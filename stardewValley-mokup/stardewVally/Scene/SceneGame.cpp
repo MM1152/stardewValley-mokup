@@ -7,6 +7,8 @@
 #include "Shop.h"
 #include "Collider.h"
 #include "TimeMoneyUi.h"
+#include "Inventory.h"
+#include "QuickBar.h"
 
 SceneGame::SceneGame() 
 	: Scene(SceneIds::Game)
@@ -18,10 +20,13 @@ void SceneGame::Init()
 	texIds.push_back("graphics/testC.png");
 	texIds.push_back("graphics/npcTest.png");
 	texIds.push_back("graphics/uitest.png");
-	texIds.push_back("graphics/shopSlot_bg.png");
+	texIds.push_back("graphics/shop_bg.png");
+	texIds.push_back(INVEN_IMG_PATH"ItemSlot.png");
 
 	texIds.push_back("graphics/parsnip_seeds.png");
 	texIds.push_back("graphics/cauliflower_seeds.png");
+
+	texIds.push_back(INVEN_IMG_PATH"CraftImage.bmp");
 
 	worldView.setSize(FRAMEWORK.GetWindowSizeF());
 	worldView.setCenter({ FRAMEWORK.GetWindowSizeF().x / 2 , FRAMEWORK.GetWindowSizeF().y / 2 });
@@ -36,18 +41,27 @@ void SceneGame::Init()
 	fontIds.push_back("fonts/SDMisaeng.ttf");
 	fontIds.push_back("fonts/DOSGothic.ttf");
 	fontIds.push_back("fonts/DungGeunMo.ttf");
+	fontIds.push_back("fonts/Stardew_Valley.ttf");
+
+	inventory = new Inventory(INVEN_IMG_PATH"CraftImage.bmp");
+	quickBar = new QuickBar(INVEN_IMG_PATH"CraftImage.bmp");
+
+	inventory->sortingLayer = SortingLayers::UI;
+	quickBar->sortingLayer = SortingLayers::UI;
+	
+	AddGameObject(inventory);
+	AddGameObject(quickBar);
+	inventory->SetQuickBar(quickBar);
 
 	timemoney = (TimeMoneyUi*)AddGameObject(new TimeMoneyUi());
 	npc = new NpcMgr("Npc");
 	player = new Player("Player");
 
 	shop = new Shop("shop");
-	shop->Init();
-	shop->Reset();
 	AddGameObject(shop);
-	
 
 	player->SetNpcMgr(npc);    
+	player->SetInventory(inventory);
 	npc->SetPlayer(player);
 
 	AddGameObject(player);
@@ -68,6 +82,8 @@ void SceneGame::Init()
 			shop->CloseUi();
 		}
 		});
+
+
 //>>>>>>>>> Temporary merge branch 2
 
 	Scene::Init();
@@ -85,7 +101,6 @@ void SceneGame::Enter()
 	uiView.setSize(windowSize);
 	uiView.setCenter(windowSize * 0.5f);
 	Scene::Enter(); //push_back
-
 }
 
 void SceneGame::Exit()
