@@ -4,6 +4,8 @@
 
 class TileMap;
 class InputText;
+class Trigger;
+class Button;
 
 class MapToolScene : public Scene
 {
@@ -17,8 +19,14 @@ protected:
 
 	bool isTile = false;
 	bool drawCollider = false;
-	bool startDrawCollider = false;
+	bool startDraw = false;
+	bool drawTrigger = false;
+	bool isShowTriggerBox = false;
+
 	std::vector<sf::RectangleShape*> colliders;
+	std::vector<Trigger*> triggers;
+
+	std::vector<Button*> triggerTypeButton;
 
 	Map map;
 
@@ -41,7 +49,7 @@ protected:
 	sf::Vector2f mousePos;
 	sf::Vector2f texcoor[4];
 	sf::Vector2f dragStartPos;
-	sf::Vector2f drawColliderStartPos;
+	sf::Vector2f drawStartPos;
 
 	sf::RectangleShape mouseRect;
 	sf::RectangleShape rightBackGround;
@@ -61,5 +69,9 @@ public:
 	void DragToMoveScreen(float dt);
 
 	bool InArea(TileMap* tile, sf::Vector2i mousePos);
+	void SelectTile();
+	void DrawTile();
+	void DrawColliderBox();
+	void DrawTriggerBox();
 };
 

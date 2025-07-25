@@ -34,6 +34,16 @@ public:
 	void Update(float dt);
 	void Draw(sf::RenderWindow& window);
 
+	virtual sf::FloatRect GetLocalBounds() const
+	{
+		return sprite.getLocalBounds();
+	}
+
+	virtual sf::FloatRect GetGlobalBounds() const
+	{
+		return sprite.getGlobalBounds();
+	}
+
 	int GetMoney()
 	{
 		return money;

@@ -4,6 +4,8 @@
 #include "rapidcsv.h"
 #include "Button.h"
 #include "InputText.h"
+#include "Trigger.h"
+
 int MapToolScene::drawTileIdx = 0;
 
 MapToolScene::MapToolScene()
@@ -31,13 +33,38 @@ void MapToolScene::Init()
 	dragAreaRect.setSize({ 0,0 });
 #pragma region Buttons
 
+	triggerTypeButton.push_back(new Button(FONT_PATH"DOSGothic.ttf"));
+	triggerTypeButton[0]->SetTextColor(sf::Color::Black);
+	triggerTypeButton[0]->SetPosition({ FRAMEWORK.GetWindowSizeF().x / 2.f , FRAMEWORK.GetWindowSizeF().y / 2.f });
+	triggerTypeButton[0]->onClickFunc = [this]() {
+		triggers[triggers.size() - 1]->SetType(TriggerType::Door);
+		isShowTriggerBox = false;
+		drawTrigger = false;
+	};
+
+	Button* triggerButton = new Button(FONT_PATH"DOSGothic.ttf");
+	triggerButton->SetString("Trigger");
+	triggerButton->SetTextColor(sf::Color::Black);
+	triggerButton->SetPosition({ FRAMEWORK.GetWindowSizeF().x / 1.6f, 50.f });
+	triggerButton->onClickFunc = [this]() {
+		drawTrigger = true;
+		drawCollider = false;
+		startDraw = false;
+	};
+
+	triggerButton->sortingLayer = SortingLayers::UI;
+	AddGameObject(triggerButton);
+
+
 	Button* deleteBNT = new Button(FONT_PATH"DOSGothic.ttf");
 	deleteBNT->SetString("Delete");
 	deleteBNT->SetTextColor(sf::Color::Black);
 	deleteBNT->SetPosition({ FRAMEWORK.GetWindowSizeF().x / 1.2f , 0 });
 	deleteBNT->onClickFunc = [this]() {
 		cellData.idx = -1;
+		drawTrigger = false; 
 		drawCollider = false;
+		startDraw = false;
 		index = 0;
 	};
 	deleteBNT->sortingLayer = SortingLayers::UI;
@@ -48,8 +75,9 @@ void MapToolScene::Init()
 	buildingBNT->SetPosition({ FRAMEWORK.GetWindowSizeF().x / 1.37f , 0 });
 	buildingBNT->onClickFunc = [this]() {
 		drawTileIdx = 1;
+		drawTrigger = false;
 		drawCollider = false;
-		startDrawCollider = false;
+		startDraw = false;
 		tilemap1->SetTexture(GRAPHICS_PATH"building.png");
 		};
 	buildingBNT->sortingLayer = SortingLayers::UI;
@@ -61,7 +89,7 @@ void MapToolScene::Init()
 	tileBNT->onClickFunc = [this]() {
 		drawTileIdx = 0;
 		drawCollider = false;
-		startDrawCollider = false;
+		startDraw = false;
 		tilemap1->SetTexture("graphics/³óÀå(º½).bmp");
 		};
 	tileBNT->sortingLayer = SortingLayers::UI;
@@ -75,6 +103,7 @@ void MapToolScene::Init()
 		map.Save("MapData/"+ inputText->GetString() + ".csv", drawTile[0].GetTextureId(), drawTile[0].GetCellDatas(), drawTile[0].GetCellCount());
 		map.Save("MapData/" + inputText->GetString() + "forGround.csv", drawTile[1].GetTextureId(), drawTile[1].GetCellDatas(), drawTile[1].GetCellCount());
 		map.Save("MapData/" + inputText->GetString() + "collider.csv" , colliders);
+		map.Save("MapData/" + inputText->GetString() + "trigger.csv", triggers);
 		//Utils::SaveMapData("MapData/map1.csv" , drawTile[0].GetVaData(), drawTile[0].GetCellCount() , drawTile[0].GetTextureId());
 		//Utils::SaveMapData("MapData/map1_forGround.csv", drawTile[1].GetVaData(), drawTile[1].GetCellCount(), drawTile[1].GetTextureId());
 		};
@@ -86,6 +115,7 @@ void MapToolScene::Init()
 	colliderBNT->SetPosition({ FRAMEWORK.GetWindowSizeF().x / 1.2f , 50.f });
 	colliderBNT->onClickFunc = [this]() {
 		drawCollider = true;
+		drawTrigger = false;
 		index = -1;
 		};
 	colliderBNT->sortingLayer = SortingLayers::UI;
@@ -144,6 +174,13 @@ void MapToolScene::Enter()
 
 	drawTile[0].SetTexture("graphics/³óÀå(º½).bmp");
 	drawTile[1].SetTexture(GRAPHICS_PATH"building.png");
+
+	for (auto tri : triggerTypeButton) {
+		tri->Reset();
+	}
+
+	triggerTypeButton[0]->SetString("Door");
+
 }
 
 //FIX : ¹öÆ° Å¬¸¯½Ã Rectagle »ý¼ºµÇ´Â ¹ö±× ¼öÁ¤ ÇÊ¿ä
@@ -151,110 +188,30 @@ void MapToolScene::Update(float dt)
 {
 	mouseRect.setPosition((sf::Vector2f)InputMgr::GetMousePosition());
 	//drawTile[drawTileIdx].Update(dt);
+	if (!isShowTriggerBox) {
+		SelectTile();
+		DrawTile();
+		DrawColliderBox();
+		DrawTriggerBox();
+	}
+	
+
+	if (isShowTriggerBox) {
+		for (auto tri : triggerTypeButton) {
+			tri->Update(dt);
+		}
+	}
 
 	if (InputMgr::GetKeyDown(sf::Keyboard::Enter)) {
-		SCENE_MGR.ChangeScene(SceneIds::LoadMapTest);
+		SCENE_MGR.ChangeScene(SceneIds::Test);
 	}
 
-	if (InArea(tilemap1, InputMgr::GetMousePosition()) && InputMgr::GetMouseButton(sf::Mouse::Left) && isDragArea) {
-		int newX = (int)((int)(InputMgr::GetMousePosition().x - tilemap1->GetPosition().x)) / 16 * 4;
-		int newY = (int)((int)(InputMgr::GetMousePosition().y - tilemap1->GetPosition().y)) / 16 * 4;
-
-		if (prevX != newX || newY != prevY) {
-			cellDatas.clear();
-
-			prevX = newX;
-			prevY = newY;
-			
-			yRange = newY / 4 - yIndex / 4;
-			xRange = newX / 4 - xIndex / 4;
-			for (int i = 0; i <= yRange; i++) {
-				for (int j = 0; j <= xRange; j++) {
-					cellDatas.push_back(tilemap1->GetCellData((index / 4 + j) + (i * tilemap1->GetCellCount().x)));
-					std::cout << cellDatas[cellDatas.size() - 1].idx << std::endl;
-				}
-			}
-			std::cout << std::endl;
-			dragAreaRect.setSize({ 16.f * ((newX / 4) - (xIndex / 4) + 1), 16.f * ((newY / 4) - (yIndex / 4) + 1) });
-		}
-	}
-	if (InArea(&drawTile[drawTileIdx] , (sf::Vector2i)ScreenToWorld(InputMgr::GetMousePosition())) && index != -1 && InputMgr::GetMouseButton(sf::Mouse::Left)) {		
-		xIndex = (int)((int)(ScreenToWorld(InputMgr::GetMousePosition()).x - drawTile->GetPosition().x)) / 16 * 4;
-		yIndex = (int)((int)(ScreenToWorld(InputMgr::GetMousePosition()).y - drawTile->GetPosition().y)) / 16 * 4;
-		index = xIndex + drawTile[drawTileIdx].GetCellCount().x * yIndex;
-
-		if (cellDatas.size() == 1) {
-			drawTile[drawTileIdx].SetCellData(index / 4, cellData);
-		}
-		else if(cellDatas.size() >= 1){
-			int idx = 0;
-			for (int i = 0; i <= yRange; i++) {
-				for (int j = 0; j <= xRange; j++) {
-					if ((index / 4 + j) + (i * drawTile[drawTileIdx].GetCellCount().x) >= drawTile->GetCellCount().x * drawTile->GetCellCount().y) {
-						break;
-					}
-					drawTile[drawTileIdx].SetCellData((index / 4 + j) + (i * drawTile[drawTileIdx].GetCellCount().x), cellDatas[idx++]);
-				}
-			}
-		}
-	}
-	else if (InArea(tilemap1, InputMgr::GetMousePosition()) && InputMgr::GetMouseButtonDown(sf::Mouse::Left)) {
-		cellDatas.clear();
-		drawCollider = false;
-		isDragArea = true;
-		xIndex = (int)((int)(InputMgr::GetMousePosition().x - tilemap1->GetPosition().x)) / 16 * 4;
-		yIndex = (int)((int)(InputMgr::GetMousePosition().y - tilemap1->GetPosition().y)) / 16 * 4;
-		index = xIndex + tilemap1->GetCellCount().x * yIndex;
-			
-		prevX = xIndex;
-		prevY = yIndex;
-
-		cellData = tilemap1->GetCellData(index / 4);
-		
-		dragAreaStartPos = cellData.cellPosition[0] + tilemap1->GetPosition();
-		dragAreaRect.setSize({ 16, 16 });
-		dragAreaRect.setPosition(dragAreaStartPos);
-
-		cellDatas.push_back(tilemap1->GetCellData(index / 4));
-	}
-	else if(InputMgr::GetMouseButtonDown(sf::Mouse::Left)) {
-		index = -1;
-		prevX = -1;
-		prevY = -1;
-		dragAreaRect.setSize({ 0, 0 });
-	}
-
+	
 	if (InputMgr::GetMouseButtonUp(sf::Mouse::Left)) {
 		isDragArea = false;
 	}
-
-	if (InputMgr::GetMouseButtonDown(sf::Mouse::Left) && drawCollider) {
-		startDrawCollider = true;
-		colliders.push_back(new sf::RectangleShape());
-		colliders[colliders.size() - 1]->setFillColor(sf::Color::Transparent);
-		colliders[colliders.size() - 1]->setOutlineColor(sf::Color::Blue);
-		colliders[colliders.size() - 1]->setOutlineThickness(1.f);
-		drawColliderStartPos = ScreenToWorld(InputMgr::GetMousePosition());
-		colliders[colliders.size() - 1]->setPosition(drawColliderStartPos);
-	}
-	else if (InputMgr::GetMouseButton(sf::Mouse::Left) && startDrawCollider) {
-		sf::RectangleShape& col = *colliders[colliders.size() - 1];
-		sf::Vector2f mousePosition = ScreenToWorld(InputMgr::GetMousePosition());
-		col.setSize(mousePosition -  drawColliderStartPos);
-	}
-	else if (InputMgr::GetKey(sf::Keyboard::LControl) && InputMgr::GetKeyDown(sf::Keyboard::Z) && drawCollider){
-		if (colliders.size() > 0) {
-			delete colliders[colliders.size() - 1];
-			colliders.resize(colliders.size() - 1);
-		}
-	}
-	else if (InputMgr::GetMouseButtonUp(sf::Mouse::Left) && drawCollider && startDrawCollider) {
-		startDrawCollider = false;
-		if (colliders[colliders.size() - 1]->getSize().x == 0 || colliders[colliders.size() - 1]->getSize().y == 0) {
-			delete colliders[colliders.size() - 1];
-			colliders.resize(colliders.size() - 1);
-		}
-	}
+	
+	
 
 	DragToMoveScreen(dt);
 	Scene::Update(dt);
@@ -270,12 +227,22 @@ void MapToolScene::Draw(sf::RenderWindow& window)
 	for (auto col : colliders) {
 		window.draw(*col);
 	}
+	for (auto tri : triggers) {
+		tri->Draw(window);
+	}
+	
 
 	Scene::Draw(window);
 	window.draw(mouseRect);
 
 	window.setView(uiView);
 	window.draw(dragAreaRect);
+	if (isShowTriggerBox) {
+		for (auto type : triggerTypeButton) {
+			type->Draw(window);
+		}
+	}
+	
 
 	//drawTile[2].Draw();
 }
@@ -311,4 +278,146 @@ bool MapToolScene::InArea(TileMap* tile, sf::Vector2i mousePos)
 	bool height = mousePos.y - (tile->GetLocalBounds().height + tile->GetPosition().y) < 0;
 
 	return left && right && top && height;
+}
+
+void MapToolScene::SelectTile()
+{
+	if (InArea(tilemap1, InputMgr::GetMousePosition()) && InputMgr::GetMouseButton(sf::Mouse::Left) && isDragArea) {
+		int newX = (int)((int)(InputMgr::GetMousePosition().x - tilemap1->GetPosition().x)) / 16 * 4;
+		int newY = (int)((int)(InputMgr::GetMousePosition().y - tilemap1->GetPosition().y)) / 16 * 4;
+
+		if (prevX != newX || newY != prevY) {
+			cellDatas.clear();
+
+			prevX = newX;
+			prevY = newY;
+
+			yRange = newY / 4 - yIndex / 4;
+			xRange = newX / 4 - xIndex / 4;
+			for (int i = 0; i <= yRange; i++) {
+				for (int j = 0; j <= xRange; j++) {
+					cellDatas.push_back(tilemap1->GetCellData((index / 4 + j) + (i * tilemap1->GetCellCount().x)));
+					std::cout << cellDatas[cellDatas.size() - 1].idx << std::endl;
+				}
+			}
+			std::cout << std::endl;
+			dragAreaRect.setSize({ 16.f * ((newX / 4) - (xIndex / 4) + 1), 16.f * ((newY / 4) - (yIndex / 4) + 1) });
+		}
+	}
+
+}
+
+void MapToolScene::DrawTile()
+{
+	if (InArea(&drawTile[drawTileIdx], (sf::Vector2i)ScreenToWorld(InputMgr::GetMousePosition())) && index != -1 && InputMgr::GetMouseButton(sf::Mouse::Left)) {
+		xIndex = (int)((int)(ScreenToWorld(InputMgr::GetMousePosition()).x - drawTile->GetPosition().x)) / 16 * 4;
+		yIndex = (int)((int)(ScreenToWorld(InputMgr::GetMousePosition()).y - drawTile->GetPosition().y)) / 16 * 4;
+		index = xIndex + drawTile[drawTileIdx].GetCellCount().x * yIndex;
+
+		if (cellDatas.size() == 1) {
+			drawTile[drawTileIdx].SetCellData(index / 4, cellData);
+		}
+		else if (cellDatas.size() >= 1) {
+			int idx = 0;
+			for (int i = 0; i <= yRange; i++) {
+				for (int j = 0; j <= xRange; j++) {
+					if ((index / 4 + j) + (i * drawTile[drawTileIdx].GetCellCount().x) >= drawTile->GetCellCount().x * drawTile->GetCellCount().y) {
+						break;
+					}
+					drawTile[drawTileIdx].SetCellData((index / 4 + j) + (i * drawTile[drawTileIdx].GetCellCount().x), cellDatas[idx++]);
+				}
+			}
+		}
+	}
+	else if (InArea(tilemap1, InputMgr::GetMousePosition()) && InputMgr::GetMouseButtonDown(sf::Mouse::Left)) {
+		cellDatas.clear();
+		drawCollider = false;
+		isDragArea = true;
+		xIndex = (int)((int)(InputMgr::GetMousePosition().x - tilemap1->GetPosition().x)) / 16 * 4;
+		yIndex = (int)((int)(InputMgr::GetMousePosition().y - tilemap1->GetPosition().y)) / 16 * 4;
+		index = xIndex + tilemap1->GetCellCount().x * yIndex;
+
+		prevX = xIndex;
+		prevY = yIndex;
+
+		cellData = tilemap1->GetCellData(index / 4);
+
+		dragAreaStartPos = cellData.cellPosition[0] + tilemap1->GetPosition();
+		dragAreaRect.setSize({ 16, 16 });
+		dragAreaRect.setPosition(dragAreaStartPos);
+
+		cellDatas.push_back(tilemap1->GetCellData(index / 4));
+	}
+	else if (InputMgr::GetMouseButtonDown(sf::Mouse::Left)) {
+		index = -1;
+		prevX = -1;
+		prevY = -1;
+		dragAreaRect.setSize({ 0, 0 });
+	}
+
+}
+
+void MapToolScene::DrawColliderBox()
+{
+	if (drawCollider) {
+		if (InputMgr::GetMouseButtonDown(sf::Mouse::Left)) {
+			startDraw = true;
+			colliders.push_back(new sf::RectangleShape());
+			colliders[colliders.size() - 1]->setFillColor(sf::Color::Transparent);
+			colliders[colliders.size() - 1]->setOutlineColor(sf::Color::Blue);
+			colliders[colliders.size() - 1]->setOutlineThickness(1.f);
+			drawStartPos = ScreenToWorld(InputMgr::GetMousePosition());
+			colliders[colliders.size() - 1]->setPosition(drawStartPos);
+		}
+		else if (InputMgr::GetMouseButton(sf::Mouse::Left) && startDraw) {
+			sf::RectangleShape& col = *colliders[colliders.size() - 1];
+			sf::Vector2f mousePosition = ScreenToWorld(InputMgr::GetMousePosition());
+			col.setSize(mousePosition - drawStartPos);
+		}
+		else if (InputMgr::GetKey(sf::Keyboard::LControl) && InputMgr::GetKeyDown(sf::Keyboard::Z)) {
+			if (colliders.size() > 0) {
+				delete colliders[colliders.size() - 1];
+				colliders.resize(colliders.size() - 1);
+			}
+		}
+		else if (InputMgr::GetMouseButtonUp(sf::Mouse::Left) && startDraw) {
+			startDraw = false;
+			if (colliders[colliders.size() - 1]->getSize().x == 0 || colliders[colliders.size() - 1]->getSize().y == 0) {
+				delete colliders[colliders.size() - 1];
+				colliders.resize(colliders.size() - 1);
+			}
+		}
+	}
+}
+
+void MapToolScene::DrawTriggerBox()
+{
+	if (drawTrigger) {
+		if (InputMgr::GetMouseButtonDown(sf::Mouse::Left)) {
+			startDraw = true;
+			drawStartPos = ScreenToWorld(InputMgr::GetMousePosition());
+			triggers.push_back(new Trigger());
+			triggers[triggers.size() - 1]->Init();
+			triggers[triggers.size() - 1]->SetPosition(drawStartPos);
+		}
+		else if (InputMgr::GetMouseButton(sf::Mouse::Left) && startDraw) {
+			Trigger& tri = *triggers[triggers.size() - 1];
+			sf::Vector2f mousePosition = ScreenToWorld(InputMgr::GetMousePosition());
+			tri.SetSize(mousePosition - drawStartPos);
+		}
+		else if (InputMgr::GetKey(sf::Keyboard::LControl) && InputMgr::GetKeyDown(sf::Keyboard::Z) && drawTrigger) {
+			if (triggers.size() > 0) {
+				delete triggers[triggers.size() - 1];
+				triggers.resize(triggers.size() - 1);
+			}
+		}
+		else if (InputMgr::GetMouseButtonUp(sf::Mouse::Left) && startDraw) {
+			startDraw = false;
+			isShowTriggerBox = true;
+			if (triggers[triggers.size() - 1]->GetSize().x == 0 || triggers[triggers.size() - 1]->GetSize().y == 0) {
+				delete triggers[triggers.size() - 1];
+				triggers.resize(triggers.size() - 1);
+			}
+		}
+	}
 }

@@ -1,6 +1,6 @@
 #pragma once
 #include "stdafx.h"
-
+#include "Trigger.h"
 struct CellData {
 	sf::Vector2f cellTextCoord[4];
 	sf::Color cellColor[4];
@@ -24,22 +24,25 @@ private:
 	std::unordered_map<int, std::string> textures;
 
 	std::vector<sf::RectangleShape*> colliders;
+	std::vector<Trigger*> triggers;
 	void Reset(int size);
 
-	std::vector<sf::RectangleShape*>& LoadCollider(const std::string path);
-	std::vector<CellData>& Load(const std::string path, int layer);
-
+	void LoadCollider(const std::string path);
+	void Load(const std::string path, int layer);
+	void LoadTrigger(const std::string path);
 public:
 	int GetCellIndex(int idx , int layer);
 
 	void Load(const std::string path);
+	
 	void Save(const std::string path , std::string texId, std::vector<CellData>& cellData , sf::Vector2i count);
 	void Save(const std::string path, std::vector<sf::RectangleShape*>& colliderData);
+	void Save(const std::string path, std::vector<Trigger*>& triggerData);
 
 	std::string GetTextId(int layer) { return textures[layer]; };
 	std::vector<CellData>& GetCellData(int layer);
 	std::vector<sf::RectangleShape*>& GetColliders() { return colliders; };
-
+	std::vector<Trigger*>& GetTriggers() { return triggers; };
 
 	void Release();
 };

@@ -49,7 +49,6 @@ void SceneTest::Init()
 	//player & npc
 	player->SetNpcMgr(npc);
 
-
 	npc->SetPlayer(player);
 	AddGameObject(player);
 	AddGameObject(npc);
@@ -91,7 +90,18 @@ void SceneTest::Enter()
 	sf::Vector2f windowSize = FRAMEWORK.GetWindowSizeF();
 
 	Scene::Enter(); //push_back
-	map.Load(MAP_PATH"te");
+	map.Load(MAP_PATH"tes");
+
+
+	for (auto tri : map.GetTriggers()) {
+		tri->Reset();
+		tri->SetPlayer(player);
+		if (tri->GetType() == TriggerType::Door) {
+			tri->callback = [this]() {
+				SCENE_MGR.ChangeScene(SceneIds::Maptool);
+			};
+		}
+	}
 
 
 	tile->Set(map.GetTextId(0), map.GetCellData(0));
@@ -117,6 +127,9 @@ void SceneTest::Update(float dt)
 		drawCollider = !drawCollider;
 	}
 
+	for (auto tri : map.GetTriggers()) {
+		tri->Update(dt);
+	}
 }
 
 void SceneTest::Draw(sf::RenderWindow& window)
@@ -129,6 +142,10 @@ void SceneTest::Draw(sf::RenderWindow& window)
 		for (auto col : map.GetColliders())
 		{
 			window.draw(*col);
+		}
+
+		for (auto tri : map.GetTriggers()) {
+			tri->Draw(window);
 		}
 	}
 

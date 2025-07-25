@@ -16,18 +16,18 @@ int Map::GetCellIndex(int idx , int layer)
     return cell[layer][idx].idx;
 }
 
-std::vector<sf::RectangleShape*>& Map::LoadCollider(const std::string path)
+void Map::LoadCollider(const std::string path)
 {
     std::ifstream file(path);
     
     if (!file.good()) {
         std::cout << "FAIL TO LOAD FILE " << path << std::endl;
-        return colliders;
+        return;
     }
 
     rapidcsv::Document document(path);
 
-    if (document.GetRowCount() == 0) return colliders;
+    if (document.GetRowCount() == 0) return;
        
     
     for (int i = 0; i < document.GetRowCount(); i++) {
@@ -48,18 +48,18 @@ std::vector<sf::RectangleShape*>& Map::LoadCollider(const std::string path)
 }
 
 
-std::vector<CellData>& Map::Load(const std::string path , int layer)
+void Map::Load(const std::string path , int layer)
 {
     std::ifstream file(path);
     std::vector<CellData> data;
 
     if (!file.good()) {
         std::cout << "FAIL TO LOAD FILE " << path << std::endl;
-        return data;
+        return ;
     }
 
     rapidcsv::Document document(path);
-    if (document.GetRowCount() == 0) return data;
+    if (document.GetRowCount() == 0) return ;
 
     Reset(document.GetCell<int>(1, 0));
     textures[layer] = document.GetCell<std::string>(0, 0);
@@ -91,7 +91,37 @@ std::vector<CellData>& Map::Load(const std::string path , int layer)
             cell[layer][k++] = cellData;
         }
     }
-    return cell[layer];
+}
+
+void Map::LoadTrigger(const std::string path)
+{
+    std::ifstream file(path);
+
+    if (!file.good()) {
+        std::cout << "FAIL TO LOAD FILE " << path << std::endl;
+        return;
+    }
+
+    rapidcsv::Document document(path);
+
+    if (document.GetRowCount() == 0) return;
+
+
+    for (int i = 0; i < document.GetRowCount(); i++) {
+        auto cellData = document.GetCell<std::string>(0, i);
+
+        //0 1 size , 2 3 pos
+        auto split = Utils::Split(cellData, ',');
+        sf::Vector2f size = { std::stof(split[0]) , std::stof(split[1]) };
+        sf::Vector2f pos = { std::stof(split[2]) - 300.f, std::stof(split[3]) - 300.f };
+        int type = std::stoi(split[4]);
+
+        triggers.push_back(new Trigger());
+        triggers[triggers.size() - 1]->Reset();
+        triggers[triggers.size() - 1]->SetSize(size);
+        triggers[triggers.size() - 1]->SetPosition(pos);
+        triggers[triggers.size() - 1]->SetType((TriggerType)type);
+    }
 }
 
 void Map::Load(const std::string path)
@@ -99,6 +129,31 @@ void Map::Load(const std::string path)
     Load(path+".csv", 0);
     Load(path+"forGround.csv", 1);
     LoadCollider(path +"collider.csv");
+    LoadTrigger(path + "trigger.csv");
+}
+
+void Map::Save(const std::string path, std::vector<Trigger*>& triggerData) {
+    rapidcsv::Document doc;
+
+    for (int i = 0; i < triggerData.size(); i++) {
+        sf::Vector2f size = triggerData[i]->GetSize();
+        sf::Vector2f pos = triggerData[i]->GetPosition();
+        int type = (int)triggerData[i]->GetType();
+
+        
+        std::string data = std::to_string(size.x) + "," + std::to_string(size.y) + "," + std::to_string(pos.x) + "," + std::to_string(pos.y) + "," + std::to_string(type);
+
+        std::cout << data << std::endl;
+        doc.SetCell<std::string>(0, i, data);
+    }
+
+    std::ifstream file(path);
+    if (file.good()) {
+        std::cout << "REMOVE FILE" << std::endl;
+        remove(path.c_str());
+    }
+    std::cout << "CREATE FILE" << std::endl;
+    doc.Save(path);
 }
 
 void Map::Save(const std::string path, std::string texId, std::vector<CellData>& cellData, sf::Vector2i count)
