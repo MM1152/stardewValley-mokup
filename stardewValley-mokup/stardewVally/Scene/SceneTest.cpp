@@ -76,6 +76,7 @@ void SceneTest::Init()
 
 
 
+
 	Scene::Init();
 }
 
@@ -90,9 +91,18 @@ void SceneTest::Enter()
 	sf::Vector2f windowSize = FRAMEWORK.GetWindowSizeF();
 
 	Scene::Enter(); //push_back
-	map.Load(MAP_PATH"te");
+	map.Load(MAP_PATH"demo");
 
-
+	for (auto tri : map.GetTriggers()) {
+		tri->Init();
+		tri->SetPlayer(player);
+		if (tri->GetType() == TriggerType::Door) {
+			tri->callback = [this]() {
+				SCENE_MGR.ChangeScene(SceneIds::Home);
+			};
+		}
+	}
+	
 	tile->Set(map.GetTextId(0), map.GetCellData(0));
 	forGround->Set(map.GetTextId(1), map.GetCellData(1));
 
@@ -117,6 +127,9 @@ void SceneTest::Update(float dt)
 		drawCollider = !drawCollider;
 	}
 
+	for (auto tri : map.GetTriggers()) {
+		tri->Update(dt);
+	}
 }
 
 void SceneTest::Draw(sf::RenderWindow& window)

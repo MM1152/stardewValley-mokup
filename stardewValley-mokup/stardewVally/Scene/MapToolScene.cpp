@@ -4,6 +4,8 @@
 #include "rapidcsv.h"
 #include "Button.h"
 #include "InputText.h"
+#include "Trigger.h"
+
 int MapToolScene::drawTileIdx = 0;
 
 MapToolScene::MapToolScene()
