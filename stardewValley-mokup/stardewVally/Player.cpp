@@ -34,7 +34,7 @@ void Player::SetOrigin(const sf::Vector2f& o)
 
 void Player::Init()
 {
-	SetPosition({-50.f, -50.f});
+	SetPosition({100.f, 100.f});
 	Collider::Init();
 }
 
@@ -62,68 +62,6 @@ void Player::Update(float dt)
 	sf::Vector2f moveOffset(movement.x, movement.y);
 
 	Collider::areaBlocked(position, sprite, moveOffset);
-
-    /*if (npcMgr != nullptr)
-    {
-        sf::Vector2f npcPos = npcMgr->GetPosition();
-        sf::Vector2f npcSize = npcMgr->GetGlobalBounds().getSize();
-        sf::Vector2f playerSize = sprite.getGlobalBounds().getSize();
-
-        float nextPlayerX = position.x + moveOffset.x;
-        bool colliedX = false;
-
-        if (nextPlayerX < npcPos.x + npcSize.x &&
-            npcPos.x < nextPlayerX + playerSize.x &&
-            position.y < npcPos.y + npcSize.y &&
-            npcPos.y < position.y + playerSize.y)
-        {
-            if (moveOffset.x >= 0.f )
-            {
-                position.x = npcPos.x - playerSize.x;
-                std::cout << "npc colliding" << std::endl;
-            }
-            else if (moveOffset.x <= 0.f)
-            {
-                position.x = npcPos.x + playerSize.x;
-            }
-
-            moveOffset.x = 0.f;
-            colliedX = true;
-        }
-
-        float nextPlayerY = position.y + moveOffset.y;
-        bool colliedY = false;
-
-        if (position.x < npcPos.x + npcSize.x &&
-            npcPos.x < position.x + playerSize.x &&
-            nextPlayerY < npcPos.y + npcSize.y &&
-            npcPos.y < nextPlayerY + playerSize.y)
-        {
-            if (moveOffset.y >= 0.f)
-            {
-                position.y = npcPos.y - playerSize.y;
-            } 
-            else if (position.y <= 0.f)
-            {
-                position.y = npcPos.y + playerSize.y;
-            }
-    
-            moveOffset.y = 0.f;
-            colliedY = true;
-
-        }
-
-        if (!colliedX)
-        {
-            position.x += movement.x;
-        }
-        if (!colliedY)
-        {
-            position.y += movement.y;
-        }
-        sprite.setPosition(position);
-    }*/
-
 }
 
 void Player::Draw(sf::RenderWindow& window)

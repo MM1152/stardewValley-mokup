@@ -3,15 +3,14 @@
 #include "stdafx.h"
 
 class NpcMgr;
+
+
 class Player : public Collider
 {
 protected:
 
 	sf::Sprite sprite;
 	float speed = 100.f;
-	sf::RectangleShape shape;
-	sf::RectangleShape shape2;
-	std::vector<sf::RectangleShape> shapes;
 
 	int money = 500;
 	
@@ -34,6 +33,16 @@ public:
 
 	void Update(float dt);
 	void Draw(sf::RenderWindow& window);
+
+	virtual sf::FloatRect GetLocalBounds() const
+	{
+		return sprite.getLocalBounds();
+	}
+
+	virtual sf::FloatRect GetGlobalBounds() const
+	{
+		return sprite.getGlobalBounds();
+	}
 
 	int GetMoney()
 	{
