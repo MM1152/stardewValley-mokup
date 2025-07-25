@@ -49,6 +49,15 @@ public:
 	void SetTimer(TimeMoneyUi* time);
 	TimeMoneyUi* GetTimer();
 	
+	virtual sf::FloatRect GetLocalBounds() const
+	{
+		return sprite.getLocalBounds();
+	}
+
+	virtual sf::FloatRect GetGlobalBounds() const
+	{
+		return sprite.getGlobalBounds();
+	}
 
 	//player move
 	void ChangeisPlayer()

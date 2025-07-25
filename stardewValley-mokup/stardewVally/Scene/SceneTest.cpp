@@ -134,7 +134,7 @@ void SceneTest::Enter()
 		if (tri->GetType() == TriggerType::Door) {
 			tri->callback = [this]() {
 				std::cout << "¾À ¹Ù…f´Ù Home À¸·Î" << std::endl;
-				SCENE_MGR.ChangeScene(SceneIds::Game);
+				SCENE_MGR.ChangeScene(SceneIds::Maptool);
 			};
 		}
 	}
