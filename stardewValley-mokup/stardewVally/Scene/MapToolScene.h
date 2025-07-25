@@ -7,9 +7,6 @@ class InputText;
 class Trigger;
 class Button;
 
-enum class TriggerType {
-
-};
 
 class MapToolScene : public Scene
 {

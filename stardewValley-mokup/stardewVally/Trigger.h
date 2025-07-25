@@ -17,7 +17,7 @@ private:
 	Player* player;
 public:
 	std::function<void()> callback;
-
+		
 	Trigger(const std::string& name = "");
 	~Trigger() override = default;
 
