@@ -57,21 +57,6 @@ void NpcMgr::Reset()
 
 void NpcMgr::Update(float dt)
 {
-	//std::srand(static_cast<unsigned>(std::time(nullptr)));
-
-	////float axisX = (std::rand() % 3) - 1;
-	////float axisY = (std::rand() % 3) - 1;
-
-	//direction = sf::Vector2f(axisX, axisY);
-
-	//sf::Vector2f moveOffset = { axisX * speed * dt, axisY * speed * dt};
-
-	//if (isNpcMove)
-	//{
-	//	Collider::areaBlocked(position, npcSprite, moveOffset);
-	//	npcSprite.setPosition(position);
-	//}
-
 	playerRect.setPosition(player->GetPosition());
 	playerRect.setSize(player->GetGlobalBounds().getSize());
 
@@ -80,9 +65,8 @@ void NpcMgr::Update(float dt)
 	if (IsCollidingPlayer(playerRect))
 	{
 		std::cout << "npcÃæµ¹" << std::endl;
-		if (InputMgr::GetKeyDown(sf::Keyboard::Z)) //function's address 
+		if (InputMgr::GetKeyDown(sf::Keyboard::Z))
 		{
-			/*isNpcMove = false;*/
 			if (callback)
 			{
 				callback();

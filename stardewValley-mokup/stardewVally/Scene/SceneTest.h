@@ -6,6 +6,7 @@ class TimeMoneyUi;
 class Player;
 class NpcMgr;
 class Shop;
+class Collider;
 class TimeMoneyUi;
 class Map;
 
@@ -17,6 +18,7 @@ protected:
 	Player* player = nullptr;
 	NpcMgr* npc = nullptr;
 	Shop* shop = nullptr;
+	Collider* collider = nullptr;
 	TimeMoneyUi* timemoney = nullptr;
 	TileMap* tile;
 	TileMap* forGround;

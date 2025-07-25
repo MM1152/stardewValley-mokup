@@ -67,8 +67,8 @@ bool Collider::IsColliding(const sf::Sprite sprite)
 
 	for (const auto& shape : shapes)
 	{
-		sf::Vector2f rectPos = shape.getPosition();
-		sf::Vector2f rectSize = shape.getGlobalBounds().getSize();
+		sf::Vector2f rectPos = shape->getPosition();
+		sf::Vector2f rectSize = shape->getGlobalBounds().getSize();
 
 		if (characterPos.x < rectPos.x + rectSize.x &&
 			rectPos.x < characterPos.x + characterSize.x &&
@@ -88,8 +88,8 @@ bool Collider::IsColliding(const sf::FloatRect rect)
 
 	for (const auto& shape : shapes)
 	{
-		sf::Vector2f rectPos = shape.getPosition();
-		sf::Vector2f rectSize = shape.getGlobalBounds().getSize();
+		sf::Vector2f rectPos = shape->getPosition();
+		sf::Vector2f rectSize = shape->getGlobalBounds().getSize();
 
 		if (characterPos.x < rectPos.x + rectSize.x &&
 			rectPos.x < characterPos.x + characterSize.x &&
@@ -126,6 +126,16 @@ void Collider::areaBlocked(sf::Vector2f& position, sf::Sprite& sprite, const sf:
 			sprite.setPosition(position);
 			std::cout << "up&down Ãæµ¹" << std::endl;
 		}
+	}
+}
+
+void Collider::SetMap(Map* map)
+{
+	this->map = map;
+
+	for (sf::RectangleShape* col: map->GetColliders())
+	{
+		shapes.push_back(col);
 	}
 }
 

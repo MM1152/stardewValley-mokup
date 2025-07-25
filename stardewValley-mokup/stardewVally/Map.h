@@ -28,6 +28,7 @@ private:
 
 	std::vector<sf::RectangleShape*>& LoadCollider(const std::string path);
 	std::vector<CellData>& Load(const std::string path, int layer);
+
 public:
 	int GetCellIndex(int idx , int layer);
 

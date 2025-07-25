@@ -4,18 +4,18 @@
 
 class Map;
 
-class Collider :
-    public GameObject
+class Collider : public GameObject
 {
 protected:
 	sf::RectangleShape shape;
-	sf::RectangleShape shape2;
-	std::vector<sf::RectangleShape> shapes;
-	Map map;
+	std::vector<sf::RectangleShape*> shapes;
 
+	
 	
 
 public:
+	Map* map;
+
 	Collider(const std::string& name = "Collider");
 	virtual ~Collider() = default;
 
@@ -35,5 +35,6 @@ public:
 	bool IsColliding(const sf::FloatRect rect);
 
 	void areaBlocked(sf::Vector2f& position, sf::Sprite& sprite, const sf::Vector2f& moveOffset);
+	void SetMap(Map* map);
 };
 

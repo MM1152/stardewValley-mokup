@@ -15,8 +15,6 @@ SceneTest::SceneTest()
 
 void SceneTest::Init()
 {
-
-
 	texIds.push_back("graphics/testC.png");
 	texIds.push_back("graphics/npcTest.png");
 	texIds.push_back("graphics/uitest.png");
@@ -50,9 +48,12 @@ void SceneTest::Init()
 	AddGameObject(shop);
 	//player & npc
 	player->SetNpcMgr(npc);
+
+
 	npc->SetPlayer(player);
 	AddGameObject(player);
 	AddGameObject(npc);
+
 
 	itemDataMgr::Instance().LoadJson("data/Item.json");
 	drawCollider = true;
@@ -82,7 +83,7 @@ void SceneTest::Init()
 void SceneTest::Enter()
 {
 	FRAMEWORK.GetWindow().setMouseCursorVisible(true);
-	worldView.setSize({ FRAMEWORK.GetWindowSizeF().x / 2, FRAMEWORK.GetWindowSizeF().y / 2});
+	worldView.setSize({ FRAMEWORK.GetWindowSizeF().x / 7, FRAMEWORK.GetWindowSizeF().y / 6});
 	
 	uiView.setSize(FRAMEWORK.GetWindowSizeF());
 	uiView.setCenter({ FRAMEWORK.GetWindowSizeF().x / 2 , FRAMEWORK.GetWindowSizeF().y / 2 });
@@ -90,11 +91,13 @@ void SceneTest::Enter()
 	sf::Vector2f windowSize = FRAMEWORK.GetWindowSizeF();
 
 	Scene::Enter(); //push_back
-	map.Load(MAP_PATH"");
+	map.Load(MAP_PATH"te");
 
 
 	tile->Set(map.GetTextId(0), map.GetCellData(0));
 	forGround->Set(map.GetTextId(1), map.GetCellData(1));
+
+	player->SetMap(&map);
 }
 
 void SceneTest::Exit()
@@ -106,7 +109,7 @@ void SceneTest::Exit()
 void SceneTest::Update(float dt)
 {
 	Scene::Update(dt);
-	worldView.setCenter(player->GetPosition());
+	worldView.setCenter(player->GetPosition().x, player->GetPosition().y + 15);
 	timemoney->SettingMoney(player->GetMoney());
 	timemoney->ResetSettingMoney();
 
