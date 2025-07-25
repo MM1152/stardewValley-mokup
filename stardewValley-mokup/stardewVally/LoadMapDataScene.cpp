@@ -29,9 +29,10 @@ void LoadMapDataScene::Enter()
 	uiView.setCenter({ FRAMEWORK.GetWindowSizeF().x / 2 , FRAMEWORK.GetWindowSizeF().y / 2 });
 	Scene::Enter();
 
-	tile->Set(map.GetTextId() ,map.Load(MAP_PATH"map2.csv" , 0));
-	forGround->Set(map.GetTextId(), map.Load(MAP_PATH"map2forGround.csv", 1));
-	map.Load(MAP_PATH"map2collider.csv");
+	map.Load(MAP_PATH"map2");
+
+	tile->Set(map.GetTextId(0), map.GetCellData(0));
+	forGround->Set(map.GetTextId(1), map.GetCellData(1));
 	
 	//tile->Set(va, Utils::LoadTextureId());
 

@@ -20,21 +20,25 @@ struct CellData {
 class Map
 {
 private:
-	std::string texId;
 	std::unordered_map<int, std::vector<CellData>> cell;
+	std::unordered_map<int, std::string> textures;
+
 	std::vector<sf::RectangleShape*> colliders;
 	void Reset(int size);
 
+	std::vector<sf::RectangleShape*>& LoadCollider(const std::string path);
+	std::vector<CellData>& Load(const std::string path, int layer);
 public:
 	int GetCellIndex(int idx , int layer);
 
-	std::vector<sf::RectangleShape*>& Load(const std::string path);
-	std::vector<CellData>& Load(const std::string path , int layer);
+	void Load(const std::string path);
 	void Save(const std::string path , std::string texId, std::vector<CellData>& cellData , sf::Vector2i count);
 	void Save(const std::string path, std::vector<sf::RectangleShape*>& colliderData);
-	std::string GetTextId() { return texId; };
+
+	std::string GetTextId(int layer) { return textures[layer]; };
+	std::vector<CellData>& GetCellData(int layer);
+	std::vector<sf::RectangleShape*>& GetColliders() { return colliders; };
 
 	void Release();
-	std::vector<sf::RectangleShape*>& GetColliders() { return colliders; };
 };
 

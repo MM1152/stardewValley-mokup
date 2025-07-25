@@ -3,8 +3,6 @@
 
 void Map::Reset(int size)
 {
-    cell.clear();
-
     cell.insert({ 0 , std::vector<CellData>() });
     cell.insert({ 1 , std::vector<CellData>() });
 
@@ -18,7 +16,7 @@ int Map::GetCellIndex(int idx , int layer)
     return cell[layer][idx].idx;
 }
 
-std::vector<sf::RectangleShape*>& Map::Load(const std::string path)
+std::vector<sf::RectangleShape*>& Map::LoadCollider(const std::string path)
 {
     std::ifstream file(path);
     
@@ -49,6 +47,7 @@ std::vector<sf::RectangleShape*>& Map::Load(const std::string path)
     }
 }
 
+
 std::vector<CellData>& Map::Load(const std::string path , int layer)
 {
     std::ifstream file(path);
@@ -63,7 +62,7 @@ std::vector<CellData>& Map::Load(const std::string path , int layer)
     if (document.GetRowCount() == 0) return data;
 
     Reset(document.GetCell<int>(1, 0));
-    texId = document.GetCell<std::string>(0, 0);
+    textures[layer] = document.GetCell<std::string>(0, 0);
 
     int quadIndex = 0;
     int k = 0;
@@ -84,7 +83,6 @@ std::vector<CellData>& Map::Load(const std::string path , int layer)
                 cellData.cellTextCoord[2] = { (row[j] % row.size() + 1) * 16.f, (row[j] / row.size() + 1) * 16.f };
                 cellData.cellTextCoord[3] = { row[j] % row.size() * 16.f, (row[j] / row.size() + 1) * 16.f };
             }
-
             cellData.cellPosition[0] = { j * 16.f , (i - 1) * 16.f};
             cellData.cellPosition[1] = { (j + 1) * 16.f , (i - 1) * 16.f };
             cellData.cellPosition[2] = { (j + 1) * 16.f , (i) * 16.f };
@@ -92,10 +90,15 @@ std::vector<CellData>& Map::Load(const std::string path , int layer)
 
             cell[layer][k++] = cellData;
         }
-        
     }
-
     return cell[layer];
+}
+
+void Map::Load(const std::string path)
+{
+    Load(path+".csv", 0);
+    Load(path+"forGround.csv", 1);
+    LoadCollider(path +"collider.csv");
 }
 
 void Map::Save(const std::string path, std::string texId, std::vector<CellData>& cellData, sf::Vector2i count)
@@ -141,6 +144,11 @@ void Map::Save(const std::string path, std::vector<sf::RectangleShape*>& collide
     }
     std::cout << "CREATE FILE" << std::endl;
     doc.Save(path);
+}
+
+std::vector<CellData>& Map::GetCellData(int layer)
+{
+    return cell[layer];
 }
 
 void Map::Release()

@@ -166,7 +166,6 @@
     <ClInclude Include="SceneAnimator.h" />
     <ClInclude Include="SceneDev1.h" />
     <ClInclude Include="Scene\MapToolScene.h" />
-    <ClInclude Include="Scene\MapTool.h" />
     <ClInclude Include="Scene\SceneGame.h" />
     <ClInclude Include="Scene\SceneTest.h" />
     <ClInclude Include="Shop.h" />
@@ -205,7 +204,6 @@
     <ClCompile Include="Scene\SceneGame.cpp" />
     <ClCompile Include="Shop.cpp" />
     <ClCompile Include="Scene\SceneTest.cpp" />
-    <ClCompile Include="Scene\MapTool.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>

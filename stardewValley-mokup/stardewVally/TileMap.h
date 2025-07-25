@@ -58,7 +58,7 @@ public:
 
 	void SetTexture(const std::string tex);
 	void SetScene(Scene* scene) { this->scene = scene; };
-	sf::VertexArray& GetVaData() { return va; };
+
 	sf::Vector2i GetCellCount() { return cellCount; };
 	std::string GetTextureId() { return spriteSheetId; };
 
