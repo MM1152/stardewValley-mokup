@@ -13,6 +13,7 @@ protected:
 	bool isPlayer = true;
 	bool openInven = false;
 	bool openShop = false;
+	bool fainting = false;
 
 	sf::Sprite sprite;
 	float speed = 100.f;
@@ -48,6 +49,8 @@ public:
 	void SetTimer(TimeMoneyUi* time);
 	TimeMoneyUi* GetTimer();
 	
+
+	//player move
 	void ChangeisPlayer()
 	{
 		isPlayer = !isPlayer;
@@ -56,6 +59,7 @@ public:
 	{
 		return isPlayer;
 	}
+	//openinventory
 	void ChangeOpenInven()
 	{
 		openInven = !openInven;
@@ -64,6 +68,7 @@ public:
 	{
 		return openInven;
 	}
+	//openshop
 	void ChangeOpenShop()
 	{
 		openShop = !openShop;
@@ -71,6 +76,15 @@ public:
 	bool GetOpenShop()
 	{
 		return openShop;
+	}
+	//player fainting
+	void ChangeFainting()
+	{
+		fainting = !fainting;
+	}
+	bool GetFainting()
+	{
+		return fainting;
 	}
 
 

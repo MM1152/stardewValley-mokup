@@ -154,10 +154,14 @@ void Player::Update(float dt)
 		}
 	}
 
-	//bed >> next Day!
-	if (InputMgr::GetKeyDown(sf::Keyboard::Return))
+	if (!openShop && !openInven && fainting)
 	{
-		timemoneyui->Changeth();
+		if (InputMgr::GetKeyDown(sf::Keyboard::Return))
+		{
+			timemoneyui->Changeth();
+			isPlayer = true;
+			fainting = false;
+		}
 	}
 }
 

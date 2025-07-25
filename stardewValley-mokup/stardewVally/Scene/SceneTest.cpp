@@ -53,27 +53,32 @@ void SceneTest::Init()
 
 	inventory = new Inventory(INVEN_IMG_PATH"CraftImage.bmp");
 	quickBar = new QuickBar(INVEN_IMG_PATH"CraftImage.bmp");
-
+	npc = new NpcMgr("Npc");
+	player = new Player("Player");
+	timemoney = new TimeMoneyUi("TimeMoney");
+	shop = new Shop("shop");
 	
 	AddGameObject(inventory);
 	AddGameObject(quickBar);
 	inventory->SetQuickBar(quickBar);
 
 	//TimeMoney
-	timemoney = (TimeMoneyUi*)AddGameObject(new TimeMoneyUi());
-	npc = new NpcMgr("Npc");
-	player = new Player("Player");
+
+	timemoney->Setplayer(player);
+	AddGameObject(timemoney);
+	
 	//shop
-	shop = new Shop("shop");
 	shop->Init();
 	shop->Reset();
 	AddGameObject(shop);
 	//player & npc
+
 	player->SetNpcMgr(npc);
 	player->SetInventory(inventory);
 	player->SetTimer(timemoney);
 	npc->SetPlayer(player);
 	npc->SetTimer(timemoney);
+	npc->SetInventory(inventory);
 	AddGameObject(player);
 	AddGameObject(npc);
 

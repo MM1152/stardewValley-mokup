@@ -2,6 +2,7 @@
 #include "NpcMgr.h"
 #include "Player.h"
 #include "TimeMoneyUi.h"
+#include "Inventory.h"
 
 NpcMgr::NpcMgr(const std::string& name)
 	: Collider(name)
@@ -72,6 +73,7 @@ void NpcMgr::Update(float dt)
 				player->ChangeOpenShop();
 				player->ChangeisPlayer();
 				timemoneyui->ChangeTimer();
+				inventory->SetActive(!inventory->GetActive());
 				if (callback)
 				{
 					callback();
@@ -86,6 +88,7 @@ void NpcMgr::Update(float dt)
 			player->ChangeOpenShop();
 			player->ChangeisPlayer();
 			timemoneyui->ChangeTimer();
+			inventory->SetActive(!inventory->GetActive());
 			if (callback)
 			{
 				callback();
@@ -141,4 +144,11 @@ TimeMoneyUi* NpcMgr::GetTimer()
 	return timemoneyui;
 }
 
-
+void NpcMgr::SetInventory(Inventory* inven)
+{
+	inventory = inven;
+}
+Inventory* NpcMgr::GetInventory()
+{
+	return inventory;
+}

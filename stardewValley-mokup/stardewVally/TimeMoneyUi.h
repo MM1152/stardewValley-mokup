@@ -1,6 +1,8 @@
 #pragma once
 #include "GameObject.h"
 
+class Player;
+
 class TimeMoneyUi : public GameObject
 {
 	enum class SeasonType
@@ -78,6 +80,7 @@ protected:
 	float minuteTimer = 0.f;
 	float minuteMaxTimer = 0.1f;
 
+	Player* player;
 
 public:
 	TimeMoneyUi(const std::string& name = "");
@@ -113,25 +116,9 @@ public:
 		isTimer = !isTimer;
 	}
 
-	void Changeth()
-	{
-		if (!ampm && hour <= 2 || !ampm && hour == 12)
-		{
-			hour = 6;
-			minute = 0;
-			isTimer = true;
-		}
-		else
-		{
-			th += 1;
-			hour = 6;
-			minute = 0;
-			isTimer = true;
-			if (th > 28)
-			{
-				th = 1;
-			}
-		}
-	}
+	void Changeth();
+
+	void Setplayer(Player* player);
+	Player* GetPlayer();
 };
 

@@ -4,6 +4,7 @@
 class Player;
 class Shop;
 class TimeMoneyUi;
+class Inventory;
 
 class NpcMgr : public Collider
 {
@@ -18,6 +19,7 @@ protected:
 	Player* player = nullptr;
 	Shop* shop;
 	TimeMoneyUi* timemoneyui = nullptr;
+	Inventory* inventory = nullptr;
 
 	std::function<void()> callback;
 
@@ -45,5 +47,8 @@ public:
 
 	void SetTimer(TimeMoneyUi* time);
 	TimeMoneyUi* GetTimer();
+
+	void SetInventory(Inventory* inven);
+	Inventory* GetInventory();
 };
 

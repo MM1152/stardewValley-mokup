@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "TimeMoneyUi.h"
+#include "Player.h"
 
 TimeMoneyUi::TimeMoneyUi(const std::string& name)
 	: GameObject(name)
@@ -107,7 +108,7 @@ void TimeMoneyUi::Reset()
 void TimeMoneyUi::Update(float dt)
 {
 	// Time
-	if (isTimer)
+	if (isTimer && !player->GetFainting())
 	{
 		minuteTimer += dt;
 		if (minuteTimer > minuteMaxTimer)
@@ -137,7 +138,8 @@ void TimeMoneyUi::Update(float dt)
 				if (!ampm && hour == 2)
 				{
 					isTimer = false;
-					//player fainting change
+					player->ChangeFainting();
+					player->ChangeisPlayer();
 				}
 			}
 			istime = Utils::TostringTime(hour, minute);
@@ -582,4 +584,34 @@ void TimeMoneyUi::ResetSettingMoney()
 	n6 = -1;
 	n7 = -1;
 	n8 = -1;
+}
+
+void TimeMoneyUi::Changeth()
+{
+	if (!ampm && hour <= 2 || !ampm && hour == 12)
+	{
+		hour = 6;
+		minute = 0;
+		isTimer = true;
+	}
+	else
+	{
+		th += 1;
+		hour = 6;
+		minute = 0;
+		isTimer = true;
+		if (th > 28)
+		{
+			th = 1;
+		}
+	}
+}
+
+void TimeMoneyUi::Setplayer(Player* player)
+{
+	this->player = player;
+}
+Player* TimeMoneyUi::GetPlayer()
+{
+	return player;
 }
