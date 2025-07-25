@@ -94,7 +94,7 @@ void SceneTest::Enter()
 
 
 	for (auto tri : map.GetTriggers()) {
-		tri->Reset();
+		tri->Init();
 		tri->SetPlayer(player);
 		if (tri->GetType() == TriggerType::Door) {
 			tri->callback = [this]() {
