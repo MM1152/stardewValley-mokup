@@ -8,6 +8,9 @@ private:
 	static std::mt19937 gen;
 	static const float PI;
 
+	static sf::VertexArray va;
+	static std::string texId;
+
 public:
 	static void Init();
 
@@ -77,6 +80,10 @@ public:
 		return str;
 	}
 
+	static bool SaveMapData(const std::string filePath ,sf::VertexArray& va , sf::Vector2i count , const std::string textureId);
+	static sf::VertexArray& LoadMapData(const std::string filePath);
+	static std::string LoadTextureId();
+	static std::vector<std::string> Split(std::string word , const char spilitWord);
 	static std::string TostringTime(int h, int m)
 	{
 		std::string str;

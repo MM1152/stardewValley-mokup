@@ -1,9 +1,12 @@
 #include "stdafx.h"
+#include <sstream>
 #include "Utils.h"
 
 std::random_device Utils::rd;
 std::mt19937 Utils::gen;
 const float Utils::PI = acosf(-1.f);
+sf::VertexArray Utils::va;
+std::string Utils::texId;
 
 void Utils::Init()
 {
@@ -345,4 +348,119 @@ bool Utils::PolygonsIntersect(const std::vector<sf::Vector2f>& polygonA, const s
         }
     }
     return true;
+}
+
+bool Utils::SaveMapData(const std::string filePath , sf::VertexArray& va , sf::Vector2i count , const std::string textureId)
+{
+    rapidcsv::Document doc;
+    int plusIdx = 1;
+    
+    doc.SetCell<std::string>(0, 0 , textureId);
+    doc.SetCell<int>(1, 0, va.getVertexCount());
+    for (int i = 0; i < count.y; i++) {
+        std::vector<std::string> texCoor;
+        for (int j = 0; j < count.x; j++) {
+            int quadIndex = i * count.x + j;
+
+            for (int k = 0; k < 4; k++) {
+                int vertexIndex = quadIndex * 4 + k;    
+                std::string str = std::to_string(va[vertexIndex].texCoords.x) + "," + std::to_string(va[vertexIndex].texCoords.y);
+                texCoor.push_back(str);
+            }
+        }
+        doc.SetRow<std::string>(plusIdx++, texCoor);
+    }
+
+    plusIdx++; 
+
+    for (int i = 0; i < count.y; i++) {
+        std::vector<std::string> pos;
+        for (int j = 0; j < count.x; j++) {
+            int quadIndex = i * count.x + j;
+
+            for (int k = 0; k < 4; k++) {
+                int vertexIndex = quadIndex * 4 + k;
+                std::string str = std::to_string(va[vertexIndex].position.x) + "," + std::to_string(va[vertexIndex].position.y);
+                pos.push_back(str);
+            }
+        }
+        doc.SetRow<std::string>(plusIdx++, pos);
+    }
+
+    std::ifstream file(filePath);
+    if (file.good()) {
+        std::cout << "REMOVE FILE" << std::endl;
+        remove(filePath.c_str());
+    }
+    std::cout << "CREATE FILE" << std::endl;
+    doc.Save(filePath);
+
+    return true;
+}
+
+sf::VertexArray& Utils::LoadMapData(const std::string filePath)
+{
+    std::ifstream file(filePath);
+    
+    if (!file.good()) {
+        std::cout << "FAIL TO LOAD FILE " << filePath << std::endl;
+        return va;
+    }
+    rapidcsv::Document document(filePath);
+    if (document.GetRowCount() == 0) return va;
+  
+    va.clear();
+    va.resize(document.GetCell<int>(1,0));
+    texId = document.GetCell<std::string>(0, 0);
+
+    int quadIndex = 0;
+    int i = 1;
+    for (i; i < document.GetRowCount(); i++) {
+        auto row = document.GetRow<std::string>(i);
+        if (row[0] == "") break;
+        for (int j = 0; j < row.size(); j++) {
+            std::vector<std::string> splitword = Split(row[j], ',');
+            va[quadIndex++].texCoords = { std::stof(splitword[0]) , std::stof(splitword[1])};
+        }
+    }
+
+    i++;
+    quadIndex = 0;
+    for (i; i < document.GetRowCount(); i++) {
+        auto row = document.GetRow<std::string>(i);
+        for (int j = 0; j < row.size(); j++) {
+            std::vector<std::string> splitword = Split(row[j], ',');
+            va[quadIndex++].position = { std::stof(splitword[0]) , std::stof(splitword[1]) };
+        }
+    }
+
+    return va;
+}
+
+std::string Utils::LoadTextureId()
+{
+    return texId;
+}
+
+std::vector<std::string> Utils::Split(std::string word, const char spilitWord)
+{
+    std::vector<std::string> splits;
+    std::string split;
+
+    auto findIter = word.begin();
+
+    while (findIter != word.end()) {
+        if (spilitWord == *findIter) {
+            splits.push_back(split);
+            findIter++;
+            split.clear();
+            continue;
+        }
+        split += *(findIter++);
+    }
+
+    splits.push_back(split);
+    
+
+    return splits;
 }

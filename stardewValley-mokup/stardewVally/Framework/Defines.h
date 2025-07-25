@@ -4,7 +4,8 @@
 #define INVEN_IMG_PATH "InventoryImg/"
 #define ITEM_IMG_PATH "ItemImg/"
 #define FONT_PATH "Font/"
-
+#define MAP_PATH "MapData/"
+#define GRAPHICS_PATH "graphics/"
 enum class SortingLayers
 {
 	Background,
@@ -24,12 +25,12 @@ enum class Origins
 enum class SceneIds
 {
 	None = -1,
-	Maptool,
 	Test,
 	Game,
 	Dev1,
-	Dev2,
 	Animator,
+	Maptool,
+	LoadMapTest,
 	Count,
 };
 

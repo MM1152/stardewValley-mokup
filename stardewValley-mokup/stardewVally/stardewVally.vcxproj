@@ -151,6 +151,7 @@
     <ClInclude Include="Framework\TextGo.h" />
     <ClInclude Include="Framework\Utils.h" />
     <ClInclude Include="HitBox.h" />
+    <ClInclude Include="InputText.h" />
     <ClInclude Include="itemDataMgr.h" />
     <ClInclude Include="NpcMgr.h" />
     <ClInclude Include="Player.h" />
@@ -160,9 +161,11 @@
     <ClInclude Include="InventoryStstem\QuickBar.h" />
     <ClInclude Include="ItemInfo.h" />
     <ClInclude Include="InventoryStstem\QuickBar_Slot.h" />
+    <ClInclude Include="LoadMapDataScene.h" />
+    <ClInclude Include="Map.h" />
     <ClInclude Include="SceneAnimator.h" />
     <ClInclude Include="SceneDev1.h" />
-    <ClInclude Include="Scene\MapTool.h" />
+    <ClInclude Include="Scene\MapToolScene.h" />
     <ClInclude Include="Scene\SceneGame.h" />
     <ClInclude Include="Scene\SceneTest.h" />
     <ClInclude Include="Shop.h" />
@@ -183,21 +186,24 @@
     <ClCompile Include="Framework\TextGo.cpp" />
     <ClCompile Include="Framework\Utils.cpp" />
     <ClCompile Include="HitBox.cpp" />
+    <ClCompile Include="InputText.cpp" />
     <ClCompile Include="InventoryStstem\Inventory.cpp" />
     <ClCompile Include="InventoryStstem\Item.cpp" />
     <ClCompile Include="InventoryStstem\ItemSlot.cpp" />
     <ClCompile Include="InventoryStstem\QuickBar.cpp" />
-    <ClCompile Include="itemDataMgr.cpp" />
+    <ClCompile Include="LoadMapDataScene.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="itemDataMgr.cpp" />
     <ClCompile Include="NpcMgr.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="InventoryStstem\QuickBar_Slot.cpp" />
+    <ClCompile Include="Map.cpp" />
     <ClCompile Include="SceneAnimator.cpp" />
     <ClCompile Include="SceneDev1.cpp" />
+    <ClCompile Include="Scene\MapToolScene.cpp" />
     <ClCompile Include="Scene\SceneGame.cpp" />
     <ClCompile Include="Shop.cpp" />
     <ClCompile Include="Scene\SceneTest.cpp" />
-    <ClCompile Include="Scene\MapTool.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>

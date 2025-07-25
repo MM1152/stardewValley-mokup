@@ -19,15 +19,15 @@ void Button::Release()
 
 void Button::Reset()
 {
+	
+	text.setFont(FONT_MGR.Get(fontId));
 	if (!texId.empty()) {
 		bnt.setTexture(&TEXTURE_MGR.Get(texId));
 	}
 	else {
-		bnt.setSize({100, 100});
+		//bnt.setSize({ 100.f, (float)text.getCharacterSize() });
 	}
 
-	text.setFont(FONT_MGR.Get(fontId));
-	
 }
 
 void Button::Update(float dt)
@@ -55,7 +55,7 @@ void Button::SetPosition(const sf::Vector2f& pos)
 {
 	position = pos;
 	bnt.setPosition(pos);
-	text.setPosition({pos.x + bnt.getLocalBounds().width / 2 , pos.y + bnt.getLocalBounds().height / 2});
+	text.setPosition(pos);
 }
 
 void Button::SetRotation(float rot)
@@ -86,7 +86,7 @@ void Button::SetOrigin(Origins preset)
 void Button::SetString(const std::string word)
 {
 	text.setString(word);
-	Utils::SetOrigin(text, textOrigin);
+	bnt.setSize({(float)word.size() * text.getCharacterSize() * 0.5f, (float)text.getCharacterSize() });
 }
 
 void Button::SetTextColor(sf::Color color)

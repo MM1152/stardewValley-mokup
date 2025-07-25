@@ -1,36 +1,41 @@
 #include "stdafx.h"
 #include "SceneMgr.h"
-#include "MapTool.h"
+#include "SceneDev1.h"
 #include "SceneTest.h"
 #include "SceneGame.h"
 #include "SceneAnimator.h"
+#include "MapToolScene.h"
+#include "LoadMapDataScene.h"
 
 void SceneMgr::Init()
 {
-	scenes.push_back(new MapTool());
-	scenes.push_back(new SceneTest());
-	scenes.push_back(new SceneGame());
-	scenes.push_back(new SceneAnimator());
-
+	scenes.insert({ SceneIds::Dev1, new SceneDev1() });
+	scenes.insert({ SceneIds::Animator, new SceneAnimator() });
+	scenes.insert({ SceneIds::Maptool, new MapToolScene() });
+	scenes.insert({ SceneIds::LoadMapTest, new LoadMapDataScene() });
+	scenes.insert({ SceneIds::Test, new SceneTest() });
+	scenes.insert({ SceneIds::Game, new SceneGame() });
+	scenes.insert({ SceneIds::Animator, new SceneAnimator() });
+	
 	for (auto scene : scenes)
 	{
-		scene->Init();
+		scene.second->Init();
 	}
 
 	currentScene = startScene;
-	scenes[(int)currentScene]->Enter();
+	scenes[currentScene]->Enter();
 }
 
 void SceneMgr::Release()
 {
 	for (auto scene : scenes)
 	{
-		if (scene->Id == currentScene)
+		if (scene.second->Id == currentScene)
 		{
-			scene->Exit();
+			scene.second->Exit();
 		}
-		scene->Release();
-		delete scene;
+		scene.second->Release();
+		delete scene.second;
 	}
 	scenes.clear();
 }
@@ -44,16 +49,16 @@ void SceneMgr::Update(float dt)
 {
 	if (nextScene != SceneIds::None)
 	{
-		scenes[(int)currentScene]->Exit();
+		scenes[currentScene]->Exit();
 		currentScene = nextScene;
 		nextScene = SceneIds::None;
-		scenes[(int)currentScene]->Enter();
+		scenes[currentScene]->Enter();
 	}
 
-	scenes[(int)currentScene]->Update(dt);
+	scenes[currentScene]->Update(dt);
 }
 
 void SceneMgr::Draw(sf::RenderWindow& window)
 {
-	scenes[(int)currentScene]->Draw(window);
+	scenes[currentScene]->Draw(window);
 }
