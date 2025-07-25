@@ -34,7 +34,7 @@ void Player::SetOrigin(const sf::Vector2f& o)
 
 void Player::Init()
 {
-	SetPosition({100.f, 100.f});
+	SetPosition({208.f, 130.f});
 	Collider::Init();
 }
 

@@ -26,6 +26,7 @@ protected:
 	Map map;
 
 	bool drawCollider;
+
 public:
 	SceneTest();
 	~SceneTest() = default;
@@ -37,5 +38,8 @@ public:
 	void Update(float dt) override;
 
 	void Draw(sf::RenderWindow& window) override;
+
+
+	void CenterView();
 };
 

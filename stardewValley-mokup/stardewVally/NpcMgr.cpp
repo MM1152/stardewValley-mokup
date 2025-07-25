@@ -43,7 +43,7 @@ void NpcMgr::SetOrigin(Origins preset)
 void NpcMgr::Init()
 {
 	Collider::Init();
-	npcSprite.setPosition({0.f, 0.f});
+	npcSprite.setPosition({70.f, 150.f});
 }
 
 void NpcMgr::Release()

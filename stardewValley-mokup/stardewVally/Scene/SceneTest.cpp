@@ -67,14 +67,14 @@ void SceneTest::Init()
 			shop->CloseUi();
 		}
 		});
-	
+
 
 	tile = new TileMap(VertexType::Game);
 	forGround = new TileMap(VertexType::Game);
 	AddGameObject(tile);
 	AddGameObject(forGround);
 
-	
+
 
 	Scene::Init();
 }
@@ -82,26 +82,15 @@ void SceneTest::Init()
 void SceneTest::Enter()
 {
 	FRAMEWORK.GetWindow().setMouseCursorVisible(true);
-	worldView.setSize({ FRAMEWORK.GetWindowSizeF().x / 7, FRAMEWORK.GetWindowSizeF().y / 6});
-	
+	worldView.setSize({ FRAMEWORK.GetWindowSizeF().x / 7, FRAMEWORK.GetWindowSizeF().y / 6 });
+
 	uiView.setSize(FRAMEWORK.GetWindowSizeF());
 	uiView.setCenter({ FRAMEWORK.GetWindowSizeF().x / 2 , FRAMEWORK.GetWindowSizeF().y / 2 });
 
 	sf::Vector2f windowSize = FRAMEWORK.GetWindowSizeF();
 
 	Scene::Enter(); //push_back
-	map.Load(MAP_PATH"tes");
-
-
-	for (auto tri : map.GetTriggers()) {
-		tri->Init();
-		tri->SetPlayer(player);
-		if (tri->GetType() == TriggerType::Door) {
-			tri->callback = [this]() {
-				SCENE_MGR.ChangeScene(SceneIds::Maptool);
-			};
-		}
-	}
+	map.Load(MAP_PATH"te");
 
 
 	tile->Set(map.GetTextId(0), map.GetCellData(0));
@@ -119,7 +108,8 @@ void SceneTest::Exit()
 void SceneTest::Update(float dt)
 {
 	Scene::Update(dt);
-	worldView.setCenter(player->GetPosition().x, player->GetPosition().y + 15);
+	CenterView();
+
 	timemoney->SettingMoney(player->GetMoney());
 	timemoney->ResetSettingMoney();
 
@@ -127,14 +117,11 @@ void SceneTest::Update(float dt)
 		drawCollider = !drawCollider;
 	}
 
-	for (auto tri : map.GetTriggers()) {
-		tri->Update(dt);
-	}
 }
 
 void SceneTest::Draw(sf::RenderWindow& window)
 {
-	
+
 	Scene::Draw(window);
 	window.setView(worldView);
 	if (drawCollider)
@@ -149,4 +136,56 @@ void SceneTest::Draw(sf::RenderWindow& window)
 		}
 	}
 
+}
+
+void SceneTest::CenterView()
+{
+	// left view
+	if (player->GetPosition().x <= tile->GetLocalBounds().left + worldView.getSize().x / 2 &&
+		player->GetPosition().y <= tile->GetLocalBounds().top + worldView.getSize().y / 2)
+	{
+		worldView.setCenter(tile->GetLocalBounds().left + worldView.getSize().x / 2,
+			tile->GetLocalBounds().top + worldView.getSize().y / 2);
+	}
+	else if (player->GetPosition().x <= tile->GetLocalBounds().left + worldView.getSize().x / 2 &&
+		player->GetPosition().y >= tile->GetLocalBounds().height - worldView.getSize().y / 2)
+	{
+		worldView.setCenter(tile->GetLocalBounds().left + worldView.getSize().x / 2,
+			tile->GetLocalBounds().height - worldView.getSize().y / 2);
+	}
+	//right view
+	else if (player->GetPosition().x >= tile->GetLocalBounds().width - worldView.getSize().x / 2 &&
+		player->GetPosition().y <= tile->GetLocalBounds().top + worldView.getSize().y / 2)
+	{
+		worldView.setCenter(tile->GetLocalBounds().width - worldView.getSize().x / 2,
+			tile->GetLocalBounds().top + worldView.getSize().y / 2);
+	}
+	else if (player->GetPosition().x >= tile->GetLocalBounds().width - worldView.getSize().x / 2 &&
+		player->GetPosition().y >= tile->GetLocalBounds().height - worldView.getSize().y / 2)
+	{
+		worldView.setCenter(tile->GetLocalBounds().width - worldView.getSize().x / 2,
+			tile->GetLocalBounds().height - worldView.getSize().y / 2);
+	}
+	//x view
+	else if (player->GetPosition().x <= tile->GetLocalBounds().left + worldView.getSize().x / 2)
+	{
+		worldView.setCenter(tile->GetLocalBounds().left + worldView.getSize().x / 2, player->GetPosition().y);
+	}
+	else if (player->GetPosition().x >= tile->GetLocalBounds().width - worldView.getSize().x / 2)
+	{
+		worldView.setCenter(tile->GetLocalBounds().width - worldView.getSize().x / 2, player->GetPosition().y);
+	}
+	//y view
+	else if (player->GetPosition().y <= tile->GetLocalBounds().top + worldView.getSize().y / 2)
+	{
+		worldView.setCenter(player->GetPosition().x, tile->GetLocalBounds().top + worldView.getSize().y / 2);
+	}
+	else if (player->GetPosition().y >= tile->GetLocalBounds().height - worldView.getSize().y / 2)
+	{
+		worldView.setCenter(player->GetPosition().x, tile->GetLocalBounds().height - worldView.getSize().y / 2);
+	}
+	else
+	{
+		worldView.setCenter(player->GetPosition().x, player->GetPosition().y);
+	}
 }
