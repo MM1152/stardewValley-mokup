@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "NpcMgr.h"
 #include "Player.h"
+#include "TimeMoneyUi.h"
 
 NpcMgr::NpcMgr(const std::string& name)
 	: Collider(name)
@@ -43,7 +44,7 @@ void NpcMgr::SetOrigin(Origins preset)
 void NpcMgr::Init()
 {
 	Collider::Init();
-	npcSprite.setPosition({70.f, 150.f});
+	npcSprite.setPosition({ 70.f, 150.f });
 }
 
 void NpcMgr::Release()
@@ -61,18 +62,37 @@ void NpcMgr::Update(float dt)
 	playerRect.setSize(player->GetGlobalBounds().getSize());
 
 	player->SetPosition(playerRect.getPosition());
-
-	if (IsCollidingPlayer(playerRect))
+	if (!player->GetOpenInven())
 	{
-		std::cout << "npc충돌" << std::endl;
-		if (InputMgr::GetKeyDown(sf::Keyboard::Z))
+		if (IsCollidingPlayer(playerRect))
 		{
+			std::cout << "npc충돌" << std::endl;
+			if (InputMgr::GetKeyDown(sf::Keyboard::Z))
+			{
+				player->ChangeOpenShop();
+				player->ChangeisPlayer();
+				timemoneyui->ChangeTimer();
+				if (callback)
+				{
+					callback();
+				}
+			}
+		}
+	}
+	if (player->GetOpenShop())
+	{
+		if (InputMgr::GetKeyDown(sf::Keyboard::Escape))
+		{
+			player->ChangeOpenShop();
+			player->ChangeisPlayer();
+			timemoneyui->ChangeTimer();
 			if (callback)
 			{
 				callback();
 			}
 		}
 	}
+
 
 	sf::Vector2f playerPos = player->GetPosition();
 }
@@ -91,9 +111,9 @@ bool NpcMgr::IsCollidingPlayer(sf::RectangleShape playerRect)
 	sf::Vector2f rectSize = playerRect.getGlobalBounds().getSize();
 
 	return npcPos.x < rectPos.x + rectSize.x &&
-		   rectPos.x < npcPos.x + npcSize.x &&
-		   npcPos.y < rectPos.y + rectSize.y &&
-		   rectPos.y < npcPos.y + npcSize.y;
+		rectPos.x < npcPos.x + npcSize.x &&
+		npcPos.y < rectPos.y + rectSize.y &&
+		rectPos.y < npcPos.y + npcSize.y;
 }
 
 void NpcMgr::setCallBack(std::function<void()> cb)
@@ -111,6 +131,14 @@ sf::FloatRect NpcMgr::GetGlobalBounds()
 	return npcSprite.getGlobalBounds();
 }
 
+void NpcMgr::SetTimer(TimeMoneyUi* time)
+{
+	this->timemoneyui = time;
+}
 
+TimeMoneyUi* NpcMgr::GetTimer()
+{
+	return timemoneyui;
+}
 
 

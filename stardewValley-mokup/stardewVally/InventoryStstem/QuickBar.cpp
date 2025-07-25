@@ -9,7 +9,10 @@ QuickBar::QuickBar(const std::string& texId, const std::string& name)
 
 void QuickBar::Init()
 {
-	quickBar.setSize({530 , 60});
+	sortingLayer = SortingLayers::UI;
+	sortingOrder = 0;
+
+	quickBar.setSize({825 , 90});
 	
 	outLine.setFillColor(sf::Color::Transparent);
 	outLine.setOutlineColor(sf::Color::Red);
@@ -21,7 +24,7 @@ void QuickBar::Init()
 		quickBar_Slots[i]->Init();
 	}
 
-	outLine.setSize({40 , 50});
+	outLine.setSize({53 , 53});
 }
 
 void QuickBar::Release()
@@ -36,31 +39,36 @@ void QuickBar::Release()
 void QuickBar::Reset()
 {
 	quickBar.setTexture(&TEXTURE_MGR.Get(texId));
-	quickBar.setPosition({ FRAMEWORK.GetWindowSizeF().x * 0.125f , FRAMEWORK.GetWindowSizeF().y - 170.f });
+	quickBar.setPosition({ FRAMEWORK.GetWindowSizeF().x / 2 - 400.f , FRAMEWORK.GetWindowSizeF().y - 100.f });
 	
 	for (int i = 0; i < quickBar_Slots.size(); i++) {
 		quickBar_Slots[i]->Reset();
-		quickBar_Slots[i]->SetPosition({ quickBar.getPosition().x + (i * 40) + 20.f, quickBar.getPosition().y + 7.f});
+		quickBar_Slots[i]->SetPosition({ quickBar.getPosition().x + (i * 65) + 20.f, quickBar.getPosition().y + 13.f});
 	}
 	
-	outLine.setPosition(quickBar_Slots[0]->GetPosition());
+	outLine.setPosition(quickBar_Slots[0]->GetPosition().x + 9.f, 
+						quickBar_Slots[0]->GetPosition().y + 6.f);
 }
 
 void QuickBar::Update(float dt)
 {
 	if ((int)InputMgr::GetInputKey() >= 27 && (int)InputMgr::GetInputKey() <= 35) {
 		
-		outLine.setPosition(quickBar_Slots[(int)InputMgr::GetInputKey() - 27]->GetPosition());
+		outLine.setPosition(quickBar_Slots[(int)InputMgr::GetInputKey() - 27]->GetPosition().x + 9.f,
+							quickBar_Slots[(int)InputMgr::GetInputKey() - 27]->GetPosition().y + 6.f);
 	}
 
 	if (InputMgr::GetInputKey() == sf::Keyboard::Key::Num0) {
-		outLine.setPosition(quickBar_Slots[9]->GetPosition());
+		outLine.setPosition(quickBar_Slots[9]->GetPosition().x + 9.f,
+			quickBar_Slots[9]->GetPosition().y + 6.f);
 	}
 	if ((int)InputMgr::GetInputKey() == 56) {
-		outLine.setPosition(quickBar_Slots[10]->GetPosition());
+		outLine.setPosition(quickBar_Slots[10]->GetPosition().x + 9.f, 
+			quickBar_Slots[10]->GetPosition().y + 6.f);
 	}
 	if ((int)InputMgr::GetInputKey() == 55) {
-		outLine.setPosition(quickBar_Slots[11]->GetPosition());
+		outLine.setPosition(quickBar_Slots[11]->GetPosition().x + 9.f, 
+			quickBar_Slots[11]->GetPosition().y + 6.f);
 	}
 }
 

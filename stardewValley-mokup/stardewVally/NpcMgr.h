@@ -3,6 +3,8 @@
 
 class Player;
 class Shop;
+class TimeMoneyUi;
+
 class NpcMgr : public Collider
 {
 protected:
@@ -12,8 +14,10 @@ protected:
 
 	sf::RectangleShape playerRect;
 	sf::RectangleShape npcUiRect;
+
 	Player* player = nullptr;
 	Shop* shop;
+	TimeMoneyUi* timemoneyui = nullptr;
 
 	std::function<void()> callback;
 
@@ -38,5 +42,8 @@ public:
 	void setCallBack(std::function<void()> cb);
 	sf::RectangleShape GetPlayerRect();
 	sf::FloatRect GetGlobalBounds();
+
+	void SetTimer(TimeMoneyUi* time);
+	TimeMoneyUi* GetTimer();
 };
 

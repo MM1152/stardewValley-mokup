@@ -28,7 +28,7 @@ protected:
 
 	sf::Sprite ui;
 	std::string uiId = "graphics/½Ã°è.png";
-	
+
 	sf::Sprite weatherUi;
 	std::string weatherUiId = "graphics/³¯¾¾.bmp";
 
@@ -107,5 +107,31 @@ public:
 	void SettingMoney(int m);
 
 	void ResetSettingMoney();
+
+	void ChangeTimer()
+	{
+		isTimer = !isTimer;
+	}
+
+	void Changeth()
+	{
+		if (!ampm && hour <= 2 || !ampm && hour == 12)
+		{
+			hour = 6;
+			minute = 0;
+			isTimer = true;
+		}
+		else
+		{
+			th += 1;
+			hour = 6;
+			minute = 0;
+			isTimer = true;
+			if (th > 28)
+			{
+				th = 1;
+			}
+		}
+	}
 };
 

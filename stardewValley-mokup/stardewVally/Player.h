@@ -4,9 +4,15 @@
 
 class NpcMgr;
 class Inventory;
+class TimeMoneyUi;
+
 class Player : public Collider
 {
 protected:
+	//player move
+	bool isPlayer = true;
+	bool openInven = false;
+	bool openShop = false;
 
 	sf::Sprite sprite;
 	float speed = 100.f;
@@ -15,6 +21,8 @@ protected:
 	
 	NpcMgr* npcMgr = nullptr;
 	Inventory* inventory = nullptr;
+	TimeMoneyUi* timemoneyui = nullptr;
+
 
 public:
 	void SetActive(bool a) { active = a; };
@@ -34,22 +42,40 @@ public:
 	void Update(float dt);
 	void Draw(sf::RenderWindow& window);
 
-	virtual sf::FloatRect GetLocalBounds() const
-	{
-		return sprite.getLocalBounds();
-	}
-
-	virtual sf::FloatRect GetGlobalBounds() const
-	{
-		return sprite.getGlobalBounds();
-	}
-
 	void SetInventory(Inventory* inven);
 	Inventory* GetInventory();
+
+	void SetTimer(TimeMoneyUi* time);
+	TimeMoneyUi* GetTimer();
+	
+	void ChangeisPlayer()
+	{
+		isPlayer = !isPlayer;
+	}
+	bool GetisPlayer()
+	{
+		return isPlayer;
+	}
+	void ChangeOpenInven()
+	{
+		openInven = !openInven;
+	}
+	bool GetOpenInven()
+	{
+		return openInven;
+	}
+	void ChangeOpenShop()
+	{
+		openShop = !openShop;
+	}
+	bool GetOpenShop()
+	{
+		return openShop;
+	}
+
 
 	int GetMoney()
 	{
 		return money;
 	}
-
 };

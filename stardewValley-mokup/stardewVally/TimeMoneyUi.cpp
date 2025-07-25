@@ -146,16 +146,6 @@ void TimeMoneyUi::Update(float dt)
 			minuteTimer = 0;
 		}
 	}
-	else
-	{
-		if (InputMgr::GetKeyDown(sf::Keyboard::Escape))
-		{
-			ampm = false;
-			hour = 6;
-			minute = 00;
-			isTimer = true;
-		}
-	}
 }
 
 void TimeMoneyUi::Draw(sf::RenderWindow& window)
