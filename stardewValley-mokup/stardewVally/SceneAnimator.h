@@ -2,6 +2,7 @@
 #include "Scene.h"
 
 class Button;
+class InputText;
 class SceneAnimator : public Scene
 {
 protected:
@@ -10,6 +11,8 @@ protected:
 	sf::Texture texture;
 	sf::Sprite sprite;
 	sf::Sprite preview;
+
+	InputText* inputText;
 
 	sf::RectangleShape rightBackGround;
 
@@ -20,6 +23,7 @@ protected:
 	sf::Vector2f dragStartPos;
 
 	Button* loadBNT;
+	Button* saveBNT;
 
 	float timer = 0; 
 	float previewFrame = 30;
@@ -37,6 +41,6 @@ public:
 	void DragToMoveScreen(float dt);
 	void UndoRectangle();
 	void PreviewAnimation(float dt);
-	void DeleteRectangle();
+	void DeleteRectangle(const std::string saveData);
 };
 

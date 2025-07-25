@@ -67,23 +67,18 @@ public:
 	static bool PolygonsIntersect(const std::vector<sf::Vector2f>& polygonA, const sf::Transform& transformA,
 		const std::vector<sf::Vector2f>& polygonB, const sf::Transform& transformB);
 
-	// ToString
-	static std::string Tostring(sf::Vector2f vec)
-	{
-		std::string str;
-		str += "(";
-		str += std::to_string(vec.x);
-		str += ",";
-		str += std::to_string(vec.y);
-		str += ")";
 
-		return str;
-	}
-
-	static bool SaveMapData(const std::string filePath ,sf::VertexArray& va , sf::Vector2i count , const std::string textureId);
-	static sf::VertexArray& LoadMapData(const std::string filePath);
+	static bool LoadFile(const std::string path);
+	static void SaveFile(const std::string path);
 	static std::string LoadTextureId();
 	static std::vector<std::string> Split(std::string word , const char spilitWord);
+	
+	
+	
+	
+	
+	
+	
 	static std::string TostringTime(int h, int m)
 	{
 		std::string str;
@@ -101,7 +96,6 @@ public:
 
 		return str;
 	}
-
 	static std::string TostringDOW(int th)
 	{
 		std::string str;

@@ -5,6 +5,10 @@
 class TileMap;
 class InputText;
 
+enum class TriggerType {
+
+};
+
 class MapToolScene : public Scene
 {
 protected:
