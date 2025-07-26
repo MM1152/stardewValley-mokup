@@ -31,6 +31,7 @@ enum class SceneIds
 	Animator,
 	Maptool,
 	LoadMapTest,
+	ChangeTile,
 	Count,
 };
 

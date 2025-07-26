@@ -32,9 +32,17 @@ void Player::SetOrigin(const sf::Vector2f& o)
 	sprite.setOrigin(o);
 }
 
+void Player::SetOrigin(const Origins originPreset)
+{
+	GameObject::SetOrigin(this->originPreset);
+	this->originPreset = originPreset;
+	Utils::SetOrigin(sprite, originPreset);
+}
+
 void Player::Init()
 {
-	SetPosition({100.f, 100.f});
+	//Player Position값은 각 씬마다 달라져서 각 씬에서 초기 위치값 설정해서 사용해야합니다~ -민성-
+	//SetPosition({100.f, 100.f});
 	Collider::Init();
 }
 
@@ -45,6 +53,8 @@ void Player::Release()
 void Player::Reset()
 {
 	sprite.setTexture(TEXTURE_MGR.Get("graphics/testC.png"));
+	SetOrigin(Origins::BL);
+
 }
 
 void Player::Update(float dt)

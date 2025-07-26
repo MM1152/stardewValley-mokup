@@ -203,7 +203,7 @@ void MapToolScene::Update(float dt)
 	}
 
 	if (InputMgr::GetKeyDown(sf::Keyboard::Enter)) {
-		SCENE_MGR.ChangeScene(SceneIds::Test);
+		SCENE_MGR.ChangeScene(SceneIds::ChangeTile);
 	}
 
 	
@@ -288,7 +288,7 @@ void MapToolScene::SelectTile()
 
 		if (prevX != newX || newY != prevY) {
 			cellDatas.clear();
-
+			 
 			prevX = newX;
 			prevY = newY;
 
@@ -297,10 +297,8 @@ void MapToolScene::SelectTile()
 			for (int i = 0; i <= yRange; i++) {
 				for (int j = 0; j <= xRange; j++) {
 					cellDatas.push_back(tilemap1->GetCellData((index / 4 + j) + (i * tilemap1->GetCellCount().x)));
-					std::cout << cellDatas[cellDatas.size() - 1].idx << std::endl;
 				}
 			}
-			std::cout << std::endl;
 			dragAreaRect.setSize({ 16.f * ((newX / 4) - (xIndex / 4) + 1), 16.f * ((newY / 4) - (yIndex / 4) + 1) });
 		}
 	}
@@ -337,6 +335,8 @@ void MapToolScene::DrawTile()
 		yIndex = (int)((int)(InputMgr::GetMousePosition().y - tilemap1->GetPosition().y)) / 16 * 4;
 		index = xIndex + tilemap1->GetCellCount().x * yIndex;
 
+		std::cout << index / 4 << std::endl;
+		std::cout << cellData.cellTextCoord << std::endl;
 		prevX = xIndex;
 		prevY = yIndex;
 

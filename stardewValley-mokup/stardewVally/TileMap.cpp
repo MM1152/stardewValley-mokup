@@ -93,7 +93,8 @@ void TileMap::Set(const sf::Vector2i& count, const sf::Vector2f& size)
 
 void TileMap::Set(const std::string texId, std::vector<CellData>& cellData)
 {
-	std::cout << texId << std::endl;
+	this->cellData = cellData;
+
 	this->va.clear();
 	this->va.resize(cellData.size() * 4);
 	this->va.setPrimitiveType(sf::Quads);
@@ -283,6 +284,8 @@ void TileMap::SetTexture(const std::string texId)
 
 void TileMap::SetCellData(int idx, CellData& celldata)
 {
+	cellData[idx] = celldata;
+
 	if (celldata.idx == -1) {
 		va[idx * 4].color = sf::Color::Transparent;
 		va[idx * 4 + 1].color = sf::Color::Transparent;
@@ -292,8 +295,6 @@ void TileMap::SetCellData(int idx, CellData& celldata)
 		cellData[idx].idx = -1;
 		return;
 	}
-
-	cellData[idx] = celldata;
 
 	va[idx * 4].texCoords = cellData[idx].cellTextCoord[0];
 	va[idx * 4 + 1].texCoords = cellData[idx].cellTextCoord[1];

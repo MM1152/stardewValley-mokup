@@ -22,6 +22,7 @@ public:
 	void SetRotation(float rot);
 	void SetScale(const sf::Vector2f& s);
 	void SetOrigin(const sf::Vector2f& o);
+	void SetOrigin(const Origins originPreset) override;
 	void SetNpcMgr(NpcMgr* n) { this->npcMgr = n; }
 
 	Player(const std::string name = "Player");

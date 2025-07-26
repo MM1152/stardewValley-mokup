@@ -1,6 +1,12 @@
 #include "stdafx.h"
 #include "Map.h"
 
+std::ostream& operator <<(std::ostream& ost, sf::Vector2f cellTextCoord[4]) {
+    ost << cellTextCoord[0].x << ", " << cellTextCoord[0].y << ", " << cellTextCoord[1].x << ", " << cellTextCoord[1].y << ", " << cellTextCoord[2].x << ", " << cellTextCoord[2].y << ", " << cellTextCoord[3].x << ", " << cellTextCoord[3].y << ", ";
+
+    return ost;
+}
+
 void Map::Reset(int size)
 {
     cell.insert({ 0 , std::vector<CellData>() });
@@ -10,10 +16,50 @@ void Map::Reset(int size)
     cell[1].resize(size);
 }
 
-//Idx 값에 맞춰서 행동 수행하면 될듯!
 int Map::GetCellIndex(int idx , int layer)
 {
     return cell[layer][idx].idx;
+}
+int Map::GetCellIndex(const sf::Vector2f& pos, int layer)
+{
+    int xIndex = (int)(pos.x / 16);
+    int yIndex = (int)(pos.y / 16);
+
+    int idx = xIndex + (yIndex * count.x);
+
+    return idx;
+}
+
+CellData& Map::GetCell(int idx, int layer)
+{
+    return cell[layer][idx];
+}
+CellData& Map::GetCell(const sf::Vector2f& pos, int layer)
+{
+    int idx = GetCellIndex(pos, layer);
+    return cell[layer][idx];
+}
+
+CellData Map::GetTextureCell(const int idx, const int layer)
+{
+    CellData textureCellData;
+    textureCellData.cellTextCoord[0] = { idx % count.x * 16.f, idx / count.x * 16.f };
+    textureCellData.cellTextCoord[1] = { (idx % count.x + 1) * 16.f, idx / count.x * 16.f };
+    textureCellData.cellTextCoord[2] = { (idx % count.x + 1) * 16.f, (idx / count.x + 1) * 16.f };
+    textureCellData.cellTextCoord[3] = { idx % count.x * 16.f, (idx / count.x + 1) * 16.f };
+
+    std::cout << textureCellData.cellTextCoord << std::endl;
+    textureCellData.idx = idx;
+
+    return textureCellData;
+}
+
+void Map::SetCellData(int idx, int layer, const CellData* cellData)
+{
+    cell[layer][idx].cellTextCoord[0] = cellData->cellTextCoord[0];
+    cell[layer][idx].cellTextCoord[1] = cellData->cellTextCoord[1];
+    cell[layer][idx].cellTextCoord[2] = cellData->cellTextCoord[2];
+    cell[layer][idx].cellTextCoord[3] = cellData->cellTextCoord[3];
 }
 
 void Map::LoadCollider(const std::string path)
@@ -66,9 +112,13 @@ void Map::Load(const std::string path , int layer)
 
     int quadIndex = 0;
     int k = 0;
+    
+    count.x = document.GetRow<int>(1).size();
+    count.y = document.GetRowCount() - 1;
+
     for (int i = 1; i < document.GetRowCount(); i++) {
         auto row = document.GetRow<int>(i);
-
+        
         for (int j = 0; j < row.size(); j++) {
             CellData cellData;
             if (row[j] == -1) {
@@ -88,6 +138,7 @@ void Map::Load(const std::string path , int layer)
             cellData.cellPosition[2] = { (j + 1) * 16.f , (i) * 16.f };
             cellData.cellPosition[3] = { j * 16.f , (i) * 16.f };
 
+            cellData.idx = row[j];
             cell[layer][k++] = cellData;
         }
     }
@@ -126,7 +177,7 @@ void Map::LoadTrigger(const std::string path)
 
 void Map::Load(const std::string path)
 {
-    Load(path+".csv", 0);
+    Load(path + ".csv", 0);
     Load(path+"forGround.csv", 1);
     LoadCollider(path +"collider.csv");
     LoadTrigger(path + "trigger.csv");
@@ -201,7 +252,7 @@ void Map::Save(const std::string path, std::vector<sf::RectangleShape*>& collide
     doc.Save(path);
 }
 
-std::vector<CellData>& Map::GetCellData(int layer)
+std::vector<CellData>& Map::GetCellDatas(int layer)
 {
     return cell[layer];
 }

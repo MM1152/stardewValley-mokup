@@ -104,8 +104,8 @@ void SceneTest::Enter()
 	}
 
 
-	tile->Set(map.GetTextId(0), map.GetCellData(0));
-	forGround->Set(map.GetTextId(1), map.GetCellData(1));
+	tile->Set(map.GetTextId(0), map.GetCellDatas(0));
+	forGround->Set(map.GetTextId(1), map.GetCellDatas(1));
 
 	player->SetMap(&map);
 }

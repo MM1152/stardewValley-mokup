@@ -6,7 +6,7 @@
 #include "SceneAnimator.h"
 #include "MapToolScene.h"
 #include "LoadMapDataScene.h"
-
+#include "SceneTileChangeTest.h"
 void SceneMgr::Init()
 {
 	scenes.insert({ SceneIds::Dev1, new SceneDev1() });
@@ -16,6 +16,7 @@ void SceneMgr::Init()
 	scenes.insert({ SceneIds::Test, new SceneTest() });
 	scenes.insert({ SceneIds::Game, new SceneGame() });
 	scenes.insert({ SceneIds::Animator, new SceneAnimator() });
+	scenes.insert({ SceneIds::ChangeTile, new SceneTileChangeTest() });
 	
 	for (auto scene : scenes)
 	{
