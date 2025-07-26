@@ -16,6 +16,7 @@ protected:
 	bool fainting = false;
 
 	sf::Sprite sprite;
+
 	float speed = 100.f;
 
 	int money = 500;
@@ -31,6 +32,8 @@ public:
 	void SetRotation(float rot);
 	void SetScale(const sf::Vector2f& s);
 	void SetOrigin(const sf::Vector2f& o);
+	void SetOrigin(Origins preset);
+
 	void SetNpcMgr(NpcMgr* n) { this->npcMgr = n; }
 
 	Player(const std::string name = "Player");

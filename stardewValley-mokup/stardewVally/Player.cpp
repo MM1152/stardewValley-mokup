@@ -33,10 +33,19 @@ void Player::SetOrigin(const sf::Vector2f& o)
 	GameObject::SetOrigin(o);
 	sprite.setOrigin(o);
 }
+void Player::SetOrigin(Origins preset)
+{
+	GameObject::SetOrigin(preset);
+	if (preset != Origins::Custom)
+	{
+		Utils::SetOrigin(sprite, preset);
+	}
+}
 
 void Player::Init()
 {
-	SetPosition({ 208.f, 180.f });
+	SetPosition({ 208.f, 300.f });
+	SetOrigin(Origins::BL);
 	inventory->SetActive(false);
 	isPlayer = true;
 
