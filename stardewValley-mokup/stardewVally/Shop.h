@@ -4,6 +4,8 @@
 
 class Inventory;
 class Button;
+class TimeMoneyUi;
+class Player;
 class Shop : public GameObject
 {
 protected:
@@ -13,7 +15,7 @@ protected:
     sf::Sprite itemSlot_bg;
 
     bool isUiShow = false;
-   
+
 
     std::vector<ItemInfo> shopItems;
 
@@ -25,6 +27,8 @@ protected:
     sf::Font font;
 
     Inventory* inventory = nullptr;
+    TimeMoneyUi* timeMoneyUi = nullptr;
+    Player* player = nullptr;
 
     std::vector<Button*> buyButtons;
 
@@ -46,6 +50,8 @@ public:
     void CloseUi();
     bool isUiShowing();
     void SetInventory(Inventory* inv) { inventory = inv; }
+    void SetTimeMoeyUi(TimeMoneyUi* tmu) { timeMoneyUi = tmu; }
+    void SetPlayer(Player* p) { player = p; }
 
 private:
     void LoadShopItems(const std::vector<ItemInfo>& items);

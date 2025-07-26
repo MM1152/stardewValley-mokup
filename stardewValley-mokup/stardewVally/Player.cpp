@@ -128,7 +128,6 @@ void Player::Update(float dt)
     if (InputMgr::GetKeyDown(sf::Keyboard::E)) {
         inventory->SetActive(!inventory->GetActive());
     }
-
 }
 
 void Player::Draw(sf::RenderWindow& window)

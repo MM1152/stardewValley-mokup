@@ -138,6 +138,9 @@
   <ItemGroup>
     <ClInclude Include="Collider.h" />
     <ClInclude Include="Button.h" />
+    <ClInclude Include="DialogBox.h" />
+    <ClInclude Include="DialogueInfo.h" />
+    <ClInclude Include="DialogueLoader.h" />
     <ClInclude Include="Framework\Defines.h" />
     <ClInclude Include="Framework\Framework.h" />
     <ClInclude Include="Framework\GameObject.h" />
@@ -177,6 +180,9 @@
   <ItemGroup>
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="DialogBox.cpp" />
+    <ClCompile Include="DialogueInfo.cpp" />
+    <ClCompile Include="DialogueLoader.cpp" />
     <ClCompile Include="Framework\Framework.cpp" />
     <ClCompile Include="Framework\GameObject.cpp" />
     <ClCompile Include="Framework\InputMgr.cpp" />
@@ -213,6 +219,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Item.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="dialogues.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

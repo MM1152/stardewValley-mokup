@@ -36,7 +36,7 @@ void QuickBar::Release()
 void QuickBar::Reset()
 {
 	quickBar.setTexture(&TEXTURE_MGR.Get(texId));
-	quickBar.setPosition({ FRAMEWORK.GetWindowSizeF().x * 0.125f , FRAMEWORK.GetWindowSizeF().y - 170.f });
+	quickBar.setPosition({ FRAMEWORK.GetWindowSizeF().x * 0.320f , FRAMEWORK.GetWindowSizeF().y - 170.f });
 	
 	for (int i = 0; i < quickBar_Slots.size(); i++) {
 		quickBar_Slots[i]->Reset();

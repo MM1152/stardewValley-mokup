@@ -4,11 +4,14 @@
 #include "Item.h"
 #include "Inventory.h"
 #include "Button.h"
+#include "Player.h"
+#include "TimeMoneyUi.h"
 
 Shop::Shop(const std::string& name)
 	: GameObject(name)
 {
     sortingLayer = SortingLayers::UI;
+    sortingOrder = 1;
 }
 
 void Shop::SetPosition(const sf::Vector2f& pos)
@@ -57,16 +60,21 @@ void Shop::Release()
 void Shop::Reset()
 {
     backgroundSprite.setTexture(TEXTURE_MGR.Get("graphics/shop_bg.png"));
-    backgroundSprite.setPosition({FRAMEWORK.GetWindowSizeF().x / 2 , FRAMEWORK.GetWindowSizeF().y / 2});
-    backgroundSprite.setScale({0.7f, 0.8f});
+    backgroundSprite.setPosition({FRAMEWORK.GetWindowSizeF().x * 0.5f + 100 , FRAMEWORK.GetWindowSizeF().y * 0.5f});
+    backgroundSprite.setScale({0.8, 0.8f});
+    Utils::SetOrigin(backgroundSprite, Origins::MC);
+
+    sf::Vector2f bgScale = backgroundSprite.getScale();
 
     portraitBox.setTexture(TEXTURE_MGR.Get("graphics/portraitsBox.png"));
-    portraitBox.setPosition({backgroundSprite.getPosition().x - 160,backgroundSprite.getPosition().y});
-    portraitBox.setScale({ 0.9f,0.9f });
+    portraitBox.setPosition({backgroundSprite.getPosition().x - 400,backgroundSprite.getPosition().y - 23});
+    Utils::SetOrigin(portraitBox, Origins::MC);
+    portraitBox.setScale({ 1.4f * bgScale.x, 1.4f * bgScale.y });
 
     portraitShop.setTexture(TEXTURE_MGR.Get("graphics/Pierre.png"));
-    portraitShop.setPosition({ backgroundSprite.getPosition().x - 150.f,backgroundSprite.getPosition().y + 10.f });
-    portraitShop.setScale({ 2.0f,2.0f });
+    portraitShop.setPosition({ backgroundSprite.getPosition().x - 400.f,backgroundSprite.getPosition().y - 21.f });
+    Utils::SetOrigin(portraitShop, Origins::MC);
+    portraitShop.setScale({ 2.9f * bgScale.x, 2.9f * bgScale.y });
 
     itemSlot_bg.setTexture(TEXTURE_MGR.Get("graphics/itemSlot_bg.png"));
 
@@ -135,9 +143,12 @@ void Shop::LoadShopItems(const std::vector<ItemInfo>& items)
 
     font = FONT_MGR.Get("fonts/Stardew_Valley.ttf");
 
-    float x = backgroundSprite.getPosition().x + 30.f;
-    float y = backgroundSprite.getPosition().y + 10.f;
-    float spacingY = 50.f;
+    sf::Vector2f bgPos = backgroundSprite.getPosition();
+    sf::Vector2f bgScale = backgroundSprite.getScale();
+
+    float x = bgPos.x - 230.f * bgScale.x;
+    float y = bgPos.y - 105.f * bgScale.y;
+    float spacingY = 60.f * bgScale.y;
 
     for (int i = 0; i < items.size(); ++i)
     {
@@ -145,41 +156,23 @@ void Shop::LoadShopItems(const std::vector<ItemInfo>& items)
 
         Button* btn = new Button("fonts/Stardew_Valley.ttf", "graphics/itemSlot_bg.png", "BuyButton_" + std::to_string(i));
         btn->Init();
-        btn->SetPosition({ x - 20, y + i * spacingY + 5.f});
-        btn->SetString("                      ");
-        btn->SetScale({1.5f, 1.6f});
+        btn->SetPosition({ x - 130.f * bgScale.x, y + i * spacingY - 30.f * bgScale.y });
+        btn->SetString("                                ");
+        btn->SetScale({ 1.5f * bgScale.x, 2.0f * bgScale.y });
         btn->Reset();  
-
-        btn->onClickFunc = [this, i]() {
-            const ItemInfo& item = shopItems[i];
-            if (inventory)
-            {
-                bool success = inventory->AddItem(item);
-                if (success)
-                {
-                    std::cout << "item added " << item.itemName << std::endl;
-                }
-                else
-                {
-                    std::cout << "inventory is full" << std::endl;
-                }
-            }
-            };
-
-        buyButtons.push_back(btn);
 
         sf::Sprite sprite;
         sprite.setTexture(TEXTURE_MGR.Get(info.itemTextureId));
-        sprite.setScale({2.2f,2.2f});
-        sprite.setPosition(x - 10.f, y + i * spacingY + 10.f);
+        sprite.setScale({ 2.8f * bgScale.x, 2.5f * bgScale.y });
+        sprite.setPosition(x - 112.f * bgScale.x, y + i * spacingY - 20.f * bgScale.y);
         itemSprites.push_back(sprite);
    
         sf::Text nameText;
         nameText.setFont(font);
         nameText.setString(info.itemName);
-        nameText.setCharacterSize(30);
+        nameText.setCharacterSize(static_cast<unsigned int>(40 * bgScale.y));
         nameText.setFillColor(sf::Color::Black);
-        nameText.setPosition(x + 40.f, y + i * spacingY + 10.f);
+        nameText.setPosition(x - 50.f * bgScale.x, y + i * spacingY - 30.f * bgScale.y);
         itemNameTexts.push_back(nameText);
 
  /*       sf::Text descText;
@@ -193,10 +186,40 @@ void Shop::LoadShopItems(const std::vector<ItemInfo>& items)
         sf::Text priceText;
         priceText.setFont(font);
         priceText.setString(std::to_string(info.price));
-        priceText.setCharacterSize(22);
+        priceText.setCharacterSize(static_cast<unsigned int>(32 * bgScale.y));
         priceText.setFillColor(sf::Color::Black);
-        priceText.setPosition(x + 420.f, y + i * spacingY + 15);
+        priceText.setPosition(x + 420.f * bgScale.x, y + i * spacingY - 24.f * bgScale.y);
         itemPriceTexts.push_back(priceText);
+
+        btn->onClickFunc = [this, i]() {
+            const ItemInfo& item = shopItems[i];
+            if (inventory && player)
+            {
+                int price = item.price;
+                int currentMoney = player->GetMoney();
+
+                if (currentMoney >= price)
+                {
+                    bool success = inventory->AddItem(item);
+                    if (success)
+                    {
+                        player->SetMoney(currentMoney - price);
+                        timeMoneyUi->SettingMoney(player->GetMoney());
+                        std::cout << "item added " << item.itemName << std::endl;
+                    }
+                    else
+                    {
+                        std::cout << "inventory is full" << std::endl;
+                    }
+                }
+                else
+                {
+                    std::cout << "Not enough money" << std::endl;
+                }
+            }
+            };
+
+        buyButtons.push_back(btn);
     }
 }
 

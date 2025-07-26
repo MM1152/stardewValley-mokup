@@ -44,6 +44,7 @@ void NpcMgr::Init()
 {
 	Collider::Init();
 	npcSprite.setPosition({0.f, 0.f});
+	npcTalkSprite.setPosition({ -50.f, -50.f });
 }
 
 void NpcMgr::Release()
@@ -53,24 +54,25 @@ void NpcMgr::Release()
 void NpcMgr::Reset()
 {
 	npcSprite.setTexture(TEXTURE_MGR.Get("graphics/npcTest.png"));
+	npcTalkSprite.setTexture(TEXTURE_MGR.Get("graphics/npcTalk.png"));
 }
 
 void NpcMgr::Update(float dt)
 {
-	//std::srand(static_cast<unsigned>(std::time(nullptr)));
+	std::srand(static_cast<unsigned>(std::time(nullptr)));
 
-	////float axisX = (std::rand() % 3) - 1;
-	////float axisY = (std::rand() % 3) - 1;
+	float axisX = (std::rand() % 3) - 1;
+	float axisY = (std::rand() % 3) - 1;
 
-	//direction = sf::Vector2f(axisX, axisY);
+	direction = sf::Vector2f(axisX, axisY);
 
-	//sf::Vector2f moveOffset = { axisX * speed * dt, axisY * speed * dt};
+	sf::Vector2f moveOffset = { axisX * speed * dt, axisY * speed * dt};
 
-	//if (isNpcMove)
-	//{
-	//	Collider::areaBlocked(position, npcSprite, moveOffset);
-	//	npcSprite.setPosition(position);
-	//}
+	if (isNpcMove)
+	{
+		Collider::areaBlocked(position, npcTalkSprite, moveOffset);
+		npcTalkSprite.setPosition(position);
+	}
 
 	playerRect.setPosition(player->GetPosition());
 	playerRect.setSize(player->GetGlobalBounds().getSize());
@@ -90,12 +92,23 @@ void NpcMgr::Update(float dt)
 		}
 	}
 
+	if (IsTalkCollidingPlayer(playerRect))
+	{
+		std::cout << "talk npc Ãæµ¹" << std::endl;
+		if (InputMgr::GetKeyDown(sf::Keyboard::Z))
+		{
+			if (talkCallback)
+				talkCallback(); 
+		}
+	}
+
 	sf::Vector2f playerPos = player->GetPosition();
 }
 
 void NpcMgr::Draw(sf::RenderWindow& window)
 {
 	window.draw(npcSprite);
+	window.draw(npcTalkSprite);
 }
 
 bool NpcMgr::IsCollidingPlayer(sf::RectangleShape playerRect)
@@ -112,9 +125,28 @@ bool NpcMgr::IsCollidingPlayer(sf::RectangleShape playerRect)
 		   rectPos.y < npcPos.y + npcSize.y;
 }
 
+bool NpcMgr::IsTalkCollidingPlayer(sf::RectangleShape rect)
+{
+	sf::Vector2f npcPos = npcTalkSprite.getPosition();
+	sf::Vector2f npcSize = npcTalkSprite.getGlobalBounds().getSize();
+
+	sf::Vector2f rectPos = playerRect.getPosition();
+	sf::Vector2f rectSize = playerRect.getGlobalBounds().getSize();
+
+	return npcPos.x < rectPos.x + rectSize.x &&
+		rectPos.x < npcPos.x + npcSize.x &&
+		npcPos.y < rectPos.y + rectSize.y &&
+		rectPos.y < npcPos.y + npcSize.y;
+}
+
 void NpcMgr::setCallBack(std::function<void()> cb)
 {
 	callback = cb;
+}
+
+void NpcMgr::setTalkCallBack(std::function<void()> cb)
+{
+	talkCallback = cb;
 }
 
 sf::RectangleShape NpcMgr::GetPlayerRect()

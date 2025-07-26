@@ -19,6 +19,7 @@ void Item::Release()
 void Item::Reset()
 {
 	itemSp.setTexture(TEXTURE_MGR.Get(iteminfo.itemTextureId));
+	itemSp.setScale({ 2.f,2.f });
 	Utils::SetOrigin(itemSp , Origins::MC);
 }
 
@@ -55,8 +56,9 @@ void Item::SetPosition(const sf::Vector2f& pos)
 void Item::SetItemInfo(Item* item)
 {
 	iteminfo = item->iteminfo;
-	
+	itemSp.setScale({ 2.f,2.f });
 	itemSp.setTexture(TEXTURE_MGR.Get(iteminfo.itemTextureId) , true);
+	Utils::SetOrigin(itemSp, Origins::MC);
 }
 
 void Item::DragItem()

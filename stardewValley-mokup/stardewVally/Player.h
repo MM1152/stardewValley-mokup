@@ -45,4 +45,9 @@ public:
 		return money;
 	}
 
+	void SetMoney(int m)
+	{
+		money = m;
+	}
+
 };

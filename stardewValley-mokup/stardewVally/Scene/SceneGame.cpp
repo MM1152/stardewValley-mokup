@@ -18,6 +18,7 @@ SceneGame::SceneGame()
 void SceneGame::Init()
 {
 	texIds.push_back("graphics/testC.png");
+	texIds.push_back("graphics/npcTalk.png");
 	texIds.push_back("graphics/npcTest.png");
 	texIds.push_back("graphics/uitest.png");
 	texIds.push_back("graphics/shop_bg.png");
@@ -60,6 +61,8 @@ void SceneGame::Init()
 
 	shop = new Shop("shop");
 	shop->SetInventory(inventory);
+	shop->SetPlayer(player);
+	shop->SetTimeMoeyUi(timemoney);
 	AddGameObject(shop);
 
 	player->SetNpcMgr(npc);    
@@ -80,6 +83,10 @@ void SceneGame::Init()
 
 	collider = new Collider("Collider");
 	AddGameObject(collider);
+
+	/*npc->setTalkCallBack([this]() {
+		someUi->ShowHint("something...blabla");
+		});*/
 
 	npc->setCallBack([this]() {
 		if (!shop->isUiShowing())

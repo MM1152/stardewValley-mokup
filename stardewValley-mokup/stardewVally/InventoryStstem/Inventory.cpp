@@ -6,12 +6,13 @@ Inventory::Inventory(const std::string& texId, const std::string& name)
 	:GameObject(name)
 	, texId(texId)
 {
+	sortingOrder = 2;
 }
 
 void Inventory::Init()
 {
 	inv_BackGround.setSize({ 45 * 12 + 20.f , 200 });
-	inv_BackGround.setPosition({ FRAMEWORK.GetWindowSizeF().x / 2 - 400.f , FRAMEWORK.GetWindowSizeF().y / 2});
+	inv_BackGround.setPosition({ FRAMEWORK.GetWindowSizeF().x / 2 - 250.f , FRAMEWORK.GetWindowSizeF().y / 2 + 100});
 	
 	slotSize = 24;
 	for (int i = 0; i < 12; i++) {
