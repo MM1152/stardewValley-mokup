@@ -126,10 +126,13 @@
     <ClInclude Include="TimeMoneyUi.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Framework\AnimationClip.h">
+    <ClInclude Include="DialogBox.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Framework\Animator.h">
+    <ClInclude Include="DialogueInfo.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogueLoader.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
@@ -233,12 +236,21 @@
     <ClCompile Include="TimeMoneyUi.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Framework\Animator.cpp">
+    <ClCompile Include="DialogBox.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Framework\AnimationClip.cpp">
+    <ClCompile Include="DialogueInfo.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="DialogueLoader.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Item.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="dialogues.json" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Item.json" />

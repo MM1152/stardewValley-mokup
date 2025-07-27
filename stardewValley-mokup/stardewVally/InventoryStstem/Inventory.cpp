@@ -7,6 +7,7 @@ Inventory::Inventory(const std::string& texId, const std::string& name)
 	:GameObject(name)
 	, texId(texId)
 {
+	sortingOrder = 2;
 }
 
 void Inventory::Init()
