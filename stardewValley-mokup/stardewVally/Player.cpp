@@ -44,7 +44,6 @@ void Player::SetOrigin(Origins preset)
 
 void Player::Init()
 {
-	SetPosition({ 208.f, 300.f });
 	SetOrigin(Origins::BL);
 	inventory->SetActive(false);
 	isPlayer = true;

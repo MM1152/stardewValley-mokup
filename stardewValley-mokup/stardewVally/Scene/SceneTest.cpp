@@ -111,6 +111,7 @@ void SceneTest::Init()
 	// F9 Draw Collider
 	drawCollider = true;
 
+	player->SetPosition({ 208.f, 190.f });
 
 	Scene::Init();
 }
@@ -126,14 +127,14 @@ void SceneTest::Enter()
 	sf::Vector2f windowSize = FRAMEWORK.GetWindowSizeF();
 
 	Scene::Enter(); //push_back
-	map.Load(MAP_PATH"demo");
+	map.Load(MAP_PATH"demomap");
 
 	for (auto tri : map.GetTriggers()) {
 		tri->Init();
 		tri->SetPlayer(player);
 		if (tri->GetType() == TriggerType::Door) {
 			tri->callback = [this]() {
-				SCENE_MGR.ChangeScene(SceneIds::Maptool);
+				SCENE_MGR.ChangeScene(SceneIds::Home);
 			};
 		}
 	}
