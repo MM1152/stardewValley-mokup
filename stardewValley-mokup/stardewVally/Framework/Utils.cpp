@@ -400,3 +400,15 @@ std::vector<std::string> Utils::Split(std::string word, const char spilitWord)
 
     return splits;
 }
+
+int Utils::FindStringIdx(std::vector<std::string> words, const std::string findword)
+{
+    int idx = 0;
+    for (std::string word : words) {
+        if (findword == word) {
+            return idx;
+        }
+        idx++;
+    }
+    return -1;
+}

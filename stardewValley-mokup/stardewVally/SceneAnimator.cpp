@@ -52,7 +52,7 @@ std::string SaveFileDialog(const std::string saveData) {
 
         if (hFile != INVALID_HANDLE_VALUE) {
             // Write example text
-            std::string data = "저장할 내용입니다.\n"; // ANSI 텍스트. 한글은 깨질 수 있음.
+            std::string data = saveData; // ANSI 텍스트. 한글은 깨질 수 있음.
             DWORD bytesWritten;
             WriteFile(hFile, data.c_str(), data.length(), &bytesWritten, NULL);
             CloseHandle(hFile);
@@ -102,17 +102,20 @@ void SceneAnimator::Init()
     saveBNT = new Button(FONT_PATH"DOSGothic.ttf");
     saveBNT->sortingLayer = SortingLayers::UI;
     saveBNT->onClickFunc = [this]() {
-        
-        if (sprite.getTexture() != nullptr && rect.size() > 0 && !inputText->GetString().empty()) {
-            std::string saveData;
-            saveData = "ID,FPS,LoopType (0: Single, 1: Loop)\n"
-                "" + inputText->GetString() + ",10,1\n\n"
-                "TEXTURE ID,LEFT,TOP,WIDTH,HEIGHT,FLIPX(0:Fale, 1:True)\n";
-               
-            for (int i = 0; i < rect.size(); i++) {
+        std::vector<std::string> newPath = Utils::Split(filePath, (char)92);
+        int idx = Utils::FindStringIdx(newPath, "graphics");
 
+        if (sprite.getTexture() != nullptr && rect.size() > 0 && !inputText->GetString().empty() && idx != -1) {
+            std::string saveData;
+            saveData = "ID,FPS,LoopType (0: Single. 1: Loop)\n"
+                "" + inputText->GetString() + ",10,1\n\n"
+                "TEXTURE ID,LEFT,TOP,WIDTH,HEIGHT,FLIPX(0:Fale. 1:True)\n";
+          
+            for (int i = 0; i < rect.size(); i++) {
+                sf::FloatRect rectSize = rect[i]->getGlobalBounds();
+                saveData += newPath[idx] + "/" + newPath[idx + 1] + "," + std::to_string(rectSize.left) + "," + std::to_string(rectSize.top) + "," + std::to_string(rectSize.width) + "," + std::to_string(rectSize.height)+"," + "0" + "\n";
             }
-           // SaveFileDialog();
+            SaveFileDialog(saveData);
         }
     };
 
@@ -149,6 +152,10 @@ void SceneAnimator::Update(float dt)
     DragToMoveScreen(dt);
     UndoRectangle();
     PreviewAnimation(dt);
+
+    if (InputMgr::GetKeyDown(sf::Keyboard::Enter)) {
+        SCENE_MGR.ChangeScene(SceneIds::AnimationTest);
+    }
 }
 
 void SceneAnimator::Draw(sf::RenderWindow& window)

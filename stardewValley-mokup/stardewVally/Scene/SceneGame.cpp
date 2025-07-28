@@ -72,10 +72,11 @@ void SceneGame::Init()
 	player->SetInventory(inventory);
 	npc->SetPlayer(player);
 
-	AddGameObject(player);
+	AddGameObject(player);	
 	AddGameObject(npc);
 
-	itemDataMgr::Instance().LoadJson("data/Item.json");
+	itemDataMgr::Instance().Load("data/Item.json");
+	itemDataMgr::Instance().LoadShopItems("data/shop.json");
 
 	const auto& items = itemDataMgr::Instance().GetItem("Pierre's General Store");
 

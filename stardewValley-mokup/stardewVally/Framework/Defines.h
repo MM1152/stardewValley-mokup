@@ -6,6 +6,7 @@
 #define FONT_PATH "fonts/"
 #define MAP_PATH "MapData/"
 #define GRAPHICS_PATH "graphics/"
+#define ANIMATION_PATH "animation/"
 enum class SortingLayers
 {
 	Background,
@@ -33,6 +34,7 @@ enum class SceneIds
 	Maptool,
 	LoadMapTest,
 	ChangeTile,
+	AnimationTest,
 	Count,
 };
 

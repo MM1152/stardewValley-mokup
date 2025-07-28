@@ -72,7 +72,7 @@ public:
 	static void SaveFile(const std::string path);
 	static std::string LoadTextureId();
 	static std::vector<std::string> Split(std::string word , const char spilitWord);
-	
+	static int FindStringIdx(std::vector<std::string> word , const std::string findword);
 	
 	
 	

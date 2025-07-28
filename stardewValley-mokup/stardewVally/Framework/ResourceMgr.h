@@ -1,6 +1,6 @@
 #pragma once
 #include "Singleton.h"
-
+#include "AnimationClip.h"
 template <typename T>
 class ResourceMgr : public Singleton<ResourceMgr<T>>
 {

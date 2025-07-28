@@ -2,7 +2,33 @@
 #include "itemDataMgr.h"
 #include <fstream>
 
-void itemDataMgr::LoadJson(const std::string& filename)
+void itemDataMgr::Load(const std::string& filename)
+{
+    std::ifstream file(filename);
+    if (!file.is_open()) {
+        std::cerr << "JSON failed " << filename << "\n";
+        return;
+    }
+
+    nlohmann::json data;
+    file >> data;
+
+    for (const auto& item : data["items"]) {
+        ItemInfo info;
+        info.itemId = item["id"];
+        info.itemName = item["name"];
+        info.itemTextureId = item["TextureId"];
+        info.itemDes = item["description"];
+        info.price = item["price"];
+        info.stock = item["stock"];
+
+        info.itemType = ItemType::None;
+
+        items.push_back(info);
+    }
+}
+
+void itemDataMgr::LoadShopItems(const std::string& filename)
 {
     std::ifstream file(filename);
     if (!file.is_open())
@@ -14,34 +40,23 @@ void itemDataMgr::LoadJson(const std::string& filename)
     nlohmann::json data;
     file >> data;
 
+    auto shopInfo = data["shopInfo"];
+    for (auto it = shopInfo.begin(); it != shopInfo.end(); ++it) {
+        std::string shopName = it.key();                  
+        const auto& itemList = it.value();                
 
-    if (!data.contains("storeName") || !data.contains("items"))
-    {
-        std::cerr << " JSON¿¡ 'storeName' ¶Ç´Â 'items' X\n";
-        return;
+        shopItemMap.insert({ shopName , std::vector<ItemInfo>() });
+        for (const auto& itemId : itemList) {
+            for (auto item : items) {
+                if (itemId == item.itemId) {
+                    shopItemMap[shopName].push_back(item);
+                    break;
+                }
+            }
+            
+        }
     }
-
-    std::string shopName = data["storeName"];
-    std::vector<ItemInfo>& items = shopItemMap[shopName];
-    items.clear();
-
-    for (const auto& item : data["items"])
-    {
-        ItemInfo info;
-        info.itemId = item["id"];
-        info.itemName = item["name"];
-        info.itemTextureId = item["TextureId"];
-        info.itemDes = item["description"];
-        info.price = item["price"];
-        info.stock = item["stock"];
-
-        std::string typeStr = item.value("type", "None");
-        if (typeStr == "Seed") info.itemType = ItemType::Seed;
-        else if (typeStr == "Equip") info.itemType = ItemType::EquipMent;
-        else info.itemType = ItemType::None;
-
-        items.push_back(info);
-    }
+    
 }
 
 
