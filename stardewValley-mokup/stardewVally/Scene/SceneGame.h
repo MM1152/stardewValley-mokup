@@ -7,6 +7,8 @@ class NpcMgr;
 class Shop;
 class Collider;
 class TimeMoneyUi;
+class Inventory;
+class QuickBar;
 
 class SceneGame : public Scene
 {
@@ -16,6 +18,8 @@ protected:
 	Shop* shop = nullptr;
 	Collider* collider = nullptr;
 	TimeMoneyUi* timemoney = nullptr;
+	Inventory* inventory = nullptr;
+	QuickBar* quickBar = nullptr;
 
 public:
 	SceneGame();

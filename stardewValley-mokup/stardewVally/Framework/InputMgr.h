@@ -26,7 +26,8 @@ private:
 	static std::unordered_map<Axis, AxisInfo> axisInfoMap;
 	static sf::Vector2i mousePosition;
 
-	static char keyInfo;
+	static char keyText;
+	static sf::Keyboard::Key keyInfo;
 
 	static bool inputAnyKeyDown;
 
@@ -53,7 +54,8 @@ public:
 	static bool GetMouseButtonUp(sf::Mouse::Button key);
 	static bool GetMouseButton(sf::Mouse::Button key);
 	static bool GetAnyKeyDown();
-	static char GetInputKey();
+	static char GetInputText();
+	static sf::Keyboard::Key GetInputKey();
 	static float GetMouseWheel();
 
 

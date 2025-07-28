@@ -1,0 +1,22 @@
+{
+	"dialogues": [
+		{
+			"character": "Pierre",
+			"id": "intro",
+			"portrait_textureId" : "graphics/pierre_photo.png",
+			"lines": [
+				"Hi such a nice day today",
+				"Whould you like to buy some new items?"
+			]
+		},
+		{
+			"character": "Abigail",
+			"id": "intro",
+			"portrait_textureId" : "graphics/Abigail_photo.png",
+			"lines": [
+				"I want to hang out",
+				"My dad never set me free.."
+			]
+		}
+	]
+}

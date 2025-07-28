@@ -9,7 +9,7 @@ QuickBar::QuickBar(const std::string& texId, const std::string& name)
 
 void QuickBar::Init()
 {
-	quickBar.setSize({560 , 80});
+	quickBar.setSize({530 , 60});
 	
 	outLine.setFillColor(sf::Color::Transparent);
 	outLine.setOutlineColor(sf::Color::Red);
@@ -21,7 +21,7 @@ void QuickBar::Init()
 		quickBar_Slots[i]->Init();
 	}
 
-	outLine.setSize({40 , 70});
+	outLine.setSize({40 , 50});
 }
 
 void QuickBar::Release()
@@ -36,11 +36,11 @@ void QuickBar::Release()
 void QuickBar::Reset()
 {
 	quickBar.setTexture(&TEXTURE_MGR.Get(texId));
-	quickBar.setPosition({ 1920 * 0.125f , 1080 - 170.f });
+	quickBar.setPosition({ FRAMEWORK.GetWindowSizeF().x * 0.320f , FRAMEWORK.GetWindowSizeF().y - 170.f });
 	
 	for (int i = 0; i < quickBar_Slots.size(); i++) {
 		quickBar_Slots[i]->Reset();
-		quickBar_Slots[i]->SetPosition({ quickBar.getPosition().x + (i * 45) + 10.f, quickBar.getPosition().y + 7.f});
+		quickBar_Slots[i]->SetPosition({ quickBar.getPosition().x + (i * 40) + 20.f, quickBar.getPosition().y + 7.f});
 	}
 	
 	outLine.setPosition(quickBar_Slots[0]->GetPosition());
@@ -49,6 +49,7 @@ void QuickBar::Reset()
 void QuickBar::Update(float dt)
 {
 	if ((int)InputMgr::GetInputKey() >= 27 && (int)InputMgr::GetInputKey() <= 35) {
+		
 		outLine.setPosition(quickBar_Slots[(int)InputMgr::GetInputKey() - 27]->GetPosition());
 	}
 
