@@ -167,6 +167,7 @@
     <ClInclude Include="ItemInfo.h" />
     <ClInclude Include="InventoryStstem\QuickBar_Slot.h" />
     <ClInclude Include="SceneTileChangeTest.h" />
+    <ClInclude Include="Scene\SceneHome.h" />
     <ClInclude Include="Scene\LoadMapDataScene.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="SceneAnimator.h" />
@@ -204,6 +205,7 @@
     <ClCompile Include="InventoryStstem\ItemSlot.cpp" />
     <ClCompile Include="InventoryStstem\QuickBar.cpp" />
     <ClCompile Include="SceneTileChangeTest.cpp" />
+    <ClCompile Include="Scene\SceneHome.cpp" />
     <ClCompile Include="Scene\LoadMapDataScene.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="itemDataMgr.cpp" />

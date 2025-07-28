@@ -276,4 +276,7 @@
   <ItemGroup>
     <Text Include="dialogues.json" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Item.json" />
+  </ItemGroup>
 </Project>

@@ -60,7 +60,23 @@ void Collider::Draw(sf::RenderWindow& window)
 {
 }
 
-bool Collider::IsColliding(const sf::Sprite sprite)
+bool Collider::IsColliding(const GameObject& sprite)
+{
+	sf::Vector2f characterPos = sprite.GetPosition();
+	sf::Vector2f characterSize = sprite.GetGlobalBounds().getSize();
+
+	for (const auto& shape : shapes)
+	{
+
+		if (sprite.GetGlobalBounds().intersects(shape->getGlobalBounds())) {
+			return true;
+		}
+
+	}
+	return false;
+}
+
+bool Collider::IsColliding(const sf::Sprite& sprite)
 {
 	sf::Vector2f characterPos = sprite.getPosition();
 	sf::Vector2f characterSize = sprite.getGlobalBounds().getSize();
@@ -70,13 +86,10 @@ bool Collider::IsColliding(const sf::Sprite sprite)
 		sf::Vector2f rectPos = shape->getPosition();
 		sf::Vector2f rectSize = shape->getGlobalBounds().getSize();
 
-		if (characterPos.x < rectPos.x + rectSize.x &&
-			rectPos.x < characterPos.x + characterSize.x &&
-			characterPos.y < rectPos.y + rectSize.y &&
-			rectPos.y < characterPos.y + characterSize.y)
-		{
+		if (sprite.getGlobalBounds().intersects(shape->getGlobalBounds())) {
 			return true;
 		}
+
 	}
 	return false;
 }
@@ -102,6 +115,31 @@ bool Collider::IsColliding(const sf::FloatRect rect)
 	return false;
 }
 
+void Collider::areaBlocked(sf::Vector2f& position, GameObject& sprite, const sf::Vector2f& moveOffset)
+{
+	position.x += moveOffset.x;
+	sprite.SetPosition(position);
+	for (auto shape : shapes)
+	{
+		if (IsColliding(sprite))
+		{
+			position.x -= moveOffset.x;
+			sprite.SetPosition(position);
+		}
+	}
+
+	position.y += moveOffset.y;
+	sprite.SetPosition(position);
+	for (auto shape : shapes)
+	{
+		if (IsColliding(sprite))
+		{
+			position.y -= moveOffset.y;
+			sprite.SetPosition(position);
+		}
+	}
+}
+
 void Collider::areaBlocked(sf::Vector2f& position, sf::Sprite& sprite, const sf::Vector2f& moveOffset)
 {
 	position.x += moveOffset.x;
@@ -112,7 +150,6 @@ void Collider::areaBlocked(sf::Vector2f& position, sf::Sprite& sprite, const sf:
 		{
 			position.x -= moveOffset.x;
 			sprite.setPosition(position);
-			std::cout << "side 충돌" << std::endl;
 		}
 	}
 
@@ -124,7 +161,6 @@ void Collider::areaBlocked(sf::Vector2f& position, sf::Sprite& sprite, const sf:
 		{
 			position.y -= moveOffset.y;
 			sprite.setPosition(position);
-			std::cout << "up&down 충돌" << std::endl;
 		}
 	}
 }

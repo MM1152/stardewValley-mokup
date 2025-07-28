@@ -3,6 +3,9 @@
 
 class Player;
 class Shop;
+class TimeMoneyUi;
+class Inventory;
+
 class NpcMgr : public Collider
 {
 protected:
@@ -13,11 +16,15 @@ protected:
 	sf::Vector2f direction = { 0.f, 0.f };
 
 	sf::RectangleShape playerRect;
+	sf::RectangleShape npcUiRect;
+
 	Player* player = nullptr;
 	Shop* shop;
+	TimeMoneyUi* timemoneyui = nullptr;
+	Inventory* inventory = nullptr;
 
 	std::function<void()> callback; 
-		std::function<void()> talkCallback;
+	std::function<void()> talkCallback;
 
 	bool isNpcMove = true;
 public:
@@ -42,5 +49,11 @@ public:
 	void setTalkCallBack(std::function<void()> cb);
 	sf::RectangleShape GetPlayerRect();
 	sf::FloatRect GetGlobalBounds();
+
+	void SetTimer(TimeMoneyUi* time);
+	TimeMoneyUi* GetTimer();
+
+	void SetInventory(Inventory* inven);
+	Inventory* GetInventory();
 };
 

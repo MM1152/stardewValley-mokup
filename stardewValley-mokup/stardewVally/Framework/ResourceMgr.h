@@ -72,7 +72,7 @@ public:
 	void Unload(const std::vector<std::string>& ids)
 	{
 		for (auto id : ids)
-		{
+		{	
 			Unload(id);
 		}
 	}
