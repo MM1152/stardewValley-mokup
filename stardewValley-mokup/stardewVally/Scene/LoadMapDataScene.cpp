@@ -29,10 +29,10 @@ void LoadMapDataScene::Enter()
 	uiView.setCenter({ FRAMEWORK.GetWindowSizeF().x / 2 , FRAMEWORK.GetWindowSizeF().y / 2 });
 	Scene::Enter();
 
-	map.Load(MAP_PATH"map2");
+	map.Load(MAP_PATH"map1");
 
-	tile->Set(map.GetTextId(0), map.GetCellData(0));
-	forGround->Set(map.GetTextId(1), map.GetCellData(1));
+	tile->Set(map.GetTextId(0), map.GetCellDatas(0));
+	forGround->Set(map.GetTextId(1), map.GetCellDatas(1));
 	
 	//tile->Set(va, Utils::LoadTextureId());
 

@@ -7,6 +7,7 @@
 #include <list>
 #include <unordered_map>
 #include <algorithm>
+#include <queue>
 #include <functional>
 
 // SFML

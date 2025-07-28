@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Collider.h"
+#include "Map.h"
 
 Collider::Collider(const std::string& name)
 	: GameObject(name)
@@ -41,16 +42,6 @@ void Collider::SetOrigin(Origins preset)
 
 void Collider::Init()
 {
-	shape.setPosition(50.f, 50.f);
-	shape.setSize({ 20.f,20.f });
-	shape.setFillColor(sf::Color::Red);
-
-	shape2.setPosition(70.f, 70.f);
-	shape2.setSize({ 100.f,20.f });
-	shape2.setFillColor(sf::Color::Red);
-
-	shapes.push_back(shape);
-	shapes.push_back(shape2);
 }
 
 void Collider::Release()
@@ -67,29 +58,38 @@ void Collider::Update(float dt)
 
 void Collider::Draw(sf::RenderWindow& window)
 {
-	for (auto shape : shapes)
-	{
-		window.draw(shape);
-	}
 }
 
-bool Collider::IsColliding(const sf::Sprite sprite)
+bool Collider::IsColliding(const GameObject& sprite)
+{
+	sf::Vector2f characterPos = sprite.GetPosition();
+	sf::Vector2f characterSize = sprite.GetGlobalBounds().getSize();
+
+	for (const auto& shape : shapes)
+	{
+
+		if (sprite.GetGlobalBounds().intersects(shape->getGlobalBounds())) {
+			return true;
+		}
+
+	}
+	return false;
+}
+
+bool Collider::IsColliding(const sf::Sprite& sprite)
 {
 	sf::Vector2f characterPos = sprite.getPosition();
 	sf::Vector2f characterSize = sprite.getGlobalBounds().getSize();
 
 	for (const auto& shape : shapes)
 	{
-		sf::Vector2f rectPos = shape.getPosition();
-		sf::Vector2f rectSize = shape.getGlobalBounds().getSize();
+		sf::Vector2f rectPos = shape->getPosition();
+		sf::Vector2f rectSize = shape->getGlobalBounds().getSize();
 
-		if (characterPos.x < rectPos.x + rectSize.x &&
-			rectPos.x < characterPos.x + characterSize.x &&
-			characterPos.y < rectPos.y + rectSize.y &&
-			rectPos.y < characterPos.y + characterSize.y)
-		{
+		if (sprite.getGlobalBounds().intersects(shape->getGlobalBounds())) {
 			return true;
 		}
+
 	}
 	return false;
 }
@@ -101,8 +101,8 @@ bool Collider::IsColliding(const sf::FloatRect rect)
 
 	for (const auto& shape : shapes)
 	{
-		sf::Vector2f rectPos = shape.getPosition();
-		sf::Vector2f rectSize = shape.getGlobalBounds().getSize();
+		sf::Vector2f rectPos = shape->getPosition();
+		sf::Vector2f rectSize = shape->getGlobalBounds().getSize();
 
 		if (characterPos.x < rectPos.x + rectSize.x &&
 			rectPos.x < characterPos.x + characterSize.x &&
@@ -113,6 +113,33 @@ bool Collider::IsColliding(const sf::FloatRect rect)
 		}
 	}
 	return false;
+}
+
+void Collider::areaBlocked(sf::Vector2f& position, GameObject& sprite, const sf::Vector2f& moveOffset)
+{
+	position.x += moveOffset.x;
+	sprite.SetPosition(position);
+	for (auto shape : shapes)
+	{
+		if (IsColliding(sprite))
+		{
+			position.x -= moveOffset.x;
+			sprite.SetPosition(position);
+		}
+	}
+
+	position.y += moveOffset.y;
+	sprite.SetPosition(position);
+	for (auto shape : shapes)
+	{
+		if (IsColliding(sprite))
+		{
+			position.y -= moveOffset.y;
+			sprite.SetPosition(position);
+		}
+	}
+
+	sprite.SetPosition(position);
 }
 
 void Collider::areaBlocked(sf::Vector2f& position, sf::Sprite& sprite, const sf::Vector2f& moveOffset)
@@ -125,7 +152,6 @@ void Collider::areaBlocked(sf::Vector2f& position, sf::Sprite& sprite, const sf:
 		{
 			position.x -= moveOffset.x;
 			sprite.setPosition(position);
-			std::cout << "side 충돌" << std::endl;
 		}
 	}
 
@@ -137,8 +163,20 @@ void Collider::areaBlocked(sf::Vector2f& position, sf::Sprite& sprite, const sf:
 		{
 			position.y -= moveOffset.y;
 			sprite.setPosition(position);
-			std::cout << "up&down 충돌" << std::endl;
 		}
+	}
+	sprite.setPosition(position);
+}
+
+void Collider::SetMap(Map* map)
+{
+	this->map = map;
+
+	shapes.clear();
+
+	for (sf::RectangleShape* col: map->GetColliders())
+	{
+		shapes.push_back(col);
 	}
 }
 

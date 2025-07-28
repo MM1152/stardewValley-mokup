@@ -19,6 +19,7 @@ private:
 	QuickBar* quickBar = nullptr;
 	//TEST
 	Item* item = nullptr;
+
 public:
 	Inventory(const std::string& texId = "" , const std::string& name = "");
 	~Inventory() override = default;

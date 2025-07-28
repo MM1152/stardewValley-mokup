@@ -1,13 +1,17 @@
 #pragma once
 #include "GameObject.h"
-class Collider :
-    public GameObject
+#include "Map.h"
+
+class Map;
+
+class Collider : public GameObject
 {
 protected:
 	sf::RectangleShape shape;
-	sf::RectangleShape shape2;
-	std::vector<sf::RectangleShape> shapes;
+	std::vector<sf::RectangleShape*> shapes;
 public:
+	Map* map;
+
 	Collider(const std::string& name = "Collider");
 	virtual ~Collider() = default;
 
@@ -23,9 +27,12 @@ public:
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
 
-	bool IsColliding(const sf::Sprite sprite);
+	bool IsColliding(const GameObject& sprite);
+	bool IsColliding(const sf::Sprite &sprite);
 	bool IsColliding(const sf::FloatRect rect);
 
+	void areaBlocked(sf::Vector2f& position, GameObject& sprite, const sf::Vector2f& moveOffset);
 	void areaBlocked(sf::Vector2f& position, sf::Sprite& sprite, const sf::Vector2f& moveOffset);
+	void SetMap(Map* map);
 };
 

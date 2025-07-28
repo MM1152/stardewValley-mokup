@@ -23,7 +23,7 @@ public:
 	Scene(SceneIds id);
 	virtual ~Scene() = default;
 
-	virtual void Init();
+	virtual void Init();	
 	virtual void Release();
 
 	virtual void Enter();

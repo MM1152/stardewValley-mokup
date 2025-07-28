@@ -39,15 +39,11 @@ void SceneGame::Init()
 
 	texIds.push_back(INVEN_IMG_PATH"CraftImage.bmp");
 
-	texIds.push_back("graphics/½Ã°è.png");
-	texIds.push_back("graphics/µ· ¼ýÀÚ.png");
-	texIds.push_back("graphics/³¯¾¾.bmp");
-	texIds.push_back("graphics/°èÀý.bmp");
+	texIds.push_back("graphics/clock.png");
+	texIds.push_back("graphics/moneyFont.png");
+	//texIds.push_back("graphics/³¯¾¾.bmp");
 
-	fontIds.push_back("fonts/SDMisaeng.ttf");
 	fontIds.push_back("fonts/DOSGothic.ttf");
-	fontIds.push_back("fonts/DungGeunMo.ttf");
-	fontIds.push_back("fonts/Stardew_Valley.ttf");
 
 	inventory = new Inventory(INVEN_IMG_PATH"CraftImage.bmp");
 	quickBar = new QuickBar(INVEN_IMG_PATH"CraftImage.bmp");

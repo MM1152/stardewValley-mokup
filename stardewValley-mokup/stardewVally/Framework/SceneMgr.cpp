@@ -6,6 +6,8 @@
 #include "SceneAnimator.h"
 #include "MapToolScene.h"
 #include "LoadMapDataScene.h"
+#include "SceneTileChangeTest.h"
+#include "SceneHome.h"
 
 void SceneMgr::Init()
 {
@@ -16,6 +18,8 @@ void SceneMgr::Init()
 	scenes.insert({ SceneIds::Test, new SceneTest() });
 	scenes.insert({ SceneIds::Game, new SceneGame() });
 	scenes.insert({ SceneIds::Animator, new SceneAnimator() });
+	scenes.insert({ SceneIds::ChangeTile, new SceneTileChangeTest() });
+	scenes.insert({ SceneIds::Home, new SceneHome() });
 	
 	for (auto scene : scenes)
 	{

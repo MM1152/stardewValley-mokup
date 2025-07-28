@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "NpcMgr.h"
 #include "Player.h"
+#include "TimeMoneyUi.h"
+#include "Inventory.h"
 
 NpcMgr::NpcMgr(const std::string& name)
 	: Collider(name)
@@ -43,7 +45,7 @@ void NpcMgr::SetOrigin(Origins preset)
 void NpcMgr::Init()
 {
 	Collider::Init();
-	npcSprite.setPosition({0.f, 0.f});
+	npcSprite.setPosition({ 70.f, 150.f });
 	npcTalkSprite.setPosition({ -50.f, -50.f });
 }
 
@@ -78,12 +80,32 @@ void NpcMgr::Update(float dt)
 	playerRect.setSize(player->GetGlobalBounds().getSize());
 
 	player->SetPosition(playerRect.getPosition());
-
-	if (IsCollidingPlayer(playerRect))
+	if (!player->GetOpenInven())
 	{
-		std::cout << "npc醱給" << std::endl;
-		if (InputMgr::GetKeyDown(sf::Keyboard::Z)) //function's address 
+		if (IsCollidingPlayer(playerRect))
 		{
+			std::cout << "npc嚙賣給" << std::endl;
+			if (InputMgr::GetKeyDown(sf::Keyboard::Z))
+			{
+				player->ChangeOpenShop();
+				player->ChangeisPlayer();
+				timemoneyui->ChangeTimer();
+				inventory->SetActive(!inventory->GetActive());
+				if (callback)
+				{
+					callback();
+				}
+			}
+		}
+	}
+	if (player->GetOpenShop())
+	{
+		if (InputMgr::GetKeyDown(sf::Keyboard::Escape))
+		{
+			player->ChangeOpenShop();
+			player->ChangeisPlayer();
+			timemoneyui->ChangeTimer();
+			inventory->SetActive(!inventory->GetActive());
 			if (callback)
 			{
 				callback();
@@ -93,7 +115,7 @@ void NpcMgr::Update(float dt)
 
 	if (IsTalkCollidingPlayer(playerRect))
 	{
-		std::cout << "talk npc 醱給" << std::endl;
+		std::cout << "talk npc 嚙賣給" << std::endl;
 		if (InputMgr::GetKeyDown(sf::Keyboard::Z))
 		{
 			isNpcMove = false;
@@ -105,6 +127,7 @@ void NpcMgr::Update(float dt)
 			isNpcMove = true;
 		}
 	}
+
 
 	sf::Vector2f playerPos = player->GetPosition();
 }
@@ -163,6 +186,21 @@ sf::FloatRect NpcMgr::GetGlobalBounds()
 	return npcSprite.getGlobalBounds();
 }
 
+void NpcMgr::SetTimer(TimeMoneyUi* time)
+{
+	this->timemoneyui = time;
+}
 
+TimeMoneyUi* NpcMgr::GetTimer()
+{
+	return timemoneyui;
+}
 
-
+void NpcMgr::SetInventory(Inventory* inven)
+{
+	inventory = inven;
+}
+Inventory* NpcMgr::GetInventory()
+{
+	return inventory;
+}

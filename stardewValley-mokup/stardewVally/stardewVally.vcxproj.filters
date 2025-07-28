@@ -105,7 +105,7 @@
     <ClInclude Include="InputText.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="LoadMapDataScene.h">
+    <ClInclude Include="Scene\LoadMapDataScene.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Map.h">
@@ -126,7 +126,19 @@
     <ClInclude Include="TimeMoneyUi.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="DialogueBox.h">
+    <ClInclude Include="Framework\AnimationClip.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Animator.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Trigger.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneTileChangeTest.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogBox.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="DialogueInfo.h">
@@ -212,7 +224,7 @@
     <ClCompile Include="InputText.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="LoadMapDataScene.cpp">
+    <ClCompile Include="Scene\LoadMapDataScene.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Map.cpp">
@@ -236,7 +248,19 @@
     <ClCompile Include="TimeMoneyUi.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="DialogueBox.cpp">
+    <ClCompile Include="Framework\Animator.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\AnimationClip.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Trigger.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneTileChangeTest.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogBox.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="DialogueInfo.cpp">
@@ -251,5 +275,8 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="dialogues.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Item.json" />
   </ItemGroup>
 </Project>

@@ -14,7 +14,6 @@ void itemDataMgr::LoadJson(const std::string& filename)
     nlohmann::json data;
     file >> data;
 
-    std::cout << "JSON load sucessed:\n" << data.dump(4) << "\n";
 
     if (!data.contains("storeName") || !data.contains("items"))
     {
