@@ -47,8 +47,10 @@ void Player::Init()
 {
 	//Player Position���� �� ������ �޶����� �� ������ �ʱ� ��ġ�� �����ؼ� ����ؾ��մϴ�~ -�μ�-
 	//SetPosition({100.f, 100.f});
-	if(inventory)
+	if (inventory)
+	{
 		inventory->SetActive(false);
+	}
 	isPlayer = true;
 	Collider::Init();
 }
@@ -142,10 +144,6 @@ void Player::Update(float dt)
 		}
 		sprite.setPosition(position);
 	}*/
-
-    if (InputMgr::GetKeyDown(sf::Keyboard::E)) {
-        inventory->SetActive(!inventory->GetActive());
-    }
 	// openInventory > E (in / out)
 	if (!openShop)
 	{

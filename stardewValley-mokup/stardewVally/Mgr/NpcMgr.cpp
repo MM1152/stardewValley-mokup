@@ -85,6 +85,7 @@ void NpcMgr::Update(float dt)
 	playerRect.setSize(player->GetGlobalBounds().getSize());
 
 	player->SetPosition(playerRect.getPosition());
+
 	if (!player->GetOpenInven())
 	{
 		if (IsCollidingPlayer(playerRect))
@@ -118,21 +119,24 @@ void NpcMgr::Update(float dt)
 		}
 	}
 
-	if (IsTalkCollidingPlayer(playerRect))
+	if (!player->GetOpenInven() && !player->GetOpenShop())
 	{
-		std::cout << "talk npc �浹" << std::endl;
-		if (InputMgr::GetKeyDown(sf::Keyboard::Z))
+		if (IsTalkCollidingPlayer(playerRect))
 		{
-			isNpcMove = false;
-			if (talkCallback)
-				talkCallback(); 
-		} 
-		else if (!talkCallback)
-		{
-			isNpcMove = true;
+			if (InputMgr::GetKeyDown(sf::Keyboard::X))
+			{
+				player->ChangeisPlayer();
+				timemoneyui->ChangeTimer();
+				isNpcMove = false;
+				if (talkCallback)
+					talkCallback();
+			}
+			else if (!talkCallback)
+			{
+				isNpcMove = true;
+			}
 		}
 	}
-
 
 	sf::Vector2f playerPos = player->GetPosition();
 }
