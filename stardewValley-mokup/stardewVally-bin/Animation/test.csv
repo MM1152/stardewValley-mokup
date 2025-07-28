@@ -1,0 +1,2 @@
+ID,FPS,LoopType (0: Single, 1: Loop)
+TEXTURE ID,LEFT,TOP,WIDTH,HEIGHT,FLIPX(0:Fale, 1:True)

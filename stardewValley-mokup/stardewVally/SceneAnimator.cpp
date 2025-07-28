@@ -52,9 +52,9 @@ std::string SaveFileDialog(const std::string saveData) {
 
         if (hFile != INVALID_HANDLE_VALUE) {
             // Write example text
-            std::string data = "저장할 내용입니다.\n"; // ANSI 텍스트. 한글은 깨질 수 있음.
+            //std::string data = "저장할 내용입니다.\n"; // ANSI 텍스트. 한글은 깨질 수 있음.
             DWORD bytesWritten;
-            WriteFile(hFile, data.c_str(), data.length(), &bytesWritten, NULL);
+            WriteFile(hFile, saveData.c_str(), saveData.length(), &bytesWritten, NULL);
             CloseHandle(hFile);
         }
         else {
@@ -106,13 +106,13 @@ void SceneAnimator::Init()
         if (sprite.getTexture() != nullptr && rect.size() > 0 && !inputText->GetString().empty()) {
             std::string saveData;
             saveData = "ID,FPS,LoopType (0: Single, 1: Loop)\n"
-                "" + inputText->GetString() + ",10,1\n\n"
+                //"" + inputText->GetString() + ",10,1\n\n"
                 "TEXTURE ID,LEFT,TOP,WIDTH,HEIGHT,FLIPX(0:Fale, 1:True)\n";
                
-            for (int i = 0; i < rect.size(); i++) {
+            /*for (int i = 0; i < rect.size(); i++) {
 
-            }
-           // SaveFileDialog();
+            }*/
+           SaveFileDialog(saveData);
         }
     };
 
