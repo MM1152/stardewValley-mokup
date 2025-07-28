@@ -13,7 +13,7 @@
 
 std::string OpenFileDialog() {
     OPENFILENAMEA  ofn;
-    char szFileName[MAX_PATH] = "";  // char ¹è¿­
+    char szFileName[MAX_PATH] = "";  // char ï¿½è¿­
     ZeroMemory(&ofn, sizeof(ofn));
     ofn.lStructSize = sizeof(ofn);
     ofn.hwndOwner = NULL;
@@ -51,18 +51,17 @@ std::string SaveFileDialog(const std::string saveData) {
         hFile = CreateFileA(ofn.lpstrFile, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 
         if (hFile != INVALID_HANDLE_VALUE) {
-            // Write example text
-            //std::string data = "ÀúÀåÇÒ ³»¿ëÀÔ´Ï´Ù.\n"; // ANSI ÅØ½ºÆ®. ÇÑ±ÛÀº ±úÁú ¼ö ÀÖÀ½.
+            std::string data = saveData;
             DWORD bytesWritten;
             WriteFile(hFile, saveData.c_str(), saveData.length(), &bytesWritten, NULL);
             CloseHandle(hFile);
         }
         else {
-            std::cerr << "ÆÄÀÏ »ý¼º ½ÇÆÐ" << std::endl;
+            std::cerr << "ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½" << std::endl;
         }
     }
     else {
-        std::cout << "ÆÄÀÏ ¼±ÅÃ Ãë¼Ò" << std::endl;
+        std::cout << "ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½" << std::endl;
     }
     return "";
 }
@@ -92,7 +91,7 @@ void SceneAnimator::Init()
         texture.loadFromFile(filePath);
         TCHAR filePath[MAX_PATH];
         GetModuleFileName(NULL, filePath, MAX_PATH);
-        std::wcout << L"½ÇÇà ÆÄÀÏ °æ·Î: " << filePath << std::endl;
+        std::wcout << L"ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½: " << filePath << std::endl;
       
 
         preview.setTexture(texture, true);
@@ -102,17 +101,20 @@ void SceneAnimator::Init()
     saveBNT = new Button(FONT_PATH"DOSGothic.ttf");
     saveBNT->sortingLayer = SortingLayers::UI;
     saveBNT->onClickFunc = [this]() {
-        
-        if (sprite.getTexture() != nullptr && rect.size() > 0 && !inputText->GetString().empty()) {
-            std::string saveData;
-            saveData = "ID,FPS,LoopType (0: Single, 1: Loop)\n"
-                //"" + inputText->GetString() + ",10,1\n\n"
-                "TEXTURE ID,LEFT,TOP,WIDTH,HEIGHT,FLIPX(0:Fale, 1:True)\n";
-               
-            /*for (int i = 0; i < rect.size(); i++) {
+        std::vector<std::string> newPath = Utils::Split(filePath, (char)92);
+        int idx = Utils::FindStringIdx(newPath, "graphics");
 
-            }*/
-           SaveFileDialog(saveData);
+        if (sprite.getTexture() != nullptr && rect.size() > 0 && !inputText->GetString().empty() && idx != -1) {
+            std::string saveData;
+            saveData = "ID,FPS,LoopType (0: Single. 1: Loop)\n"
+                "" + inputText->GetString() + ",10,1\n\n"
+                "TEXTURE ID,LEFT,TOP,WIDTH,HEIGHT,FLIPX(0:Fale. 1:True)\n";
+          
+            for (int i = 0; i < rect.size(); i++) {
+                sf::FloatRect rectSize = rect[i]->getGlobalBounds();
+                saveData += newPath[idx] + "/" + newPath[idx + 1] + "," + std::to_string(rectSize.left) + "," + std::to_string(rectSize.top) + "," + std::to_string(rectSize.width) + "," + std::to_string(rectSize.height)+"," + "0" + "\n";
+            }
+            SaveFileDialog(saveData);
         }
     };
 
@@ -149,6 +151,10 @@ void SceneAnimator::Update(float dt)
     DragToMoveScreen(dt);
     UndoRectangle();
     PreviewAnimation(dt);
+
+    if (InputMgr::GetKeyDown(sf::Keyboard::Enter)) {
+        SCENE_MGR.ChangeScene(SceneIds::AnimationTest);
+    }
 }
 
 void SceneAnimator::Draw(sf::RenderWindow& window)
@@ -185,7 +191,12 @@ void SceneAnimator::DrawRectangle()
             delete rect[rect.size() - 1];
             rect.pop_back();
         }
+        else {
+            std::cout << rect[rect.size() - 1]->getGlobalBounds().left << ", " << rect[rect.size() - 1]->getGlobalBounds().top << ", " << rect[rect.size() - 1]->getGlobalBounds().width << ", " << rect[rect.size() - 1]->getGlobalBounds().height << std::endl;
+        }
         startDrawRect = false;
+
+        
     }
     
 }

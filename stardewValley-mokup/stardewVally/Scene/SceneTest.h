@@ -1,6 +1,7 @@
 #pragma once
 #include "Scene.h"
 #include "TileMap.h"
+#include "Shop.h"
 
 class TimeMoneyUi;
 class Player;
@@ -9,7 +10,8 @@ class Shop;
 class Collider;
 class TimeMoneyUi;
 class Map;
-
+class Inventory;
+class QuickBar;
 
 class SceneTest : public Scene
 {
@@ -20,12 +22,19 @@ protected:
 	Shop* shop = nullptr;
 	Collider* collider = nullptr;
 	TimeMoneyUi* timemoney = nullptr;
+	Inventory* inventory = nullptr;
+	QuickBar* quickBar = nullptr;
+
+
 	TileMap* tile;
 	TileMap* forGround;
 
 	Map map;
 
 	bool drawCollider;
+
+	
+
 public:
 	SceneTest();
 	~SceneTest() = default;
@@ -33,9 +42,10 @@ public:
 	void Init() override;
 	void Enter() override;
 	void Exit() override;
-
 	void Update(float dt) override;
 
 	void Draw(sf::RenderWindow& window) override;
+
+	void CenterView();
 };
 

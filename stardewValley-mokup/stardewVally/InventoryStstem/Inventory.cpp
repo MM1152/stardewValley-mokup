@@ -2,23 +2,28 @@
 #include "Inventory.h"
 #include "ItemSlot.h"
 #include "QuickBar.h"
+#include "Hoe.h"
 Inventory::Inventory(const std::string& texId, const std::string& name)
 	:GameObject(name)
 	, texId(texId)
 {
+	sortingOrder = 2;
 }
 
 void Inventory::Init()
 {
-	inv_BackGround.setSize({ 45 * 12 + 20.f , 300 });
-	inv_BackGround.setPosition({ FRAMEWORK.GetWindowSizeF().x / 2 - 400.f , FRAMEWORK.GetWindowSizeF().y / 2});
-	
+	sortingLayer = SortingLayers::UI;
+	sortingOrder = 0;
+
+	inv_BackGround.setSize({ 65 * 12 + 45.f , 270 });
+	inv_BackGround.setPosition({ FRAMEWORK.GetWindowSizeF().x / 2 - 400.f , FRAMEWORK.GetWindowSizeF().y / 2 - 300.f});
+
 	slotSize = 24;
 	for (int i = 0; i < 12; i++) {
 		ItemSlot* itemSlot = new ItemSlot(INVEN_IMG_PATH"ItemSlot.png");
 		itemSlot->Init();
 
-		itemSlot->SetPosition({ inv_BackGround.getPosition().x + 10.f + i * 45 , inv_BackGround.getPosition().y  + 20.f});
+		itemSlot->SetPosition({ inv_BackGround.getPosition().x + i * 65 + 20.f, inv_BackGround.getPosition().y  + 20.f});
 		equipSlots.push_back(itemSlot); //slot position
 	}
 
@@ -26,21 +31,20 @@ void Inventory::Init()
 		for (int j = 0; j < slotSize / 2; j++) {
 			ItemSlot* itemSlot = new ItemSlot(INVEN_IMG_PATH"ItemSlot.png");
 			itemSlot->Init();
-			itemSlot->SetPosition({ inv_BackGround.getPosition().x + 10.f + j * 45 , inv_BackGround.getPosition().y + 110.f + (80.f * i)});
+			itemSlot->SetPosition({ inv_BackGround.getPosition().x + j * 65 + 20.f, inv_BackGround.getPosition().y + 100.f + (65.f * i)});
 			
 			unEquipSlots.push_back(itemSlot);
 		}
 	}
-	ItemInfo sword = { "galaxy_sword" ,  ITEM_IMG_PATH"galaxy_sword.png" /*ItemType::EquipMent*/};
-	item = new Item(sword);
 
-	item->Init();
-
-
+	//ItemInfo sword = { "galaxy_sword" ,  ITEM_IMG_PATH"galaxy_sword.png" /*ItemType::EquipMent*/};
+	hoe = new Hoe(itemDataMgr::Instance().GetItem("hoe"));
+	hoe->Init();
 }
 
 void Inventory::Release()
 {
+
 }
 
 void Inventory::Reset()
@@ -54,9 +58,8 @@ void Inventory::Reset()
 	for (auto slot : unEquipSlots) {
 		slot->Reset();
 	}
-	item->Reset();
-	SetItem(item);
-
+	hoe->Reset();
+	SetItem(hoe);
 }
 
 void Inventory::Update(float dt)
@@ -102,5 +105,23 @@ bool Inventory::SetItem(Item* item)
 		}
 	}
 
+	return false;
+}
+
+bool Inventory::AddItem(const ItemInfo& info)
+{
+	Item* newItem = new Item(info);
+	newItem->Init();
+
+	for (ItemSlot* slot : unEquipSlots)
+	{
+		if (!slot->IsSetting())
+		{
+			slot->SetItem(newItem);
+			return true;
+		}
+	}
+
+	delete newItem;
 	return false;
 }

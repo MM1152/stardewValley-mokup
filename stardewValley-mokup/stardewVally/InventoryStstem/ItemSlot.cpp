@@ -12,7 +12,7 @@ ItemSlot::ItemSlot(const std::string& texId, const std::string& name)
 
 void ItemSlot::Init()
 {
-	slot.setSize({ 40,70 });
+	slot.setSize({ 65,65 });
 }
 
 void ItemSlot::Release()
@@ -43,8 +43,6 @@ void ItemSlot::Update(float dt)
 	}
 	else {
 		slot.setFillColor(sf::Color::White);
-
-
 	}
 }
 

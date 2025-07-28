@@ -1,39 +1,17 @@
 #pragma once
 #include "GameObject.h"
 
+class Player;
+
 class TimeMoneyUi : public GameObject
 {
-	enum class SeasonType
-	{
-		spring,
-		summer,
-		autumn,
-		winter,
-	};
-
-	enum class WeatherType
-	{
-		lucidity,
-		spring_wind,
-		rain,
-		storm,
-		fall_wind,
-		snow,
-	};
-
 protected:
 
 	bool ampm = false;
 	bool isTimer = true;
 
 	sf::Sprite ui;
-	std::string uiId = "graphics/시계.png";
-	
-	sf::Sprite weatherUi;
-	std::string weatherUiId = "graphics/날씨.bmp";
-
-	sf::Sprite seasonUi;
-	std::string seasonUiId = "graphics/계절.bmp";
+	std::string uiId = "graphics/clock.png";
 
 	//if money % 10 == 0~9 > if (money % 100 - money % 10) == 0~9 .... 
 	int money;
@@ -57,7 +35,7 @@ protected:
 	sf::Sprite m7;
 	sf::Sprite m8;
 
-	std::string moneyUiId = "graphics/돈 숫자.png";
+	std::string moneyUiId = "graphics/moneyFont.png";
 	//rect
 
 	//dom = day of week -> th % 7 -> 1 월 , 2 화 , 3 수 , 4 목, 5 금, 6 토, 0 일 / th > 28 {th = 1}
@@ -78,6 +56,7 @@ protected:
 	float minuteTimer = 0.f;
 	float minuteMaxTimer = 7.f;
 
+	Player* player;
 
 public:
 	TimeMoneyUi(const std::string& name = "");
@@ -107,5 +86,15 @@ public:
 	void SettingMoney(int m);
 
 	void ResetSettingMoney();
+
+	void ChangeTimer()
+	{
+		isTimer = !isTimer;
+	}
+
+	void Changeth();
+
+	void Setplayer(Player* player);
+	Player* GetPlayer();
 };
 

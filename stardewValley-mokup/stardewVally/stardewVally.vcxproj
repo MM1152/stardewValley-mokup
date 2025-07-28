@@ -138,8 +138,11 @@
   <ItemGroup>
     <ClInclude Include="Collider.h" />
     <ClInclude Include="Button.h" />
+    <ClInclude Include="DialogueBox.h" />
     <ClInclude Include="Framework\AnimationClip.h" />
     <ClInclude Include="Framework\Animator.h" />
+    <ClInclude Include="DialogueInfo.h" />
+    <ClInclude Include="DialogueLoader.h" />
     <ClInclude Include="Framework\Defines.h" />
     <ClInclude Include="Framework\Framework.h" />
     <ClInclude Include="Framework\GameObject.h" />
@@ -153,6 +156,7 @@
     <ClInclude Include="Framework\TextGo.h" />
     <ClInclude Include="Framework\Utils.h" />
     <ClInclude Include="HitBox.h" />
+    <ClInclude Include="Hoe.h" />
     <ClInclude Include="InputText.h" />
     <ClInclude Include="itemDataMgr.h" />
     <ClInclude Include="NpcMgr.h" />
@@ -163,7 +167,9 @@
     <ClInclude Include="InventoryStstem\QuickBar.h" />
     <ClInclude Include="ItemInfo.h" />
     <ClInclude Include="InventoryStstem\QuickBar_Slot.h" />
+    <ClInclude Include="SceneAnimationTest.h" />
     <ClInclude Include="SceneTileChangeTest.h" />
+    <ClInclude Include="Scene\SceneHome.h" />
     <ClInclude Include="Scene\LoadMapDataScene.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="SceneAnimator.h" />
@@ -181,8 +187,11 @@
   <ItemGroup>
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="DialogueBox.cpp" />
     <ClCompile Include="Framework\AnimationClip.cpp" />
     <ClCompile Include="Framework\Animator.cpp" />
+    <ClCompile Include="DialogueInfo.cpp" />
+    <ClCompile Include="DialogueLoader.cpp" />
     <ClCompile Include="Framework\Framework.cpp" />
     <ClCompile Include="Framework\GameObject.cpp" />
     <ClCompile Include="Framework\InputMgr.cpp" />
@@ -192,12 +201,15 @@
     <ClCompile Include="Framework\TextGo.cpp" />
     <ClCompile Include="Framework\Utils.cpp" />
     <ClCompile Include="HitBox.cpp" />
+    <ClCompile Include="Hoe.cpp" />
     <ClCompile Include="InputText.cpp" />
     <ClCompile Include="InventoryStstem\Inventory.cpp" />
     <ClCompile Include="InventoryStstem\Item.cpp" />
     <ClCompile Include="InventoryStstem\ItemSlot.cpp" />
     <ClCompile Include="InventoryStstem\QuickBar.cpp" />
+    <ClCompile Include="SceneAnimationTest.cpp" />
     <ClCompile Include="SceneTileChangeTest.cpp" />
+    <ClCompile Include="Scene\SceneHome.cpp" />
     <ClCompile Include="Scene\LoadMapDataScene.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="itemDataMgr.cpp" />
@@ -221,6 +233,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Item.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="dialogues.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

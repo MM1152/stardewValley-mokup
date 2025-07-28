@@ -3,12 +3,15 @@
 #include "GameObject.h"
 #include "ItemInfo.h"
 
+class Player;
 class Item : public GameObject
 {
 private:
-	sf::Sprite itemSp;
 	ItemInfo iteminfo;
 	bool isDrag = false;
+protected:
+	sf::Sprite itemSp;
+	Player* player;
 public:
 	Item(ItemInfo type);
 	Item() = default;
@@ -29,5 +32,7 @@ public:
 	void SetItemInfo(Item* item);
 	void DragItem();
 	bool GetDrag() { return isDrag; };
+	void SetPlayer(Player* player) { this->player = player; };
+	virtual const std::string UseItem();
 };
 

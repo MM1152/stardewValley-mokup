@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "TimeMoneyUi.h"
+#include "Player.h"
 
 TimeMoneyUi::TimeMoneyUi(const std::string& name)
 	: GameObject(name)
@@ -71,6 +72,11 @@ void TimeMoneyUi::Release()
 
 void TimeMoneyUi::Reset()
 {
+	dowfont = "fonts/DOSGothic.ttf";
+	meridiemfont = "fonts/DOSGothic.ttf";
+	moneyUiId = "graphics/moneyFont.png";
+	uiId = "graphics/clock.png";
+
 	ui.setTexture(TEXTURE_MGR.Get(uiId));
 
 	m1.setTexture(TEXTURE_MGR.Get(moneyUiId));
@@ -82,14 +88,11 @@ void TimeMoneyUi::Reset()
 	m7.setTexture(TEXTURE_MGR.Get(moneyUiId));
 	m8.setTexture(TEXTURE_MGR.Get(moneyUiId));
 
-	weatherUi.setTexture(TEXTURE_MGR.Get(weatherUiId));
-	seasonUi.setTexture(TEXTURE_MGR.Get(seasonUiId));
-
-	dow.setFont(FONT_MGR.Get(dowfont));
+	//dow.setFont(FONT_MGR.Get(dowfont));
 	dow.setString(isdow);
 
 
-	meridiem.setFont(FONT_MGR.Get(meridiemfont));
+	//meridiem.setFont(FONT_MGR.Get(meridiemfont));
 	if (!ampm)
 	{
 		meridiem.setString(istime + "am");
@@ -102,16 +105,12 @@ void TimeMoneyUi::Reset()
 	SetScale({ 1.f, 1.f });
 	SetOrigin(Origins::TR);
 	SetPosition({ 1270.f, 10.f });
-
-	
 }
 
 void TimeMoneyUi::Update(float dt)
 {
-
-
 	// Time
-	if (isTimer)
+	if (isTimer && !player->GetFainting())
 	{
 		minuteTimer += dt;
 		if (minuteTimer > minuteMaxTimer)
@@ -141,12 +140,13 @@ void TimeMoneyUi::Update(float dt)
 				if (!ampm && hour == 2)
 				{
 					isTimer = false;
-					//player fainting change
+					player->ChangeFainting();
+					player->ChangeisPlayer();
 				}
 			}
 			istime = Utils::TostringTime(hour, minute);
 			isdow = Utils::TostringDOW(th);
-			Reset();
+			//Reset();
 			minuteTimer = 0;
 		}
 	}
@@ -586,4 +586,34 @@ void TimeMoneyUi::ResetSettingMoney()
 	n6 = -1;
 	n7 = -1;
 	n8 = -1;
+}
+
+void TimeMoneyUi::Changeth()
+{
+	if (!ampm && hour <= 2 || !ampm && hour == 12)
+	{
+		hour = 6;
+		minute = 0;
+		isTimer = true;
+	}
+	else
+	{
+		th += 1;
+		hour = 6;
+		minute = 0;
+		isTimer = true;
+		if (th > 28)
+		{
+			th = 1;
+		}
+	}
+}
+
+void TimeMoneyUi::Setplayer(Player* player)
+{
+	this->player = player;
+}
+Player* TimeMoneyUi::GetPlayer()
+{
+	return player;
 }

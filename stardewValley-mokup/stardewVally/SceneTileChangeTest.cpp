@@ -9,7 +9,7 @@ SceneTileChangeTest::SceneTileChangeTest()
 
 void SceneTileChangeTest::Init()
 {
-	texIds.push_back(GRAPHICS_PATH"³óÀå(º½).bmp");
+	texIds.push_back(GRAPHICS_PATH"spring.bmp");
 	texIds.push_back(GRAPHICS_PATH"building.png");
 	texIds.push_back(GRAPHICS_PATH"testC.png");
 	tile = new TileMap(VertexType::Game);
@@ -35,13 +35,13 @@ void SceneTileChangeTest::Enter()
 	Scene::Enter();
 	worldView.setSize(FRAMEWORK.GetWindowSizeF() * 0.5f);
 
-	map.Load(MAP_PATH"testmap");
+	map.Load(MAP_PATH"demomap");
 
 	tile->Set(map.GetTextId(0) , map.GetCellDatas(0));
 	buildTile->Set(map.GetTextId(1), map.GetCellDatas(1));
 
 	player->SetMap(&map);
-	player->SetPosition({ 0,0 });
+	player->SetPosition({ 300,300 });
 }
 
 void SceneTileChangeTest::Exit()
@@ -59,8 +59,10 @@ void SceneTileChangeTest::Update(float dt)
 
 	if (InputMgr::GetKeyDown(sf::Keyboard::F)) {
 		int cellIdx = map.GetCellIndex(player->GetPosition(), 0);
+		
 		CellData changeCellData = map.GetCell(cellIdx, 0);
-		if (changeCellData.idx == 73 || changeCellData.idx == 74) {
+		std::cout << changeCellData.idx << std::endl;
+		if (changeCellData.idx == 25 || changeCellData.idx == 74) {
 			changeCellData = map.GetTextureCell(308, 0);
 
 			map.SetCellData(cellIdx, 0, &changeCellData);

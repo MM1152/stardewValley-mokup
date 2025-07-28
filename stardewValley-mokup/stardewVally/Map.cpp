@@ -263,5 +263,10 @@ void Map::Release()
         delete col;
     }
     
+    for (auto tri : triggers) {
+        delete tri;
+    }
+
+    triggers.clear();
     colliders.clear();
 }
