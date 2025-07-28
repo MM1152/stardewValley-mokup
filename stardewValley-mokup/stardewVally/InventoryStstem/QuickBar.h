@@ -9,6 +9,8 @@ private:
 	sf::RectangleShape quickBar;
 	sf::RectangleShape outLine;
 	std::vector<QuickBar_Slot*> quickBar_Slots;		
+
+	int idx = 0;
 public:
 	QuickBar(const std::string& texId = "" , const std::string& name = "");
 	~QuickBar() override = default;
@@ -21,5 +23,6 @@ public:
 	void Draw(sf::RenderWindow& window) override;
 
 	void SetItem(Item* item , int idx);
+	Item* GetItem();
 };
 

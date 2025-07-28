@@ -37,6 +37,7 @@ void Scene::Enter()
 	FONT_MGR.Load(fontIds);
 	SOUNDBUFFER_MGR.Load(soundIds);
 	ANI_CLIP_MGR.Load(aniIds);
+
 	for (auto obj : gameObjects)
 	{
 		obj->Reset();

@@ -192,7 +192,12 @@ void SceneAnimator::DrawRectangle()
             delete rect[rect.size() - 1];
             rect.pop_back();
         }
+        else {
+            std::cout << rect[rect.size() - 1]->getGlobalBounds().left << ", " << rect[rect.size() - 1]->getGlobalBounds().top << ", " << rect[rect.size() - 1]->getGlobalBounds().width << ", " << rect[rect.size() - 1]->getGlobalBounds().height << std::endl;
+        }
         startDrawRect = false;
+
+        
     }
     
 }

@@ -36,7 +36,9 @@
       "id":"hoe",
       "name" : "Hoe",
       "description" : "Dig the ground",
-      "TextureId" : "graphics/garlic_seeds.png",
+      "TextureId" : "graphics/tools.png",
+      "UiTextureRect" : [79, 31, 19, 19],
+      "TextureRect" : [0, 26, 17, 23],
       "price" : 40,
       "stock" : 100
     }

@@ -11,7 +11,8 @@ protected:
 public: 
 	void Load(const std::string& filename);
 	void LoadShopItems(const std::string& filename);
-	const std::vector<ItemInfo>& GetItem(const std::string& shopName);
+	const std::vector<ItemInfo>& GetShopItemList(const std::string& shopName);
+	const ItemInfo GetItem(const std::string& id);
 };
 
 	

@@ -43,8 +43,6 @@ void ItemSlot::Update(float dt)
 	}
 	else {
 		slot.setFillColor(sf::Color::White);
-
-
 	}
 }
 

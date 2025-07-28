@@ -156,6 +156,7 @@
     <ClInclude Include="Framework\TextGo.h" />
     <ClInclude Include="Framework\Utils.h" />
     <ClInclude Include="HitBox.h" />
+    <ClInclude Include="Hoe.h" />
     <ClInclude Include="InputText.h" />
     <ClInclude Include="itemDataMgr.h" />
     <ClInclude Include="NpcMgr.h" />
@@ -200,6 +201,7 @@
     <ClCompile Include="Framework\TextGo.cpp" />
     <ClCompile Include="Framework\Utils.cpp" />
     <ClCompile Include="HitBox.cpp" />
+    <ClCompile Include="Hoe.cpp" />
     <ClCompile Include="InputText.cpp" />
     <ClCompile Include="InventoryStstem\Inventory.cpp" />
     <ClCompile Include="InventoryStstem\Item.cpp" />

@@ -3,7 +3,7 @@
 #include "NpcMgr.h"
 #include "inventory.h"
 #include "TimeMoneyUi.h"
-
+#include "Item.h"
 
 Player::Player(const std::string name)
 	:Collider(name)
@@ -48,6 +48,14 @@ void Player::SetOrigin(Origins preset)
 	}
 }
 
+void Player::SetItem(Item* item)
+{
+	this->item = item;
+	if (this->item) {
+		copyItem.SetItemInfo(this->item);
+	}
+}
+
 
 void Player::Init()
 {
@@ -87,7 +95,21 @@ void Player::Reset()
 
 void Player::Update(float dt)
 {
+	if (item != inventory->GetQuickBar()->GetItem()) {
+		item = inventory->GetQuickBar()->GetItem();
+		copyItem.Init();
+		copyItem.Reset();
+		item->SetPlayer(this);
+	}
 	
+	if (item) {
+		copyItem.Update(dt);
+	}
+
+	if (InputMgr::GetKeyDown(sf::Keyboard::Z)) {
+		copyItem.UseItem();
+	}
+
 	sf::Vector2f movement = { 0.f, 0.f };
 	
 	float moveX = InputMgr::GetAxisRaw(Axis::Horizontal);
@@ -99,11 +121,8 @@ void Player::Update(float dt)
 		hand.Update(dt);
 	}
 	
-	
-
 	movement.x = moveX * speed * dt;
 	movement.y = moveY * speed * dt;
-
 	sf::Vector2f moveOffset(movement.x, movement.y);
 	
 	if (isPlayer)
@@ -172,9 +191,9 @@ void Player::Update(float dt)
 		sprite.setPosition(position);
 	}*/
 
-    if (InputMgr::GetKeyDown(sf::Keyboard::E)) {
+  /*  if (InputMgr::GetKeyDown(sf::Keyboard::E)) {
         inventory->SetActive(!inventory->GetActive());
-    }
+    }*/
 	// openInventory > E (in / out)
 	if (!openShop)
 	{

@@ -25,7 +25,6 @@ void SceneGame::Init()
 	texIds.push_back("graphics/shop_bg.png");
 	texIds.push_back("graphics/uiBox.png");
 	texIds.push_back(INVEN_IMG_PATH"ItemSlot.png");
-
 	texIds.push_back("graphics/parsnip_seeds.png");
 	texIds.push_back("graphics/cauliflower_seeds.png");
 	texIds.push_back("graphics/potato_seeds.png");
@@ -71,14 +70,14 @@ void SceneGame::Init()
 	player->SetNpcMgr(npc);    
 	player->SetInventory(inventory);
 	npc->SetPlayer(player);
-
+	timemoney->Setplayer(player);
 	AddGameObject(player);	
 	AddGameObject(npc);
 
 	itemDataMgr::Instance().Load("data/Item.json");
 	itemDataMgr::Instance().LoadShopItems("data/shop.json");
 
-	const auto& items = itemDataMgr::Instance().GetItem("Pierre's General Store");
+	const auto& items = itemDataMgr::Instance().GetShopItemList("Pierre's General Store");
 
 	for (const auto& item : items)
 	{
@@ -86,7 +85,6 @@ void SceneGame::Init()
 	}
 
     DialogueLoader::Instance().LoadFromJson("data/Dialogues.json");
-
 
 	collider = new Collider("Collider");
 	AddGameObject(collider);

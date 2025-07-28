@@ -1,9 +1,10 @@
 #pragma once
 #include "GameObject.h"
 #include "Item.h"
+#include "QuickBar.h"
 
 class ItemSlot;
-class QuickBar;
+class Hoe;
 class Inventory : public GameObject
 {
 private:
@@ -18,7 +19,7 @@ private:
 
 	QuickBar* quickBar = nullptr;
 	//TEST
-	Item* item = nullptr;
+	Hoe* hoe = nullptr;
 
 public:
 	Inventory(const std::string& texId = "" , const std::string& name = "");
@@ -34,6 +35,7 @@ public:
 	bool SetItem(Item* item);
 	void SetQuickBar(QuickBar* quickBar) { this->quickBar = quickBar; };
 	bool AddItem(const ItemInfo& info);
-		;
+	
+	QuickBar* GetQuickBar() { return quickBar; }
 };
 

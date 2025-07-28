@@ -2,10 +2,12 @@
 #include "Collider.h"
 #include "stdafx.h"
 #include "Animator.h"
+#include "Item.h"
 
 class NpcMgr;
 class Inventory;
 class TimeMoneyUi;
+
 class Player : public Collider
 {
 protected:
@@ -30,6 +32,9 @@ protected:
 	NpcMgr* npcMgr = nullptr;
 	Inventory* inventory = nullptr;
 	TimeMoneyUi* timemoneyui = nullptr;
+
+	Item copyItem;
+	Item* item;
 public:
 	void SetActive(bool a) { active = a; };
 	void SetPosition(const sf::Vector2f& pos) override;
@@ -38,6 +43,7 @@ public:
 	void SetOrigin(const sf::Vector2f& o);
 	void SetOrigin(Origins preset);
 	void SetNpcMgr(NpcMgr* n) { this->npcMgr = n; }
+	void SetItem(Item* item);
 
 	Player(const std::string name = "Player");
 	virtual ~Player() = default;

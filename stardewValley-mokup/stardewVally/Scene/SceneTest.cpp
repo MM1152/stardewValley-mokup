@@ -17,6 +17,9 @@ SceneTest::SceneTest()
 
 void SceneTest::Init()
 {
+	texIds.push_back(GRAPHICS_PATH"tools.png");
+	texIds.push_back(GRAPHICS_PATH"farmer_base.png");
+	texIds.push_back(GRAPHICS_PATH"hats.png");
 	texIds.push_back("graphics/testC.png");
 	texIds.push_back("graphics/npcTest.png");
 	texIds.push_back("graphics/uitest.png");
@@ -77,7 +80,7 @@ void SceneTest::Init()
 	AddGameObject(player);
 	AddGameObject(npc);
 
-	const auto& items = itemDataMgr::Instance().GetItem("Pierre's General Store");
+	const auto& items = itemDataMgr::Instance().GetShopItemList("Pierre's General Store");
 
 	for (const auto& item : items)
 	{

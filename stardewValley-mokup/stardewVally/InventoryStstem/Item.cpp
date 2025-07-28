@@ -34,7 +34,7 @@ void Item::Draw(sf::RenderWindow& window)
 {
 	window.draw(itemSp);
 }
-
+	
 void Item::SetRotation(float rot)
 {
 	rotation = rot;
@@ -57,11 +57,22 @@ void Item::SetItemInfo(Item* item)
 {
 	iteminfo = item->iteminfo;
 	itemSp.setScale({ 2.f,2.f });
-	itemSp.setTexture(TEXTURE_MGR.Get(iteminfo.itemTextureId) , true);
+	if (iteminfo.textureCoord.width == 0 && iteminfo.textureCoord.height == 0) {
+		itemSp.setTexture(TEXTURE_MGR.Get(iteminfo.itemTextureId), true);
+	}
+	else {
+		itemSp.setTexture(TEXTURE_MGR.Get(iteminfo.itemTextureId));
+		itemSp.setTextureRect((sf::IntRect)iteminfo.uiTextCoord);
+	}
 	Utils::SetOrigin(itemSp, Origins::MC);
 }
 
 void Item::DragItem()
 {
 	isDrag = true;
+}
+
+const std::string Item::UseItem()
+{
+	return "";
 }

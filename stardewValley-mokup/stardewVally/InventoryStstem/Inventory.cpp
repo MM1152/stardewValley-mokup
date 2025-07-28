@@ -2,7 +2,7 @@
 #include "Inventory.h"
 #include "ItemSlot.h"
 #include "QuickBar.h"
-
+#include "Hoe.h"
 Inventory::Inventory(const std::string& texId, const std::string& name)
 	:GameObject(name)
 	, texId(texId)
@@ -37,14 +37,14 @@ void Inventory::Init()
 		}
 	}
 
-	ItemInfo sword = { "galaxy_sword" ,  ITEM_IMG_PATH"galaxy_sword.png" /*ItemType::EquipMent*/};
-	item = new Item(sword);
-
-	item->Init();
+	//ItemInfo sword = { "galaxy_sword" ,  ITEM_IMG_PATH"galaxy_sword.png" /*ItemType::EquipMent*/};
+	hoe = new Hoe(itemDataMgr::Instance().GetItem("hoe"));
+	hoe->Init();
 }
 
 void Inventory::Release()
 {
+
 }
 
 void Inventory::Reset()
@@ -58,9 +58,8 @@ void Inventory::Reset()
 	for (auto slot : unEquipSlots) {
 		slot->Reset();
 	}
-	item->Reset();
-	SetItem(item);
-
+	hoe->Reset();
+	SetItem(hoe);
 }
 
 void Inventory::Update(float dt)
