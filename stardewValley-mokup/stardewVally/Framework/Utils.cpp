@@ -1,9 +1,12 @@
 #include "stdafx.h"
+#include <sstream>
 #include "Utils.h"
 
 std::random_device Utils::rd;
 std::mt19937 Utils::gen;
 const float Utils::PI = acosf(-1.f);
+sf::VertexArray Utils::va;
+std::string Utils::texId;
 
 void Utils::Init()
 {
@@ -345,4 +348,55 @@ bool Utils::PolygonsIntersect(const std::vector<sf::Vector2f>& polygonA, const s
         }
     }
     return true;
+}
+
+bool Utils::LoadFile(const std::string path)
+{
+    std::ifstream file(path);
+
+    if (!file.good()) {
+        std::cout << "FAIL TO LOAD FILE " << path << std::endl;
+        return false;
+    }
+
+    return true;
+}
+
+void Utils::SaveFile(const std::string path)
+{
+    std::ifstream file(path);
+    if (file.good()) {
+        std::cout << "REMOVE FILE" << std::endl;
+        remove(path.c_str());
+    }
+    std::cout << "CREATE FILE" << std::endl;
+}
+
+
+std::string Utils::LoadTextureId()
+{
+    return texId;
+}
+
+std::vector<std::string> Utils::Split(std::string word, const char spilitWord)
+{
+    std::vector<std::string> splits;
+    std::string split;
+
+    auto findIter = word.begin();
+
+    while (findIter != word.end()) {
+        if (spilitWord == *findIter) {
+            splits.push_back(split);
+            findIter++;
+            split.clear();
+            continue;
+        }
+        split += *(findIter++);
+    }
+
+    splits.push_back(split);
+    
+
+    return splits;
 }

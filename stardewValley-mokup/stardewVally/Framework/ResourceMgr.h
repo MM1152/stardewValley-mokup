@@ -72,7 +72,7 @@ public:
 	void Unload(const std::vector<std::string>& ids)
 	{
 		for (auto id : ids)
-		{
+		{	
 			Unload(id);
 		}
 	}
@@ -100,3 +100,4 @@ T ResourceMgr<T>::Empty;
 #define TEXTURE_MGR (ResourceMgr<sf::Texture>::Instance())
 #define FONT_MGR (ResourceMgr<sf::Font>::Instance())
 #define SOUNDBUFFER_MGR (ResourceMgr<sf::SoundBuffer>::Instance())
+#define ANI_CLIP_MGR (ResourceMgr<AnimationClip>::Instance())

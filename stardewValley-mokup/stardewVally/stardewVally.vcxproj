@@ -109,7 +109,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <AdditionalIncludeDirectories>.\SFML-2.6.2\include;.\Framework;.\GameObjects;$(ProjectDir);.\Scene;.\Effect;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\SFML-2.6.2\include;.\Framework;.\GameObjects;$(ProjectDir);.\Scene;.\Effect;.\InventoryStstem;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -136,10 +136,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Collider.h" />
+    <ClInclude Include="Button.h" />
+    <ClInclude Include="DialogueBox.h" />
+    <ClInclude Include="Framework\AnimationClip.h" />
+    <ClInclude Include="Framework\Animator.h" />
+    <ClInclude Include="DialogueInfo.h" />
+    <ClInclude Include="DialogueLoader.h" />
     <ClInclude Include="Framework\Defines.h" />
     <ClInclude Include="Framework\Framework.h" />
     <ClInclude Include="Framework\GameObject.h" />
     <ClInclude Include="Framework\InputMgr.h" />
+    <ClInclude Include="Framework\rapidcsv.h" />
     <ClInclude Include="Framework\ResourceMgr.h" />
     <ClInclude Include="Framework\Scene.h" />
     <ClInclude Include="Framework\SceneMgr.h" />
@@ -148,14 +156,40 @@
     <ClInclude Include="Framework\TextGo.h" />
     <ClInclude Include="Framework\Utils.h" />
     <ClInclude Include="HitBox.h" />
+    <ClInclude Include="InputText.h" />
+    <ClInclude Include="itemDataMgr.h" />
+    <ClInclude Include="NpcMgr.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="InventoryStstem\Inventory.h" />
+    <ClInclude Include="InventoryStstem\Item.h" />
+    <ClInclude Include="InventoryStstem\ItemSlot.h" />
+    <ClInclude Include="InventoryStstem\QuickBar.h" />
+    <ClInclude Include="ItemInfo.h" />
+    <ClInclude Include="InventoryStstem\QuickBar_Slot.h" />
+    <ClInclude Include="SceneTileChangeTest.h" />
+    <ClInclude Include="Scene\SceneHome.h" />
+    <ClInclude Include="Scene\LoadMapDataScene.h" />
+    <ClInclude Include="Map.h" />
+    <ClInclude Include="SceneAnimator.h" />
     <ClInclude Include="SceneDev1.h" />
-    <ClInclude Include="SceneDev2.h" />
-    <ClInclude Include="SceneGame.h" />
+    <ClInclude Include="Scene\MapToolScene.h" />
+    <ClInclude Include="Scene\SceneGame.h" />
+    <ClInclude Include="Scene\SceneTest.h" />
+    <ClInclude Include="Shop.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="TileMap.h" />
+    <ClInclude Include="TimeMoneyUi.h" />
+    <ClInclude Include="Trigger.h" />
     <ClInclude Include="Variables.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Collider.cpp" />
+    <ClCompile Include="Button.cpp" />
+    <ClCompile Include="DialogueBox.cpp" />
+    <ClCompile Include="Framework\AnimationClip.cpp" />
+    <ClCompile Include="Framework\Animator.cpp" />
+    <ClCompile Include="DialogueInfo.cpp" />
+    <ClCompile Include="DialogueLoader.cpp" />
     <ClCompile Include="Framework\Framework.cpp" />
     <ClCompile Include="Framework\GameObject.cpp" />
     <ClCompile Include="Framework\InputMgr.cpp" />
@@ -165,15 +199,39 @@
     <ClCompile Include="Framework\TextGo.cpp" />
     <ClCompile Include="Framework\Utils.cpp" />
     <ClCompile Include="HitBox.cpp" />
+    <ClCompile Include="InputText.cpp" />
+    <ClCompile Include="InventoryStstem\Inventory.cpp" />
+    <ClCompile Include="InventoryStstem\Item.cpp" />
+    <ClCompile Include="InventoryStstem\ItemSlot.cpp" />
+    <ClCompile Include="InventoryStstem\QuickBar.cpp" />
+    <ClCompile Include="SceneTileChangeTest.cpp" />
+    <ClCompile Include="Scene\SceneHome.cpp" />
+    <ClCompile Include="Scene\LoadMapDataScene.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="itemDataMgr.cpp" />
+    <ClCompile Include="NpcMgr.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="InventoryStstem\QuickBar_Slot.cpp" />
+    <ClCompile Include="Map.cpp" />
+    <ClCompile Include="SceneAnimator.cpp" />
     <ClCompile Include="SceneDev1.cpp" />
-    <ClCompile Include="SceneDev2.cpp" />
-    <ClCompile Include="SceneGame.cpp" />
+    <ClCompile Include="Scene\MapToolScene.cpp" />
+    <ClCompile Include="Scene\SceneGame.cpp" />
+    <ClCompile Include="Shop.cpp" />
+    <ClCompile Include="Scene\SceneTest.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="TileMap.cpp" />
+    <ClCompile Include="TimeMoneyUi.cpp" />
+    <ClCompile Include="Trigger.cpp" />
     <ClCompile Include="Variables.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Item.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="dialogues.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

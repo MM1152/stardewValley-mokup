@@ -1,7 +1,11 @@
 #pragma once
 
 #define DEF_DEV
-
+#define INVEN_IMG_PATH "InventoryImg/"
+#define ITEM_IMG_PATH "ItemImg/"
+#define FONT_PATH "fonts/"
+#define MAP_PATH "MapData/"
+#define GRAPHICS_PATH "graphics/"
 enum class SortingLayers
 {
 	Background,
@@ -21,9 +25,14 @@ enum class Origins
 enum class SceneIds
 {
 	None = -1,
+	Test,
+	Home,
 	Game,
 	Dev1,
-	Dev2,
+	Animator,
+	Maptool,
+	LoadMapTest,
+	ChangeTile,
 	Count,
 };
 
