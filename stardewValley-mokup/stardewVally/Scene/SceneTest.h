@@ -12,6 +12,7 @@ class TimeMoneyUi;
 class Map;
 class Inventory;
 class QuickBar;
+class DialogueBox;
 
 class SceneTest : public Scene
 {
@@ -24,6 +25,7 @@ protected:
 	TimeMoneyUi* timemoney = nullptr;
 	Inventory* inventory = nullptr;
 	QuickBar* quickBar = nullptr;
+	DialogueBox* dialogueBox = nullptr;
 
 
 	TileMap* tile;

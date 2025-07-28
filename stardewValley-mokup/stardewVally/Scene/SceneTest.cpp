@@ -9,6 +9,8 @@
 #include "TimeMoneyUi.h"
 #include "Inventory.h"
 #include "QuickBar.h"
+#include "DialogueBox.h"
+#include "DialogueLoader.h"
 
 SceneTest::SceneTest()
 	: Scene(SceneIds::Test)
@@ -18,11 +20,16 @@ SceneTest::SceneTest()
 void SceneTest::Init()
 {
 	texIds.push_back("graphics/testC.png");
-	texIds.push_back("graphics/npcTest.png");
-	texIds.push_back("graphics/uitest.png");
 	texIds.push_back("graphics/shop_bg.png");
 	texIds.push_back(INVEN_IMG_PATH"ItemSlot.png");
+	texIds.push_back("graphics/uiBox.png");
 
+	//npc
+	texIds.push_back("graphics/npcTest.png");
+	texIds.push_back("graphics/npcTalk.png");
+	texIds.push_back("graphics/pierre_photo.png");
+
+	//shop items
 	texIds.push_back("graphics/parsnip_seeds.png");
 	texIds.push_back("graphics/cauliflower_seeds.png");
 	texIds.push_back("graphics/potato_seeds.png");
@@ -31,6 +38,18 @@ void SceneTest::Init()
 	texIds.push_back("graphics/portraitsBox.png");
 	texIds.push_back("graphics/Pierre.png");
 	texIds.push_back("graphics/itemSlot_bg.png");
+
+	texIds.push_back(INVEN_IMG_PATH"CraftImage.bmp");
+
+	texIds.push_back("graphics/clock.png");
+	texIds.push_back("graphics/moneyFont.png");
+
+	//texIds.push_back("graphics/날씨.bmp");
+
+	fontIds.push_back("fonts/DOSGothic.ttf");
+	fontIds.push_back("fonts/Stardew_Valley.ttf");
+	fontIds.push_back("fonts/SDMiSaeng.ttf");
+	fontIds.push_back("fonts/DungGeunMo.ttf");
 
 	texIds.push_back(INVEN_IMG_PATH"CraftImage.bmp");
 
@@ -54,6 +73,9 @@ void SceneTest::Init()
 	player = new Player("Player");
 	timemoney = new TimeMoneyUi("TimeMoney");
 	shop = new Shop("shop");
+	dialogueBox = new DialogueBox("DialogueBox");
+	AddGameObject(dialogueBox);
+	
 	
 	AddGameObject(inventory);
 	AddGameObject(quickBar);
@@ -65,6 +87,9 @@ void SceneTest::Init()
 	AddGameObject(timemoney);
 	
 	//shop
+	shop->SetInventory(inventory);
+	shop->SetPlayer(player);
+	shop->SetTimeMoeyUi(timemoney);
 	AddGameObject(shop);
 	//player & npc
 
@@ -80,6 +105,7 @@ void SceneTest::Init()
 
 
 	itemDataMgr::Instance().LoadJson("data/Item.json");
+	DialogueLoader::Instance().LoadFromJson("data/Dialogues.json");
 	
 	const auto& items = itemDataMgr::Instance().GetItem("Pierre's General Store");
 
@@ -98,6 +124,28 @@ void SceneTest::Init()
 			shop->CloseUi();
 		}
 		});
+
+	npc->setTalkCallBack([this]() {
+		const std::string npcName = "Pierre"; 
+
+		if (!dialogueBox->isDialogueShowing())
+		{
+			dialogueBox->LoadDialogue(npcName);
+			dialogueBox->ShowDialogue();
+		}
+		else
+		{
+			if (dialogueBox->IsLastLine())
+			{
+				dialogueBox->CloseDialogue();
+			}
+			else
+			{
+				dialogueBox->NextLine();
+			}
+		}
+		});
+
 	tile = new TileMap(VertexType::Game);
 	forGround = new TileMap(VertexType::Game);
 	AddGameObject(tile);
@@ -182,7 +230,6 @@ void SceneTest::Draw(sf::RenderWindow& window)
 			tri->Draw(window);
 		}
 	}
-
 }
 
 void SceneTest::CenterView()

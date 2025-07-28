@@ -12,7 +12,7 @@ protected:
 	sf::Sprite npcSprite;
 	sf::Sprite npcTalkSprite;
 
-	float speed = 20.f;
+	float speed = 10.f;
 	sf::Vector2f direction = { 0.f, 0.f };
 
 	sf::RectangleShape playerRect;

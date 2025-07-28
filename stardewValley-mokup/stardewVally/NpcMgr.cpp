@@ -7,6 +7,7 @@
 NpcMgr::NpcMgr(const std::string& name)
 	: Collider(name)
 {
+	sortingOrder = 4;
 }
 
 void NpcMgr::SetPosition(const sf::Vector2f& pos)
@@ -46,7 +47,6 @@ void NpcMgr::Init()
 {
 	Collider::Init();
 	npcSprite.setPosition({ 70.f, 150.f });
-	npcTalkSprite.setPosition({ -50.f, -50.f });
 }
 
 void NpcMgr::Release()
@@ -57,10 +57,14 @@ void NpcMgr::Reset()
 {
 	npcSprite.setTexture(TEXTURE_MGR.Get("graphics/npcTest.png"));
 	npcTalkSprite.setTexture(TEXTURE_MGR.Get("graphics/npcTalk.png"));
+
+	sf::Vector2f npcPos = npcSprite.getPosition();
+	npcTalkSprite.setPosition(npcPos + sf::Vector2f(10.f, 0.f));
 }
 
 void NpcMgr::Update(float dt)
 {
+
 	std::srand(static_cast<unsigned>(std::time(nullptr)));
 
 	float axisX = (std::rand() % 3) - 1;
@@ -68,12 +72,13 @@ void NpcMgr::Update(float dt)
 
 	direction = sf::Vector2f(axisX, axisY);
 
-	sf::Vector2f moveOffset = { axisX * speed * dt, axisY * speed * dt};
+	sf::Vector2f moveOffset = { axisX * speed * dt, axisY * speed * dt };
 
 	if (isNpcMove)
 	{
-		Collider::areaBlocked(position, npcTalkSprite, moveOffset);
-		npcTalkSprite.setPosition(position);
+		sf::Vector2f talkPos = npcTalkSprite.getPosition();
+		Collider::areaBlocked(talkPos, npcTalkSprite, moveOffset);
+		npcTalkSprite.setPosition(talkPos);
 	}
 
 	playerRect.setPosition(player->GetPosition());
@@ -84,7 +89,7 @@ void NpcMgr::Update(float dt)
 	{
 		if (IsCollidingPlayer(playerRect))
 		{
-			std::cout << "npc�浹" << std::endl;
+			std::cout << "npc충돌" << std::endl;
 			if (InputMgr::GetKeyDown(sf::Keyboard::Z))
 			{
 				player->ChangeOpenShop();
