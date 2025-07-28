@@ -96,5 +96,30 @@ public:
 
 	void Setplayer(Player* player);
 	Player* GetPlayer();
+
+	void Sethour(int h)
+	{
+		hour = h;
+	}
+	int Gethour()
+	{
+		return hour;
+	}
+	void Setminute(int m)
+	{
+		minute = m;
+	}
+	int Getminute()
+	{
+		return minute;
+	}
+	void Setth(int t)
+	{
+		th = t;
+	}
+	int Getth()
+	{
+		return th;
+	}
 };
 

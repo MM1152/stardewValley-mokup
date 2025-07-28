@@ -22,6 +22,7 @@ protected:
 	NpcMgr* npcMgr = nullptr;
 	Inventory* inventory = nullptr;
 	TimeMoneyUi* timemoneyui = nullptr;
+
 public:
 	void SetActive(bool a) { active = a; };
 	void SetPosition(const sf::Vector2f& pos) override;

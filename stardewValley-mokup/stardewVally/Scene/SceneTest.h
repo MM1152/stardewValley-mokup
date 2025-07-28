@@ -2,6 +2,8 @@
 #include "Scene.h"
 #include "TileMap.h"
 #include "Shop.h"
+#include "SceneHome.h"
+#include "TimeMoneyUi.h"
 
 class TimeMoneyUi;
 class Player;

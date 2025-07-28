@@ -166,14 +166,12 @@
     <ClInclude Include="InventoryStstem\QuickBar.h" />
     <ClInclude Include="ItemInfo.h" />
     <ClInclude Include="InventoryStstem\QuickBar_Slot.h" />
-    <ClInclude Include="SceneTileChangeTest.h" />
+    <ClInclude Include="Scene\SceneTileChangeTest.h" />
     <ClInclude Include="Scene\SceneHome.h" />
     <ClInclude Include="Scene\LoadMapDataScene.h" />
     <ClInclude Include="Map.h" />
-    <ClInclude Include="SceneAnimator.h" />
-    <ClInclude Include="SceneDev1.h" />
+    <ClInclude Include="Scene\SceneAnimator.h" />
     <ClInclude Include="Scene\MapToolScene.h" />
-    <ClInclude Include="Scene\SceneGame.h" />
     <ClInclude Include="Scene\SceneTest.h" />
     <ClInclude Include="Shop.h" />
     <ClInclude Include="stdafx.h" />
@@ -204,7 +202,7 @@
     <ClCompile Include="InventoryStstem\Item.cpp" />
     <ClCompile Include="InventoryStstem\ItemSlot.cpp" />
     <ClCompile Include="InventoryStstem\QuickBar.cpp" />
-    <ClCompile Include="SceneTileChangeTest.cpp" />
+    <ClCompile Include="Scene\SceneTileChangeTest.cpp" />
     <ClCompile Include="Scene\SceneHome.cpp" />
     <ClCompile Include="Scene\LoadMapDataScene.cpp" />
     <ClCompile Include="main.cpp" />
@@ -213,10 +211,8 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="InventoryStstem\QuickBar_Slot.cpp" />
     <ClCompile Include="Map.cpp" />
-    <ClCompile Include="SceneAnimator.cpp" />
-    <ClCompile Include="SceneDev1.cpp" />
+    <ClCompile Include="Scene\SceneAnimator.cpp" />
     <ClCompile Include="Scene\MapToolScene.cpp" />
-    <ClCompile Include="Scene\SceneGame.cpp" />
     <ClCompile Include="Shop.cpp" />
     <ClCompile Include="Scene\SceneTest.cpp" />
     <ClCompile Include="stdafx.cpp">
