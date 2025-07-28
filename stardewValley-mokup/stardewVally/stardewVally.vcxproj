@@ -109,7 +109,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <AdditionalIncludeDirectories>.\SFML-2.6.2\include;.\Framework;.\GameObjects;$(ProjectDir);.\Scene;.\Effect;.\InventoryStstem;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\SFML-2.6.2\include;.\Framework;.\GameObjects;$(ProjectDir);.\Scene;.\Effect;.\InventoryStstem;.\Mgr;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -157,8 +157,8 @@
     <ClInclude Include="Framework\Utils.h" />
     <ClInclude Include="HitBox.h" />
     <ClInclude Include="InputText.h" />
-    <ClInclude Include="itemDataMgr.h" />
-    <ClInclude Include="NpcMgr.h" />
+    <ClInclude Include="Mgr\itemDataMgr.h" />
+    <ClInclude Include="Mgr\NpcMgr.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="InventoryStstem\Inventory.h" />
     <ClInclude Include="InventoryStstem\Item.h" />
@@ -202,12 +202,12 @@
     <ClCompile Include="InventoryStstem\Item.cpp" />
     <ClCompile Include="InventoryStstem\ItemSlot.cpp" />
     <ClCompile Include="InventoryStstem\QuickBar.cpp" />
+    <ClCompile Include="Mgr\itemDataMgr.cpp" />
+    <ClCompile Include="Mgr\NpcMgr.cpp" />
     <ClCompile Include="Scene\SceneTileChangeTest.cpp" />
     <ClCompile Include="Scene\SceneHome.cpp" />
     <ClCompile Include="Scene\LoadMapDataScene.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="itemDataMgr.cpp" />
-    <ClCompile Include="NpcMgr.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="InventoryStstem\QuickBar_Slot.cpp" />
     <ClCompile Include="Map.cpp" />
@@ -222,12 +222,6 @@
     <ClCompile Include="TimeMoneyUi.cpp" />
     <ClCompile Include="Trigger.cpp" />
     <ClCompile Include="Variables.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Item.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="dialogues.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
