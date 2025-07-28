@@ -126,7 +126,7 @@
     <ClInclude Include="TimeMoneyUi.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="DialogBox.h">
+    <ClInclude Include="DialogueBox.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="DialogueInfo.h">
@@ -236,7 +236,7 @@
     <ClCompile Include="TimeMoneyUi.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="DialogBox.cpp">
+    <ClCompile Include="DialogueBox.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="DialogueInfo.cpp">

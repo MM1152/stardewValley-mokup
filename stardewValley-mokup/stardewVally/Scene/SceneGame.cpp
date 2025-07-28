@@ -9,6 +9,8 @@
 #include "TimeMoneyUi.h"
 #include "Inventory.h"
 #include "QuickBar.h"
+#include "DialogueBox.h"
+#include "DialogueLoader.h"
 
 SceneGame::SceneGame() 
 	: Scene(SceneIds::Game)
@@ -20,8 +22,8 @@ void SceneGame::Init()
 	texIds.push_back("graphics/testC.png");
 	texIds.push_back("graphics/npcTalk.png");
 	texIds.push_back("graphics/npcTest.png");
-	texIds.push_back("graphics/uitest.png");
 	texIds.push_back("graphics/shop_bg.png");
+	texIds.push_back("graphics/uiBox.png");
 	texIds.push_back(INVEN_IMG_PATH"ItemSlot.png");
 
 	texIds.push_back("graphics/parsnip_seeds.png");
@@ -31,6 +33,8 @@ void SceneGame::Init()
 
 	texIds.push_back("graphics/portraitsBox.png");
 	texIds.push_back("graphics/Pierre.png");
+	texIds.push_back("graphics/pierre_photo.png");
+	texIds.push_back("graphics/Abigail_photo.png");
 	texIds.push_back("graphics/itemSlot_bg.png");
 
 	texIds.push_back(INVEN_IMG_PATH"CraftImage.bmp");
@@ -47,6 +51,9 @@ void SceneGame::Init()
 
 	inventory = new Inventory(INVEN_IMG_PATH"CraftImage.bmp");
 	quickBar = new QuickBar(INVEN_IMG_PATH"CraftImage.bmp");
+
+	dialogueBox = new DialogueBox("DialogueBox");
+	AddGameObject(dialogueBox);
 
 	inventory->sortingLayer = SortingLayers::UI;
 	quickBar->sortingLayer = SortingLayers::UI;
@@ -81,12 +88,32 @@ void SceneGame::Init()
 		TEXTURE_MGR.Load(item.itemTextureId);
 	}
 
+    DialogueLoader::Instance().LoadFromJson("data/Dialogues.json");
+
+
 	collider = new Collider("Collider");
 	AddGameObject(collider);
 
-	/*npc->setTalkCallBack([this]() {
-		someUi->ShowHint("something...blabla");
-		});*/
+	npc->setTalkCallBack([this]() {
+		const std::string npcName = "Pierre"; 
+
+		if (!dialogueBox->isDialogueShowing())
+		{
+			dialogueBox->LoadDialogue(npcName);
+			dialogueBox->ShowDialogue();
+		}
+		else
+		{
+			if (dialogueBox->IsLastLine())
+			{
+				dialogueBox->CloseDialogue();
+			}
+			else
+			{
+				dialogueBox->NextLine();
+			}
+		}
+		});
 
 	npc->setCallBack([this]() {
 		if (!shop->isUiShowing())

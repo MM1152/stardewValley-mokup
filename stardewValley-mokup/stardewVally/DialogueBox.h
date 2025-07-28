@@ -1,6 +1,6 @@
 #pragma once
 #include "GameObject.h"
-class DialogBox : public GameObject
+class DialogueBox : public GameObject
 {
 protected:
 	sf::Font font;
@@ -11,12 +11,17 @@ protected:
 
 	sf::Text speakerNameText;
 	sf::Text dialogueLineText;
-	sf::Text characterId;
-	sf::Sprite characterPortrait_textureId; 
+	sf::Sprite characterPortrait;
+
+	DialogueInfo loadedDialogue;
+
+	bool isDialogueShow = false; 
+
+	std::function<void()> onCloseCallback;
 
 public:
-	DialogBox(const std::string& name = "");
-	virtual ~DialogBox() = default;
+	DialogueBox(const std::string& name = "");
+	virtual ~DialogueBox() = default;
 
 	void SetPosition(const sf::Vector2f& pos) override;
 	void SetRotation(float rot) override;
@@ -29,5 +34,13 @@ public:
 	void Reset() override;
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
+
+	void ShowDialogue();
+	void CloseDialogue();
+	bool isDialogueShowing();
+	void LoadDialogue(const std::string& characterName);
+
+	bool IsLastLine();
+	void NextLine();
 };
 

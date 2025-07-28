@@ -138,7 +138,7 @@
   <ItemGroup>
     <ClInclude Include="Collider.h" />
     <ClInclude Include="Button.h" />
-    <ClInclude Include="DialogBox.h" />
+    <ClInclude Include="DialogueBox.h" />
     <ClInclude Include="DialogueInfo.h" />
     <ClInclude Include="DialogueLoader.h" />
     <ClInclude Include="Framework\Defines.h" />
@@ -180,7 +180,7 @@
   <ItemGroup>
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="Button.cpp" />
-    <ClCompile Include="DialogBox.cpp" />
+    <ClCompile Include="DialogueBox.cpp" />
     <ClCompile Include="DialogueInfo.cpp" />
     <ClCompile Include="DialogueLoader.cpp" />
     <ClCompile Include="Framework\Framework.cpp" />

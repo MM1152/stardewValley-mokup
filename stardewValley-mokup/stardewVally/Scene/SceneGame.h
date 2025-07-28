@@ -1,6 +1,5 @@
 #pragma once
 #include "Scene.h"
-#include "Shop.h"
 
 class Player;
 class NpcMgr;
@@ -9,6 +8,7 @@ class Collider;
 class TimeMoneyUi;
 class Inventory;
 class QuickBar;
+class DialogueBox;
 
 class SceneGame : public Scene
 {
@@ -20,6 +20,7 @@ protected:
 	TimeMoneyUi* timemoney = nullptr;
 	Inventory* inventory = nullptr;
 	QuickBar* quickBar = nullptr;
+	DialogueBox* dialogueBox = nullptr;
 
 public:
 	SceneGame();

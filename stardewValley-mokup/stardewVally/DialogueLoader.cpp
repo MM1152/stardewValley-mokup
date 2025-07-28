@@ -1,29 +1,62 @@
 #include "stdafx.h"
 #include "DialogueLoader.h"
 
-std::vector<DialogueEntry> DialogueLoader::LoadFromFile(const std::string& filename)
+
+void DialogueLoader::LoadFromJson(const std::string& filename)
 {
-    std::ifstream file(filename);
-    if (!file.is_open())
-    {
-        std::cerr << "Failed to open " << filename << std::endl;
-        return {};
-    }
+	std::ifstream file(filename);
+	if (!file.is_open())
+	{
+		std::cerr << "Failed to open dialogue JSON file: " << filename << std::endl;
+		return;
+	}
 
-    nlohmann::json j;
-    file >> j;
+	charactersDialogue.clear(); 
 
-    std::vector<DialogueEntry> dialogues;
+	nlohmann::json data;
+	file >> data;
 
-    for (const auto& item : j["dialogues"])
-    {
-        DialogueEntry entry;
-        entry.character = item.value("character", "");
-        entry.id = item.value("id", "");
-        entry.lines = item.value("lines", std::vector<std::string>());
+	if (!data.contains("dialogues") || !data["dialogues"].is_array())
+	{
+		std::cerr << "'dialogues' key is missing or is not an array\n";
+		return;
+	}
 
-        dialogues.push_back(entry);
-    }
+	for (const auto& entry : data["dialogues"])
+	{
+		if (!entry.contains("character") || !entry.contains("id") ||
+			!entry.contains("portrait_textureId") || !entry.contains("lines"))
+		{
+			std::cerr << "Missing required fields in entry: " << entry.dump(2) << "\n";
+			continue;
+		}
 
-    return dialogues;
+		DialogueInfo info;
+		info.character = entry["character"];
+		info.id = entry["id"];
+		info.portrait_textureId = entry["portrait_textureId"];
+		for (const auto& line : entry["lines"])
+		{
+			info.lines.push_back(line);
+		}
+
+		charactersDialogue[info.character].push_back(info);
+	}
 }
+
+const std::vector<DialogueInfo>& DialogueLoader::GetDialogue(const std::string& characterName)
+{
+	static std::vector<DialogueInfo> emptyDialogue;
+	auto it = charactersDialogue.find(characterName);
+	if (it != charactersDialogue.end())
+	{
+		return it->second;
+	}
+	return emptyDialogue;
+}
+
+const std::unordered_map<std::string, std::vector<DialogueInfo>>& DialogueLoader::GetAllDialogues() const
+{
+	return charactersDialogue;
+}
+

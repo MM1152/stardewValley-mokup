@@ -84,7 +84,6 @@ void NpcMgr::Update(float dt)
 		std::cout << "npc충돌" << std::endl;
 		if (InputMgr::GetKeyDown(sf::Keyboard::Z)) //function's address 
 		{
-			/*isNpcMove = false;*/
 			if (callback)
 			{
 				callback();
@@ -97,8 +96,13 @@ void NpcMgr::Update(float dt)
 		std::cout << "talk npc 충돌" << std::endl;
 		if (InputMgr::GetKeyDown(sf::Keyboard::Z))
 		{
+			isNpcMove = false;
 			if (talkCallback)
 				talkCallback(); 
+		} 
+		else if (!talkCallback)
+		{
+			isNpcMove = true;
 		}
 	}
 
