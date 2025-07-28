@@ -89,7 +89,6 @@ void SceneHome::Init()
 
 void SceneHome::Enter()
 {
-	
 	FRAMEWORK.GetWindow().setMouseCursorVisible(true);
 	worldView.setSize({ FRAMEWORK.GetWindowSizeF().x / 3, FRAMEWORK.GetWindowSizeF().y / 3});
 	uiView.setSize(FRAMEWORK.GetWindowSizeF());
@@ -98,6 +97,7 @@ void SceneHome::Enter()
 	sf::Vector2f windowSize = FRAMEWORK.GetWindowSizeF();
 
 	Scene::Enter(); //push_back
+	player->SetPosition({ 185.f, 280.f });
 	map.Load(MAP_PATH"home");
 
 	for (auto tri : map.GetTriggers()) {
@@ -114,7 +114,7 @@ void SceneHome::Enter()
 	forGround->Set(map.GetTextId(1), map.GetCellDatas(1));
 
 	player->SetMap(&map);
-	player->SetPosition({ 185.f, 230.f });
+	
 }
 
 void SceneHome::Exit()

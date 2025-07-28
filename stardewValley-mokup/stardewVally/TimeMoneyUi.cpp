@@ -88,11 +88,11 @@ void TimeMoneyUi::Reset()
 	m7.setTexture(TEXTURE_MGR.Get(moneyUiId));
 	m8.setTexture(TEXTURE_MGR.Get(moneyUiId));
 
-	//dow.setFont(FONT_MGR.Get(dowfont));
+	dow.setFont(FONT_MGR.Get(dowfont));
 	dow.setString(isdow);
 
 
-	//meridiem.setFont(FONT_MGR.Get(meridiemfont));
+	meridiem.setFont(FONT_MGR.Get(meridiemfont));
 	if (!ampm)
 	{
 		meridiem.setString(istime + "am");
@@ -146,7 +146,7 @@ void TimeMoneyUi::Update(float dt)
 			}
 			istime = Utils::TostringTime(hour, minute);
 			isdow = Utils::TostringDOW(th);
-			//Reset();
+			Reset();
 			minuteTimer = 0;
 		}
 	}

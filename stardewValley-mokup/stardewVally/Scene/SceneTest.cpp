@@ -113,8 +113,6 @@ void SceneTest::Init()
 
 void SceneTest::Enter()
 {
-	//player->SetPosition({ 208.f, 190.f });
-
 	FRAMEWORK.GetWindow().setMouseCursorVisible(true);
 	worldView.setSize({ FRAMEWORK.GetWindowSizeF().x / 6, FRAMEWORK.GetWindowSizeF().y / 6 });
 
@@ -124,7 +122,7 @@ void SceneTest::Enter()
 	sf::Vector2f windowSize = FRAMEWORK.GetWindowSizeF();
 
 	Scene::Enter(); //push_back
-	player->SetPosition({ 208.f, 250.f });
+	player->SetPosition({ 208.f, 210.f });
 
 	map.Load(MAP_PATH"demomap");
 

@@ -2,6 +2,8 @@
 #include "Scene.h"
 #include "TileMap.h"
 #include "Shop.h"
+#include "SceneTest.h"
+#include "TimeMoneyUi.h"
 
 class TimeMoneyUi;
 class Player;
@@ -38,5 +40,6 @@ public:
 
 
 	void Draw(sf::RenderWindow& window) override;
+
 };
 

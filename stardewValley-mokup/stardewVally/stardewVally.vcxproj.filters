@@ -93,9 +93,6 @@
     <ClInclude Include="Scene\MapToolScene.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="SceneDev1.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Framework\rapidcsv.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -111,13 +108,10 @@
     <ClInclude Include="Map.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="SceneAnimator.h">
+    <ClInclude Include="Scene\SceneAnimator.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="itemDataMgr.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\SceneGame.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Scene\SceneTest.h">
@@ -135,16 +129,19 @@
     <ClInclude Include="Trigger.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="SceneTileChangeTest.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="DialogBox.h">
+    <ClInclude Include="Scene\SceneTileChangeTest.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="DialogueInfo.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="DialogueLoader.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogueBox.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\SceneHome.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
@@ -230,16 +227,10 @@
     <ClCompile Include="Map.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="SceneAnimator.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneDev1.cpp">
+    <ClCompile Include="Scene\SceneAnimator.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="itemDataMgr.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene\SceneGame.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Scene\SceneTest.cpp">
@@ -257,16 +248,19 @@
     <ClCompile Include="Trigger.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="SceneTileChangeTest.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="DialogBox.cpp">
+    <ClCompile Include="Scene\SceneTileChangeTest.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="DialogueInfo.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="DialogueLoader.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogueBox.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\SceneHome.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
