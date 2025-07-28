@@ -1,2 +1,7 @@
-ID,FPS,LoopType (0: Single, 1: Loop)
-TEXTURE ID,LEFT,TOP,WIDTH,HEIGHT,FLIPX(0:Fale, 1:True)
+ID,FPS,LoopType (0: Single. 1: Loop)
+test,10,1
+
+TEXTURE ID,LEFT,TOP,WIDTH,HEIGHT,FLIPX(0:Fale. 1:True)
+graphics/farmer_base.png,0.718948,2.429253,15.320312,31.671883,0
+graphics/farmer_base.png,17.070511,1.530819,13.882816,32.929684,0
+graphics/farmer_base.png,33.422081,2.069881,13.343746,32.210938,0
