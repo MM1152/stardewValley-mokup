@@ -4,6 +4,7 @@
 #include "inventory.h"
 #include "TimeMoneyUi.h"
 #include "Item.h"
+#include "Hog.h"
 
 Player::Player(const std::string name)
 	:Collider(name)
@@ -50,9 +51,17 @@ void Player::SetOrigin(Origins preset)
 
 void Player::SetItem(Item* item)
 {
-	this->item = item;
 	if (this->item) {
-		copyItem.SetItemInfo(this->item);
+		delete copyItem;
+	}
+
+	this->item = item;
+
+	if (this->item) {
+		if (this->item->GetItemInfo()->itemId == "hoe") {
+			copyItem = new Hog();
+		}
+		copyItem->SetItemInfo(this->item);
 	}
 }
 
@@ -95,20 +104,25 @@ void Player::Reset()
 
 void Player::Update(float dt)
 {
-	if (item != inventory->GetQuickBar()->GetItem()) {
+	if (quickBarIdx != inventory->GetQuickBar()->GetQuickBarIdx()) {
 		item = inventory->GetQuickBar()->GetItem();
-		copyItem.Init();
-		copyItem.Reset();
-		item->SetPlayer(this);
+		if (item) {
+			SetItem(item);
+			copyItem->Init();
+			copyItem->Reset();
+			copyItem->SetPlayer(this);
+		}
 	}
 	
 	if (item) {
-		copyItem.Update(dt);
+		copyItem->Update(dt);
+
+		if (InputMgr::GetKeyDown(sf::Keyboard::Z)) {
+			copyItem->UseItem();
+		}
 	}
 
-	if (InputMgr::GetKeyDown(sf::Keyboard::Z)) {
-		copyItem.UseItem();
-	}
+	
 
 	sf::Vector2f movement = { 0.f, 0.f };
 	
@@ -119,6 +133,7 @@ void Player::Update(float dt)
 	if (moveX != 0 || moveY != 0) {
 		body.Update(dt);
 		hand.Update(dt);
+		
 	}
 	
 	movement.x = moveX * speed * dt;
@@ -233,6 +248,10 @@ void Player::Draw(sf::RenderWindow& window)
 	window.draw(handSprite);
 	window.draw(bodySprite);
 	window.draw(hatSprite);
+	if (item) {
+		copyItem->Draw(window);
+	}
+	
 }
 
 void Player::PlayMoveAnimation(sf::Vector2f dir)
@@ -246,22 +265,26 @@ void Player::PlayMoveAnimation(sf::Vector2f dir)
 		hand.Play(ANIMATION_PATH"playerlefthand.csv");
 		hat.Play(ANIMATION_PATH"hat1left.csv");
 		SetScale({ 1,1 });
+		lookDir = { 1 , 0 };
 	}
 	else if (dir.x < 0) {
 		body.Play(ANIMATION_PATH"playerleft.csv");
 		hand.Play(ANIMATION_PATH"playerlefthand.csv");
 		hat.Play(ANIMATION_PATH"hat1left.csv");
 		SetScale({ -1,1 });
+		lookDir = { -1 , 0 };
 	}
 	else if (dir.y > 0) {
 		body.Play(ANIMATION_PATH"playerforward.csv");
 		hand.Play(ANIMATION_PATH"playerforwardhand.csv");
 		hat.Play(ANIMATION_PATH"hat1forward.csv");
+		lookDir = { 0 , 1 };
 	}
 	else if (dir.y < 0) {
 		body.Play(ANIMATION_PATH"playerbackward.csv");
 		hand.Play(ANIMATION_PATH"playerbackwardhand.csv");
 		hat.Play(ANIMATION_PATH"hat1backward.csv");
+		lookDir = { 0 , -1 };
 	}
 	SetOrigin(Origins::BC);
 	sf::FloatRect center = bodySprite.getLocalBounds();

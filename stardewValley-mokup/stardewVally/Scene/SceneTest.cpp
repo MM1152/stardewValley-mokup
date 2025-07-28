@@ -99,10 +99,11 @@ void SceneTest::Init()
 		});
 	tile = new TileMap(VertexType::Game);
 	forGround = new TileMap(VertexType::Game);
+
 	AddGameObject(tile);
 	AddGameObject(forGround);
 
-
+	map.Init(tile, forGround);
 	// F9 Draw Collider
 	drawCollider = true;
 

@@ -149,7 +149,7 @@ void SceneGame::Exit()
 void SceneGame::Update(float dt)
 {
 	Scene::Update(dt);
-
+	
 	timemoney->SettingMoney(player->GetMoney());
 	timemoney->ResetSettingMoney();
 }

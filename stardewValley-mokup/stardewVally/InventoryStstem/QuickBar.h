@@ -2,6 +2,8 @@
 #include "GameObject.h"
 #include "ItemSlot.h"
 #include "QuickBar_Slot.h"
+
+class InUIItem;
 class QuickBar : public GameObject
 {
 private:
@@ -22,7 +24,8 @@ public:
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
 
-	void SetItem(Item* item , int idx);
+	void SetItem(InUIItem* item , int idx);
 	Item* GetItem();
+	int GetQuickBarIdx() { return idx; };
 };
 

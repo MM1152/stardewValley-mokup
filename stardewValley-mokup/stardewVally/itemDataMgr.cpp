@@ -23,13 +23,13 @@ void itemDataMgr::Load(const std::string& filename)
         info.price = item["price"];
         info.stock = item["stock"];
 
-        if (data.contains("UiTextureRect")) {
+        if (item.contains("UiTextureRect")) {
             info.uiTextCoord.left = item["UiTextureRect"][0];
             info.uiTextCoord.top = item["UiTextureRect"][1];
             info.uiTextCoord.width = item["UiTextureRect"][2];
             info.uiTextCoord.height = item["UiTextureRect"][3];
         }
-        if (data.contains("TextureRect")) {
+        if (item.contains("TextureRect")) {
             info.textureCoord.left = item["TextureRect"][0];
             info.textureCoord.top = item["TextureRect"][1];
             info.textureCoord.width = item["TextureRect"][2];

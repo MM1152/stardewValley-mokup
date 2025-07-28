@@ -109,7 +109,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <AdditionalIncludeDirectories>.\SFML-2.6.2\include;.\Framework;.\GameObjects;$(ProjectDir);.\Scene;.\Effect;.\InventoryStstem;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\SFML-2.6.2\include;.\Framework;.\GameObjects;$(ProjectDir);.\Scene;.\InventoryStstem;.\Effect;.\Items;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -156,7 +156,9 @@
     <ClInclude Include="Framework\TextGo.h" />
     <ClInclude Include="Framework\Utils.h" />
     <ClInclude Include="HitBox.h" />
-    <ClInclude Include="Hoe.h" />
+    <ClInclude Include="Items\Hog.h" />
+    <ClInclude Include="InventoryStstem\InUIItem.h" />
+    <ClInclude Include="Items\InGameItem.h" />
     <ClInclude Include="InputText.h" />
     <ClInclude Include="itemDataMgr.h" />
     <ClInclude Include="NpcMgr.h" />
@@ -201,7 +203,9 @@
     <ClCompile Include="Framework\TextGo.cpp" />
     <ClCompile Include="Framework\Utils.cpp" />
     <ClCompile Include="HitBox.cpp" />
-    <ClCompile Include="Hoe.cpp" />
+    <ClCompile Include="Items\Hog.cpp" />
+    <ClCompile Include="InventoryStstem\InUIItem.cpp" />
+    <ClCompile Include="Items\InGameItem.cpp" />
     <ClCompile Include="InputText.cpp" />
     <ClCompile Include="InventoryStstem\Inventory.cpp" />
     <ClCompile Include="InventoryStstem\Item.cpp" />

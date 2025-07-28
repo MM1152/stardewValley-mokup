@@ -34,5 +34,6 @@ public:
 	void areaBlocked(sf::Vector2f& position, GameObject& sprite, const sf::Vector2f& moveOffset);
 	void areaBlocked(sf::Vector2f& position, sf::Sprite& sprite, const sf::Vector2f& moveOffset);
 	void SetMap(Map* map);
+	Map* GetMap() { return map; };
 };
 

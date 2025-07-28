@@ -28,21 +28,21 @@ public:
 	virtual void SetActive(bool a) { active = a; }
 
 	sf::Vector2f GetPosition() const { return position; }
-	virtual void SetPosition(const sf::Vector2f& pos) { position = pos; }
 
-	float GetRotation() const { return rotation; }
 	virtual void SetRotation(float rot) { rotation = rot; }
-
-	sf::Vector2f GetScale() const { return scale; }
+	virtual void SetPosition(const sf::Vector2f& pos) { position = pos; }
 	virtual void SetScale(const sf::Vector2f& s) { scale = s; }
-
-	sf::Vector2f GetOrigin() const { return origin; }
-	virtual void SetOrigin(const sf::Vector2f& o) 
-	{ 
+	virtual void SetOrigin(Origins preset) { originPreset = preset; }
+	virtual void SetOrigin(const sf::Vector2f& o)
+	{
 		originPreset = Origins::Custom;
 		origin = o;
 	}
-	virtual void SetOrigin(Origins preset) { originPreset = preset; }
+
+	sf::Vector2f GetScale() const { return scale; }
+	float GetRotation() const { return rotation; }
+	sf::Vector2f GetOrigin() const { return origin; }
+
 
 	virtual sf::FloatRect GetLocalBounds() const
 	{

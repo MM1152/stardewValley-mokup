@@ -4,7 +4,6 @@
 #include "QuickBar.h"
 
 class ItemSlot;
-class Hoe;
 class Inventory : public GameObject
 {
 private:
@@ -17,10 +16,10 @@ private:
 
 	int slotSize;
 
+	
 	QuickBar* quickBar = nullptr;
 	//TEST
-	Hoe* hoe = nullptr;
-
+	InUIItem* item;
 public:
 	Inventory(const std::string& texId = "" , const std::string& name = "");
 	~Inventory() override = default;
@@ -32,7 +31,7 @@ public:
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
 
-	bool SetItem(Item* item);
+	bool SetItem(InUIItem* item);
 	void SetQuickBar(QuickBar* quickBar) { this->quickBar = quickBar; };
 	bool AddItem(const ItemInfo& info);
 	

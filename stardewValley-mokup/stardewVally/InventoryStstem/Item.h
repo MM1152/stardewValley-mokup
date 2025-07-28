@@ -8,12 +8,12 @@ class Item : public GameObject
 {
 private:
 	ItemInfo iteminfo;
-	bool isDrag = false;
+	bool isUi;
 protected:
 	sf::Sprite itemSp;
 	Player* player;
 public:
-	Item(ItemInfo type);
+	Item(ItemInfo type , bool isUi);
 	Item() = default;
 	~Item() override = default;
 
@@ -21,7 +21,6 @@ public:
 	void Init() override;
 	void Release() override;
 	void Reset() override;
-	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
 
 	void SetRotation(float rot) override;
@@ -30,9 +29,6 @@ public:
 
 	ItemInfo* GetItemInfo() { return &iteminfo; };
 	void SetItemInfo(Item* item);
-	void DragItem();
-	bool GetDrag() { return isDrag; };
 	void SetPlayer(Player* player) { this->player = player; };
-	virtual const std::string UseItem();
 };
 

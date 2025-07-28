@@ -56,13 +56,9 @@ std::string SaveFileDialog(const std::string saveData) {
             WriteFile(hFile, saveData.c_str(), saveData.length(), &bytesWritten, NULL);
             CloseHandle(hFile);
         }
-        else {
-            std::cerr << "���� ���� ����" << std::endl;
-        }
+
     }
-    else {
-        std::cout << "���� ���� ���" << std::endl;
-    }
+
     return "";
 }
 
@@ -70,7 +66,7 @@ SceneAnimator::SceneAnimator()
 	:Scene(SceneIds::Animator)
 {
 }
-
+ 
 void SceneAnimator::Init()
 {
     worldView.setSize(FRAMEWORK.GetWindowSizeF());
@@ -91,9 +87,6 @@ void SceneAnimator::Init()
         texture.loadFromFile(filePath);
         TCHAR filePath[MAX_PATH];
         GetModuleFileName(NULL, filePath, MAX_PATH);
-        std::wcout << L"���� ���� ���: " << filePath << std::endl;
-      
-
         preview.setTexture(texture, true);
         sprite.setTexture(texture, true);
     };

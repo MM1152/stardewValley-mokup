@@ -16,7 +16,6 @@ class QuickBar;
 class SceneTest : public Scene
 {
 protected:
-
 	Player* player = nullptr;
 	NpcMgr* npc = nullptr;
 	Shop* shop = nullptr;
@@ -25,16 +24,12 @@ protected:
 	Inventory* inventory = nullptr;
 	QuickBar* quickBar = nullptr;
 
-
 	TileMap* tile;
 	TileMap* forGround;
 
 	Map map;
 
 	bool drawCollider;
-
-	
-
 public:
 	SceneTest();
 	~SceneTest() = default;

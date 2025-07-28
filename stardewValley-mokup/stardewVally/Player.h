@@ -2,7 +2,7 @@
 #include "Collider.h"
 #include "stdafx.h"
 #include "Animator.h"
-#include "Item.h"
+#include "InGameItem.h"
 
 class NpcMgr;
 class Inventory;
@@ -33,9 +33,15 @@ protected:
 	Inventory* inventory = nullptr;
 	TimeMoneyUi* timemoneyui = nullptr;
 
-	Item copyItem;
+	InGameItem* copyItem;
 	Item* item;
+
+	sf::Vector2i lookDir = { 0,0 };
+
+	int quickBarIdx = -1;
 public:
+	sf::Vector2i GetLookDir() { return lookDir; };
+
 	void SetActive(bool a) { active = a; };
 	void SetPosition(const sf::Vector2f& pos) override;
 	void SetRotation(float rot) override;
@@ -51,7 +57,6 @@ public:
 	void Init();
 	void Release();
 	void Reset();
-
 	void Update(float dt);
 	void Draw(sf::RenderWindow& window);
 

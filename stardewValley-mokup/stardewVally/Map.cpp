@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Map.h"
-
+#include "TileMap.h"
 std::ostream& operator <<(std::ostream& ost, sf::Vector2f cellTextCoord[4]) {
     ost << cellTextCoord[0].x << ", " << cellTextCoord[0].y << ", " << cellTextCoord[1].x << ", " << cellTextCoord[1].y << ", " << cellTextCoord[2].x << ", " << cellTextCoord[2].y << ", " << cellTextCoord[3].x << ", " << cellTextCoord[3].y << ", ";
 
@@ -16,10 +16,6 @@ void Map::Reset(int size)
     cell[1].resize(size);
 }
 
-int Map::GetCellIndex(int idx , int layer)
-{
-    return cell[layer][idx].idx;
-}
 int Map::GetCellIndex(const sf::Vector2f& pos, int layer)
 {
     int xIndex = (int)(pos.x / 16);
@@ -60,6 +56,8 @@ void Map::SetCellData(int idx, int layer, const CellData* cellData)
     cell[layer][idx].cellTextCoord[1] = cellData->cellTextCoord[1];
     cell[layer][idx].cellTextCoord[2] = cellData->cellTextCoord[2];
     cell[layer][idx].cellTextCoord[3] = cellData->cellTextCoord[3];
+
+    tiles[layer]->SetCellData(idx ,cell[layer][idx]);
 }
 
 void Map::LoadCollider(const std::string path)
@@ -174,6 +172,9 @@ void Map::LoadTrigger(const std::string path)
         triggers[triggers.size() - 1]->SetType((TriggerType)type);
     }
 }
+
+
+
 
 void Map::Load(const std::string path)
 {
