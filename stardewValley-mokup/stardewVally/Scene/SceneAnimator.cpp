@@ -3,64 +3,6 @@
 #include "Button.h"
 #include "InputText.h"
 #include <Windows.h>
-#include <CommDlg.h>
-#include <string>
-#include <codecvt> // for wstring_convert
-#include <locale>  // for codecvt_utf8
-#include <iostream>
-#include <filesystem>
-#include <string>
-
-std::string OpenFileDialog() {
-    OPENFILENAMEA  ofn;
-    char szFileName[MAX_PATH] = "";  // char �迭
-    ZeroMemory(&ofn, sizeof(ofn));
-    ofn.lStructSize = sizeof(ofn);
-    ofn.hwndOwner = NULL;
-    ofn.lpstrFilter = "All Files (*.*)\0*.*\0";
-    ofn.lpstrFile = szFileName;
-    ofn.nMaxFile = MAX_PATH;
-    ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST;
-
-    if (GetOpenFileNameA(&ofn)) {
-        std::cout << "true" << std::endl;
-        return szFileName;
-    }
-    return "FAIL TO LOAD";
-}
-
-std::string SaveFileDialog(const std::string saveData) {
-    OPENFILENAMEA ofn;       // common dialog box structure
-    char szFile[260];        // buffer for file name
-    HANDLE hFile = NULL;     // file handle
-
-    ZeroMemory(&ofn, sizeof(ofn));
-    ofn.lStructSize = sizeof(ofn);
-    ofn.hwndOwner = NULL;  // If NULL, the dialog has no owner
-    ofn.lpstrFile = szFile;
-    ofn.lpstrFile[0] = '\0'; // Make sure it's empty
-    ofn.nMaxFile = sizeof(szFile);
-    ofn.lpstrFilter = "*.csv";
-    ofn.nFilterIndex = 1;
-    ofn.lpstrFileTitle = NULL;
-    ofn.nMaxFileTitle = 0;
-    ofn.lpstrInitialDir = NULL;
-    ofn.Flags = OFN_PATHMUSTEXIST | OFN_OVERWRITEPROMPT;
-
-    if (GetSaveFileNameA(&ofn) == TRUE) {
-        hFile = CreateFileA(ofn.lpstrFile, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
-
-        if (hFile != INVALID_HANDLE_VALUE) {
-            std::string data = saveData;
-            DWORD bytesWritten;
-            WriteFile(hFile, saveData.c_str(), saveData.length(), &bytesWritten, NULL);
-            CloseHandle(hFile);
-        }
-
-    }
-
-    return "";
-}
 
 SceneAnimator::SceneAnimator()
 	:Scene(SceneIds::Animator)
@@ -83,7 +25,7 @@ void SceneAnimator::Init()
     loadBNT = new Button(FONT_PATH"DOSGothic.ttf");
     loadBNT->sortingLayer = SortingLayers::UI;
     loadBNT->onClickFunc = [this]() {
-        filePath = OpenFileDialog();
+        filePath = Utils::OpenFileDialog();
         texture.loadFromFile(filePath);
         TCHAR filePath[MAX_PATH];
         GetModuleFileName(NULL, filePath, MAX_PATH);
@@ -107,7 +49,7 @@ void SceneAnimator::Init()
                 sf::FloatRect rectSize = rect[i]->getGlobalBounds();
                 saveData += newPath[idx] + "/" + newPath[idx + 1] + "," + std::to_string(rectSize.left) + "," + std::to_string(rectSize.top) + "," + std::to_string(rectSize.width) + "," + std::to_string(rectSize.height)+"," + "0" + "\n";
             }
-            SaveFileDialog(saveData);
+            Utils::SaveFileDialog(saveData);
         }
     };
 

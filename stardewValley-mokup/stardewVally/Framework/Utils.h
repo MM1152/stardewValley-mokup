@@ -74,7 +74,8 @@ public:
 	static std::vector<std::string> Split(std::string word , const char spilitWord);
 	static int FindStringIdx(std::vector<std::string> word , const std::string findword);
 	
-	
+	static std::string OpenFileDialog();
+	static void SaveFileDialog(std::string saveData);
 	
 	
 	

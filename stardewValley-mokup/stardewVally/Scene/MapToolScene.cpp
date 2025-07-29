@@ -127,6 +127,34 @@ void MapToolScene::Init()
 		};
 	saveBNT->sortingLayer = SortingLayers::UI;
 
+	Button* loadBNT = new Button(FONT_PATH"DOSGothic.ttf");
+	loadBNT->SetString("LOAD");
+	loadBNT->SetTextColor(sf::Color::Black);
+	loadBNT->SetPosition({ FRAMEWORK.GetWindowSizeF().x / 1.5f, FRAMEWORK.GetWindowSizeF().y - 100.f });
+	loadBNT->onClickFunc = [this]() {
+		std::string filePath = Utils::OpenFileDialog();
+		if (filePath.empty()) return;
+		std::vector<std::string> sliceMapFilePath = Utils::Split(filePath , '.');
+		std::vector<std::string> sliceMapId = Utils::Split(sliceMapFilePath[0], '\\');
+		std::string mapFilePath = sliceMapFilePath[sliceMapFilePath.size() - 2];
+		std::string mapId = sliceMapId[sliceMapId.size() - 1];
+		
+		map.Load(mapFilePath);
+		inputText->SetString(mapId);
+
+		drawTile[0].Set(map.GetTextId(0), map.GetCellDatas(0));
+		drawTile[1].Set(map.GetTextId(1), map.GetCellDatas(1));
+		colliders = map.GetColliders();
+		for (auto collider : colliders) {
+			collider->setPosition({ collider->getPosition().x + 300.f , collider->getPosition().y + 300.f });
+		}
+		triggers = map.GetTriggers();
+		for (auto trigger: triggers) {
+			trigger->SetPosition({ trigger->GetPosition().x + 300.f , trigger->GetPosition().y + 300.f });
+		}
+	};
+	loadBNT->sortingLayer = SortingLayers::UI;
+
 	Button* colliderBNT = new Button(FONT_PATH"DOSGothic.ttf");
 	colliderBNT->SetString("Collider");
 	colliderBNT->SetTextColor(sf::Color::Black);
@@ -161,7 +189,7 @@ void MapToolScene::Init()
 	AddGameObject(inputText);
 	AddGameObject(colliderBNT);
 	AddGameObject(objects);
-
+	AddGameObject(loadBNT);
 	Scene::Init();
 
 	drawTile[0].Init();

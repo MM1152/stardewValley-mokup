@@ -18,8 +18,6 @@ struct CellData {
 	GatherableType ge = GatherableType::None;
 };
 
-struct 
-
 std::ostream& operator <<(std::ostream& ost, sf::Vector2f cellTextCoord[4]);
 
 
