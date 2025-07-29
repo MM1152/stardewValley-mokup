@@ -228,12 +228,26 @@ void Player::Update(float dt)
 	float rowX = playerCenter.x + offSet.x;
 	float rowY = playerCenter.y + offSet.y;
 
-	int tileX = ((int)rowX / 16) * 16;
+	int tileX = ((int)rowX / 16) * 16; 
 	int tileY = ((int)rowY / 16) * 16;
 
-	seedGuideRect.setPosition({ (float)tileX, (float)tileY});
+	seedGuideRect.setPosition({ (float)tileX, (float)tileY });
 
+	if (map != nullptr)
+	{
+		int cellIdx = map->GetCellIndex({ (float)tileX, (float)tileY }, 0);
 
+		if (CanUseItemOnTile(cellIdx)) 
+		{
+			seedGuideRect.setFillColor(sf::Color(0, 255, 0, 100));
+			seedGuideRect.setOutlineColor(sf::Color(102, 255, 0, 135));
+		}
+		else 
+		{
+			seedGuideRect.setFillColor(sf::Color(255, 0, 0, 100));
+			seedGuideRect.setOutlineColor(sf::Color(255, 50, 50, 135));
+		}
+	}
 }
 
 void Player::Draw(sf::RenderWindow& window)
@@ -295,6 +309,19 @@ void Player::PlayUseItemAnimation(sf::Vector2i dir)
 	hand.Play(ANIMATION_PATH"playerUseItemHand.csv");
 }
 
+bool Player::CanUseItemOnTile(int tileIdx)
+{
+	if (!item)
+	{
+		return false;
+	}
+	
+	const std::vector<int>& usable = item->GetItemInfo()->usableTiles;
+
+	return std::find(usable.begin(), usable.end(), tileIdx) != usable.end();
+
+}
+
 void Player::SetInventory(Inventory* inven)
 {
 	this->inventory = inven;
@@ -314,3 +341,4 @@ TimeMoneyUi* Player::GetTimer()
 {
 	return timemoneyui;
 }
+

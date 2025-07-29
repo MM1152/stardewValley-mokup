@@ -20,5 +20,7 @@ struct ItemInfo {
 	int stock = 0;
 	
 	ItemType itemType = ItemType::None;
+
+	std::vector<int> usableTiles; 
 };
 

@@ -14,7 +14,8 @@ void itemDataMgr::Load(const std::string& filename)
     nlohmann::json data;
     file >> data;
 
-    for (const auto& item : data["items"]) {
+    for (const auto& item : data["items"]) 
+    {
         ItemInfo info;
         info.itemId = item["id"];
         info.itemName = item["name"];
@@ -38,6 +39,14 @@ void itemDataMgr::Load(const std::string& filename)
         info.itemType = ItemType::None;
         items.push_back(info);
         std::cout << info.itemId << std::endl;
+
+        if (item.contains("usableTiles") && item["usableTiles"].is_array()) 
+        {
+            for (const auto& tile : item["usableTiles"]) 
+            {
+                info.usableTiles.push_back(tile.get<int>());
+            }
+        }
     }
 }
 
@@ -57,8 +66,8 @@ void itemDataMgr::LoadShopItems(const std::string& filename)
 
     auto shopInfo = data["shopInfo"];
     for (auto it = shopInfo.begin(); it != shopInfo.end(); ++it) {
-        std::string shopName = it.key();                  
-        const auto& itemList = it.value();                
+        std::string shopName = it.key();
+        const auto& itemList = it.value();
 
         shopItemMap.insert({ shopName , std::vector<ItemInfo>() });
         for (const auto& itemId : itemList) {

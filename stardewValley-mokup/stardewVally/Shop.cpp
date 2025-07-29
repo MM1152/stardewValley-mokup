@@ -175,7 +175,7 @@ void Shop::LoadShopItems(const std::vector<ItemInfo>& items)
         nameText.setPosition(x - 50.f * bgScale.x, y + i * spacingY - 30.f * bgScale.y);
         itemNameTexts.push_back(nameText);
 
- /*       sf::Text descText;
+ /*     sf::Text descText;
         descText.setFont(font);
         descText.setString(info.itemDes);
         descText.setCharacterSize(14);
