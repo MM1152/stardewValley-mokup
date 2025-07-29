@@ -74,6 +74,19 @@ void Player::SetItem(Item* item)
 		{
 			copyItem = new Seeds();
 		}
+		else if (this->item->GetItemInfo()->itemId == "cauliflower_seeds")
+		{
+			copyItem = new Seeds();
+		}
+		else if (this->item->GetItemInfo()->itemId == "potato_seeds")
+		{
+			copyItem = new Seeds();
+		}
+		else if (this->item->GetItemInfo()->itemId == "garlic_seeds")
+		{
+			copyItem = new Seeds();
+		}
+
 		copyItem->SetPlayer(this);
 		copyItem->SetItemInfo(this->item);
 	}

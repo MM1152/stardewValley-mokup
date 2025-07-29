@@ -13,7 +13,7 @@ protected:
 	sf::Sprite itemSp;
 	Player* player;
 public:
-	Item(ItemInfo type , bool isUi);
+	Item(ItemInfo type, bool isUi);
 	Item() = default;
 	~Item() override = default;
 
