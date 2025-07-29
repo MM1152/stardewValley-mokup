@@ -1,6 +1,12 @@
 #include "stdafx.h"
 #include <sstream>
 #include "Utils.h"
+#include <Windows.h>
+#include <CommDlg.h>
+#include <string>
+#include <codecvt> // for wstring_convert
+#include <locale>  // for codecvt_utf8
+#include <iostream>
 
 std::random_device Utils::rd;
 std::mt19937 Utils::gen;
@@ -411,4 +417,52 @@ int Utils::FindStringIdx(std::vector<std::string> words, const std::string findw
         idx++;
     }
     return -1;
+}
+std::string Utils::OpenFileDialog() {
+    OPENFILENAMEA  ofn;
+    char szFileName[MAX_PATH] = "";  // char  עק
+    ZeroMemory(&ofn, sizeof(ofn));
+    ofn.lStructSize = sizeof(ofn);
+    ofn.hwndOwner = NULL;
+    ofn.lpstrFilter = "All Files (*.*)\0*.*\0";
+    ofn.lpstrFile = szFileName;
+    ofn.nMaxFile = MAX_PATH;
+    ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST;
+
+    if (GetOpenFileNameA(&ofn)) {
+        std::cout << "true" << std::endl;
+        return szFileName;
+    }
+    return "FAIL TO LOAD";
+}
+
+void Utils::SaveFileDialog(const std::string saveData) {
+    OPENFILENAMEA ofn;       // common dialog box structure
+    char szFile[260];        // buffer for file name
+    HANDLE hFile = NULL;     // file handle
+
+    ZeroMemory(&ofn, sizeof(ofn));
+    ofn.lStructSize = sizeof(ofn);
+    ofn.hwndOwner = NULL;  // If NULL, the dialog has no owner
+    ofn.lpstrFile = szFile;
+    ofn.lpstrFile[0] = '\0'; // Make sure it's empty
+    ofn.nMaxFile = sizeof(szFile);
+    ofn.lpstrFilter = "*.csv";
+    ofn.nFilterIndex = 1;
+    ofn.lpstrFileTitle = NULL;
+    ofn.nMaxFileTitle = 0;
+    ofn.lpstrInitialDir = NULL;
+    ofn.Flags = OFN_PATHMUSTEXIST | OFN_OVERWRITEPROMPT;
+
+    if (GetSaveFileNameA(&ofn) == TRUE) {
+        hFile = CreateFileA(ofn.lpstrFile, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+
+        if (hFile != INVALID_HANDLE_VALUE) {
+            std::string data = saveData;
+            DWORD bytesWritten;
+            WriteFile(hFile, saveData.c_str(), saveData.length(), &bytesWritten, NULL);
+            CloseHandle(hFile);
+        }
+
+    }
 }

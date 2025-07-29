@@ -26,7 +26,6 @@ protected:
 
 	std::vector<sf::RectangleShape*> colliders;
 	std::vector<Trigger*> triggers;
-
 	std::vector<Button*> triggerTypeButton;
 
 	Map map;
@@ -55,7 +54,6 @@ protected:
 	sf::RectangleShape mouseRect;
 	sf::RectangleShape rightBackGround;
 	sf::RectangleShape dragAreaRect;
-
 public:
 	static int drawTileIdx;
 	MapToolScene();

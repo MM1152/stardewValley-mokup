@@ -13,19 +13,23 @@ void Hoe::Update(float dt)
 
 	if (startAnimation) {
 		hoeAni.Update(dt);
-		SetOrigin({ player->GetLocalBounds().width / 2 + 0.5f , player->GetLocalBounds().height + 5.f });
+		SetPosition(itemSp.getPosition() + plusPos);
+
+		//SetOrigin({ player->GetLocalBounds().width / 2 + 0.5f , player->GetLocalBounds().height + 5.f });
 	}
 }
 
 void Hoe::Reset()
 {
 	InGameItem::Reset();
-
+	SetOrigin(Origins::BC);
+	
 	ANI_CLIP_MGR.Load(ANIMATION_PATH"hoe/hoeFront.csv");
 	ANI_CLIP_MGR.Load(ANIMATION_PATH"hoe/hoeBack.csv");
+	ANI_CLIP_MGR.Load(ANIMATION_PATH"hoe/hoeLeft.csv");
 
 	hoeAni.SetTarget(&itemSp);
-	itemSp.setScale({ 0.8f , 0.8f });
+	itemSp.setScale({ 1.f , 1.f });
 
 	hoeAni.AddEvent("hoefront", 3, [this]() {
 		startAnimation = false;
@@ -33,6 +37,38 @@ void Hoe::Reset()
 	hoeAni.AddEvent("hoeback", 3, [this]() {
 		startAnimation = false;
 	});
+
+	hoeAni.AddEvent("hoeleft", 0, [this]() {
+		itemSp.setRotation(0);
+	});
+
+	hoeAni.AddEvent("hoeleft", 1, [this]() {
+		if (itemSp.getScale().x > 0) {
+			itemSp.setRotation(45);
+		}
+		else {
+			itemSp.setRotation(-45);
+		}
+	});
+	hoeAni.AddEvent("hoeleft", 2, [this]() {
+		if (itemSp.getScale().x > 0) {
+			itemSp.setRotation(75);
+		}
+		else {
+			itemSp.setRotation(-75);
+		}
+	});
+	hoeAni.AddEvent("hoeleft", 3, [this]() {
+		if (itemSp.getScale().x > 0) {
+			itemSp.setRotation(90);
+		}
+		else {
+			itemSp.setRotation(-90);
+		}
+		startAnimation = false;
+		
+	});
+
 }
 
 void Hoe::UseItem()
@@ -64,14 +100,30 @@ void Hoe::Draw(sf::RenderWindow& window)
 
 void Hoe::StartAnimation(sf::Vector2i lookDir)
 {
+	itemSp.setRotation(0);
+
 	if (prevDir == lookDir) return;
 
 	prevDir = lookDir;
 	if (lookDir.y == 1) {
 		hoeAni.Play(ANIMATION_PATH"hoe/hoeFront.csv");
+		itemSp.setScale({ -1.f, 1.f });
+		plusPos = {0 , -8 };
 	}
 	if (lookDir.y == -1) {
 		hoeAni.Play(ANIMATION_PATH"hoe/hoeBack.csv");
+		itemSp.setScale({ -1.f, 1.f });
+		plusPos = { 0 , -15 };
+	}
+	if (lookDir.x == -1) {
+		hoeAni.Play(ANIMATION_PATH"hoe/hoeLeft.csv");
+		itemSp.setScale({ -1.f, 1.f });
+		plusPos = { -3 , -15 };
+	}
+	if (lookDir.x == 1) {
+		hoeAni.Play(ANIMATION_PATH"hoe/hoeLeft.csv");
+		plusPos = { 5 , -18 };
+		itemSp.setScale({ 1.f, 1.f });
 	}
 }
 

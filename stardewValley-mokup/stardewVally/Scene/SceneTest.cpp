@@ -11,6 +11,7 @@
 #include "QuickBar.h"
 #include "DialogueBox.h"
 #include "DialogueLoader.h"
+#include "Crops.h"
 
 SceneTest::SceneTest()
 	: Scene(SceneIds::Test)
@@ -47,7 +48,6 @@ void SceneTest::Init()
 	texIds.push_back("graphics/clock.png");
 	texIds.push_back("graphics/moneyFont.png");
 
-	//texIds.push_back("graphics/?‚ ?”¨.bmp");
 
 	fontIds.push_back("fonts/DOSGothic.ttf");
 	fontIds.push_back("fonts/Stardew_Valley.ttf");
@@ -63,14 +63,19 @@ void SceneTest::Init()
 	//TimeUi
 	texIds.push_back("graphics/clock.png");
 	texIds.push_back("graphics/moneyFont.png");
-	//texIds.push_back("graphics/?‚ ?”¨.bmp");
-	//texIds.push_back("graphics/ê³„ì ˆ.bmp");
 
 	//font
 	fontIds.push_back("fonts/DOSGothic.ttf");
+	fontIds.push_back("fonts/DungGeunMo.ttf");
+	fontIds.push_back("fonts/SDMiSaeng.ttf");
+	fontIds.push_back("fonts/Stardew_Valley.ttf");
+
 
 	//crops
-	texIds.push_back("graphics/parsnisip.png");
+	texIds.push_back("graphics/parsnip.png");
+	texIds.push_back("graphics/caluliflower.png");
+	texIds.push_back("graphics/potato.png");
+	texIds.push_back("graphics/garlic.png");
 
 
 	inventory = new Inventory(INVEN_IMG_PATH"CraftImage.bmp");
@@ -80,6 +85,7 @@ void SceneTest::Init()
 	timemoney = new TimeMoneyUi("TimeMoney");
 	shop = new Shop("shop");
 	dialogueBox = new DialogueBox("DialogueBox");
+
 	AddGameObject(dialogueBox);
 	
 	
@@ -102,12 +108,17 @@ void SceneTest::Init()
 	player->SetNpcMgr(npc);
 	player->SetInventory(inventory);
 	player->SetTimer(timemoney);
+
 	npc->SetPlayer(player);
 	npc->SetTimer(timemoney);
 	npc->SetInventory(inventory);
 	npc->SetDIalogueBox(dialogueBox);
 	AddGameObject(player);
 	AddGameObject(npc);
+
+	itemDataMgr::Instance().LoadShopItems("data/shop.json");
+
+	itemDataMgr::Instance().Load("data/item.json");
 
 
 	DialogueLoader::Instance().LoadFromJson("data/Dialogues.json");
@@ -163,7 +174,6 @@ void SceneTest::Init()
 	// F9 Draw Collider
 	drawCollider = true;
 
-
 	Scene::Init();
 }
 
@@ -213,6 +223,7 @@ void SceneTest::Update(float dt)
 	Scene::Update(dt);
 	
 	CenterView();
+	
 
 	timemoney->SettingMoney(player->GetMoney());
 	timemoney->ResetSettingMoney();
@@ -224,6 +235,17 @@ void SceneTest::Update(float dt)
 	for (auto tri : map.GetTriggers()) {
 		tri->Update(dt);
 	}
+
+	if (player->GetGrowup())
+	{
+		for (auto it : cropsList)
+		{
+			it->GrowUp();
+		}
+		player->SetGrowup(false);
+
+	}
+	
 }
 
 void SceneTest::Draw(sf::RenderWindow& window)
@@ -295,3 +317,15 @@ void SceneTest::CenterView()
 		worldView.setCenter(player->GetPosition().x, player->GetPosition().y);
 	}
 }
+
+void SceneTest::AddCrops(Crops* crops)
+{
+	AddGameObject(crops);
+	cropsList.push_back(crops);
+}
+
+std::list<Crops*> SceneTest::GetCrops()
+{
+	return cropsList;
+}
+
