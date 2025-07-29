@@ -9,6 +9,7 @@ class Inventory;
 class TimeMoneyUi;
 class TileMap;
 class Map;
+class Crops;
 
 class Player : public Collider
 {
@@ -22,6 +23,8 @@ protected:
 	bool openShop = false;
 	bool fainting = false;
 	bool useItem = false;
+	bool growup = false;
+
 	sf::Vector2f prevDir = { 0,0 };
 
 	sf::Sprite bodySprite;
@@ -34,6 +37,7 @@ protected:
 	NpcMgr* npcMgr = nullptr;
 	Inventory* inventory = nullptr;
 	TimeMoneyUi* timemoneyui = nullptr;
+
 
 	TileMap* tileMap;
 	Map* map;
@@ -122,7 +126,15 @@ public:
 	{
 		return fainting;
 	}
-
+	//crops growup
+	void SetGrowup(bool grow)
+	{
+		growup = grow;
+	}
+	bool GetGrowup()
+	{
+		return growup;
+	}
 
 	int GetMoney()
 	{
@@ -133,5 +145,4 @@ public:
 	{
 		money = m;
 	}
-
 };

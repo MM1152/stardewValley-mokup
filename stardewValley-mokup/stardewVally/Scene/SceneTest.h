@@ -15,6 +15,7 @@ class Map;
 class Inventory;
 class QuickBar;
 class DialogueBox;
+class Crops;
 
 class SceneTest : public Scene
 {
@@ -27,6 +28,8 @@ protected:
 	Inventory* inventory = nullptr;
 	QuickBar* quickBar = nullptr;
 	DialogueBox* dialogueBox = nullptr;
+
+	std::list<Crops*> cropsList;
 
 	TileMap* tile;
 	TileMap* forGround;
@@ -46,5 +49,8 @@ public:
 	void Draw(sf::RenderWindow& window) override;
 
 	void CenterView();
+
+	void AddCrops(Crops* crops);
+	std::list<Crops*> GetCrops();
 };
 

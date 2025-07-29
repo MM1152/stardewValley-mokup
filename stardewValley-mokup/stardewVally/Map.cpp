@@ -57,6 +57,8 @@ void Map::SetCellData(int idx, int layer, const CellData* cellData)
     cell[layer][idx].cellTextCoord[2] = cellData->cellTextCoord[2];
     cell[layer][idx].cellTextCoord[3] = cellData->cellTextCoord[3];
 
+    cell[layer][idx].idx = cellData->idx;
+
     tiles[layer]->SetCellData(idx ,cell[layer][idx]);
 }
 

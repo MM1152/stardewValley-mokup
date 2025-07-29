@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "Crops.h"
-#include "Map.h"
-#include "Player.h"
+#include "TimeMoneyUi.h"
 
 Crops::Crops(const std::string& name)
 	: GameObject(name)
@@ -53,23 +52,32 @@ void Crops::Reset()
 }
 void Crops::Update(float dt)
 {
-
 }
 void Crops::Draw(sf::RenderWindow& window)
 {
 	window.draw(crops);
 }
 
-void Crops::GrowUp(int grow)
-{
-	sf::IntRect Grow(16 * grow, 0, 16, 16);
+void Crops::GrowUp(){
+	curGrow++;
+	sf::IntRect Grow(16 * curGrow, 0, 16, 16);
 	crops.setTextureRect(Grow);
-	if (grow > 5)
+	if (curGrow > 5)
 	{
-		grow = 5;
-		sf::IntRect Grow(16 * grow, 0, 16, 16);
+		curGrow = 5;
+		sf::IntRect Grow(16 * curGrow, 0, 16, 16);
 		crops.setTextureRect(Grow);
 	}
+}
+
+void Crops::Setidx(int index)
+{
+	idx = index;
+}
+
+int Crops::Getidx()
+{
+	return idx;
 }
 
 void Crops::SetCropsType(CropsType c)
@@ -78,11 +86,24 @@ void Crops::SetCropsType(CropsType c)
 	switch (ctype)
 	{
 	case CropsType::Parsnip:
-		cropsId = "crops/parsnip.png";
+		cropsId = "graphics/parsnip.png";
 		sf::IntRect seed(0, 0, 16, 16);
-		//crops.setTextureRect(seed);
+		crops.setTextureRect(seed);
+		break;
 	}
+}
 
-	
+Crops::CropsType Crops::GetCropsType()
+{
+	return ctype;
+}
 
+void Crops::SetTimeMoneyUi(TimeMoneyUi* time)
+{
+	tm = time;
+}
+
+TimeMoneyUi* Crops::GetTimeMoneyUi()
+{
+	return tm;
 }

@@ -2,11 +2,13 @@
 #include "InGameItem.h"
 #include "Crops.h"
 
+class Crops;
+
 class Seeds : public InGameItem
 {
 protected:
 
-	Crops* copyseed;
+	Crops* crops;
 
 public:
 	Seeds() = default;
