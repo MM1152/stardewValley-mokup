@@ -3,6 +3,9 @@
 #include "NpcMgr.h"
 #include "inventory.h"
 #include "TimeMoneyUi.h"
+#include "TileMap.h"
+#include "Map.h"
+
 #include "Item.h"
 #include "Hoe.h"
 
@@ -65,11 +68,17 @@ void Player::SetItem(Item* item)
 	}
 }
 
-
 void Player::Init()
 {
-	//Player Position���� �� ������ �޶����� �� ������ �ʱ� ��ġ�� �����ؼ� ����ؾ��մϴ�~ -�μ�-
-	//SetPosition({100.f, 100.f});
+	seedGuideRect.setSize({16.f, 16.f});
+	seedGuideRect.setFillColor(sf::Color(0, 255, 0, 100));
+	seedGuideRect.setOutlineColor(sf::Color(102, 255, 0, 135));
+	seedGuideRect.setOutlineThickness(3);
+	seedGuideRect.setOrigin(Utils::SetOrigin(bodySprite, Origins::MC));
+	seedGuideRect.setPosition(bodySprite.getPosition());
+
+	if (inventory)
+	{
 	
 	body.SetTarget(&bodySprite);
 	hand.SetTarget(&handSprite);
@@ -77,6 +86,7 @@ void Player::Init()
 
 	if(inventory)
 		inventory->SetActive(false);
+	}
 	isPlayer = true;
 	Collider::Init();
 }
@@ -149,13 +159,13 @@ void Player::Update(float dt)
 	movement.x = moveX * speed * dt;
 	movement.y = moveY * speed * dt;
 	sf::Vector2f moveOffset(movement.x, movement.y);
-	
+
 	if (isPlayer)
 	{
 		Collider::areaBlocked(position, *this, moveOffset);
 	}
-	
 	// openInventory > E (in / out)
+
 	if (!openShop)
 	{
 		if (InputMgr::GetKeyDown(sf::Keyboard::E))
@@ -187,6 +197,19 @@ void Player::Update(float dt)
 			fainting = false;
 		}
 	}
+
+	sf::Vector2f playerCenter = bodySprite.getPosition();
+	sf::Vector2f offSet = (sf::Vector2f)lookDir * 16.f;
+
+	float rowX = playerCenter.x + offSet.x;
+	float rowY = playerCenter.y + offSet.y;
+
+	int tileX = ((int)rowX / 16) * 16;
+	int tileY = ((int)rowY / 16) * 16;
+
+	seedGuideRect.setPosition({ (float)tileX, (float)tileY});
+
+
 }
 
 void Player::Draw(sf::RenderWindow& window)
@@ -198,7 +221,8 @@ void Player::Draw(sf::RenderWindow& window)
 	if (item) {
 		copyItem->Draw(window);
 	}
-	
+
+	window.draw(seedGuideRect);
 }
 
 void Player::PlayMoveAnimation(sf::Vector2f dir)

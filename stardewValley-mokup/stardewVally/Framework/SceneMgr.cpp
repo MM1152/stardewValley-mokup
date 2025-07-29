@@ -1,8 +1,6 @@
 #include "stdafx.h"
 #include "SceneMgr.h"
-#include "SceneDev1.h"
 #include "SceneTest.h"
-#include "SceneGame.h"
 #include "SceneAnimator.h"
 #include "MapToolScene.h"
 #include "LoadMapDataScene.h"
@@ -11,12 +9,10 @@
 #include "SceneAnimationTest.h"
 void SceneMgr::Init()
 {
-	scenes.insert({ SceneIds::Dev1, new SceneDev1() });
 	scenes.insert({ SceneIds::Animator, new SceneAnimator() });
 	scenes.insert({ SceneIds::Maptool, new MapToolScene() });
 	scenes.insert({ SceneIds::LoadMapTest, new LoadMapDataScene() });
 	scenes.insert({ SceneIds::Test, new SceneTest() });
-	scenes.insert({ SceneIds::Game, new SceneGame() });
 	scenes.insert({ SceneIds::Animator, new SceneAnimator() });
 	scenes.insert({ SceneIds::ChangeTile, new SceneTileChangeTest() });
 	scenes.insert({ SceneIds::Home, new SceneHome() });

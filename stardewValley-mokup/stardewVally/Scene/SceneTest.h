@@ -2,6 +2,8 @@
 #include "Scene.h"
 #include "TileMap.h"
 #include "Shop.h"
+#include "SceneHome.h"
+#include "TimeMoneyUi.h"
 
 class TimeMoneyUi;
 class Player;
@@ -12,6 +14,7 @@ class TimeMoneyUi;
 class Map;
 class Inventory;
 class QuickBar;
+class DialogueBox;
 
 class SceneTest : public Scene
 {
@@ -23,6 +26,7 @@ protected:
 	TimeMoneyUi* timemoney = nullptr;
 	Inventory* inventory = nullptr;
 	QuickBar* quickBar = nullptr;
+	DialogueBox* dialogueBox = nullptr;
 
 	TileMap* tile;
 	TileMap* forGround;

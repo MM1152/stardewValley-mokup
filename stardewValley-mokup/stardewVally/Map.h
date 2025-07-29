@@ -34,13 +34,13 @@ private:
 	std::vector<TileMap*> tiles;
 
 	void Reset(int size);
-
 	void LoadCollider(const std::string path);
 	void Load(const std::string path, int layer);
 	void LoadTrigger(const std::string path);
 
 	void Init() {};
 public:
+
 	template<typename T, typename... Args>
 	void Init(T first, Args... rest) {
 		tiles.push_back(first);
@@ -48,6 +48,7 @@ public:
 	}
 
 	int GetCellIndex(const sf::Vector2f& pos, int layer);
+
 	//실제 맵에 적용되어있는 셀 데이터 가져오는 부분
 	CellData& GetCell(int idx, int layer);
 	CellData& GetCell(const sf::Vector2f& pos, int layer);

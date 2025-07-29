@@ -12,6 +12,7 @@ void SceneTileChangeTest::Init()
 	texIds.push_back(GRAPHICS_PATH"spring.bmp");
 	texIds.push_back(GRAPHICS_PATH"building.png");
 	texIds.push_back(GRAPHICS_PATH"testC.png");
+
 	tile = new TileMap(VertexType::Game);
 	buildTile = new TileMap(VertexType::Game);
 
@@ -20,7 +21,6 @@ void SceneTileChangeTest::Init()
 	AddGameObject(tile);
 	AddGameObject(buildTile);
 	AddGameObject(player);
-
 	
 	Scene::Init();
 }
@@ -57,10 +57,12 @@ void SceneTileChangeTest::Update(float dt)
 	Scene::Update(dt);
 	worldView.setCenter(player->GetPosition());
 
-	if (InputMgr::GetKeyDown(sf::Keyboard::F)) {
+	if (InputMgr::GetKeyDown(sf::Keyboard::F)) 
+	{
 		int cellIdx = map.GetCellIndex(player->GetPosition(), 0);
 		
 		CellData changeCellData = map.GetCell(cellIdx, 0);
+
 		std::cout << changeCellData.idx << std::endl;
 		if (changeCellData.idx == 25 || changeCellData.idx == 74) {
 			changeCellData = map.GetTextureCell(308, 0);

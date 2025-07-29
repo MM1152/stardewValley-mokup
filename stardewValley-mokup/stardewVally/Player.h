@@ -7,6 +7,8 @@
 class NpcMgr;
 class Inventory;
 class TimeMoneyUi;
+class TileMap;
+class Map;
 
 class Player : public Collider
 {
@@ -32,6 +34,11 @@ protected:
 	NpcMgr* npcMgr = nullptr;
 	Inventory* inventory = nullptr;
 	TimeMoneyUi* timemoneyui = nullptr;
+
+	TileMap* tileMap;
+	Map* map;
+
+	sf::RectangleShape seedGuideRect;
 
 	InGameItem* copyItem;
 	Item* item;

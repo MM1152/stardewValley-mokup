@@ -60,7 +60,7 @@ void Shop::Release()
 void Shop::Reset()
 {
     backgroundSprite.setTexture(TEXTURE_MGR.Get("graphics/shop_bg.png"));
-    backgroundSprite.setPosition({FRAMEWORK.GetWindowSizeF().x * 0.5f + 100 , FRAMEWORK.GetWindowSizeF().y * 0.5f});
+    backgroundSprite.setPosition({FRAMEWORK.GetWindowSizeF().x * 0.5f + 100 , FRAMEWORK.GetWindowSizeF().y * 0.5f + 100});
     backgroundSprite.setScale({0.8, 0.8f});
     Utils::SetOrigin(backgroundSprite, Origins::MC);
 

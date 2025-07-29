@@ -63,9 +63,6 @@
     <ClInclude Include="Player.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="NpcMgr.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Shop.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -93,9 +90,6 @@
     <ClInclude Include="Scene\MapToolScene.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="SceneDev1.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Framework\rapidcsv.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -111,13 +105,7 @@
     <ClInclude Include="Map.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="SceneAnimator.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="itemDataMgr.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\SceneGame.h">
+    <ClInclude Include="Scene\SceneAnimator.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Scene\SceneTest.h">
@@ -147,6 +135,14 @@
     <ClInclude Include="DialogueBox.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Scene\SceneHome.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Mgr\itemDataMgr.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Mgr\NpcMgr.h">
+      <Filter>헤더 파일</Filter>
     <ClInclude Include="SceneAnimationTest.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -200,9 +196,6 @@
     <ClCompile Include="Player.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="NpcMgr.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Shop.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -239,16 +232,7 @@
     <ClCompile Include="Map.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="SceneAnimator.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneDev1.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="itemDataMgr.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene\SceneGame.cpp">
+    <ClCompile Include="Scene\SceneAnimator.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Scene\SceneTest.cpp">
@@ -266,6 +250,8 @@
     <ClCompile Include="Trigger.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Scene\SceneTileChangeTest.cpp">
+     <Filter>소스 파일</Filter>
     <ClCompile Include="SceneTileChangeTest.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -278,10 +264,16 @@
     <ClCompile Include="DialogueBox.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="SceneAnimationTest.cpp">
+    <ClCompile Include="Scene\SceneHome.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Scene\SceneHome.cpp">
+    <ClCompile Include="Mgr\itemDataMgr.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Mgr\NpcMgr.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneAnimationTest.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Hoe.cpp">
