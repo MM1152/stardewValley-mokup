@@ -214,6 +214,7 @@
     <ClCompile Include="InventoryStstem\QuickBar.cpp" />
     <ClCompile Include="Mgr\itemDataMgr.cpp" />
     <ClCompile Include="Mgr\NpcMgr.cpp" />
+    <ClCompile Include="Scene\SceneAnimator.cpp" />
     <ClCompile Include="Scene\SceneTileChangeTest.cpp" />
     <ClCompile Include="SceneAnimationTest.cpp" />
     <ClCompile Include="Scene\SceneHome.cpp" />
@@ -222,9 +223,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="InventoryStstem\QuickBar_Slot.cpp" />
     <ClCompile Include="Map.cpp" />
-    <ClCompile Include="Scene\SceneAnimator.cpp" />
     <ClCompile Include="Scene\MapToolScene.cpp" />
-    <ClCompile Include="Scene\SceneGame.cpp" />
     <ClCompile Include="Items\Seeds.cpp" />
     <ClCompile Include="Shop.cpp" />
     <ClCompile Include="Scene\SceneTest.cpp" />
