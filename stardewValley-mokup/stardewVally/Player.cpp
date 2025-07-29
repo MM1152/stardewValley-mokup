@@ -112,8 +112,13 @@ void Player::Reset()
 	ANI_CLIP_MGR.Load(ANIMATION_PATH"playerlefthand.csv");
 	ANI_CLIP_MGR.Load(ANIMATION_PATH"playerforwardhand.csv");
 	ANI_CLIP_MGR.Load(ANIMATION_PATH"playerbackwardhand.csv");
-	ANI_CLIP_MGR.Load(ANIMATION_PATH"playerUseItem.csv");
-	ANI_CLIP_MGR.Load(ANIMATION_PATH"playerUseItemHand.csv");
+	ANI_CLIP_MGR.Load(ANIMATION_PATH"playerUseItemFront.csv");
+	ANI_CLIP_MGR.Load(ANIMATION_PATH"playerUseItemLeft.csv");
+	ANI_CLIP_MGR.Load(ANIMATION_PATH"playerUseItemBack.csv");
+	ANI_CLIP_MGR.Load(ANIMATION_PATH"playerUseItemHandFront.csv");
+	ANI_CLIP_MGR.Load(ANIMATION_PATH"playerUseItemHandLeft.csv");
+	ANI_CLIP_MGR.Load(ANIMATION_PATH"playerUseItemHandBack.csv");
+
 
 	bodySprite.setTexture(TEXTURE_MGR.Get("graphics/testC.png"));
 
@@ -123,13 +128,23 @@ void Player::Reset()
 		hand.Play(ANIMATION_PATH"playerforwardhand.csv");
 	});
 
+	body.AddEvent("playeruseitemback", 3, [this]() {
+		useItem = false;
+		body.Play(ANIMATION_PATH"playerbackward.csv");
+		hand.Play(ANIMATION_PATH"playerbackwardhand.csv");
+		});
+	body.AddEvent("playeruseitemleft", 3, [this]() {
+		useItem = false;
+		body.Play(ANIMATION_PATH"playerleft.csv");
+		hand.Play(ANIMATION_PATH"playerlefthand.csv");
+		});
+
 	speed = 100;
 }
 
 void Player::Update(float dt)
 {
 	sortingOrder = GetPosition().y;
-	std::cout << sortingOrder << std::endl;
 	if (quickBarIdx != inventory->GetQuickBar()->GetQuickBarIdx()) {
 		item = inventory->GetQuickBar()->GetItem();
 		quickBarIdx = inventory->GetQuickBar()->GetQuickBarIdx();
@@ -159,8 +174,6 @@ void Player::Update(float dt)
 		body.Update(dt);
 		hand.Update(dt);
 	}
-	
-	
 
 	movement.x = moveX * speed * dt;
 	movement.y = moveY * speed * dt;
@@ -214,19 +227,27 @@ void Player::Update(float dt)
 	int tileY = ((int)rowY / 16) * 16;
 
 	seedGuideRect.setPosition({ (float)tileX, (float)tileY});
-
-
 }
 
 void Player::Draw(sf::RenderWindow& window)
 {
-	window.draw(bodySprite);
-	window.draw(handSprite);
-
-	window.draw(hatSprite);
-	if (item) {
-		copyItem->Draw(window);
+	if (prevDir.y == -1) {
+		if (item) {
+			copyItem->Draw(window);
+		}
+		window.draw(handSprite);
+		window.draw(bodySprite);
+		window.draw(hatSprite);
 	}
+	else {
+		window.draw(bodySprite);
+		window.draw(handSprite);
+		window.draw(hatSprite);
+		if (item) {
+			copyItem->Draw(window);
+		}
+	}
+	
 
 	window.draw(seedGuideRect);
 }
@@ -234,14 +255,18 @@ void Player::Draw(sf::RenderWindow& window)
 void Player::PlayMoveAnimation(sf::Vector2f dir)
 {
 	if (prevDir == dir) return;
-
-	prevDir = dir;
-
+	if (dir.x != 0 || dir.y != 0) {
+		prevDir = dir;
+	}
+	
+	sf::FloatRect center = bodySprite.getLocalBounds();
 	if (dir.x > 0) {
 		body.Play(ANIMATION_PATH"playerleft.csv");
 		hand.Play(ANIMATION_PATH"playerlefthand.csv");
 		hat.Play(ANIMATION_PATH"hat1left.csv");
+
 		SetScale({ 1,1 });
+		handSprite.setOrigin({ center.width / 2 + 2.f, center.height / 2 + 5.f });
 		lookDir = { 1 , 0 };
 	}
 	else if (dir.x < 0) {
@@ -249,31 +274,58 @@ void Player::PlayMoveAnimation(sf::Vector2f dir)
 		hand.Play(ANIMATION_PATH"playerlefthand.csv");
 		hat.Play(ANIMATION_PATH"hat1left.csv");
 		SetScale({ -1,1 });
+		handSprite.setOrigin({ center.width / 2 + 2.f, center.height / 2 + 5.f });
 		lookDir = { -1 , 0 };
 	}
 	else if (dir.y > 0) {
 		body.Play(ANIMATION_PATH"playerforward.csv");
 		hand.Play(ANIMATION_PATH"playerforwardhand.csv");
 		hat.Play(ANIMATION_PATH"hat1forward.csv");
+		SetScale({ 1,1 });
+		handSprite.setOrigin({ center.width / 2 + 2.f, center.height / 2 + 5.f });
+		
 		lookDir = { 0 , 1 };
 	}
 	else if (dir.y < 0) {
 		body.Play(ANIMATION_PATH"playerbackward.csv");
 		hand.Play(ANIMATION_PATH"playerbackwardhand.csv");
 		hat.Play(ANIMATION_PATH"hat1backward.csv");
+		SetScale({ 1,1 });
 		lookDir = { 0 , -1 };
+		handSprite.setOrigin({ (center.width + center.left) / 2 + 2.5f, center.height / 2 + 5.9f });
 	}
 	SetOrigin(Origins::BC);
-	sf::FloatRect center = bodySprite.getLocalBounds();
-	handSprite.setOrigin({center.width / 2 + 1.5f, center.height / 2 + 5.9f});
+
 	hatSprite.setOrigin({ center.width / 2 + 3.f, center.height / 2 + 20.f });
 }
 
 void Player::PlayUseItemAnimation(sf::Vector2i dir)
 {
 	useItem = true;
-	body.Play(ANIMATION_PATH"playerUseItem.csv");
-	hand.Play(ANIMATION_PATH"playerUseItemHand.csv");
+	sf::FloatRect center = bodySprite.getLocalBounds();
+
+	if (dir.x == 1) {
+		body.Play(ANIMATION_PATH"playerUseItemLeft.csv");
+		hand.Play(ANIMATION_PATH"playerUseItemHandLeft.csv");
+		handSprite.setOrigin({ (center.width + center.left) / 2 + 2.5f, center.height / 2 + 15.f });
+		SetScale({ 1,1 });
+	}
+	else if (dir.x == -1) {
+		body.Play(ANIMATION_PATH"playerUseItemLeft.csv");
+		hand.Play(ANIMATION_PATH"playerUseItemHandLeft.csv");
+		handSprite.setOrigin({ (center.width + center.left) / 2 + 2.5f, center.height / 2 + 15.f });
+		SetScale({ -1,1 });
+	}
+	else if (dir.y == 1) {
+		body.Play(ANIMATION_PATH"playerUseItemFront.csv");
+		hand.Play(ANIMATION_PATH"playerUseItemHandFront.csv");
+		
+	}
+	else if (dir.y == -1) {
+		body.Play(ANIMATION_PATH"playerUseItemBack.csv");
+		hand.Play(ANIMATION_PATH"playerUseItemHandBack.csv");
+	}
+
 }
 
 void Player::SetInventory(Inventory* inven)

@@ -40,6 +40,5 @@ public:
 
 
 	void Draw(sf::RenderWindow& window) override;
-
 };
 

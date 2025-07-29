@@ -9,6 +9,8 @@ private:
 	Animator hoeAni;
 
 	sf::Vector2i prevDir;
+
+	sf::Vector2f plusPos = { 0,0 };
 public:
 	Hoe() = default;
 	Hoe(ItemInfo info);

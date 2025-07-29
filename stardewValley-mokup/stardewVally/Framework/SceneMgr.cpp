@@ -57,6 +57,8 @@ void SceneMgr::Update(float dt)
 	}
 
 	scenes[currentScene]->Update(dt);
+
+
 }
 
 void SceneMgr::Draw(sf::RenderWindow& window)
