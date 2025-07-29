@@ -18,6 +18,7 @@ void MapToolScene::Init()
 	fontIds.push_back(FONT_PATH"DOSGothic.ttf");
 	texIds.push_back(GRAPHICS_PATH"building.png");
 	texIds.push_back("graphics/spring.bmp");
+	texIds.push_back(GRAPHICS_PATH"springobjects.png");
 
 	mouseRect.setSize({ 10, 10 });
 
@@ -31,6 +32,8 @@ void MapToolScene::Init()
 	dragAreaRect.setOutlineColor(sf::Color::Red);
 	dragAreaRect.setOutlineThickness(1.f);
 	dragAreaRect.setSize({ 0,0 });
+
+
 #pragma region Buttons
 
 	triggerTypeButton.push_back(new Button(FONT_PATH"DOSGothic.ttf"));
@@ -41,6 +44,19 @@ void MapToolScene::Init()
 		isShowTriggerBox = false;
 		drawTrigger = false;
 	};
+
+	Button* objects = new Button(FONT_PATH"DOSGothic.ttf");
+	objects->SetString("Objects");
+	objects->SetTextColor(sf::Color::Black);
+	objects->SetPosition({ FRAMEWORK.GetWindowSizeF().x / 1.35f, 50.f });
+	objects->onClickFunc = [this]() {
+		drawTileIdx = 2;
+		drawTrigger = false;
+		drawCollider = false;
+		startDraw = false;
+		tilemap1->SetTexture(GRAPHICS_PATH"springobjects.png");
+	};
+	objects->sortingLayer = SortingLayers::UI;
 
 	Button* triggerButton = new Button(FONT_PATH"DOSGothic.ttf");
 	triggerButton->SetString("Trigger");
@@ -90,7 +106,7 @@ void MapToolScene::Init()
 		drawTileIdx = 0;
 		drawCollider = false;
 		startDraw = false;
-		tilemap1->SetTexture("graphics/home.png");
+		tilemap1->SetTexture("graphics/spring.bmp");
 		};
 	tileBNT->sortingLayer = SortingLayers::UI;
 
@@ -102,8 +118,10 @@ void MapToolScene::Init()
 		std::cout << "MapData/" + inputText->GetString() + ".csv" << std::endl;
 		map.Save("MapData/"+ inputText->GetString() + ".csv", drawTile[0].GetTextureId(), drawTile[0].GetCellDatas(), drawTile[0].GetCellCount());
 		map.Save("MapData/" + inputText->GetString() + "forGround.csv", drawTile[1].GetTextureId(), drawTile[1].GetCellDatas(), drawTile[1].GetCellCount());
+		map.Save("MapData/" + inputText->GetString() + "objects.csv" , drawTile[2].GetTextureId(), drawTile[2].GetCellDatas(), drawTile[2].GetCellCount());
 		map.Save("MapData/" + inputText->GetString() + "collider.csv" , colliders);
 		map.Save("MapData/" + inputText->GetString() + "trigger.csv", triggers);
+		
 		//Utils::SaveMapData("MapData/map1.csv" , drawTile[0].GetVaData(), drawTile[0].GetCellCount() , drawTile[0].GetTextureId());
 		//Utils::SaveMapData("MapData/map1_forGround.csv", drawTile[1].GetVaData(), drawTile[1].GetCellCount(), drawTile[1].GetTextureId());
 		};
@@ -142,6 +160,7 @@ void MapToolScene::Init()
 	AddGameObject(deleteBNT);
 	AddGameObject(inputText);
 	AddGameObject(colliderBNT);
+	AddGameObject(objects);
 
 	Scene::Init();
 
@@ -160,6 +179,7 @@ void MapToolScene::Enter()
 	Scene::Enter();
 	tilemap1->Set({ 24, 25 }, { 16.f, 16.f }, "graphics/spring.bmp");
 	gridTile->drawGrid({ 24, 25 }, { 16.f , 16.f });
+
 	drawTile[0].Set({ 24, 25 }, { 16.f , 16.f });
 	drawTile[1].Set({ 24, 25 }, { 16.f , 16.f });
 	drawTile[2].Set({ 24, 25 }, { 16.f , 16.f });
@@ -174,6 +194,7 @@ void MapToolScene::Enter()
 
 	drawTile[0].SetTexture("graphics/spring.bmp");
 	drawTile[1].SetTexture(GRAPHICS_PATH"building.png");
+	drawTile[2].SetTexture(GRAPHICS_PATH"springobjects.png");
 
 	for (auto tri : triggerTypeButton) {
 		tri->Reset();
@@ -195,7 +216,6 @@ void MapToolScene::Update(float dt)
 		DrawTriggerBox();
 	}
 	
-
 	if (isShowTriggerBox) {
 		for (auto tri : triggerTypeButton) {
 			tri->Update(dt);
@@ -205,13 +225,10 @@ void MapToolScene::Update(float dt)
 	if (InputMgr::GetKeyDown(sf::Keyboard::Enter)) {
 		SCENE_MGR.ChangeScene(SceneIds::ChangeTile);
 	}
-
 	
 	if (InputMgr::GetMouseButtonUp(sf::Mouse::Left)) {
 		isDragArea = false;
 	}
-	
-	
 
 	DragToMoveScreen(dt);
 	Scene::Update(dt);
@@ -223,6 +240,7 @@ void MapToolScene::Draw(sf::RenderWindow& window)
 	window.setView(worldView);
 	drawTile[0].Draw(window);
 	drawTile[1].Draw(window);
+	drawTile[2].Draw(window);
 	gridTile->Draw(window);
 	for (auto col : colliders) {
 		window.draw(*col);

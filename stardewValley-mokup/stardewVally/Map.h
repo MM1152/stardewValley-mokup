@@ -37,6 +37,7 @@ private:
 	void LoadCollider(const std::string path);
 	void Load(const std::string path, int layer);
 	void LoadTrigger(const std::string path);
+	void LoadObjects(const std::string path);
 
 	void Init() {};
 public:
