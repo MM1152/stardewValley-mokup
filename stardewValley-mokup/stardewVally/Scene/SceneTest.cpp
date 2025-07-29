@@ -112,8 +112,9 @@ void SceneTest::Init()
 
 	DialogueLoader::Instance().LoadFromJson("data/Dialogues.json");
 	
+	itemDataMgr::Instance().LoadShopItems("data/shop.json");
 	const auto& items = itemDataMgr::Instance().GetShopItemList("Pierre's General Store");
-
+	std::cout << items.size() << std::endl;
 	for (const auto& item : items)
 	{
 		texIds.push_back(item.itemTextureId);

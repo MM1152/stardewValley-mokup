@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Collider.h"
 #include "Map.h"
+#include "Player.h"
 
 Collider::Collider(const std::string& name)
 	: GameObject(name)
@@ -62,19 +63,15 @@ void Collider::Draw(sf::RenderWindow& window)
 
 bool Collider::IsColliding(const GameObject& sprite)
 {
-	sf::Vector2f characterPos = sprite.GetPosition();
-	sf::Vector2f characterSize = sprite.GetGlobalBounds().getSize();
-
 	for (const auto& shape : shapes)
 	{
-
 		if (sprite.GetGlobalBounds().intersects(shape->getGlobalBounds())) {
 			return true;
 		}
-
 	}
 	return false;
 }
+
 
 bool Collider::IsColliding(const sf::Sprite& sprite)
 {
@@ -90,7 +87,7 @@ bool Collider::IsColliding(const sf::Sprite& sprite)
 			return true;
 		}
 
-	}
+		}
 	return false;
 }
 
@@ -115,8 +112,77 @@ bool Collider::IsColliding(const sf::FloatRect rect)
 	return false;
 }
 
+bool Collider::IsColliding(const sf::RectangleShape& rect)
+{
+	sf::FloatRect rectBounds = rect.getGlobalBounds();
+
+	for (const auto& shape : shapes)
+	{
+		if (&rect == shape)
+		{
+			continue;
+		}
+			
+		if (rectBounds.intersects(shape->getGlobalBounds()))
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
 void Collider::areaBlocked(sf::Vector2f& position, GameObject& sprite, const sf::Vector2f& moveOffset)
 {
+	/*float walk = 1.f;
+
+	float movedX = 0.f;
+	while ((moveOffset.x > 0.f && moveOffset.x > movedX) || (moveOffset.x < 0.f && moveOffset.x < movedX))
+	{
+		float dx = walk;
+		float remainingX = moveOffset.x - movedX;
+		if ((remainingX > 0 && remainingX < dx) || (remainingX < 0 && -remainingX < dx))
+		{
+			dx = remainingX;
+		}
+
+		position.x += dx;
+		sprite.SetPosition(position);
+		bool Collided = false;
+		if (IsColliding(sprite))
+		{
+			position.x -= dx;
+			sprite.SetPosition(position);
+			break;
+		}
+
+		movedX += dx;
+		
+	}
+
+	float movedY = 0.f;
+	while ((moveOffset.y > 0.f && moveOffset.y > movedY) || (moveOffset.y < 0.f && moveOffset.y < movedY))
+	{
+		float dy = walk;
+		float remainingY = moveOffset.y - movedY;
+		if ((remainingY > 0 && remainingY < dy) || (remainingY < 0 && -remainingY < dy))
+		{
+			dy = remainingY;
+		}
+
+		position.y += dy;
+		sprite.SetPosition(position);
+		
+		if (IsColliding(sprite))
+		{
+			position.y -= dy;
+			sprite.SetPosition(position);
+			break;
+		}
+
+		movedY += dy;
+
+	}*/
+
 	position.x += moveOffset.x;
 	sprite.SetPosition(position);
 	for (auto shape : shapes)
@@ -140,6 +206,60 @@ void Collider::areaBlocked(sf::Vector2f& position, GameObject& sprite, const sf:
 	}
 
 	sprite.SetPosition(position);
+
+}
+
+void Collider::areaBlocked(sf::Vector2f& position, sf::RectangleShape& shape, const sf::Vector2f& moveOffset)
+{
+	float walk = 1.f;
+
+	float movedX = 0.f;
+	while ((moveOffset.x > 0.f && moveOffset.x > movedX) || (moveOffset.x < 0.f && moveOffset.x < movedX))
+	{
+		float dx = walk;
+		float remainingX = moveOffset.x - movedX;
+		if ((remainingX > 0 && remainingX < dx) || (remainingX < 0 && -remainingX < dx))
+		{
+			dx = remainingX;
+		}
+
+		position.x += dx;
+		shape.setPosition(position);
+		bool Collided = false;
+		if (IsColliding(shape))
+		{
+			position.x -= dx;
+			shape.setPosition(position);
+			break;
+		}
+
+		movedX += dx;
+
+	}
+
+	float movedY = 0.f;
+	while ((moveOffset.y > 0.f && moveOffset.y > movedY) || (moveOffset.y < 0.f && moveOffset.y < movedY))
+	{
+		float dy = walk;
+		float remainingY = moveOffset.y - movedY;
+		if ((remainingY > 0 && remainingY < dy) || (remainingY < 0 && -remainingY < dy))
+		{
+			dy = remainingY;
+		}
+
+		position.y += dy;
+		shape.setPosition(position);
+
+		if (IsColliding(shape))
+		{
+			position.y -= dy;
+			shape.setPosition(position);
+			break;
+		}
+
+		movedY += dy;
+
+	}
 }
 
 void Collider::areaBlocked(sf::Vector2f& position, sf::Sprite& sprite, const sf::Vector2f& moveOffset)
@@ -165,8 +285,11 @@ void Collider::areaBlocked(sf::Vector2f& position, sf::Sprite& sprite, const sf:
 			sprite.setPosition(position);
 		}
 	}
+
 	sprite.setPosition(position);
+
 }
+
 
 void Collider::SetMap(Map* map)
 {
@@ -178,6 +301,11 @@ void Collider::SetMap(Map* map)
 	{
 		shapes.push_back(col);
 	}
+}
+
+void Collider::SetPlayer(Player* player)
+{
+	this->player = player;
 }
 
 

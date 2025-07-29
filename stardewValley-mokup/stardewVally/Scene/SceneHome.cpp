@@ -96,7 +96,6 @@ void SceneHome::Enter()
 	sf::Vector2f windowSize = FRAMEWORK.GetWindowSizeF();
 
 	Scene::Enter(); //push_back
-	player->SetPosition({ 185.f, 280.f });
 	map.Load(MAP_PATH"home");
 
 	for (auto tri : map.GetTriggers()) {
@@ -113,7 +112,8 @@ void SceneHome::Enter()
 	forGround->Set(map.GetTextId(1), map.GetCellDatas(1));
 
 	player->SetMap(&map);
-	
+	player->SetPosition({ 200.f, 280.f });
+
 }
 
 void SceneHome::Exit()
