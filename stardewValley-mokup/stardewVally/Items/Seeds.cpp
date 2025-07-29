@@ -1,13 +1,10 @@
 #include "stdafx.h"
-#include "Hog.h"
+#include "Seeds.h"
 #include "Map.h"
 #include "Player.h"
-Hog::Hog(ItemInfo info)
-	:InGameItem(info)
-{
-}
+#include "Crops.h"
 
-void Hog::UseItem()
+void Seeds::UseItem()
 {
 	Map* map = player->GetMap();
 	sf::Vector2i lookDir = player->GetLookDir();
@@ -15,9 +12,13 @@ void Hog::UseItem()
 
 	int cellIdx = map->GetCellIndex(holePos, 0);
 	int cellData = map->GetCell(cellIdx, 0).idx;
-	
-	if (cellData == 25) {
-		CellData changeCellData = map->GetTextureCell(308, 0);
-		map->SetCellData(cellIdx , 0 , &changeCellData);
+
+	if (cellData == 25)
+	{
+		copyseed = new Crops;
+		copyseed->SetCropsType(Crops::CropsType::Parsnip);
+		copyseed->SetPosition(player->GetPosition());
+		std::cout << "µÌ³Ä?" << std::endl;
 	}
+
 }

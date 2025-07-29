@@ -138,6 +138,7 @@
   <ItemGroup>
     <ClInclude Include="Collider.h" />
     <ClInclude Include="Button.h" />
+    <ClInclude Include="Items\Crops.h" />
     <ClInclude Include="DialogueBox.h" />
     <ClInclude Include="Framework\AnimationClip.h" />
     <ClInclude Include="Framework\Animator.h" />
@@ -179,6 +180,7 @@
     <ClInclude Include="Scene\MapToolScene.h" />
     <ClInclude Include="Scene\SceneGame.h" />
     <ClInclude Include="Scene\SceneTest.h" />
+    <ClInclude Include="Items\Seeds.h" />
     <ClInclude Include="Shop.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="TileMap.h" />
@@ -189,6 +191,7 @@
   <ItemGroup>
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="Items\Crops.cpp" />
     <ClCompile Include="DialogueBox.cpp" />
     <ClCompile Include="Framework\AnimationClip.cpp" />
     <ClCompile Include="Framework\Animator.cpp" />
@@ -225,6 +228,7 @@
     <ClCompile Include="SceneDev1.cpp" />
     <ClCompile Include="Scene\MapToolScene.cpp" />
     <ClCompile Include="Scene\SceneGame.cpp" />
+    <ClCompile Include="Items\Seeds.cpp" />
     <ClCompile Include="Shop.cpp" />
     <ClCompile Include="Scene\SceneTest.cpp" />
     <ClCompile Include="stdafx.cpp">

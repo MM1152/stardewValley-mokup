@@ -5,6 +5,8 @@
 #include "TimeMoneyUi.h"
 #include "Item.h"
 #include "Hog.h"
+#include "Seeds.h"
+#include "Crops.h"
 
 Player::Player(const std::string name)
 	:Collider(name)
@@ -58,11 +60,17 @@ void Player::SetItem(Item* item)
 	this->item = item;
 
 	if (this->item) {
-		if (this->item->GetItemInfo()->itemId == "hoe") {
+		if (this->item->GetItemInfo()->itemId == "hoe")
+		{
 			copyItem = new Hog();
+		}
+		else if (this->item->GetItemInfo()->itemId == "parsnip_seeds")
+		{
+			copyItem = new Seeds();
 		}
 		copyItem->SetItemInfo(this->item);
 	}
+
 }
 
 
