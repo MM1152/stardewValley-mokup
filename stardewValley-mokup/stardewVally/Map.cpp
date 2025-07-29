@@ -175,6 +175,37 @@ void Map::LoadTrigger(const std::string path)
     }
 }
 
+void Map::LoadObjects(const std::string path)
+{
+    std::ifstream file(path);
+
+    if (!file.good()) {
+        std::cout << "FAIL TO LOAD FILE " << path << std::endl;
+        return;
+    }
+
+    rapidcsv::Document document(path);
+
+    if (document.GetRowCount() == 0) return;
+
+
+    for (int i = 0; i < document.GetRowCount(); i++) {
+        auto cellData = document.GetCell<std::string>(0, i);
+
+        //0 1 size , 2 3 pos
+        auto split = Utils::Split(cellData, ',');
+        sf::Vector2f size = { std::stof(split[0]) , std::stof(split[1]) };
+        sf::Vector2f pos = { std::stof(split[2]) - 300.f, std::stof(split[3]) - 300.f };
+        int type = std::stoi(split[4]);
+
+        triggers.push_back(new Trigger());
+        triggers[triggers.size() - 1]->Reset();
+        triggers[triggers.size() - 1]->SetSize(size);
+        triggers[triggers.size() - 1]->SetPosition(pos);
+        triggers[triggers.size() - 1]->SetType((TriggerType)type);
+    }
+}
+
 
 
 
