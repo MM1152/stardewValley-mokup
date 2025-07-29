@@ -20,23 +20,33 @@ std::ostream& operator <<(std::ostream& ost, sf::Vector2f cellTextCoord[4]);
 //그럼 TILEMAP의 set에서는 va를 받아?
 //아니지 CellData를 채우면 되는거고
 //그치
+class TileMap;
 class Map
 {
 private:
 	std::unordered_map<int, std::vector<CellData>> cell;
 	std::unordered_map<int, std::string> textures;
-
+	
 	std::vector<sf::RectangleShape*> colliders;
 	std::vector<Trigger*> triggers;
 	sf::Vector2i count;
+
+	std::vector<TileMap*> tiles;
 
 	void Reset(int size);
 	void LoadCollider(const std::string path);
 	void Load(const std::string path, int layer);
 	void LoadTrigger(const std::string path);
+
+	void Init() {};
 public:
 
-	int GetCellIndex(int idx , int layer);
+	template<typename T, typename... Args>
+	void Init(T first, Args... rest) {
+		tiles.push_back(first);
+		Init(rest...);
+	}
+
 	int GetCellIndex(const sf::Vector2f& pos, int layer);
 
 	//실제 맵에 적용되어있는 셀 데이터 가져오는 부분
@@ -59,6 +69,7 @@ public:
 	std::vector<sf::RectangleShape*>& GetColliders() { return colliders; };
 	std::vector<Trigger*>& GetTriggers() { return triggers; };
 	const sf::Vector2i& GetCount()  const{ return count; };
+
 	void Release();
 };
 

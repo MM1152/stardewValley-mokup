@@ -19,7 +19,6 @@ class DialogueBox;
 class SceneTest : public Scene
 {
 protected:
-
 	Player* player = nullptr;
 	NpcMgr* npc = nullptr;
 	Shop* shop = nullptr;
@@ -29,16 +28,12 @@ protected:
 	QuickBar* quickBar = nullptr;
 	DialogueBox* dialogueBox = nullptr;
 
-
 	TileMap* tile;
 	TileMap* forGround;
 
 	Map map;
 
 	bool drawCollider;
-
-	
-
 public:
 	SceneTest();
 	~SceneTest() = default;

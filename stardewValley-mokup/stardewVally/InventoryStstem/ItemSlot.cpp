@@ -2,7 +2,7 @@
 #include "ItemSlot.h"
 #include "Item.h"
 
-Item* ItemSlot::dragItem = nullptr;
+InUIItem* ItemSlot::dragItem = nullptr;
 
 ItemSlot::ItemSlot(const std::string& texId, const std::string& name)
 	:GameObject(name)
@@ -43,8 +43,6 @@ void ItemSlot::Update(float dt)
 	}
 	else {
 		slot.setFillColor(sf::Color::White);
-
-
 	}
 }
 
@@ -62,7 +60,7 @@ void ItemSlot::SetPosition(const sf::Vector2f& pos)
 	slot.setPosition(pos);
 }
 
-bool ItemSlot::SetItem(Item* item)
+bool ItemSlot::SetItem(InUIItem* item)
 {
 	this->item = item;
 	if (!item) {

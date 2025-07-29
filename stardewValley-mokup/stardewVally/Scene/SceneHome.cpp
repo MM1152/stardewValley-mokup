@@ -65,9 +65,7 @@ void SceneHome::Init()
 
 
 
-	itemDataMgr::Instance().LoadJson("data/Item.json");
-
-	const auto& items = itemDataMgr::Instance().GetItem("Pierre's General Store");
+	const auto& items = itemDataMgr::Instance().GetShopItemList("Pierre's General Store");
 
 	for (const auto& item : items)
 	{

@@ -2,6 +2,8 @@
 #include "GameObject.h"
 #include "ItemSlot.h"
 #include "QuickBar_Slot.h"
+
+class InUIItem;
 class QuickBar : public GameObject
 {
 private:
@@ -9,6 +11,8 @@ private:
 	sf::RectangleShape quickBar;
 	sf::RectangleShape outLine;
 	std::vector<QuickBar_Slot*> quickBar_Slots;		
+
+	int idx = 0;
 public:
 	QuickBar(const std::string& texId = "" , const std::string& name = "");
 	~QuickBar() override = default;
@@ -20,6 +24,8 @@ public:
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
 
-	void SetItem(Item* item , int idx);
+	void SetItem(InUIItem* item , int idx);
+	Item* GetItem();
+	int GetQuickBarIdx() { return idx; };
 };
 

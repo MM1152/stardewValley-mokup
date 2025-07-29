@@ -19,6 +19,9 @@ SceneTest::SceneTest()
 
 void SceneTest::Init()
 {
+	texIds.push_back(GRAPHICS_PATH"tools.png");
+	texIds.push_back(GRAPHICS_PATH"farmer_base.png");
+	texIds.push_back(GRAPHICS_PATH"hats.png");
 	texIds.push_back("graphics/testC.png");
 	texIds.push_back("graphics/shop_bg.png");
 	texIds.push_back(INVEN_IMG_PATH"ItemSlot.png");
@@ -44,7 +47,7 @@ void SceneTest::Init()
 	texIds.push_back("graphics/clock.png");
 	texIds.push_back("graphics/moneyFont.png");
 
-	//texIds.push_back("graphics/ë‚ ì”¨.bmp");
+	//texIds.push_back("graphics/?‚ ?”¨.bmp");
 
 	fontIds.push_back("fonts/DOSGothic.ttf");
 	fontIds.push_back("fonts/Stardew_Valley.ttf");
@@ -60,7 +63,7 @@ void SceneTest::Init()
 	//TimeUi
 	texIds.push_back("graphics/clock.png");
 	texIds.push_back("graphics/moneyFont.png");
-	//texIds.push_back("graphics/ë‚ ì”¨.bmp");
+	//texIds.push_back("graphics/?‚ ?”¨.bmp");
 	//texIds.push_back("graphics/ê³„ì ˆ.bmp");
 
 	//font
@@ -104,11 +107,9 @@ void SceneTest::Init()
 	AddGameObject(npc);
 
 
-
-	itemDataMgr::Instance().LoadJson("data/Item.json");
 	DialogueLoader::Instance().LoadFromJson("data/Dialogues.json");
 	
-	const auto& items = itemDataMgr::Instance().GetItem("Pierre's General Store");
+	const auto& items = itemDataMgr::Instance().GetShopItemList("Pierre's General Store");
 
 	for (const auto& item : items)
 	{
@@ -149,10 +150,11 @@ void SceneTest::Init()
 
 	tile = new TileMap(VertexType::Game);
 	forGround = new TileMap(VertexType::Game);
+
 	AddGameObject(tile);
 	AddGameObject(forGround);
 
-
+	map.Init(tile, forGround);
 	// F9 Draw Collider
 	drawCollider = true;
 

@@ -118,7 +118,7 @@ void Shop::ShowUi()
 {
     isUiShow = true;
 
-	const std::vector<ItemInfo>& items = itemDataMgr::Instance().GetItem("Pierre's General Store");
+	const std::vector<ItemInfo>& items = itemDataMgr::Instance().GetShopItemList("Pierre's General Store");
 	LoadShopItems(items);
 }
 

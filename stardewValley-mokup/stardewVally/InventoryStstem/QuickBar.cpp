@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "QuickBar.h"
-#include "Item.h"
+#include "InUIItem.h"
+
 QuickBar::QuickBar(const std::string& texId, const std::string& name)
 	:GameObject(name)
 	,texId(texId)
@@ -53,22 +54,24 @@ void QuickBar::Reset()
 void QuickBar::Update(float dt)
 {
 	if ((int)InputMgr::GetInputKey() >= 27 && (int)InputMgr::GetInputKey() <= 35) {
-		
 		outLine.setPosition(quickBar_Slots[(int)InputMgr::GetInputKey() - 27]->GetPosition().x + 9.f,
 							quickBar_Slots[(int)InputMgr::GetInputKey() - 27]->GetPosition().y + 6.f);
+		idx = (int)InputMgr::GetInputKey() - 27;
 	}
-
 	if (InputMgr::GetInputKey() == sf::Keyboard::Key::Num0) {
 		outLine.setPosition(quickBar_Slots[9]->GetPosition().x + 9.f,
 			quickBar_Slots[9]->GetPosition().y + 6.f);
+		idx = 9;
 	}
 	if ((int)InputMgr::GetInputKey() == 56) {
 		outLine.setPosition(quickBar_Slots[10]->GetPosition().x + 9.f, 
 			quickBar_Slots[10]->GetPosition().y + 6.f);
+		idx = 10;
 	}
 	if ((int)InputMgr::GetInputKey() == 55) {
 		outLine.setPosition(quickBar_Slots[11]->GetPosition().x + 9.f, 
 			quickBar_Slots[11]->GetPosition().y + 6.f);
+		idx = 11;
 	}
 }
 
@@ -82,9 +85,14 @@ void QuickBar::Draw(sf::RenderWindow& window)
 	
 }
 
-void QuickBar::SetItem(Item* item, int idx)
+void QuickBar::SetItem(InUIItem* item, int idx)
 {
 	quickBar_Slots[idx]->SetItem(item);
+}
+
+Item* QuickBar::GetItem()
+{
+	return quickBar_Slots[idx]->GetItem();
 }
 
 

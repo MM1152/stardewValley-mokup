@@ -36,6 +36,7 @@ void Scene::Enter()
 	TEXTURE_MGR.Load(texIds);
 	FONT_MGR.Load(fontIds);
 	SOUNDBUFFER_MGR.Load(soundIds);
+	ANI_CLIP_MGR.Load(aniIds);
 
 	for (auto obj : gameObjects)
 	{
@@ -55,6 +56,7 @@ void Scene::Exit()
 	TEXTURE_MGR.Unload(texIds);
 	FONT_MGR.Unload(fontIds);
 	SOUNDBUFFER_MGR.Unload(soundIds);
+	ANI_CLIP_MGR.Load(aniIds);
 }
 
 void Scene::Update(float dt)

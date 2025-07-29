@@ -123,7 +123,7 @@
     <ClInclude Include="Trigger.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Scene\SceneTileChangeTest.h">
+    <ClInclude Include="SceneTileChangeTest.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="DialogueInfo.h">
@@ -142,6 +142,14 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Mgr\NpcMgr.h">
+      <Filter>헤더 파일</Filter>
+    <ClInclude Include="SceneAnimationTest.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\SceneHome.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Hoe.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
@@ -243,6 +251,8 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Scene\SceneTileChangeTest.cpp">
+     <Filter>소스 파일</Filter>
+    <ClCompile Include="SceneTileChangeTest.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="DialogueInfo.cpp">
@@ -263,6 +273,18 @@
     <ClCompile Include="Mgr\NpcMgr.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="SceneAnimationTest.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Hoe.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Item.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="dialogues.json" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Item.json" />

@@ -40,7 +40,7 @@ void QuickBar_Slot::SetPosition(const sf::Vector2f& pos)
 	slot.setPosition(pos);
 }
 
-void QuickBar_Slot::SetItem(Item* item)
+void QuickBar_Slot::SetItem(InUIItem* item)
 {
 	this->item = item;
 	if (!item) {

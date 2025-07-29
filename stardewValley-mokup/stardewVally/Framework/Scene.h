@@ -11,6 +11,7 @@ protected:
 	std::vector<std::string> texIds;
 	std::vector<std::string> fontIds;
 	std::vector<std::string> soundIds;
+	std::vector<std::string> aniIds;
 
 	sf::View uiView;
 	sf::View worldView;

@@ -1,5 +1,4 @@
 {
-  "storeName": "Pierre's General Store",
   "items": [
     {
       "id": "parsnip_seeds",
@@ -30,6 +29,16 @@
       "name" : "Garlic Seends",
       "description" : "Plant these in the spring. Takes 4 days to mature. (Avaliable in year 2+)",
       "TextureId" : "graphics/garlic_seeds.png",
+      "price" : 40,
+      "stock" : 100
+    },
+    {
+      "id":"hoe",
+      "name" : "Hoe",
+      "description" : "Dig the ground",
+      "TextureId" : "graphics/tools.png",
+      "UiTextureRect" : [79, 30, 19, 19],
+      "TextureRect" : [0, 26, 17, 23],
       "price" : 40,
       "stock" : 100
     }

@@ -109,7 +109,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <AdditionalIncludeDirectories>.\SFML-2.6.2\include;.\Framework;.\GameObjects;$(ProjectDir);.\Scene;.\Effect;.\InventoryStstem;.\Mgr;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\SFML-2.6.2\include;.\Framework;.\GameObjects;$(ProjectDir);.\Scene;.\InventoryStstem;.\Effect;.\Items;.\Mgr;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -156,6 +156,9 @@
     <ClInclude Include="Framework\TextGo.h" />
     <ClInclude Include="Framework\Utils.h" />
     <ClInclude Include="HitBox.h" />
+    <ClInclude Include="Items\Hog.h" />
+    <ClInclude Include="InventoryStstem\InUIItem.h" />
+    <ClInclude Include="Items\InGameItem.h" />
     <ClInclude Include="InputText.h" />
     <ClInclude Include="Mgr\itemDataMgr.h" />
     <ClInclude Include="Mgr\NpcMgr.h" />
@@ -167,6 +170,7 @@
     <ClInclude Include="ItemInfo.h" />
     <ClInclude Include="InventoryStstem\QuickBar_Slot.h" />
     <ClInclude Include="Scene\SceneTileChangeTest.h" />
+    <ClInclude Include="SceneAnimationTest.h" />
     <ClInclude Include="Scene\SceneHome.h" />
     <ClInclude Include="Scene\LoadMapDataScene.h" />
     <ClInclude Include="Map.h" />
@@ -197,6 +201,9 @@
     <ClCompile Include="Framework\TextGo.cpp" />
     <ClCompile Include="Framework\Utils.cpp" />
     <ClCompile Include="HitBox.cpp" />
+    <ClCompile Include="Items\Hog.cpp" />
+    <ClCompile Include="InventoryStstem\InUIItem.cpp" />
+    <ClCompile Include="Items\InGameItem.cpp" />
     <ClCompile Include="InputText.cpp" />
     <ClCompile Include="InventoryStstem\Inventory.cpp" />
     <ClCompile Include="InventoryStstem\Item.cpp" />
@@ -205,6 +212,7 @@
     <ClCompile Include="Mgr\itemDataMgr.cpp" />
     <ClCompile Include="Mgr\NpcMgr.cpp" />
     <ClCompile Include="Scene\SceneTileChangeTest.cpp" />
+    <ClCompile Include="SceneAnimationTest.cpp" />
     <ClCompile Include="Scene\SceneHome.cpp" />
     <ClCompile Include="Scene\LoadMapDataScene.cpp" />
     <ClCompile Include="main.cpp" />

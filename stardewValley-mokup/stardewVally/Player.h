@@ -1,6 +1,8 @@
 #pragma once
 #include "Collider.h"
 #include "stdafx.h"
+#include "Animator.h"
+#include "InGameItem.h"
 
 class NpcMgr;
 class Inventory;
@@ -11,13 +13,21 @@ class Map;
 class Player : public Collider
 {
 protected:
+	Animator body;
+	Animator hand;
+	Animator hat;
 	//player move
 	bool isPlayer = true;
 	bool openInven = false;
 	bool openShop = false;
 	bool fainting = false;
 
-	sf::Sprite sprite;
+	sf::Vector2f prevDir = { 0,0 };
+
+	sf::Sprite bodySprite;
+	sf::Sprite handSprite;
+	sf::Sprite hatSprite;
+
 	float speed = 100.f;
 	int money = 500;
 	
@@ -30,7 +40,15 @@ protected:
 
 	sf::RectangleShape seedGuideRect;
 
+	InGameItem* copyItem;
+	Item* item;
+
+	sf::Vector2i lookDir = { 0,0 };
+
+	int quickBarIdx = -1;
 public:
+	sf::Vector2i GetLookDir() { return lookDir; };
+
 	void SetActive(bool a) { active = a; };
 	void SetPosition(const sf::Vector2f& pos) override;
 	void SetRotation(float rot) override;
@@ -38,6 +56,7 @@ public:
 	void SetOrigin(const sf::Vector2f& o);
 	void SetOrigin(Origins preset);
 	void SetNpcMgr(NpcMgr* n) { this->npcMgr = n; }
+	void SetItem(Item* item);
 
 	Player(const std::string name = "Player");
 	virtual ~Player() = default;
@@ -45,9 +64,10 @@ public:
 	void Init();
 	void Release();
 	void Reset();
-
 	void Update(float dt);
 	void Draw(sf::RenderWindow& window);
+
+	void PlayMoveAnimation(sf::Vector2f dir);
 
 	void SetInventory(Inventory* inven);
 	Inventory* GetInventory();
@@ -57,12 +77,12 @@ public:
 	
 	virtual sf::FloatRect GetLocalBounds() const
 	{
-		return sprite.getLocalBounds();
+		return bodySprite.getLocalBounds();
 	}
 
 	virtual sf::FloatRect GetGlobalBounds() const
 	{
-		return sprite.getGlobalBounds();
+		return bodySprite.getGlobalBounds();
 	}
 
 	//player move

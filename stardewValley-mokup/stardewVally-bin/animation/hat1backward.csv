@@ -1,0 +1,5 @@
+ID,FPS,LoopType (0: Single. 1: Loop)
+hat1backward,10,1
+
+TEXTURE ID,LEFT,TOP,WIDTH,HEIGHT,FLIPX(0:Fale. 1:True)
+graphics/hats.png,0.145279,59.871166,19.968750,16.468754,0

@@ -37,14 +37,14 @@ void Inventory::Init()
 		}
 	}
 
-	ItemInfo sword = { "galaxy_sword" ,  ITEM_IMG_PATH"galaxy_sword.png" /*ItemType::EquipMent*/};
-	item = new Item(sword);
-
+	//ItemInfo sword = { "galaxy_sword" ,  ITEM_IMG_PATH"galaxy_sword.png" /*ItemType::EquipMent*/};
+	item = new InUIItem(itemDataMgr::Instance().GetItem("hoe"));
 	item->Init();
 }
 
 void Inventory::Release()
 {
+
 }
 
 void Inventory::Reset()
@@ -60,7 +60,6 @@ void Inventory::Reset()
 	}
 	item->Reset();
 	SetItem(item);
-
 }
 
 void Inventory::Update(float dt)
@@ -97,7 +96,7 @@ void Inventory::Draw(sf::RenderWindow& window)
 }
 
 //가방 돌면서 비어있는 슬릇확인, 비어있는 곳은 true 없으면 false
-bool Inventory::SetItem(Item* item)
+bool Inventory::SetItem(InUIItem* item)
 {
 	for (int i = 0; i < slotSize; i++) {
 		if (!unEquipSlots[i]->IsSetting()) {
@@ -111,7 +110,7 @@ bool Inventory::SetItem(Item* item)
 
 bool Inventory::AddItem(const ItemInfo& info)
 {
-	Item* newItem = new Item(info);
+	InUIItem* newItem = new InUIItem(info);
 	newItem->Init();
 
 	for (ItemSlot* slot : unEquipSlots)

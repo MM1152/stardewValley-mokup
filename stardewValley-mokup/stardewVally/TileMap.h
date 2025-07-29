@@ -9,6 +9,7 @@ enum class VertexType {
 	Game,
 };
 
+struct CellData;
 class TileMap : public GameObject
 {
 private:

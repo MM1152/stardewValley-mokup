@@ -1,16 +1,16 @@
 #pragma once
 #include "GameObject.h"
+#include "InUIItem.h"
 
-class Item;
 class ItemSlot : public GameObject
 {
 private:
 	std::string texId;
 	sf::RectangleShape slot;
 	
-	Item* item = nullptr;
+	InUIItem* item = nullptr;
 public:
-	static Item* dragItem;
+	static InUIItem* dragItem;
 
 	ItemSlot(const std::string& texId = "", const std::string& name = "");
 	~ItemSlot() override = default;
@@ -23,8 +23,8 @@ public:
 	void Draw(sf::RenderWindow& window) override;
 
 	void SetPosition(const sf::Vector2f& pos) override;
-	virtual bool SetItem(Item* item);
-	Item* GetItem() { return item; };
+	virtual bool SetItem(InUIItem* item);
+	InUIItem* GetItem() { return item; };
 	bool IsSetting() { return item; };
 	void RemoveItem() { item = nullptr; };
 };
