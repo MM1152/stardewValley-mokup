@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "TimeMoneyUi.h"
 #include "Player.h"
+#include "Crops.h"
 
 TimeMoneyUi::TimeMoneyUi(const std::string& name)
 	: GameObject(name)
@@ -130,6 +131,7 @@ void TimeMoneyUi::Update(float dt)
 					{
 						ChangeAm();
 						th += 1;
+
 					}
 				}
 				else if (hour > 12)
@@ -613,6 +615,7 @@ void TimeMoneyUi::Setplayer(Player* player)
 {
 	this->player = player;
 }
+
 Player* TimeMoneyUi::GetPlayer()
 {
 	return player;

@@ -1,5 +1,9 @@
 #pragma once
 #include "GameObject.h"
+#include "Seeds.h"
+
+class TimeMoneyUi;
+
 class Crops : public GameObject
 {
 public:
@@ -18,8 +22,12 @@ protected:
 
 	CropsType ctype = CropsType::None;
 
-	int growup = 0;
+	TimeMoneyUi* tm = nullptr;
 
+	int idx = 0;
+
+	int curGrow = 0;
+	int growup = 0;
 public:
 	Crops(const std::string& name = "");
 	virtual ~Crops() = default;
@@ -36,8 +44,15 @@ public:
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
 
-	void GrowUp(int grow);
+	void GrowUp();
+
+	void Setidx(int index);
+	int Getidx();
 
 	void SetCropsType(CropsType c);
+	Crops::CropsType GetCropsType();
+
+	void SetTimeMoneyUi(TimeMoneyUi* time);
+	TimeMoneyUi* GetTimeMoneyUi();
 };
 

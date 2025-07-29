@@ -66,6 +66,7 @@ void Player::SetItem(Item* item)
 	this->item = item;
 
 	if (this->item) {
+		
 		if (this->item->GetItemInfo()->itemId == "hoe") {
 			copyItem = new Hoe();
 		}
@@ -73,6 +74,7 @@ void Player::SetItem(Item* item)
 		{
 			copyItem = new Seeds();
 		}
+		copyItem->SetPlayer(this);
 		copyItem->SetItemInfo(this->item);
 	}
 
@@ -174,12 +176,15 @@ void Player::Update(float dt)
 		}
 	}
 	
-	if (item) {
+	if (item) 
+	{
 		copyItem->Update(dt);
-
-		if (InputMgr::GetKeyDown(sf::Keyboard::Z)) {
+		if (InputMgr::GetKeyDown(sf::Keyboard::Z)) 
+		{
 			copyItem->UseItem();
+			
 		}
+	
 	}
 
 	sf::Vector2f movement = { 0.f, 0.f };
@@ -228,13 +233,14 @@ void Player::Update(float dt)
 		}
 	}
 
-	if (!openShop && !openInven && fainting)
+	if (!openShop && !openInven) //&& fainting)
 	{
 		if (InputMgr::GetKeyDown(sf::Keyboard::Return))
 		{
 			timemoneyui->Changeth();
 			isPlayer = true;
 			fainting = false;
+			growup = true;
 		}
 	}
 

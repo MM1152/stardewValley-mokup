@@ -54,7 +54,7 @@ protected:
 	std::string meridiemfont = "fonts/DOSGothic.ttf";
 
 	float minuteTimer = 0.f;
-	float minuteMaxTimer = 7.f;
+	float minuteMaxTimer = 0.1f;
 
 	Player* player;
 
