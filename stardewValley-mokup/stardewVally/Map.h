@@ -8,7 +8,6 @@ struct CellData {
 	sf::Vector2f cellPosition[4];
 
 	int idx = -1;
-
 };
 std::ostream& operator <<(std::ostream& ost, sf::Vector2f cellTextCoord[4]);
 
