@@ -73,7 +73,10 @@ void SceneTest::Init()
 
 	//crops
 	texIds.push_back("graphics/parsnip.png");
-	
+	texIds.push_back("graphics/caluliflower.png");
+	texIds.push_back("graphics/potato.png");
+	texIds.push_back("graphics/garlic.png");
+
 
 	inventory = new Inventory(INVEN_IMG_PATH"CraftImage.bmp");
 	quickBar = new QuickBar(INVEN_IMG_PATH"CraftImage.bmp");

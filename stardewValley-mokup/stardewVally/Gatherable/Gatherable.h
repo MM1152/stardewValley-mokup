@@ -12,6 +12,8 @@ private:
 	sf::FloatRect uiTextCoord = { -1,-1,-1,-1 };
 	sf::FloatRect textureCoord = { -1,-1,-1,-1 };
 
+	bool interaction = false;
+
 
 protected:
 	sf::Sprite GtSp;

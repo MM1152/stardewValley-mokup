@@ -8,6 +8,7 @@ Gatherable::Gatherable(const std::string& name)
 	, GtTextureId("")
 	, uiTextCoord(-1, -1, -1, -1)
 	, textureCoord(-1, -1, -1, -1)
+	, interaction(false)
 {
 }
 
@@ -32,7 +33,6 @@ void Gatherable::Update(float dt)
 void Gatherable::Draw(sf::RenderWindow& window)
 {
 	window.draw(GtSp);
-	std::cout << "Draw call" << std::endl;
 }
 
 void Gatherable::SetPosition(const sf::Vector2f& pos)
@@ -76,6 +76,7 @@ void Gatherable::SetGtInfo(Gatherable* gatherable)
 		this->GtTextureId = gatherable->GtTextureId;
 		this->uiTextCoord = gatherable->uiTextCoord;
 		this->textureCoord = gatherable->textureCoord;
+		this->interaction = gatherable->interaction;
 		Reset();
 	}
 }
