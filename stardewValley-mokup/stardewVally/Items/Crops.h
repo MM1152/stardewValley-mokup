@@ -26,8 +26,9 @@ protected:
 
 	int idx = 0;
 
+
 	int curGrow = 0;
-	int growup = 0;
+
 public:
 	Crops(const std::string& name = "");
 	virtual ~Crops() = default;
