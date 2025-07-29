@@ -5,9 +5,10 @@
 #include "TimeMoneyUi.h"
 #include "TileMap.h"
 #include "Map.h"
-
 #include "Item.h"
 #include "Hoe.h"
+#include "Seeds.h"
+#include "Crops.h"
 
 Player::Player(const std::string name)
 	:Collider(name)
@@ -64,8 +65,13 @@ void Player::SetItem(Item* item)
 		if (this->item->GetItemInfo()->itemId == "hoe") {
 			copyItem = new Hoe();
 		}
+		else if (this->item->GetItemInfo()->itemId == "parsnip_seeds")
+		{
+			copyItem = new Seeds();
+		}
 		copyItem->SetItemInfo(this->item);
 	}
+
 }
 
 void Player::Init()

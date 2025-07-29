@@ -69,6 +69,9 @@ void SceneTest::Init()
 	//font
 	fontIds.push_back("fonts/DOSGothic.ttf");
 
+	//crops
+	texIds.push_back("graphics/parsnisip.png");
+
 
 	inventory = new Inventory(INVEN_IMG_PATH"CraftImage.bmp");
 	quickBar = new QuickBar(INVEN_IMG_PATH"CraftImage.bmp");

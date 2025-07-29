@@ -149,7 +149,19 @@
     <ClInclude Include="Scene\SceneHome.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Hoe.h">
+    <ClInclude Include="Items\Hog.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="InventoryStstem\InUIItem.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Items\InGameItem.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Items\Seeds.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Items\Crops.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
@@ -276,7 +288,19 @@
     <ClCompile Include="SceneAnimationTest.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Hoe.cpp">
+    <ClCompile Include="Items\Hog.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="InventoryStstem\InUIItem.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Items\InGameItem.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Items\Seeds.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Items\Crops.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
