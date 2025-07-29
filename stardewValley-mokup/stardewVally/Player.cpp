@@ -71,8 +71,12 @@ void Player::SetItem(Item* item)
 void Player::Init()
 {
 	seedGuideRect.setSize({16.f, 16.f});
-	seedGuideRect.setFillColor(sf::Color(0, 255, 0, 128));
-	seedGuideRect.setOutlineColor(sf::Color::Green);
+	seedGuideRect.setFillColor(sf::Color(0, 255, 0, 100));
+	seedGuideRect.setOutlineColor(sf::Color(102, 255, 0, 135));
+	seedGuideRect.setOutlineThickness(3);
+	seedGuideRect.setOrigin(Utils::SetOrigin(bodySprite, Origins::MC));
+	seedGuideRect.setPosition(bodySprite.getPosition());
+
 	if (inventory)
 	{
 	
@@ -249,6 +253,19 @@ void Player::Update(float dt)
 			fainting = false;
 		}
 	}
+
+	sf::Vector2f playerCenter = bodySprite.getPosition();
+	sf::Vector2f offSet = (sf::Vector2f)lookDir * 16.f;
+
+	float rowX = playerCenter.x + offSet.x;
+	float rowY = playerCenter.y + offSet.y;
+
+	int tileX = ((int)rowX / 16) * 16;
+	int tileY = ((int)rowY / 16) * 16;
+
+	seedGuideRect.setPosition({ (float)tileX, (float)tileY});
+
+
 }
 
 void Player::Draw(sf::RenderWindow& window)
@@ -259,7 +276,8 @@ void Player::Draw(sf::RenderWindow& window)
 	if (item) {
 		copyItem->Draw(window);
 	}
-	
+
+	window.draw(seedGuideRect);
 }
 
 void Player::PlayMoveAnimation(sf::Vector2f dir)
