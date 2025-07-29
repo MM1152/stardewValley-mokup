@@ -1,0 +1,8 @@
+ID,FPS,LoopType (0: Single. 1: Loop)
+playeruseitem,10,1
+
+TEXTURE ID,LEFT,TOP,WIDTH,HEIGHT,FLIPX(0:Fale. 1:True)
+graphics/farmer_base.png,0.109192,130.052704,16.187500,31.523438,0
+graphics/farmer_base.png,16.765442,129.748016,14.460938,32.132812,0
+graphics/farmer_base.png,32.530350,129.892853,14.968750,31.726562,0
+graphics/farmer_base.png,49.016495,130.790161,14.601559,31.132812,0

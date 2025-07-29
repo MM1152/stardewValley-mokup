@@ -73,6 +73,19 @@ void Item::SetPosition(const sf::Vector2f& pos)
 	itemSp.setPosition(pos);
 }
 
+void Item::SetOrigin(Origins preset)
+{
+	originPreset = preset;
+	Utils::SetOrigin(itemSp, preset);
+}
+
+void Item::SetOrigin(const sf::Vector2f& o)
+{
+	origin = o;
+	originPreset = Origins::Custom;
+	itemSp.setOrigin(o);
+}
+
 void Item::SetItemInfo(Item* item)
 {
 	iteminfo = item->iteminfo;

@@ -26,6 +26,8 @@ public:
 	void SetRotation(float rot) override;
 	void SetScale(const sf::Vector2f& s) override;
 	void SetPosition(const sf::Vector2f& pos) override;
+	virtual void SetOrigin(Origins preset) override;
+	virtual void SetOrigin(const sf::Vector2f& o) override;
 
 	ItemInfo* GetItemInfo() { return &iteminfo; };
 	void SetItemInfo(Item* item);

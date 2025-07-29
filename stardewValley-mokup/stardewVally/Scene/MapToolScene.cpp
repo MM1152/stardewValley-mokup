@@ -17,7 +17,7 @@ void MapToolScene::Init()
 {
 	fontIds.push_back(FONT_PATH"DOSGothic.ttf");
 	texIds.push_back(GRAPHICS_PATH"building.png");
-	texIds.push_back("graphics/home.png");
+	texIds.push_back("graphics/spring.bmp");
 
 	mouseRect.setSize({ 10, 10 });
 
@@ -158,7 +158,7 @@ void MapToolScene::Enter()
 	drawTile[2].Reset();
 	gridTile->Reset();
 	Scene::Enter();
-	tilemap1->Set({ 24, 25 }, { 16.f, 16.f }, "graphics/home.png");
+	tilemap1->Set({ 24, 25 }, { 16.f, 16.f }, "graphics/spring.bmp");
 	gridTile->drawGrid({ 24, 25 }, { 16.f , 16.f });
 	drawTile[0].Set({ 24, 25 }, { 16.f , 16.f });
 	drawTile[1].Set({ 24, 25 }, { 16.f , 16.f });
@@ -172,7 +172,7 @@ void MapToolScene::Enter()
 	drawTile[1].SetPosition({ 300 , 300 });
 	drawTile[2].SetPosition({ 300 , 300 });
 
-	drawTile[0].SetTexture("graphics/home.png");
+	drawTile[0].SetTexture("graphics/spring.bmp");
 	drawTile[1].SetTexture(GRAPHICS_PATH"building.png");
 
 	for (auto tri : triggerTypeButton) {
@@ -288,7 +288,7 @@ void MapToolScene::SelectTile()
 
 		if (prevX != newX || newY != prevY) {
 			cellDatas.clear();
-			 
+
 			prevX = newX;
 			prevY = newY;
 

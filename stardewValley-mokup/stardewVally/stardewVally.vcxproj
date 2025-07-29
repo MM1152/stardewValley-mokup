@@ -156,7 +156,7 @@
     <ClInclude Include="Framework\TextGo.h" />
     <ClInclude Include="Framework\Utils.h" />
     <ClInclude Include="HitBox.h" />
-    <ClInclude Include="Items\Hog.h" />
+    <ClInclude Include="Items\Hoe.h" />
     <ClInclude Include="InventoryStstem\InUIItem.h" />
     <ClInclude Include="Items\InGameItem.h" />
     <ClInclude Include="InputText.h" />
@@ -203,7 +203,7 @@
     <ClCompile Include="Framework\TextGo.cpp" />
     <ClCompile Include="Framework\Utils.cpp" />
     <ClCompile Include="HitBox.cpp" />
-    <ClCompile Include="Items\Hog.cpp" />
+    <ClCompile Include="Items\Hoe.cpp" />
     <ClCompile Include="InventoryStstem\InUIItem.cpp" />
     <ClCompile Include="Items\InGameItem.cpp" />
     <ClCompile Include="InputText.cpp" />

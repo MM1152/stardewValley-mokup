@@ -19,7 +19,7 @@ protected:
 	bool openInven = false;
 	bool openShop = false;
 	bool fainting = false;
-
+	bool useItem = false;
 	sf::Vector2f prevDir = { 0,0 };
 
 	sf::Sprite bodySprite;
@@ -61,6 +61,7 @@ public:
 	void Draw(sf::RenderWindow& window);
 
 	void PlayMoveAnimation(sf::Vector2f dir);
+	void PlayUseItemAnimation(sf::Vector2i dir);
 
 	void SetInventory(Inventory* inven);
 	Inventory* GetInventory();

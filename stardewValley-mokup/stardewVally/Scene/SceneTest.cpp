@@ -100,6 +100,7 @@ void SceneTest::Init()
 	tile = new TileMap(VertexType::Game);
 	forGround = new TileMap(VertexType::Game);
 
+
 	AddGameObject(tile);
 	AddGameObject(forGround);
 
@@ -141,6 +142,11 @@ void SceneTest::Enter()
 	forGround->Set(map.GetTextId(1), map.GetCellDatas(1));
 
 	player->SetMap(&map);
+
+	forGround->sortingLayer = SortingLayers::Foreground;
+	forGround->sortingOrder = 131;
+
+	player->sortingLayer = SortingLayers::Foreground;
 }
 
 void SceneTest::Exit()
@@ -152,6 +158,7 @@ void SceneTest::Exit()
 void SceneTest::Update(float dt)
 {
 	Scene::Update(dt);
+	
 	CenterView();
 
 	timemoney->SettingMoney(player->GetMoney());
