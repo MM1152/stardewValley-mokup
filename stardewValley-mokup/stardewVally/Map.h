@@ -1,6 +1,7 @@
 #pragma once
 #include "stdafx.h"
 #include "Trigger.h"
+
 struct CellData {
 	sf::Vector2f cellTextCoord[4];
 	sf::Color cellColor[4];
@@ -28,17 +29,20 @@ private:
 	std::vector<sf::RectangleShape*> colliders;
 	std::vector<Trigger*> triggers;
 	sf::Vector2i count;
-	void Reset(int size);
 
+	void Reset(int size);
 	void LoadCollider(const std::string path);
 	void Load(const std::string path, int layer);
 	void LoadTrigger(const std::string path);
 public:
+
 	int GetCellIndex(int idx , int layer);
 	int GetCellIndex(const sf::Vector2f& pos, int layer);
+
 	//실제 맵에 적용되어있는 셀 데이터 가져오는 부분
 	CellData& GetCell(int idx, int layer);
 	CellData& GetCell(const sf::Vector2f& pos, int layer);
+
 	//텍스처에서 특정부분 가져오기
 	CellData GetTextureCell(int idx, int layer);
 

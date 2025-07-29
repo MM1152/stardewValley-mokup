@@ -5,6 +5,7 @@ class Player;
 class Shop;
 class TimeMoneyUi;
 class Inventory;
+class DialogueBox;
 
 class NpcMgr : public Collider
 {
@@ -22,9 +23,11 @@ protected:
 	Shop* shop;
 	TimeMoneyUi* timemoneyui = nullptr;
 	Inventory* inventory = nullptr;
+	DialogueBox* dialogueBox = nullptr;
 
 	std::function<void()> callback; 
 	std::function<void()> talkCallback;
+	bool isShopOpened = false;
 
 	bool isNpcMove = true;
 public:
@@ -55,5 +58,9 @@ public:
 
 	void SetInventory(Inventory* inven);
 	Inventory* GetInventory();
+
+	void SetDIalogueBox(DialogueBox* dialogue);
+	DialogueBox* GetDialogueBox();
+
 };
 

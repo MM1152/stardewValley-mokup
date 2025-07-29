@@ -12,6 +12,7 @@ void SceneTileChangeTest::Init()
 	texIds.push_back(GRAPHICS_PATH"³óÀå(º½).bmp");
 	texIds.push_back(GRAPHICS_PATH"building.png");
 	texIds.push_back(GRAPHICS_PATH"testC.png");
+
 	tile = new TileMap(VertexType::Game);
 	buildTile = new TileMap(VertexType::Game);
 
@@ -20,7 +21,6 @@ void SceneTileChangeTest::Init()
 	AddGameObject(tile);
 	AddGameObject(buildTile);
 	AddGameObject(player);
-
 	
 	Scene::Init();
 }
@@ -57,10 +57,12 @@ void SceneTileChangeTest::Update(float dt)
 	Scene::Update(dt);
 	worldView.setCenter(player->GetPosition());
 
-	if (InputMgr::GetKeyDown(sf::Keyboard::F)) {
+	if (InputMgr::GetKeyDown(sf::Keyboard::F)) 
+	{
 		int cellIdx = map.GetCellIndex(player->GetPosition(), 0);
 		CellData changeCellData = map.GetCell(cellIdx, 0);
-		if (changeCellData.idx == 73 || changeCellData.idx == 74) {
+		if (changeCellData.idx == 73 || changeCellData.idx == 74)  //idx value == maptool right side will be paltte position of the right side ±×·ÁÁö´Â °´Ã¼°¡ ¸î¹øÂ° 
+		{
 			changeCellData = map.GetTextureCell(308, 0);
 
 			map.SetCellData(cellIdx, 0, &changeCellData);

@@ -3,6 +3,8 @@
 #include "NpcMgr.h"
 #include "inventory.h"
 #include "TimeMoneyUi.h"
+#include "TileMap.h"
+#include "Map.h"
 
 
 Player::Player(const std::string name)
@@ -42,11 +44,11 @@ void Player::SetOrigin(Origins preset)
 	}
 }
 
-
 void Player::Init()
 {
-	//Player Position���� �� ������ �޶����� �� ������ �ʱ� ��ġ�� �����ؼ� ����ؾ��մϴ�~ -�μ�-
-	//SetPosition({100.f, 100.f});
+	seedGuideRect.setSize({16.f, 16.f});
+	seedGuideRect.setFillColor(sf::Color(0, 255, 0, 128));
+	seedGuideRect.setOutlineColor(sf::Color::Green);
 	if (inventory)
 	{
 		inventory->SetActive(false);
@@ -78,11 +80,12 @@ void Player::Update(float dt)
 	movement.y = moveY * speed * dt;
 
 	sf::Vector2f moveOffset(movement.x, movement.y);
-	
+
 	if (isPlayer)
 	{
 		Collider::areaBlocked(position, *this, moveOffset);
 	}
+	//player 충돌 로직
 	/*if (npcMgr != nullptr)
 	{
 		sf::Vector2f npcPos = npcMgr->GetPosition();
@@ -114,7 +117,7 @@ void Player::Update(float dt)
 
 		float nextPlayerY = position.y + moveOffset.y;
 		bool colliedY = false;
-		
+
 		if (position.x < npcPos.x + npcSize.x &&
 			npcPos.x < position.x + playerSize.x &&
 			nextPlayerY < npcPos.y + npcSize.y &&
@@ -145,6 +148,7 @@ void Player::Update(float dt)
 		sprite.setPosition(position);
 	}*/
 	// openInventory > E (in / out)
+
 	if (!openShop)
 	{
 		if (InputMgr::GetKeyDown(sf::Keyboard::E))

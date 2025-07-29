@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "TimeMoneyUi.h"
 #include "Inventory.h"
+#include "DialogueBox.h"
 
 NpcMgr::NpcMgr(const std::string& name)
 	: Collider(name)
@@ -46,7 +47,6 @@ void NpcMgr::SetOrigin(Origins preset)
 void NpcMgr::Init()
 {
 	Collider::Init();
-	npcSprite.setPosition({ 70.f, 150.f });
 }
 
 void NpcMgr::Release()
@@ -56,15 +56,22 @@ void NpcMgr::Release()
 void NpcMgr::Reset()
 {
 	npcSprite.setTexture(TEXTURE_MGR.Get("graphics/npcTest.png"));
-	npcTalkSprite.setTexture(TEXTURE_MGR.Get("graphics/npcTalk.png"));
+	npcSprite.setScale(1.0f, 1.0f);
 
-	sf::Vector2f npcPos = npcSprite.getPosition();
-	npcTalkSprite.setPosition(npcPos + sf::Vector2f(10.f, 0.f));
+
+	Utils::SetOrigin(npcSprite, Origins::BC);
+
+	npcSprite.setPosition({ 70.f, 150.f });
+
+	npcTalkSprite.setTexture(TEXTURE_MGR.Get("graphics/npcTalk.png"));
+	npcTalkSprite.setScale(1.f, 1.f);
+	Utils::SetOrigin(npcTalkSprite, Origins::MC);
+	npcTalkSprite.setPosition(npcSprite.getPosition());
 }
 
 void NpcMgr::Update(float dt)
 {
-
+	
 	std::srand(static_cast<unsigned>(std::time(nullptr)));
 
 	float axisX = (std::rand() % 3) - 1;
@@ -86,12 +93,11 @@ void NpcMgr::Update(float dt)
 
 	player->SetPosition(playerRect.getPosition());
 
-	if (!player->GetOpenInven())
+	if (!player->GetOpenInven()) 
 	{
-		if (IsCollidingPlayer(playerRect))
+		if (IsCollidingPlayer(playerRect)) 
 		{
-			std::cout << "npc충돌" << std::endl;
-			if (InputMgr::GetKeyDown(sf::Keyboard::Z))
+			if (InputMgr::GetKeyDown(sf::Keyboard::Z)) 
 			{
 				player->ChangeOpenShop();
 				player->ChangeisPlayer();
@@ -104,9 +110,10 @@ void NpcMgr::Update(float dt)
 			}
 		}
 	}
-	if (player->GetOpenShop())
+
+	if (player->GetOpenShop()) 
 	{
-		if (InputMgr::GetKeyDown(sf::Keyboard::Escape))
+		if (InputMgr::GetKeyDown(sf::Keyboard::Escape)) 
 		{
 			player->ChangeOpenShop();
 			player->ChangeisPlayer();
@@ -119,24 +126,32 @@ void NpcMgr::Update(float dt)
 		}
 	}
 
-	if (!player->GetOpenInven() && !player->GetOpenShop())
-	{
-		if (IsTalkCollidingPlayer(playerRect))
+
+	//Talk
+
+	if (!player->GetOpenInven() && !player->GetOpenShop()) {
+		if (IsTalkCollidingPlayer(playerRect)) 
 		{
-			if (InputMgr::GetKeyDown(sf::Keyboard::X))
+			if (InputMgr::GetKeyDown(sf::Keyboard::X)) 
 			{
-				player->ChangeisPlayer();
-				timemoneyui->ChangeTimer();
-				isNpcMove = false;
+				if (dialogueBox)
+				{
+					player->ChangeisPlayer();
+					timemoneyui->ChangeTimer();
+					isNpcMove = false;
+				}
 				if (talkCallback)
+				{
 					talkCallback();
+				}
 			}
-			else if (!talkCallback)
+			else if (!talkCallback ) 
 			{
 				isNpcMove = true;
 			}
 		}
 	}
+
 
 	sf::Vector2f playerPos = player->GetPosition();
 }
@@ -213,3 +228,14 @@ Inventory* NpcMgr::GetInventory()
 {
 	return inventory;
 }
+
+void NpcMgr::SetDIalogueBox(DialogueBox* dialogue)
+{
+	dialogueBox = dialogue;
+}
+
+DialogueBox* NpcMgr::GetDialogueBox()
+{
+	return dialogueBox;
+}
+

@@ -20,6 +20,7 @@ int Map::GetCellIndex(int idx , int layer)
 {
     return cell[layer][idx].idx;
 }
+
 int Map::GetCellIndex(const sf::Vector2f& pos, int layer)
 {
     int xIndex = (int)(pos.x / 16);

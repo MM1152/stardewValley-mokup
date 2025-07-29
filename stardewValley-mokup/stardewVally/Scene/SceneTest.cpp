@@ -99,6 +99,7 @@ void SceneTest::Init()
 	npc->SetPlayer(player);
 	npc->SetTimer(timemoney);
 	npc->SetInventory(inventory);
+	npc->SetDIalogueBox(dialogueBox);
 	AddGameObject(player);
 	AddGameObject(npc);
 
