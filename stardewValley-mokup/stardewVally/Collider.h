@@ -3,6 +3,7 @@
 #include "Map.h"
 
 class Map;
+class Player;
 
 class Collider : public GameObject
 {
@@ -11,6 +12,7 @@ protected:
 	std::vector<sf::RectangleShape*> shapes;
 public:
 	Map* map;
+	Player* player;
 
 	Collider(const std::string& name = "Collider");
 	virtual ~Collider() = default;
@@ -30,10 +32,14 @@ public:
 	bool IsColliding(const GameObject& sprite);
 	bool IsColliding(const sf::Sprite &sprite);
 	bool IsColliding(const sf::FloatRect rect);
+	bool IsColliding(const sf::RectangleShape& rect);
 
 	void areaBlocked(sf::Vector2f& position, GameObject& sprite, const sf::Vector2f& moveOffset);
 	void areaBlocked(sf::Vector2f& position, sf::Sprite& sprite, const sf::Vector2f& moveOffset);
+	void areaBlocked(sf::Vector2f& position, sf::RectangleShape& shape, const sf::Vector2f& moveOffset);
 	void SetMap(Map* map);
+	void SetPlayer(Player* player);
+	Player* GetPlayer() { return player; };
 	Map* GetMap() { return map; };
 };
 

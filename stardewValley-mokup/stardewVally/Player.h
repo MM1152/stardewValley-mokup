@@ -17,6 +17,7 @@ protected:
 	Animator hand;
 	Animator hat;
 	//player move
+	sf::RectangleShape bound;
 	bool isPlayer = true;
 	bool openInven = false;
 	bool openShop = false;
@@ -83,7 +84,7 @@ public:
 
 	virtual sf::FloatRect GetGlobalBounds() const
 	{
-		return bodySprite.getGlobalBounds();
+		return bound.getGlobalBounds();
 	}
 
 	//player move

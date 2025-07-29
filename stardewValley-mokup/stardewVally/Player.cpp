@@ -21,6 +21,7 @@ void Player::SetPosition(const sf::Vector2f& pos)
 	bodySprite.setPosition(pos);
 	handSprite.setPosition(pos);
 	hatSprite.setPosition(pos);
+	bound.setPosition(pos);
 }
 
 void Player::SetRotation(float rot)
@@ -29,6 +30,7 @@ void Player::SetRotation(float rot)
 	bodySprite.setRotation(rot);
 	handSprite.setRotation(rot);
 	hatSprite.setRotation(rot);
+	bound.setRotation(rot);
 }
 
 void Player::SetScale(const sf::Vector2f& s)
@@ -37,12 +39,14 @@ void Player::SetScale(const sf::Vector2f& s)
 	bodySprite.setScale(s);
 	handSprite.setScale(s);
 	hatSprite.setScale(s);
+	bound.setScale(s);
 }
 
 void Player::SetOrigin(const sf::Vector2f& o)
 {
 	GameObject::SetOrigin(o);
 	bodySprite.setOrigin(o);
+	bound.setOrigin(o);
 }
 void Player::SetOrigin(Origins preset)
 {
@@ -94,6 +98,7 @@ void Player::Init()
 		inventory->SetActive(false);
 	}
 	isPlayer = true;
+
 	Collider::Init();
 }
 
@@ -115,7 +120,9 @@ void Player::Reset()
 	ANI_CLIP_MGR.Load(ANIMATION_PATH"playerUseItem.csv");
 	ANI_CLIP_MGR.Load(ANIMATION_PATH"playerUseItemHand.csv");
 
-	bodySprite.setTexture(TEXTURE_MGR.Get("graphics/testC.png"));
+	body.Play(ANIMATION_PATH"playerforward.csv");
+	hand.Play(ANIMATION_PATH"playerforwardhand.csv");
+	hat.Play(ANIMATION_PATH"hat1forward.csv");
 
 	body.AddEvent("playeruseitem", 3, [this]() {
 		useItem = false;
@@ -124,12 +131,22 @@ void Player::Reset()
 	});
 
 	speed = 100;
+	SetOrigin(Origins::BC);
+	sf::FloatRect center = bodySprite.getLocalBounds();
+	handSprite.setOrigin({ center.width / 2 + 1.5f, center.height / 2 + 5.9f });
+	hatSprite.setOrigin({ center.width / 2 + 3.f, center.height / 2 + 20.f });
+
+	sf::FloatRect currentBounds = bodySprite.getGlobalBounds();
+	bound.setSize({ currentBounds.width - 5, currentBounds.height -20});
+	bound.setOrigin(Utils::SetOrigin(bound, Origins::BC));
+	bound.setFillColor(sf::Color(0, 0, 255, 100));
+	bound.setPosition(GetPosition());
 }
 
 void Player::Update(float dt)
 {
 	sortingOrder = GetPosition().y;
-	std::cout << sortingOrder << std::endl;
+
 	if (quickBarIdx != inventory->GetQuickBar()->GetQuickBarIdx()) {
 		item = inventory->GetQuickBar()->GetItem();
 		quickBarIdx = inventory->GetQuickBar()->GetQuickBarIdx();
@@ -158,19 +175,20 @@ void Player::Update(float dt)
 	if (moveX != 0 || moveY != 0 || useItem) {
 		body.Update(dt);
 		hand.Update(dt);
-	}
-	
-	
+	} 
 
 	movement.x = moveX * speed * dt;
 	movement.y = moveY * speed * dt;
 	sf::Vector2f moveOffset(movement.x, movement.y);
+
+	bound.setPosition(bodySprite.getPosition());
 
 	if (isPlayer)
 	{
 		Collider::areaBlocked(position, *this, moveOffset);
 	}
 	// openInventory > E (in / out)
+
 
 	if (!openShop)
 	{
@@ -220,6 +238,7 @@ void Player::Update(float dt)
 
 void Player::Draw(sf::RenderWindow& window)
 {
+	window.draw(bound);
 	window.draw(bodySprite);
 	window.draw(handSprite);
 
@@ -295,6 +314,3 @@ TimeMoneyUi* Player::GetTimer()
 {
 	return timemoneyui;
 }
-
-
-
