@@ -5,6 +5,11 @@
 #include "Crops.h"
 #include "SceneTest.h"
 
+Seeds::Seeds(ItemInfo info)
+	:InGameItem(info)
+{
+}
+
 void Seeds::UseItem()
 {
 	Map* map = player->GetMap();

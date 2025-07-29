@@ -109,7 +109,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <AdditionalIncludeDirectories>.\SFML-2.6.2\include;.\Framework;.\GameObjects;$(ProjectDir);.\Scene;.\InventoryStstem;.\Effect;.\Items;.\Mgr;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\SFML-2.6.2\include;.\Framework;.\GameObjects;$(ProjectDir);.\Scene;.\InventoryStstem;.\Effect;.\Items;.\Mgr;.\Gatherable;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -138,7 +138,8 @@
   <ItemGroup>
     <ClInclude Include="Collider.h" />
     <ClInclude Include="Button.h" />
-    <ClInclude Include="Items\Crops.h" />
+    <ClInclude Include="Gatherable\Gatherable.h" />
+    <ClInclude Include="Gatherable\Crops.h" />
     <ClInclude Include="DialogueBox.h" />
     <ClInclude Include="Framework\AnimationClip.h" />
     <ClInclude Include="Framework\Animator.h" />
@@ -189,7 +190,8 @@
   <ItemGroup>
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="Button.cpp" />
-    <ClCompile Include="Items\Crops.cpp" />
+    <ClCompile Include="Gatherable\Gatherable.cpp" />
+    <ClCompile Include="Gatherable\Crops.cpp" />
     <ClCompile Include="DialogueBox.cpp" />
     <ClCompile Include="Framework\AnimationClip.cpp" />
     <ClCompile Include="Framework\Animator.cpp" />
