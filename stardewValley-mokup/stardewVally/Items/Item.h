@@ -2,25 +2,30 @@
 #include "stdafx.h"
 #include "GameObject.h"
 #include "ItemInfo.h"
+#include "DropItem.h"
 
 class Player;
+class DdropItem;
 class Item : public GameObject
 {
 private:
 	ItemInfo iteminfo;
 	bool isUi;
+
 protected:
 	sf::Sprite itemSp;
+	DropItem* dropitem;
 	Player* player;
 
 	Item* parentItem = nullptr;
 	int quantity = 1;
 public:
 	Item(ItemInfo type, bool isUi);
+	Item(DropItem* drop, bool isUi);
 	Item() = default;
 	~Item() override = default;
 
-	// GameObjectÀ»(¸¦) ÅëÇØ »ó¼ÓµÊ
+	// GameObjectï¿½ï¿½(ï¿½ï¿½) ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Óµï¿½
 	void Init() override;
 	void Release() override;
 	void Reset() override;
@@ -40,5 +45,6 @@ public:
 	virtual void PlusQuantity(int quantity) { this->quantity += quantity; };
 
 	virtual bool UseItem() { return false; };
+	void SetDropItem(DropItem* drop) { dropitem = drop; };
 };
 

@@ -18,6 +18,8 @@ private:
 protected:
 	sf::Sprite GtSp;
 	Player* player;
+	sf::RectangleShape bound;
+
 
 public:
 
@@ -40,5 +42,26 @@ public:
 
 	void SetGtInfo(Gatherable* gatherable);
 	void SetPlayer(Player* player) { this->player = player; };
+
+	virtual void DropItems() {};
+
+
+
+	std::string* GetGtIdInfo() { return &GtId; };
+	std::string* GetGtNameInfo() { return &GtName; };
+	std::string* GetGtTextureIdInfo() { return &GtTextureId; };
+	sf::FloatRect* GetGtUiTextCoordInfo() { return &uiTextCoord; };
+	sf::FloatRect* GetGtTextureCoordInfo() { return &textureCoord; };
+	bool* GetGtInteractionInfo() { return &interaction; };
+
+	virtual sf::FloatRect GetLocalBounds() const
+	{
+		return GtSp.getLocalBounds();
+	}
+
+	virtual sf::FloatRect GetGlobalBounds() const
+	{
+		return bound.getGlobalBounds();
+	}
 };
 

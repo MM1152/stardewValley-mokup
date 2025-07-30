@@ -30,6 +30,7 @@ bool Seeds::UseItem()
 			crops->Init();
 			crops->Setidx(cellIdx);
 			crops->SetPosition(cellData.cellPosition[0]);
+			crops->SetCurrentCropsPosition(cellData.cellPosition[0]);
 			crops->SetCropsType(Crops::CropsType::Parsnip);
 			crops->Reset();
 			scene->AddCrops(crops);
@@ -81,6 +82,7 @@ bool Seeds::UseItem()
 			crops->Init();
 			crops->Setidx(cellIdx);
 			crops->SetPosition(cellData.cellPosition[0]);
+			crops->SetCurrentCropsPosition(cellData.cellPosition[0]);
 			crops->SetCropsType(Crops::CropsType::Garlic);
 			crops->Reset();
 			scene->AddCrops(crops);

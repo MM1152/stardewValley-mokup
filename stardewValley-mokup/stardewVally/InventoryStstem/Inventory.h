@@ -2,6 +2,8 @@
 #include "GameObject.h"
 #include "Item.h"
 #include "QuickBar.h"
+#include "DropItem.h"
+#include "Crops.h"
 
 class ItemSlot;
 class Inventory : public GameObject
@@ -16,6 +18,8 @@ private:
 
 	int slotSize;
 
+	DropItem* dropitem;
+	Crops* crops;
 	QuickBar* quickBar = nullptr;
 	//TEST
 	InUIItem* hoe;
@@ -24,7 +28,7 @@ public:
 	Inventory(const std::string& texId = ""  , const std::string& name = "");
 	~Inventory() override = default;
 
-	// GameObjectÀ»(¸¦) ÅëÇØ »ó¼ÓµÊ
+	// GameObjectï¿½ï¿½(ï¿½ï¿½) ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Óµï¿½
 	void Init() override;
 	void Release() override;
 	void Reset() override;
@@ -34,7 +38,10 @@ public:
 	bool SetItem(InUIItem* item);
 	void SetQuickBar(QuickBar* quickBar) { this->quickBar = quickBar; };
 	bool AddItem(const ItemInfo& info);
-	
+	bool AddItem(DropItem* drop);
+
 	QuickBar* GetQuickBar() { return quickBar; }
+	void SetDropItem(DropItem* drop) { dropitem = drop; };
+	void SetCrops(Crops* crop) { crops = crop; };
 };
 

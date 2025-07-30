@@ -91,6 +91,9 @@ void Player::SetItem(Item* item)
 		{
 			copyItem = new Pick();
 		}
+		else {
+			copyItem = new InGameItem();
+		}
 
 		copyItem->SetPlayer(this);
 		copyItem->SetItemInfo(this->item);
@@ -369,7 +372,7 @@ void Player::PlayUseItemAnimation(sf::Vector2i dir)
 		body.Play(ANIMATION_PATH"playerUseItemBack.csv");
 		hand.Play(ANIMATION_PATH"playerUseItemHandBack.csv");
 	}
-
+	
 }
 
 void Player::SetInventory(Inventory* inven)

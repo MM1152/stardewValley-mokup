@@ -1,5 +1,7 @@
 #pragma once
 #include "Item.h"
+#include "DropItem.h"
+
 class InUIItem : public Item
 {
 private:
@@ -9,6 +11,7 @@ private:
 	sf::Text quantityText;
 public:
 	InUIItem(ItemInfo type);
+	InUIItem(DropItem* drop);
 	InUIItem() = default;
 	~InUIItem() override = default;
 

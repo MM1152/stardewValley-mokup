@@ -4,6 +4,7 @@
 InUIItem::InUIItem(ItemInfo type)
 	:Item(type, true)
 {
+	
 }
 
 void InUIItem::Reset()

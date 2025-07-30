@@ -1,0 +1,14 @@
+{
+  "items": [
+    {
+      "id":"hoe",
+      "name" : "Hoe",
+      "description" : "Dig the ground",
+      "TextureId" : "graphics/tools.png",
+      "UiTextureRect" : [79, 30, 19, 19],
+      "TextureRect" : [0, 26, 17, 23],
+      "cell_price" : 40,
+      "stock" : 100
+    }
+  ]
+}

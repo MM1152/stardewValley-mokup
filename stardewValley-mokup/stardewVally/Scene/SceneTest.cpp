@@ -13,6 +13,8 @@
 #include "DialogueLoader.h"
 #include "Crops.h"
 #include "InteractionObject.h"
+#include "DropItem.h"
+
 SceneTest::SceneTest()
 	: Scene(SceneIds::Test)
 {
@@ -77,6 +79,15 @@ void SceneTest::Init()
 	texIds.push_back("graphics/potato.png");
 	texIds.push_back("graphics/garlic.png");
 
+	//dropItem
+	texIds.push_back("graphics/springobjects.png");
+	texIds.push_back("graphics/potatodrop.png");
+	texIds.push_back("graphics/cauliflowerdrop.png");
+	texIds.push_back("graphics/garlicdrop.png");
+	texIds.push_back("graphics/parsnipdrop.png");
+
+
+
 	inventory = new Inventory(INVEN_IMG_PATH"CraftImage.bmp");
 	quickBar = new QuickBar(INVEN_IMG_PATH"CraftImage.bmp" , "fonts/DOSGothic.ttf");
 	npc = new NpcMgr("Npc");
@@ -86,17 +97,18 @@ void SceneTest::Init()
 	dialogueBox = new DialogueBox("DialogueBox");
 
 	AddGameObject(dialogueBox);
-	
-	
+
+
 	AddGameObject(inventory);
 	AddGameObject(quickBar);
 	inventory->SetQuickBar(quickBar);
 
+	
 	//TimeMoney
 
 	timemoney->Setplayer(player);
 	AddGameObject(timemoney);
-	
+
 	//shop
 	shop->SetInventory(inventory);
 	shop->SetPlayer(player);
@@ -114,6 +126,8 @@ void SceneTest::Init()
 	npc->SetDIalogueBox(dialogueBox);
 	AddGameObject(player);
 	AddGameObject(npc);
+
+
 
 	itemDataMgr::Instance().LoadShopItems("data/shop.json");
 	itemDataMgr::Instance().Load("data/item.json");
@@ -244,7 +258,6 @@ void SceneTest::Update(float dt)
 			it->GrowUp();
 		}
 		player->SetGrowup(false);
-
 	}
 	
 }
@@ -323,10 +336,52 @@ void SceneTest::AddCrops(Crops* crops)
 {
 	AddGameObject(crops);
 	cropsList.push_back(crops);
+	for (auto it : cropsList)
+	{
+		if (it != nullptr)
+		{
+			it->SetPlayer(player);
+			it->SetInventory(inventory);
+			inventory->SetCrops(it);
+		}
+		for (auto drop : dropitemList)
+		{
+			it->SetDropItem(drop);
+		}
+	}
+}
+void SceneTest::RemoveCrops(Crops* crops)
+{
+	crops->SetActive(false);
+	cropsList.remove(crops);
 }
 
-std::list<Crops*> SceneTest::GetCrops()
+void SceneTest::AddDropItem(DropItem* dropitem)
 {
-	return cropsList;
+	AddGameObject(dropitem);
+	dropitemList.push_back(dropitem);
+	for (auto it : dropitemList)
+	{
+		if (it != nullptr)
+		{
+			it->SetPlayer(player);
+			it->SetInventory(inventory);
+			inventory->SetDropItem(it);
+			for (auto crop : cropsList)
+			{
+				it->SetCrops(crop);
+			}
+		}
+	}
 }
+void SceneTest::RemoveDropItem(DropItem* dropitem)
+{
+	dropitem->SetActive(false);
+	dropitemList.remove(dropitem);
+}
+
+
+
+
+
 

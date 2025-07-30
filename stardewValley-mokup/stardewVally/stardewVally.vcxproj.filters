@@ -19,11 +19,11 @@
     <ClCompile Include="Framework\Utils.cpp" />
     <ClCompile Include="HitBox.cpp" />
     <ClCompile Include="Items\Hoe.cpp" />
-    <ClCompile Include="InventoryStstem\InUIItem.cpp" />
+    <ClCompile Include="Items\InUIItem.cpp" />
     <ClCompile Include="Items\InGameItem.cpp" />
     <ClCompile Include="InputText.cpp" />
     <ClCompile Include="InventoryStstem\Inventory.cpp" />
-    <ClCompile Include="InventoryStstem\Item.cpp" />
+    <ClCompile Include="Items\Item.cpp" />
     <ClCompile Include="InventoryStstem\ItemSlot.cpp" />
     <ClCompile Include="InventoryStstem\QuickBar.cpp" />
     <ClCompile Include="Mgr\itemDataMgr.cpp" />
@@ -47,6 +47,8 @@
     <ClCompile Include="Trigger.cpp" />
     <ClCompile Include="Variables.cpp" />
     <ClCompile Include="Gatherable\Gatherable.cpp" />
+    <ClCompile Include="Gatherable\DropItem.cpp" />
+    <ClCompile Include="DropItemInfo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Collider.h" />
@@ -71,17 +73,17 @@
     <ClInclude Include="Framework\Utils.h" />
     <ClInclude Include="HitBox.h" />
     <ClInclude Include="Items\Hoe.h" />
-    <ClInclude Include="InventoryStstem\InUIItem.h" />
+    <ClInclude Include="Items\InUIItem.h" />
     <ClInclude Include="Items\InGameItem.h" />
     <ClInclude Include="InputText.h" />
     <ClInclude Include="Mgr\itemDataMgr.h" />
     <ClInclude Include="Mgr\NpcMgr.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="InventoryStstem\Inventory.h" />
-    <ClInclude Include="InventoryStstem\Item.h" />
+    <ClInclude Include="Items\Item.h" />
     <ClInclude Include="InventoryStstem\ItemSlot.h" />
     <ClInclude Include="InventoryStstem\QuickBar.h" />
-    <ClInclude Include="ItemInfo.h" />
+    <ClInclude Include="Items\ItemInfo.h" />
     <ClInclude Include="InventoryStstem\QuickBar_Slot.h" />
     <ClInclude Include="Scene\SceneTileChangeTest.h" />
     <ClInclude Include="SceneAnimationTest.h" />
@@ -99,5 +101,7 @@
     <ClInclude Include="Trigger.h" />
     <ClInclude Include="Variables.h" />
     <ClInclude Include="Gatherable\Gatherable.h" />
+    <ClInclude Include="Gatherable\DropItem.h" />
+    <ClInclude Include="Items\DropItemInfo.h" />
   </ItemGroup>
 </Project>
