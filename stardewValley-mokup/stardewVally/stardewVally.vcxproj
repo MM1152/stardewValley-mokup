@@ -184,6 +184,7 @@
     <ClInclude Include="Scene\MapToolScene.h" />
     <ClInclude Include="Scene\SceneTest.h" />
     <ClInclude Include="Items\Seeds.h" />
+    <ClInclude Include="SellBox.h" />
     <ClInclude Include="Shop.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="TileMap.h" />
@@ -235,6 +236,7 @@
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Scene\MapToolScene.cpp" />
     <ClCompile Include="Items\Seeds.cpp" />
+    <ClCompile Include="SellBox.cpp" />
     <ClCompile Include="Shop.cpp" />
     <ClCompile Include="Scene\SceneTest.cpp" />
     <ClCompile Include="stdafx.cpp">

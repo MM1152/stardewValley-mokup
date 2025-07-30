@@ -49,6 +49,9 @@
     <ClCompile Include="Gatherable\Gatherable.cpp" />
     <ClCompile Include="Gatherable\DropItem.cpp" />
     <ClCompile Include="DropItemInfo.cpp" />
+    <ClCompile Include="InteractionObject.cpp" />
+    <ClCompile Include="Pick.cpp" />
+    <ClCompile Include="SellBox.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Collider.h" />
@@ -103,5 +106,8 @@
     <ClInclude Include="Gatherable\Gatherable.h" />
     <ClInclude Include="Gatherable\DropItem.h" />
     <ClInclude Include="Items\DropItemInfo.h" />
+    <ClInclude Include="InteractionObject.h" />
+    <ClInclude Include="Pick.h" />
+    <ClInclude Include="SellBox.h" />
   </ItemGroup>
 </Project>

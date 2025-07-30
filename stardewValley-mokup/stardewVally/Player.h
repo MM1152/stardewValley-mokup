@@ -39,7 +39,6 @@ protected:
 	Inventory* inventory = nullptr;
 	TimeMoneyUi* timemoneyui = nullptr;
 	TileMap* tileMap;
-	Map* map;
 
 	sf::RectangleShape seedGuideRect;
 	
@@ -72,6 +71,8 @@ public:
 
 	void PlayMoveAnimation(sf::Vector2f dir);
 	void PlayUseItemAnimation(sf::Vector2i dir);
+
+	bool CanUseItemOnTile(int tileIdx);
 
 	void SetInventory(Inventory* inven);
 	Inventory* GetInventory();

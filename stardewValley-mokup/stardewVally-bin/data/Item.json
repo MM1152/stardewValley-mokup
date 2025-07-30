@@ -7,7 +7,9 @@
       "TextureId": "graphics/parsnip_seeds.png",
       "price": 20,
       "stock": 100,
-      "quantity": 100
+      "quantity": 100,
+      "usableTiles" : [308, 309],
+      "usableLayer" : 0
     },
     {
       "id": "cauliflower_seeds",
@@ -16,7 +18,9 @@
       "TextureId": "graphics/cauliflower_seeds.png",
       "price": 80,
       "stock": 100,
-      "quantity": 100
+      "quantity": 100,
+      "usableTiles" : [308, 309],
+      "usableLayer" : 0
     },
     {
       "id": "potato_seeds",
@@ -25,7 +29,9 @@
       "TextureId" : "graphics/potato_seeds.png",
       "price" : 50,
       "stock" : 100,
-      "quantity": 100
+      "quantity": 100,
+      "usableTiles" : [308, 309],
+      "usableLayer" : 0
     },
     {
       "id":"garlic_seeds",
@@ -34,7 +40,9 @@
       "TextureId" : "graphics/garlic_seeds.png",
       "price" : 40,
       "stock" : 100,
-      "quantity": 100
+      "quantity": 100,
+      "usableTiles" : [308, 309],
+      "usableLayer" : 0
     },
     {
       "id":"hoe",
@@ -45,7 +53,9 @@
       "TextureRect" : [0, 26, 17, 23],
       "price" : 40,
       "stock" : 100,
-      "quantity": 1
+      "quantity": 1,
+      "usableTiles" : [25],
+      "usableLayer" : 0
     },
     {
       "id":"pick",
@@ -100,7 +110,9 @@
       "TextureRect" : [0, 128, 16, 16],
       "price" : 40,
       "stock" : 100,
-      "quantity": 100
+      "quantity": 100,
+      "usableTiles" : [34],
+      "usableLayer" : 2
     }
   ]
 }

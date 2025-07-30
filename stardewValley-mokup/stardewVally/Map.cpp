@@ -51,7 +51,7 @@ CheckCellData Map::SequentialGetCell(int idx)
     else {
         return CheckCellData{ 0, cell[0][idx].idx };
     }
-}
+}// layer and index return 
 
 CellData Map::GetTextureCell(const int idx, const int layer)
 {

@@ -14,7 +14,8 @@ void itemDataMgr::Load(const std::string& filename)
     nlohmann::json data;
     file >> data;
 
-    for (const auto& item : data["items"]) {
+    for (const auto& item : data["items"]) 
+    {
         ItemInfo info;
         info.itemId = item["id"];
         info.itemName = item["name"];
@@ -36,9 +37,32 @@ void itemDataMgr::Load(const std::string& filename)
             info.textureCoord.width = item["TextureRect"][2];
             info.textureCoord.height = item["TextureRect"][3];
         }
-        info.itemType = ItemType::None;
-        items.push_back(info);
         std::cout << info.itemId << std::endl;
+
+        if (item.contains("usableTiles") && item["usableTiles"].is_array())
+        {
+            std::cout << "Item [" << info.itemId << "] usableTiles: ";
+            for (const auto& tile : item["usableTiles"])
+            {
+                int tileNum = tile.get<int>();
+                info.usableTiles.push_back(tileNum);
+                std::cout << tileNum << " ";
+            }
+            std::cout << std::endl;
+        }
+
+        if (item.contains("usableLayer") && item["usableLayer"].is_number_integer()) 
+        {
+            info.usableLayer = item["usableLayer"];
+            std::cout << "Item [" << info.itemId << "] usableLayer: " << info.usableLayer << std::endl;
+        }
+        else 
+        {
+            info.usableLayer = -1;
+        }
+
+        info.itemType = ItemType::None;
+        items.push_back(info); 
     }
 }
 
@@ -57,9 +81,10 @@ void itemDataMgr::LoadShopItems(const std::string& filename)
     file >> data;
 
     auto shopInfo = data["shopInfo"];
-    for (auto it = shopInfo.begin(); it != shopInfo.end(); ++it) {
-        std::string shopName = it.key();                  
-        const auto& itemList = it.value();                
+    for (auto it = shopInfo.begin(); it != shopInfo.end(); ++it) 
+    {
+        std::string shopName = it.key();
+        const auto& itemList = it.value();
 
         shopItemMap.insert({ shopName , std::vector<ItemInfo>() });
         for (const auto& itemId : itemList) {
@@ -71,7 +96,6 @@ void itemDataMgr::LoadShopItems(const std::string& filename)
             }
         }
     }
-    
 }
 
 void itemDataMgr::LoadDropItems(const std::string& filename)
