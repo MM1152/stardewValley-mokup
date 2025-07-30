@@ -51,6 +51,36 @@
       "TextureRect" : [0, 16, 16, 16],
       "price" : 40,
       "stock" : 100
+    },
+      {
+      "id":"garlic",
+      "name" : "garlic",
+      "description" : "garlic",
+      "TextureId" : "graphics/springobjects.png",
+      "UiTextureRect" : [128, 160, 16, 16],
+      "TextureRect" : [128, 160, 16, 16],
+      "price" : 40,
+      "stock" : 100
+    },
+      {
+      "id":"cauliflower",
+      "name" : "cauliflower",
+      "description" : "cauliflower",
+      "TextureId" : "graphics/springobjects.png",
+      "UiTextureRect" : [352, 112, 16, 16],
+      "TextureRect" : [352, 112, 16, 16],
+      "price" : 40,
+      "stock" : 100
+    },
+      {
+      "id":"potato",
+      "name" : "potato",
+      "description" : "potato",
+      "TextureId" : "graphics/springobjects.png",
+      "UiTextureRect" : [0, 128, 16, 16],
+      "TextureRect" : [0, 128, 16, 16],
+      "price" : 40,
+      "stock" : 100
     }
   ]
 }

@@ -29,7 +29,10 @@ protected:
 	int idx = 0;
 	int curGrow = 0;
 
-	bool growup_interaction = false;
+	bool parsnip_interaction = false;
+	bool cauliflower_interaction = false;
+	bool potato_interaction = false;
+	bool garlic_interaction = false;
 
 	sf::Vector2f curcropspos = {-1.f, -1.f};
 

@@ -44,9 +44,39 @@ void Crops::DropItems()
 
 	if (InputMgr::GetMouseButtonDown(sf::Mouse::Left) && cellData.cellPosition[0] == GetCurrentCropsPosition())
 	{
-		if (growup_interaction)
+		if (parsnip_interaction)
 		{
-			dropitem = new DropItem("", "graphics/garlic_seeds.png");
+			dropitem = new DropItem("", "graphics/parsnipdrop.png");
+			dropitem->Init();
+			dropitem->SetPosition(GetCurrentCropsPosition());
+			dropitem->SetCurrentPosition(GetCurrentCropsPosition());
+			dropitem->Reset();
+			scene->AddDropItem(dropitem);
+			scene->RemoveCrops(this);
+		}
+		if (garlic_interaction)
+		{
+			dropitem = new DropItem("", "graphics/garlicdrop.png");
+			dropitem->Init();
+			dropitem->SetPosition(GetCurrentCropsPosition());
+			dropitem->SetCurrentPosition(GetCurrentCropsPosition());
+			dropitem->Reset();
+			scene->AddDropItem(dropitem);
+			scene->RemoveCrops(this);
+		}
+		if (cauliflower_interaction)
+		{
+			dropitem = new DropItem("", "graphics/cauliflowerdrop.png");
+			dropitem->Init();
+			dropitem->SetPosition(GetCurrentCropsPosition());
+			dropitem->SetCurrentPosition(GetCurrentCropsPosition());
+			dropitem->Reset();
+			scene->AddDropItem(dropitem);
+			scene->RemoveCrops(this);
+		}
+		if (potato_interaction)
+		{
+			dropitem = new DropItem("", "graphics/potatodrop.png");
 			dropitem->Init();
 			dropitem->SetPosition(GetCurrentCropsPosition());
 			dropitem->SetCurrentPosition(GetCurrentCropsPosition());
@@ -66,28 +96,28 @@ void Crops::GrowUp() {
 		curGrow = 4;
 		sf::IntRect Grow(80, 0, 16, 16);
 		GtSp.setTextureRect(Grow);
-		growup_interaction = true;
+		parsnip_interaction = true;
 	}
 	else if (curGrow > 4 && ctype == CropsType::Garlic)
 	{
 		curGrow = 4;
 		sf::IntRect Grow(80, 0, 16, 16);
 		GtSp.setTextureRect(Grow);
-		growup_interaction = true;
+		garlic_interaction = true;
 	}
 	else if (curGrow >= 6 && ctype == CropsType::Cauliflower)
 	{
 		curGrow = 6;
 		sf::IntRect Grow(96, 0, 16, 16);
 		GtSp.setTextureRect(Grow);
-		growup_interaction = true;
+		cauliflower_interaction = true;
 	}
 	else if (curGrow >= 6 && ctype == CropsType::Potato)
 	{
 		curGrow = 6;
 		sf::IntRect Grow(96, 0, 16, 16);
 		GtSp.setTextureRect(Grow);
-		growup_interaction = true;
+		potato_interaction = true;
 	}
 }
 

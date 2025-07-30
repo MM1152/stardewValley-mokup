@@ -37,10 +37,30 @@ void DropItem::Update(float dt)
 	SceneTest* scene = (SceneTest*)SCENE_MGR.GetCurrentScene();
 	if (InputMgr::GetMouseButtonDown(sf::Mouse::Right) && cellData.cellPosition[0] == GetPosition())
 	{
-		std::cout << "Succe" << std::endl;
-		ItemInfo info = itemDataMgr::Instance().GetItem("parsnip");
-		inventory->AddItem(info);
-		scene->RemoveDropItem(this);
+		if (dropitemId == "graphics/parsnipdrop.png")
+		{
+			ItemInfo info = itemDataMgr::Instance().GetItem("parsnip");
+			inventory->AddItem(info);
+			scene->RemoveDropItem(this);
+		}
+		if (dropitemId == "graphics/garlicdrop.png")
+		{
+			ItemInfo info = itemDataMgr::Instance().GetItem("garlic");
+			inventory->AddItem(info);
+			scene->RemoveDropItem(this);
+		}
+		if (dropitemId == "graphics/cauliflowerdrop.png")
+		{
+			ItemInfo info = itemDataMgr::Instance().GetItem("cauliflower");
+			inventory->AddItem(info);
+			scene->RemoveDropItem(this);
+		}
+		if (dropitemId == "graphics/potatodrop.png")
+		{
+			ItemInfo info = itemDataMgr::Instance().GetItem("potato");
+			inventory->AddItem(info);
+			scene->RemoveDropItem(this);
+		}
 	}
 }
 

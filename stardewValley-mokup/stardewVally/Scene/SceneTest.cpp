@@ -77,8 +77,14 @@ void SceneTest::Init()
 	texIds.push_back("graphics/caluliflower.png");
 	texIds.push_back("graphics/potato.png");
 	texIds.push_back("graphics/garlic.png");
-	texIds.push_back("graphics/garlic_seeds.png");
+
+	//dropItem
 	texIds.push_back("graphics/springobjects.png");
+	texIds.push_back("graphics/potatodrop.png");
+	texIds.push_back("graphics/cauliflowerdrop.png");
+	texIds.push_back("graphics/garlicdrop.png");
+	texIds.push_back("graphics/parsnipdrop.png");
+
 
 
 	inventory = new Inventory(INVEN_IMG_PATH"CraftImage.bmp");
