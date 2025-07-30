@@ -1,0 +1,8 @@
+ID,FPS,LoopType (0: Single. 1: Loop)
+pickfront,10,1
+
+TEXTURE ID,LEFT,TOP,WIDTH,HEIGHT,FLIPX(0:Fale. 1:True)
+graphics/tools.png,1.549507,87.271332,13.164070,27.000000,0
+graphics/tools.png,1.549507,87.091644,13.343750,26.820312,0
+graphics/tools.png,17.491440,87.002457,12.328127,27.156250,0
+graphics/tools.png,17.491440,86.697769,12.632812,27.562500,0

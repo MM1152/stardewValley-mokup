@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "Map.h"
 #include "TileMap.h"
+#include "InteractionObject.h"
+#include <Windows.h>
 std::ostream& operator <<(std::ostream& ost, sf::Vector2f cellTextCoord[4]) {
     ost << cellTextCoord[0].x << ", " << cellTextCoord[0].y << ", " << cellTextCoord[1].x << ", " << cellTextCoord[1].y << ", " << cellTextCoord[2].x << ", " << cellTextCoord[2].y << ", " << cellTextCoord[3].x << ", " << cellTextCoord[3].y << ", ";
 
@@ -11,9 +13,11 @@ void Map::Reset(int size)
 {
     cell.insert({ 0 , std::vector<CellData>() });
     cell.insert({ 1 , std::vector<CellData>() });
+    cell.insert({ 2 , std::vector<CellData>() });
 
     cell[0].resize(size);
     cell[1].resize(size);
+    cell[2].resize(size);
 }
 
 int Map::GetCellIndex(const sf::Vector2f& pos, int layer)
@@ -36,9 +40,33 @@ CellData& Map::GetCell(const sf::Vector2f& pos, int layer)
     return cell[layer][idx];
 }
 
+CheckCellData Map::SequentialGetCell(int idx)
+{
+    if (cell[2][idx].idx != -1) {
+        return CheckCellData{2, cell[2][idx].idx};
+    }
+    else if (cell[1][idx].idx != -1) {
+        return CheckCellData{ 1, cell[1][idx].idx };
+    }
+    else {
+        return CheckCellData{ 0, cell[0][idx].idx };
+    }
+}// layer and index return 
+
 CellData Map::GetTextureCell(const int idx, const int layer)
 {
     CellData textureCellData;
+
+    if (idx == -1) {
+        textureCellData.cellTextCoord[0] = { 0,0 }; 
+        textureCellData.cellTextCoord[2] = { 0,0 };
+        textureCellData.cellTextCoord[1] = { 0,0 };
+        textureCellData.cellTextCoord[3] = { 0,0 };
+
+        textureCellData.idx = idx;
+        return textureCellData;
+    }
+
     textureCellData.cellTextCoord[0] = { idx % count.x * 16.f, idx / count.x * 16.f };
     textureCellData.cellTextCoord[1] = { (idx % count.x + 1) * 16.f, idx / count.x * 16.f };
     textureCellData.cellTextCoord[2] = { (idx % count.x + 1) * 16.f, (idx / count.x + 1) * 16.f };
@@ -59,6 +87,7 @@ void Map::SetCellData(int idx, int layer, const CellData* cellData)
 
     cell[layer][idx].idx = cellData->idx;
 
+    if (layer >= tiles.size()) return;
     tiles[layer]->SetCellData(idx ,cell[layer][idx]);
 }
 
@@ -175,46 +204,34 @@ void Map::LoadTrigger(const std::string path)
     }
 }
 
-void Map::LoadObjects(const std::string path)
+std::vector<InteractionObject*>& Map::CreateObjects()
 {
-    std::ifstream file(path);
+    objects.clear();
+    std::vector<CellData>& objects = cell[2];
+    
+    for (int i = 0; i < objects.size(); i++) {
+        if (objects[i].idx == 34) {
+            InteractionObject* ob = new InteractionObject(GetTextId(2), &objects[i]);
+            ob->Reset();
+            objects[i].interactionObj = ob;
+            this->objects.push_back(ob);
+        }
+        else if (objects[i].idx == 313) {
 
-    if (!file.good()) {
-        std::cout << "FAIL TO LOAD FILE " << path << std::endl;
-        return;
+        }
     }
-
-    rapidcsv::Document document(path);
-
-    if (document.GetRowCount() == 0) return;
-
-
-    for (int i = 0; i < document.GetRowCount(); i++) {
-        auto cellData = document.GetCell<std::string>(0, i);
-
-        //0 1 size , 2 3 pos
-        auto split = Utils::Split(cellData, ',');
-        sf::Vector2f size = { std::stof(split[0]) , std::stof(split[1]) };
-        sf::Vector2f pos = { std::stof(split[2]) - 300.f, std::stof(split[3]) - 300.f };
-        int type = std::stoi(split[4]);
-
-        triggers.push_back(new Trigger());
-        triggers[triggers.size() - 1]->Reset();
-        triggers[triggers.size() - 1]->SetSize(size);
-        triggers[triggers.size() - 1]->SetPosition(pos);
-        triggers[triggers.size() - 1]->SetType((TriggerType)type);
-    }
+    return this->objects;
+    
 }
-
-
-
 
 void Map::Load(const std::string path)
 {
     Load(path + ".csv", 0);
     Load(path+"forGround.csv", 1);
+    Load(path+"objects.csv" , 2);
     LoadCollider(path +"collider.csv");
     LoadTrigger(path + "trigger.csv");
+    
 }
 
 void Map::Save(const std::string path, std::vector<Trigger*>& triggerData) {
@@ -257,8 +274,9 @@ void Map::Save(const std::string path, std::string texId, std::vector<CellData>&
         }
         doc.SetRow<int>(i + 1, idx);
     }
-
+    std::cout << path << std::endl;
     std::ifstream file(path);
+    
     if (file.good()) {
         std::cout << "REMOVE FILE" << std::endl;
         remove(path.c_str());

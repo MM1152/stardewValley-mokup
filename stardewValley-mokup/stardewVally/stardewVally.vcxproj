@@ -158,12 +158,14 @@
     <ClInclude Include="Framework\TextGo.h" />
     <ClInclude Include="Framework\Utils.h" />
     <ClInclude Include="HitBox.h" />
+    <ClInclude Include="InteractionObject.h" />
     <ClInclude Include="Items\Hoe.h" />
     <ClInclude Include="InventoryStstem\InUIItem.h" />
     <ClInclude Include="Items\InGameItem.h" />
     <ClInclude Include="InputText.h" />
     <ClInclude Include="Mgr\itemDataMgr.h" />
     <ClInclude Include="Mgr\NpcMgr.h" />
+    <ClInclude Include="Pick.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="InventoryStstem\Inventory.h" />
     <ClInclude Include="InventoryStstem\Item.h" />
@@ -206,6 +208,7 @@
     <ClCompile Include="Framework\TextGo.cpp" />
     <ClCompile Include="Framework\Utils.cpp" />
     <ClCompile Include="HitBox.cpp" />
+    <ClCompile Include="InteractionObject.cpp" />
     <ClCompile Include="Items\Hoe.cpp" />
     <ClCompile Include="InventoryStstem\InUIItem.cpp" />
     <ClCompile Include="Items\InGameItem.cpp" />
@@ -216,6 +219,7 @@
     <ClCompile Include="InventoryStstem\QuickBar.cpp" />
     <ClCompile Include="Mgr\itemDataMgr.cpp" />
     <ClCompile Include="Mgr\NpcMgr.cpp" />
+    <ClCompile Include="Pick.cpp" />
     <ClCompile Include="Scene\SceneAnimator.cpp" />
     <ClCompile Include="Scene\SceneTileChangeTest.cpp" />
     <ClCompile Include="SceneAnimationTest.cpp" />

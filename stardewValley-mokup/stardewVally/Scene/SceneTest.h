@@ -30,7 +30,7 @@ protected:
 	DialogueBox* dialogueBox = nullptr;
 
 	std::list<Crops*> cropsList;
-
+	std::vector<InteractionObject*> objects;
 	TileMap* tile;
 	TileMap* forGround;
 

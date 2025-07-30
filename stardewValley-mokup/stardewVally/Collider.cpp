@@ -2,6 +2,7 @@
 #include "Collider.h"
 #include "Map.h"
 #include "Player.h"
+#include "InteractionObject.h"
 
 Collider::Collider(const std::string& name)
 	: GameObject(name)
@@ -133,56 +134,6 @@ bool Collider::IsColliding(const sf::RectangleShape& rect)
 
 void Collider::areaBlocked(sf::Vector2f& position, GameObject& sprite, const sf::Vector2f& moveOffset)
 {
-	/*float walk = 1.f;
-
-	float movedX = 0.f;
-	while ((moveOffset.x > 0.f && moveOffset.x > movedX) || (moveOffset.x < 0.f && moveOffset.x < movedX))
-	{
-		float dx = walk;
-		float remainingX = moveOffset.x - movedX;
-		if ((remainingX > 0 && remainingX < dx) || (remainingX < 0 && -remainingX < dx))
-		{
-			dx = remainingX;
-		}
-
-		position.x += dx;
-		sprite.SetPosition(position);
-		bool Collided = false;
-		if (IsColliding(sprite))
-		{
-			position.x -= dx;
-			sprite.SetPosition(position);
-			break;
-		}
-
-		movedX += dx;
-		
-	}
-
-	float movedY = 0.f;
-	while ((moveOffset.y > 0.f && moveOffset.y > movedY) || (moveOffset.y < 0.f && moveOffset.y < movedY))
-	{
-		float dy = walk;
-		float remainingY = moveOffset.y - movedY;
-		if ((remainingY > 0 && remainingY < dy) || (remainingY < 0 && -remainingY < dy))
-		{
-			dy = remainingY;
-		}
-
-		position.y += dy;
-		sprite.SetPosition(position);
-		
-		if (IsColliding(sprite))
-		{
-			position.y -= dy;
-			sprite.SetPosition(position);
-			break;
-		}
-
-		movedY += dy;
-
-	}*/
-
 	position.x += moveOffset.x;
 	sprite.SetPosition(position);
 	for (auto shape : shapes)
@@ -301,8 +252,11 @@ void Collider::SetMap(Map* map)
 	{
 		shapes.push_back(col);
 	}
+	for (auto obj : map->GetObjects()) {
+		shapes.push_back(&obj->GetRectangle());
+	}
 }
-
+	
 void Collider::SetPlayer(Player* player)
 {
 	this->player = player;

@@ -32,7 +32,7 @@ public:
 
     void SetTextColor(const sf::Color& color);
     void SetSize(const sf::Vector2f& size);
-    void SetString(const std::string text);
+    void SetString(const std::string text , bool setInput = false);
     std::string GetString() { return text.getString(); };
 };
 

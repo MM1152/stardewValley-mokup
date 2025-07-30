@@ -9,6 +9,7 @@
 #include "Hoe.h"
 #include "Seeds.h"
 #include "Crops.h"
+#include "Pick.h"
 
 Player::Player(const std::string name)
 	:Collider(name)
@@ -85,6 +86,10 @@ void Player::SetItem(Item* item)
 		else if (this->item->GetItemInfo()->itemId == "garlic_seeds")
 		{
 			copyItem = new Seeds();
+		}
+		else if (this->item->GetItemInfo()->itemId == "pick")
+		{
+			copyItem = new Pick();
 		}
 
 		copyItem->SetPlayer(this);
@@ -195,7 +200,6 @@ void Player::Update(float dt)
 		if (InputMgr::GetKeyDown(sf::Keyboard::Z)) 
 		{
 			copyItem->UseItem();
-			
 		}
 	
 	}

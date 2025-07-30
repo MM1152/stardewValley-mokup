@@ -12,7 +12,7 @@
 #include "DialogueBox.h"
 #include "DialogueLoader.h"
 #include "Crops.h"
-
+#include "InteractionObject.h"
 SceneTest::SceneTest()
 	: Scene(SceneIds::Test)
 {
@@ -69,14 +69,13 @@ void SceneTest::Init()
 	fontIds.push_back("fonts/DungGeunMo.ttf");
 	fontIds.push_back("fonts/SDMiSaeng.ttf");
 	fontIds.push_back("fonts/Stardew_Valley.ttf");
-
+	
 
 	//crops
 	texIds.push_back("graphics/parsnip.png");
 	texIds.push_back("graphics/caluliflower.png");
 	texIds.push_back("graphics/potato.png");
 	texIds.push_back("graphics/garlic.png");
-
 
 	inventory = new Inventory(INVEN_IMG_PATH"CraftImage.bmp");
 	quickBar = new QuickBar(INVEN_IMG_PATH"CraftImage.bmp");
@@ -191,6 +190,11 @@ void SceneTest::Enter()
 	player->SetPosition({ 208.f, 210.f });
 
 	map.Load(MAP_PATH"demomap");
+	objects = map.CreateObjects();
+	
+	for (auto obj : objects) {
+		AddGameObject(obj);
+	}
 
 	for (auto tri : map.GetTriggers()) {
 		tri->Init();
@@ -201,6 +205,8 @@ void SceneTest::Enter()
 			};
 		}
 	}
+
+	
 	tile->Set(map.GetTextId(0), map.GetCellDatas(0));
 	forGround->Set(map.GetTextId(1), map.GetCellDatas(1));
 

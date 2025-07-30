@@ -421,6 +421,10 @@ int Utils::FindStringIdx(std::vector<std::string> words, const std::string findw
 std::string Utils::OpenFileDialog() {
     OPENFILENAMEA  ofn;
     char szFileName[MAX_PATH] = "";  // char  עק
+
+    char originalDir[MAX_PATH];
+    GetCurrentDirectoryA(MAX_PATH, originalDir);
+
     ZeroMemory(&ofn, sizeof(ofn));
     ofn.lStructSize = sizeof(ofn);
     ofn.hwndOwner = NULL;
@@ -431,9 +435,11 @@ std::string Utils::OpenFileDialog() {
 
     if (GetOpenFileNameA(&ofn)) {
         std::cout << "true" << std::endl;
+        SetCurrentDirectoryA(originalDir);
         return szFileName;
     }
-    return "FAIL TO LOAD";
+    SetCurrentDirectoryA(originalDir);
+    return "";
 }
 
 void Utils::SaveFileDialog(const std::string saveData) {
@@ -452,7 +458,7 @@ void Utils::SaveFileDialog(const std::string saveData) {
     ofn.lpstrFileTitle = NULL;
     ofn.nMaxFileTitle = 0;
     ofn.lpstrInitialDir = NULL;
-    ofn.Flags = OFN_PATHMUSTEXIST | OFN_OVERWRITEPROMPT;
+    ofn.Flags = OFN_PATHMUSTEXIST | OFN_OVERWRITEPROMPT;        
 
     if (GetSaveFileNameA(&ofn) == TRUE) {
         hFile = CreateFileA(ofn.lpstrFile, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
