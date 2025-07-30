@@ -22,5 +22,6 @@ struct ItemInfo {
 	ItemType itemType = ItemType::None;
 
 	std::vector<int> usableTiles; 
+	int usableLayer = -1;
 };
 

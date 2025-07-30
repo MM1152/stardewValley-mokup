@@ -13,6 +13,7 @@
 #include "DialogueLoader.h"
 #include "Crops.h"
 #include "InteractionObject.h"
+#include "SellBox.h"
 SceneTest::SceneTest()
 	: Scene(SceneIds::Test)
 {
@@ -42,6 +43,8 @@ void SceneTest::Init()
 	texIds.push_back("graphics/portraitsBox.png");
 	texIds.push_back("graphics/Pierre.png");
 	texIds.push_back("graphics/itemSlot_bg.png");
+
+	texIds.push_back("graphics/sellbox.png");
 
 	texIds.push_back(INVEN_IMG_PATH"CraftImage.bmp");
 
@@ -84,7 +87,9 @@ void SceneTest::Init()
 	timemoney = new TimeMoneyUi("TimeMoney");
 	shop = new Shop("shop");
 	dialogueBox = new DialogueBox("DialogueBox");
+	sellBox = new SellBox("SellBox");
 
+	AddGameObject(sellBox);
 	AddGameObject(dialogueBox);
 	
 	
@@ -115,10 +120,12 @@ void SceneTest::Init()
 	AddGameObject(player);
 	AddGameObject(npc);
 
+	sellBox->SetInventory(inventory);
+	sellBox->SetPlayer(player);
+
 	itemDataMgr::Instance().LoadShopItems("data/shop.json");
 
 	itemDataMgr::Instance().Load("data/item.json");
-
 
 	DialogueLoader::Instance().LoadFromJson("data/Dialogues.json");
 	
@@ -249,9 +256,7 @@ void SceneTest::Update(float dt)
 			it->GrowUp();
 		}
 		player->SetGrowup(false);
-
 	}
-	
 }
 
 void SceneTest::Draw(sf::RenderWindow& window)

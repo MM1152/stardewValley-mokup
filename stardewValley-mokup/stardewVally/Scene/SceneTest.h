@@ -16,6 +16,7 @@ class Inventory;
 class QuickBar;
 class DialogueBox;
 class Crops;
+class SellBox;
 
 class SceneTest : public Scene
 {
@@ -28,6 +29,7 @@ protected:
 	Inventory* inventory = nullptr;
 	QuickBar* quickBar = nullptr;
 	DialogueBox* dialogueBox = nullptr;
+	SellBox* sellBox = nullptr;
 
 	std::list<Crops*> cropsList;
 	std::vector<InteractionObject*> objects;

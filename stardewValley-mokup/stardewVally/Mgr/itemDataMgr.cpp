@@ -4,7 +4,6 @@
 
 void itemDataMgr::Load(const std::string& filename)
 {
-    std::cout << "[DEBUG] itemDataMgr::Load called with file: " << filename << "\n";
     std::ifstream file(filename);
     if (!file.is_open()) {
         std::cerr << "JSON failed " << filename << "\n";
@@ -51,6 +50,16 @@ void itemDataMgr::Load(const std::string& filename)
             std::cout << std::endl;
         }
 
+        if (item.contains("usableLayer") && item["usableLayer"].is_number_integer()) 
+        {
+            info.usableLayer = item["usableLayer"];
+            std::cout << "Item [" << info.itemId << "] usableLayer: " << info.usableLayer << std::endl;
+        }
+        else 
+        {
+            info.usableLayer = -1;
+        }
+
         info.itemType = ItemType::None;
         items.push_back(info); 
     }
@@ -71,7 +80,8 @@ void itemDataMgr::LoadShopItems(const std::string& filename)
     file >> data;
 
     auto shopInfo = data["shopInfo"];
-    for (auto it = shopInfo.begin(); it != shopInfo.end(); ++it) {
+    for (auto it = shopInfo.begin(); it != shopInfo.end(); ++it) 
+    {
         std::string shopName = it.key();
         const auto& itemList = it.value();
 
@@ -85,7 +95,6 @@ void itemDataMgr::LoadShopItems(const std::string& filename)
             }
         }
     }
-    
 }
 
 

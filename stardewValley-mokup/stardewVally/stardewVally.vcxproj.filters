@@ -47,6 +47,9 @@
     <ClCompile Include="Trigger.cpp" />
     <ClCompile Include="Variables.cpp" />
     <ClCompile Include="Gatherable\Gatherable.cpp" />
+    <ClCompile Include="InteractionObject.cpp" />
+    <ClCompile Include="Pick.cpp" />
+    <ClCompile Include="SellBox.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Collider.h" />
@@ -99,5 +102,8 @@
     <ClInclude Include="Trigger.h" />
     <ClInclude Include="Variables.h" />
     <ClInclude Include="Gatherable\Gatherable.h" />
+    <ClInclude Include="InteractionObject.h" />
+    <ClInclude Include="Pick.h" />
+    <ClInclude Include="SellBox.h" />
   </ItemGroup>
 </Project>

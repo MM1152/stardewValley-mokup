@@ -267,15 +267,15 @@ void Player::Update(float dt)
 	float rowX = playerCenter.x + offSet.x;
 	float rowY = playerCenter.y + offSet.y;
 
-	int tileX = ((int)rowX / 16) * 16; 
-	int tileY = ((int)rowY / 16) * 16;
+	int tileX = (int)rowX / 16; 
+	int tileY = (int)rowY / 16;
 
-	seedGuideRect.setPosition({ (float)tileX, (float)tileY });
-
-	if (map != nullptr)
+	if (map)
 	{
-		int cellIdx = map->GetCellIndex({ (float)tileX, (float)tileY }, 0);
-
+		int cellIdx = map->GetCellIndex({ (float)rowX, (float)rowY}, 0);
+		if (InputMgr::GetKeyDown(sf::Keyboard::R)) {
+			std::cout << cellIdx << std::endl;
+		}
 		if (CanUseItemOnTile(cellIdx)) 
 		{
 			seedGuideRect.setFillColor(sf::Color(0, 255, 0, 100));
@@ -286,8 +286,10 @@ void Player::Update(float dt)
 			seedGuideRect.setFillColor(sf::Color(255, 0, 0, 100));
 			seedGuideRect.setOutlineColor(sf::Color(255, 50, 50, 135));
 		}
+
+		seedGuideRect.setPosition(map->GetCell(cellIdx, 0).cellPosition[0]);
 	}
-	seedGuideRect.setPosition({ (float)tileX, (float)tileY});
+	
 }
 
 void Player::Draw(sf::RenderWindow& window)
@@ -386,21 +388,30 @@ void Player::PlayUseItemAnimation(sf::Vector2i dir)
 		body.Play(ANIMATION_PATH"playerUseItemBack.csv");
 		hand.Play(ANIMATION_PATH"playerUseItemHandBack.csv");
 	}
-
 }
 
 bool Player::CanUseItemOnTile(int tileIdx)
 {
-	if (!item)
-	{
+	if (!item || !map)
 		return false;
-	}
-	
-	const std::vector<int>& usable = item->GetItemInfo()->usableTiles;
 
-	return std::find(usable.begin(), usable.end(), tileIdx) != usable.end();
+	const ItemInfo* info = item->GetItemInfo();
+	int usableLayer = info->usableLayer;
 
+	CheckCellData cellData = map->SequentialGetCell(tileIdx);
+	const auto& usable = info->usableTiles;
+	std::cout << "[DEBUG] Check tileIdx: " << tileIdx
+		<< ", usableLayer: " << usableLayer
+		<< ", cellData.layer: " << cellData.layer
+		<< ", cellData.idx: " << cellData.idx << std::endl;
+
+	if (cellData.layer != usableLayer)
+		return false;
+
+	return std::find(usable.begin(), usable.end(), cellData.idx) != usable.end();
 }
+
+
 
 void Player::SetInventory(Inventory* inven)
 {
@@ -421,4 +432,3 @@ TimeMoneyUi* Player::GetTimer()
 {
 	return timemoneyui;
 }
-

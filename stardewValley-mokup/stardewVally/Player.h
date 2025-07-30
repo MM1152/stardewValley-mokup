@@ -41,7 +41,6 @@ protected:
 
 
 	TileMap* tileMap;
-	Map* map;
 
 	sf::RectangleShape seedGuideRect;
 
