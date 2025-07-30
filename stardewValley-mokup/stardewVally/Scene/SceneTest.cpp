@@ -12,6 +12,7 @@
 #include "DialogueBox.h"
 #include "DialogueLoader.h"
 #include "Crops.h"
+#include "DropItem.h"
 
 SceneTest::SceneTest()
 	: Scene(SceneIds::Test)
@@ -76,6 +77,7 @@ void SceneTest::Init()
 	texIds.push_back("graphics/caluliflower.png");
 	texIds.push_back("graphics/potato.png");
 	texIds.push_back("graphics/garlic.png");
+	texIds.push_back("graphics/garlic_seeds.png");
 
 
 	inventory = new Inventory(INVEN_IMG_PATH"CraftImage.bmp");
@@ -87,17 +89,18 @@ void SceneTest::Init()
 	dialogueBox = new DialogueBox("DialogueBox");
 
 	AddGameObject(dialogueBox);
-	
-	
+
+
 	AddGameObject(inventory);
 	AddGameObject(quickBar);
 	inventory->SetQuickBar(quickBar);
 
+	
 	//TimeMoney
 
 	timemoney->Setplayer(player);
 	AddGameObject(timemoney);
-	
+
 	//shop
 	shop->SetInventory(inventory);
 	shop->SetPlayer(player);
@@ -115,6 +118,8 @@ void SceneTest::Init()
 	npc->SetDIalogueBox(dialogueBox);
 	AddGameObject(player);
 	AddGameObject(npc);
+
+
 
 	itemDataMgr::Instance().LoadShopItems("data/shop.json");
 
@@ -322,10 +327,53 @@ void SceneTest::AddCrops(Crops* crops)
 {
 	AddGameObject(crops);
 	cropsList.push_back(crops);
+	for (auto it : cropsList)
+	{
+		if (it != nullptr)
+		{
+			it->SetPlayer(player);
+			it->SetInventory(inventory);
+			inventory->SetCrops(it);
+		}
+		for (auto drop : dropitemList)
+		{
+			it->SetDropItem(drop);
+		}
+	}
 }
 
-std::list<Crops*> SceneTest::GetCrops()
+void SceneTest::RemoveCrops(Crops* crops)
+{
+	crops->SetActive(false);
+	cropsList.remove(crops);
+}
+
+std::list<Crops*> SceneTest::GetCropsList()
 {
 	return cropsList;
 }
+
+Crops* SceneTest::GetRemoveCrops(std::list<Crops*> cropslist)
+{
+	for (auto it : cropslist)
+	{
+		return it;
+	}
+}
+
+void SceneTest::AddDropItem(DropItem* dropitem)
+{
+	AddGameObject(dropitem);
+	dropitemList.push_back(dropitem);
+	for (auto it : dropitemList)
+	{
+		if (it != nullptr)
+		{
+			it->SetPlayer(player);
+			it->SetInventory(inventory);
+			inventory->SetDropItem(it);
+		}
+	}
+}
+
 

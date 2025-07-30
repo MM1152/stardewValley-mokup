@@ -29,6 +29,7 @@
 #include "SceneMgr.h"
 #include "Framework.h"
 #include "ItemInfo.h"
+#include "DropItemInfo.h"
 #include "DialogueInfo.h"
 #include "itemDataMgr.h"
 #include "rapidcsv.h"

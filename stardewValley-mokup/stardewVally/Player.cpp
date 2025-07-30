@@ -195,7 +195,6 @@ void Player::Update(float dt)
 		if (InputMgr::GetKeyDown(sf::Keyboard::Z)) 
 		{
 			copyItem->UseItem();
-			
 		}
 	
 	}

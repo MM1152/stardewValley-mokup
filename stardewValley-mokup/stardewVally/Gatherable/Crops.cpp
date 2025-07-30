@@ -1,6 +1,10 @@
 #include "stdafx.h"
 #include "Crops.h"
 #include "TimeMoneyUi.h"
+#include "SceneTest.h"
+#include "DropItem.h"
+#include "Inventory.h"
+#include "Player.h"
 
 Crops::Crops(const std::string& name)
 	: Gatherable(name)
@@ -22,37 +26,70 @@ void Crops::Reset()
 	GtSp.setTexture(TEXTURE_MGR.Get(cropsId));
 }
 
-void Crops::GrowUp(){
+void Crops::Update(float dt)
+{
+	DropItems();
+}
+
+void Crops::DropItems()
+{
+	Map* map = player->GetMap();
+
+	sf::Vector2i lookDir = player->GetLookDir();
+	sf::Vector2f holePos = { player->GetPosition().x + (lookDir.x * 16.f) , player->GetPosition().y + (lookDir.y * 16.f) };
+	int cellIdx = map->GetCellIndex(holePos, 0);
+	CellData& cellData = map->GetCell(cellIdx, 0);
+
+	SceneTest* scene = (SceneTest*)SCENE_MGR.GetCurrentScene();
+
+	if (InputMgr::GetMouseButtonDown(sf::Mouse::Left) && cellData.cellPosition[0] == GetCurrentCropsPosition())
+	{
+		if (growup_interaction)
+		{
+			sf::Vector2f cropspos[100];
+			ItemInfo info = itemDataMgr::Instance().GetItem("hoe");
+			dropitem = new DropItem("", "graphics/garlic_seeds.png");
+			dropitem->Init();
+			dropitem->SetPosition(GetPosition());
+			dropitem->Reset();
+			scene->AddDropItem(dropitem);
+			scene->RemoveCrops(scene->GetRemoveCrops(scene->GetCropsList()));
+			inventory->AddItem(info);
+		}
+	}
+}
+
+void Crops::GrowUp() {
 	curGrow++;
 	sf::IntRect Grow(16 * curGrow, 0, 16, 16);
 	GtSp.setTextureRect(Grow);
-	if (curGrow > 5 && cropsId == "graphics/parsnip.png")
+	if (curGrow > 4 && cropsId == "graphics/parsnip.png")
 	{
 		curGrow = 5;
 		sf::IntRect Grow(16 * curGrow, 0, 16, 16);
 		GtSp.setTextureRect(Grow);
-		growup = true;
+		growup_interaction = true;
 	}
-	else if (curGrow > 5 && cropsId == "graphics/garlic.png")
+	else if (curGrow > 4 && cropsId == "graphics/garlic.png")
 	{
 		curGrow = 5;
 		sf::IntRect Grow(16 * curGrow, 0, 16, 16);
 		GtSp.setTextureRect(Grow);
-		growup = true;
+		growup_interaction = true;
 	}
-	else if (curGrow > 6 && cropsId == "graphics/caluliflower.png")
+	else if (curGrow > 5 && cropsId == "graphics/caluliflower.png")
 	{
 		curGrow = 6;
 		sf::IntRect Grow(16 * curGrow, 0, 16, 16);
 		GtSp.setTextureRect(Grow);
-		growup = true;
+		growup_interaction = true;
 	}
-	else if (curGrow > 6 && cropsId == "graphics/potato.png")
+	else if (curGrow > 5 && cropsId == "graphics/potato.png")
 	{
 		curGrow = 6;
 		sf::IntRect Grow(16 * curGrow, 0, 16, 16);
 		GtSp.setTextureRect(Grow);
-		growup = true;
+		growup_interaction = true;
 	}
 }
 

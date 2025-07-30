@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Gatherable.h"
 
+
 Gatherable::Gatherable(const std::string& name)
 	: GameObject(name)
 	, GtId("")
@@ -34,6 +35,7 @@ void Gatherable::Draw(sf::RenderWindow& window)
 {
 	window.draw(GtSp);
 }
+
 
 void Gatherable::SetPosition(const sf::Vector2f& pos)
 {
@@ -70,13 +72,11 @@ void Gatherable::SetOrigin(Origins preset)
 
 void Gatherable::SetGtInfo(Gatherable* gatherable)
 {
-	{
-		this->GtId = gatherable->GtId;
-		this->GtName = gatherable->GtName;
-		this->GtTextureId = gatherable->GtTextureId;
-		this->uiTextCoord = gatherable->uiTextCoord;
-		this->textureCoord = gatherable->textureCoord;
-		this->interaction = gatherable->interaction;
-		Reset();
-	}
+	this->GtId = gatherable->GtId;
+	this->GtName = gatherable->GtName;
+	this->GtTextureId = gatherable->GtTextureId;
+	this->uiTextCoord = gatherable->uiTextCoord;
+	this->textureCoord = gatherable->textureCoord;
+	this->interaction = gatherable->interaction;
+	Reset();
 }

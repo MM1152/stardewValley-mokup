@@ -125,3 +125,21 @@ bool Inventory::AddItem(const ItemInfo& info)
 	delete newItem;
 	return false;
 }
+
+bool Inventory::AddItem(DropItem* drop)
+{
+	InUIItem* newItem = new InUIItem(drop);
+	newItem->Init();
+
+	for (ItemSlot* slot : unEquipSlots)
+	{
+		if (!slot->IsSetting())
+		{
+			slot->SetItem(newItem);
+			return true;
+		}
+	}
+
+	delete newItem;
+	return false;
+}

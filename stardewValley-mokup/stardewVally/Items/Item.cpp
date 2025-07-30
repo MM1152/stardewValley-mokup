@@ -8,6 +8,13 @@ Item::Item(ItemInfo type , bool isUi)
 {
 }
 
+Item::Item(DropItem* drop, bool isUi)
+	:GameObject("")
+	,dropitem(drop)
+	,isUi(isUi)
+{
+}
+
 void Item::Init()
 {
 

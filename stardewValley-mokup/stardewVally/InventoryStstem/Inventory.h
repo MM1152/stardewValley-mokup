@@ -2,6 +2,8 @@
 #include "GameObject.h"
 #include "Item.h"
 #include "QuickBar.h"
+#include "DropItem.h"
+#include "Crops.h"
 
 class ItemSlot;
 class Inventory : public GameObject
@@ -16,6 +18,8 @@ private:
 
 	int slotSize;
 
+	DropItem* dropitem;
+	Crops* crops;
 	
 	QuickBar* quickBar = nullptr;
 	//TEST
@@ -34,7 +38,10 @@ public:
 	bool SetItem(InUIItem* item);
 	void SetQuickBar(QuickBar* quickBar) { this->quickBar = quickBar; };
 	bool AddItem(const ItemInfo& info);
-	
+	bool AddItem(DropItem* drop);
+
 	QuickBar* GetQuickBar() { return quickBar; }
+	void SetDropItem(DropItem* drop) { dropitem = drop; };
+	void SetCrops(Crops* crop) { crops = crop; };
 };
 

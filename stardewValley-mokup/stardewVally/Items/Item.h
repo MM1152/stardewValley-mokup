@@ -2,18 +2,23 @@
 #include "stdafx.h"
 #include "GameObject.h"
 #include "ItemInfo.h"
+#include "DropItem.h"
 
 class Player;
+class DdropItem;
 class Item : public GameObject
 {
 private:
 	ItemInfo iteminfo;
 	bool isUi;
+
 protected:
 	sf::Sprite itemSp;
+	DropItem* dropitem;
 	Player* player;
 public:
 	Item(ItemInfo type, bool isUi);
+	Item(DropItem* drop, bool isUi);
 	Item() = default;
 	~Item() override = default;
 
@@ -32,5 +37,6 @@ public:
 	ItemInfo* GetItemInfo() { return &iteminfo; };
 	void SetItemInfo(Item* item);
 	void SetPlayer(Player* player) { this->player = player; };
+	void SetDropItem(DropItem* drop) { dropitem = drop; };
 };
 

@@ -16,6 +16,7 @@ class Inventory;
 class QuickBar;
 class DialogueBox;
 class Crops;
+class DropItem;
 
 class SceneTest : public Scene
 {
@@ -30,6 +31,7 @@ protected:
 	DialogueBox* dialogueBox = nullptr;
 
 	std::list<Crops*> cropsList;
+	std::list<DropItem*> dropitemList;
 
 	TileMap* tile;
 	TileMap* forGround;
@@ -51,6 +53,10 @@ public:
 	void CenterView();
 
 	void AddCrops(Crops* crops);
-	std::list<Crops*> GetCrops();
+	void RemoveCrops(Crops* crops);
+	std::list<Crops*> GetCropsList();
+	Crops* GetRemoveCrops(std::list<Crops*> cropslist);
+
+	void AddDropItem(DropItem* dropitem);
 };
 

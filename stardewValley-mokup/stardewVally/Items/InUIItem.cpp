@@ -6,6 +6,11 @@ InUIItem::InUIItem(ItemInfo type)
 {
 }
 
+InUIItem::InUIItem(DropItem* drop)
+	:Item(drop, true)
+{
+}
+
 void InUIItem::Update(float dt)
 {
 	if (isDrag) {
