@@ -77,7 +77,7 @@ void SceneTest::Init()
 
 	//crops
 	texIds.push_back("graphics/parsnip.png");
-	texIds.push_back("graphics/caluliflower.png");
+	texIds.push_back("graphics/cauliflower.png");
 	texIds.push_back("graphics/potato.png");
 	texIds.push_back("graphics/garlic.png");
 

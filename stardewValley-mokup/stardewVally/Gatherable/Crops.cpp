@@ -132,7 +132,7 @@ void Crops::SetCropsType(CropsType c)
 		GtSp.setTextureRect(seed);
 		break;
 	case CropsType::Cauliflower:
-		cropsId = "graphics/caluliflower.png";
+		cropsId = "graphics/cauliflower.png";
 		GtSp.setTextureRect(seed);
 		break;
 	case CropsType::Potato:
