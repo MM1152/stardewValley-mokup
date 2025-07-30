@@ -78,6 +78,7 @@ void SceneTest::Init()
 	texIds.push_back("graphics/potato.png");
 	texIds.push_back("graphics/garlic.png");
 	texIds.push_back("graphics/garlic_seeds.png");
+	texIds.push_back("graphics/springobjects.png");
 
 
 	inventory = new Inventory(INVEN_IMG_PATH"CraftImage.bmp");
@@ -248,7 +249,6 @@ void SceneTest::Update(float dt)
 			it->GrowUp();
 		}
 		player->SetGrowup(false);
-
 	}
 	
 }
@@ -341,26 +341,11 @@ void SceneTest::AddCrops(Crops* crops)
 		}
 	}
 }
-
 void SceneTest::RemoveCrops(Crops* crops)
 {
 	crops->SetActive(false);
 	cropsList.remove(crops);
 }
-
-std::list<Crops*> SceneTest::GetCropsList()
-{
-	return cropsList;
-}
-
-Crops* SceneTest::GetRemoveCrops(std::list<Crops*> cropslist)
-{
-	for (auto it : cropslist)
-	{
-		return it;
-	}
-}
-
 
 void SceneTest::AddDropItem(DropItem* dropitem)
 {
@@ -386,18 +371,6 @@ void SceneTest::RemoveDropItem(DropItem* dropitem)
 	dropitemList.remove(dropitem);
 }
 
-std::list<DropItem*> SceneTest::GetDropItemList()
-{
-	return dropitemList;
-}
-
-DropItem* SceneTest::GetRemoveDropItem(std::list<DropItem*> dropitemList)
-{
-	for (auto it : dropitemList)
-	{
-		return it;
-	}
-}
 
 
 

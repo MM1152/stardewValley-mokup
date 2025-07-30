@@ -41,6 +41,16 @@
       "TextureRect" : [0, 26, 17, 23],
       "price" : 40,
       "stock" : 100
+    },
+    {
+      "id":"parsnip",
+      "name" : "Parsnip",
+      "description" : "parsnip",
+      "TextureId" : "graphics/springobjects.png",
+      "UiTextureRect" : [0, 16, 16, 16],
+      "TextureRect" : [0, 16, 16, 16],
+      "price" : 40,
+      "stock" : 100
     }
   ]
 }

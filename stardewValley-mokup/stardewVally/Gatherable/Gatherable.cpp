@@ -12,8 +12,6 @@ Gatherable::Gatherable(const std::string& name)
 	, interaction(false)
 {
 }
-
-
 void Gatherable::Init()
 {
 }

@@ -35,12 +35,12 @@ void DropItem::Update(float dt)
 	CellData& cellData = map->GetCell(cellIdx, 0);
 
 	SceneTest* scene = (SceneTest*)SCENE_MGR.GetCurrentScene();
-	if (InputMgr::GetMouseButtonDown(sf::Mouse::Right) && cellData.cellPosition[0] == GetCurrentPosition())
+	if (InputMgr::GetMouseButtonDown(sf::Mouse::Right) && cellData.cellPosition[0] == GetPosition())
 	{
 		std::cout << "Succe" << std::endl;
-		ItemInfo info = itemDataMgr::Instance().GetItem("hoe");
+		ItemInfo info = itemDataMgr::Instance().GetItem("parsnip");
 		inventory->AddItem(info);
-		scene->RemoveDropItem(scene->GetRemoveDropItem(scene->GetDropItemList()));
+		scene->RemoveDropItem(this);
 	}
 }
 
