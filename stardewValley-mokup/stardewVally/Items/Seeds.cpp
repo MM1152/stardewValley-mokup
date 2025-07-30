@@ -10,8 +10,10 @@ Seeds::Seeds(ItemInfo info)
 {
 }
 
-void Seeds::UseItem()
+bool Seeds::UseItem()
 {
+	if (parentItem->GetQuantity() <= 0) return false;
+
 	Map* map = player->GetMap();
 
 	sf::Vector2i lookDir = player->GetLookDir();
@@ -31,6 +33,9 @@ void Seeds::UseItem()
 			crops->SetCropsType(Crops::CropsType::Parsnip);
 			crops->Reset();
 			scene->AddCrops(crops);
+			parentItem->PlusQuantity(-1);
+
+			return InGameItem::UseItem();
 		}
 	}
 	if (cellData.idx == 308 && GetItemInfo()->itemId == "cauliflower_seeds")
@@ -45,6 +50,9 @@ void Seeds::UseItem()
 			crops->SetCropsType(Crops::CropsType::Cauliflower);
 			crops->Reset();
 			scene->AddCrops(crops);
+			parentItem->PlusQuantity(-1);
+
+			return InGameItem::UseItem();
 		}
 	}
 	if (cellData.idx == 308 && GetItemInfo()->itemId == "potato_seeds")
@@ -59,6 +67,9 @@ void Seeds::UseItem()
 			crops->SetCropsType(Crops::CropsType::Potato);
 			crops->Reset();
 			scene->AddCrops(crops);
+			parentItem->PlusQuantity(-1);
+
+			return InGameItem::UseItem();
 		}
 	}
 	if (cellData.idx == 308 && GetItemInfo()->itemId == "garlic_seeds")
@@ -73,6 +84,10 @@ void Seeds::UseItem()
 			crops->SetCropsType(Crops::CropsType::Garlic);
 			crops->Reset();
 			scene->AddCrops(crops);
+			parentItem->PlusQuantity(-1);
+
+			return InGameItem::UseItem();
 		}
 	}
+	return false;
 }

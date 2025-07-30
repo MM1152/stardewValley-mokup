@@ -15,6 +15,6 @@ public:
 	Seeds(ItemInfo info);
 	~Seeds() override = default;
 
-	void UseItem() override;
+	bool UseItem() override;
 };
 

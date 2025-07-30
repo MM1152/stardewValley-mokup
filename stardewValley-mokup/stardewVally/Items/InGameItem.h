@@ -4,12 +4,13 @@
 
 class InGameItem : public Item
 {
+protected:
 public:
 	InGameItem(ItemInfo type);
 	InGameItem() = default;
 	~InGameItem() override = default;
 
 	void Update(float dt) override;
-	virtual void UseItem() {};
+	bool UseItem() override;
 };
 

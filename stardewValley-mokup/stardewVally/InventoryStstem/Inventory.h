@@ -16,13 +16,12 @@ private:
 
 	int slotSize;
 
-	
 	QuickBar* quickBar = nullptr;
 	//TEST
 	InUIItem* hoe;
 	InUIItem* pick;
 public:
-	Inventory(const std::string& texId = "" , const std::string& name = "");
+	Inventory(const std::string& texId = ""  , const std::string& name = "");
 	~Inventory() override = default;
 
 	// GameObject을(를) 통해 상속됨

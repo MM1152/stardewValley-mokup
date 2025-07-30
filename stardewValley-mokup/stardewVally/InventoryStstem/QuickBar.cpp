@@ -2,9 +2,10 @@
 #include "QuickBar.h"
 #include "InUIItem.h"
 
-QuickBar::QuickBar(const std::string& texId, const std::string& name)
+QuickBar::QuickBar(const std::string& texId, const std::string& fontId , const std::string& name)
 	:GameObject(name)
 	,texId(texId)
+	,fontId(fontId)
 {
 }
 
@@ -19,9 +20,8 @@ void QuickBar::Init()
 	outLine.setOutlineColor(sf::Color::Red);
 	outLine.setOutlineThickness(4.f);
 	
-
 	for (int i = 0; i < 12; i++) {
-		quickBar_Slots.push_back(new QuickBar_Slot(INVEN_IMG_PATH"ItemSlot.png"));
+		quickBar_Slots.push_back(new QuickBar_Slot(INVEN_IMG_PATH"ItemSlot.png" , fontId));
 		quickBar_Slots[i]->Init();
 	}
 
@@ -41,18 +41,22 @@ void QuickBar::Reset()
 {
 	quickBar.setTexture(&TEXTURE_MGR.Get(texId));
 	quickBar.setPosition({ FRAMEWORK.GetWindowSizeF().x / 2 - 400.f , FRAMEWORK.GetWindowSizeF().y - 100.f });
-	
+
 	for (int i = 0; i < quickBar_Slots.size(); i++) {
+		quickBar_Slots[i]->SetPosition({ quickBar.getPosition().x + (i * 65) + 20.f, quickBar.getPosition().y + 13.f });
 		quickBar_Slots[i]->Reset();
-		quickBar_Slots[i]->SetPosition({ quickBar.getPosition().x + (i * 65) + 20.f, quickBar.getPosition().y + 13.f});
 	}
-	
-	outLine.setPosition(quickBar_Slots[0]->GetPosition().x + 9.f, 
-						quickBar_Slots[0]->GetPosition().y + 6.f);
+
+	outLine.setPosition(quickBar_Slots[0]->GetPosition().x + 9.f,
+		quickBar_Slots[0]->GetPosition().y + 6.f);
 }
 
 void QuickBar::Update(float dt)
 {
+	for (int i = 0; i < quickBar_Slots.size(); i++) {
+		quickBar_Slots[i]->Update(dt);
+	}
+
 	if ((int)InputMgr::GetInputKey() >= 27 && (int)InputMgr::GetInputKey() <= 35) {
 		outLine.setPosition(quickBar_Slots[(int)InputMgr::GetInputKey() - 27]->GetPosition().x + 9.f,
 							quickBar_Slots[(int)InputMgr::GetInputKey() - 27]->GetPosition().y + 6.f);
@@ -82,7 +86,7 @@ void QuickBar::Draw(sf::RenderWindow& window)
 		slot->Draw(window);
 	}
 	window.draw(outLine);
-	
+
 }
 
 void QuickBar::SetItem(InUIItem* item, int idx)

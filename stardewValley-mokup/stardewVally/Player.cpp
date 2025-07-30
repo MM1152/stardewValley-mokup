@@ -67,7 +67,7 @@ void Player::SetItem(Item* item)
 	this->item = item;
 
 	if (this->item) {
-		
+		ItemInfo info = itemDataMgr::Instance().GetItem(this->item->GetItemInfo()->itemId);
 		if (this->item->GetItemInfo()->itemId == "hoe") {
 			copyItem = new Hoe();
 		}
@@ -183,7 +183,7 @@ void Player::Update(float dt)
 {
 	sortingOrder = GetPosition().y;
 
-	if (quickBarIdx != inventory->GetQuickBar()->GetQuickBarIdx()) {
+	if (item != inventory->GetQuickBar()->GetItem() || quickBarIdx != inventory->GetQuickBar()->GetQuickBarIdx()) {
 		item = inventory->GetQuickBar()->GetItem();
 		quickBarIdx = inventory->GetQuickBar()->GetQuickBarIdx();
 		if (item) {
@@ -199,7 +199,7 @@ void Player::Update(float dt)
 		copyItem->Update(dt);
 		if (InputMgr::GetKeyDown(sf::Keyboard::Z)) 
 		{
-			copyItem->UseItem();
+			copyItem->UseItem();	
 		}
 	
 	}

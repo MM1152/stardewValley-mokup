@@ -88,8 +88,15 @@ void Item::SetOrigin(const sf::Vector2f& o)
 
 void Item::SetItemInfo(Item* item)
 {
-	iteminfo = item->iteminfo;
-	Reset();
+	parentItem = item;
+	if (item) {
+		iteminfo = item->iteminfo;
+		Reset();
+	}
+	else {
+		iteminfo = {};
+	}
+	
 }
 
 

@@ -24,6 +24,13 @@ void QuickBar_Slot::Reset()
 
 void QuickBar_Slot::Update(float dt)
 {
+	if (item) {
+		if (item && item->GetQuantity() <= 0) {
+			item->SetItemInfo(nullptr);
+			item = nullptr;
+		}
+		SetItem(item);
+	}
 }
 
 void QuickBar_Slot::Draw(sf::RenderWindow& window)
@@ -32,6 +39,7 @@ void QuickBar_Slot::Draw(sf::RenderWindow& window)
 	if (item != nullptr) {
 		copyItem.Draw(window);
 	}
+
 }
 
 void QuickBar_Slot::SetPosition(const sf::Vector2f& pos)
@@ -46,8 +54,9 @@ void QuickBar_Slot::SetItem(InUIItem* item)
 	if (!item) {
 		return ;
 	}
+
 	copyItem = *item;
-	copyItem.SetItemInfo(item);
 	copyItem.SetPosition({ GetPosition().x + slot.getSize().x / 2 , GetPosition().y + slot.getSize().y / 2 });
+	copyItem.SetItemInfo(item);
 }
 

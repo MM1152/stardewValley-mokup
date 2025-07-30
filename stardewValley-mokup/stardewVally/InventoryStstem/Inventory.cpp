@@ -116,15 +116,61 @@ bool Inventory::AddItem(const ItemInfo& info)
 {
 	InUIItem* newItem = new InUIItem(info);
 	newItem->Init();
-
-	for (ItemSlot* slot : unEquipSlots)
-	{
-		if (!slot->IsSetting())
+	if (newItem->GetItemInfo()->quantity == 1) {
+		for (ItemSlot* slot : equipSlots) {
+			if (!slot->IsSetting())
+			{
+				slot->SetItem(newItem);
+				return true;
+			}
+		}
+		for (ItemSlot* slot : unEquipSlots)
 		{
-			slot->SetItem(newItem);
+			if (!slot->IsSetting())
+			{
+				slot->SetItem(newItem);
+				return true;
+			}
+		}
+	}
+	else {
+		int emptySlot = -1;
+		int cnt = 0;
+		for (ItemSlot* slot : equipSlots)
+		{
+			if (slot->IsSetting() && slot->GetItem()->GetItemInfo()->itemId == info.itemId) {
+				slot->SetItem(newItem);
+				return true;
+			}
+			if (!slot->IsSetting() && emptySlot == -1)
+			{
+				emptySlot = cnt;
+			}
+			cnt++;
+		}
+		if(emptySlot != -1){
+			equipSlots[emptySlot]->SetItem(newItem);
+			return true;
+		}
+		for (ItemSlot* slot : unEquipSlots)
+		{
+			if (slot->IsSetting() && slot->GetItem()->GetItemInfo()->itemId == info.itemId) {
+				slot->SetItem(newItem);
+				return true;
+			}
+			if (!slot->IsSetting() && emptySlot == -1 )
+			{
+				emptySlot = cnt;
+			}
+			cnt++;
+		}
+
+		if (emptySlot != -1) {
+			unEquipSlots[emptySlot]->SetItem(newItem);
 			return true;
 		}
 	}
+	
 
 	delete newItem;
 	return false;

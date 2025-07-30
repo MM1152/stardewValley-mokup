@@ -72,7 +72,7 @@ void Pick::Reset()
 
 }
 
-void Pick::UseItem()
+bool Pick::UseItem()
 {
 	Map* map = player->GetMap();
 
@@ -80,7 +80,7 @@ void Pick::UseItem()
 	sf::Vector2f holePos = { player->GetPosition().x + (lookDir.x * 16.f) , player->GetPosition().y + (lookDir.y * 16.f) };
 
 	int cellIdx = map->GetCellIndex(holePos, 2);
-	if (cellIdx >= map->GetCellDatas(2).size()) return;
+	if (cellIdx >= map->GetCellDatas(2).size()) return false;
 	auto cellData = map->GetCell(cellIdx, 2);
 
 	StartAnimation(lookDir);
@@ -93,7 +93,9 @@ void Pick::UseItem()
 		cellData.interactionObj = nullptr;
 		
 		map->SetCellData(cellIdx, 2, &changeCellData);
+		return InGameItem::UseItem();
 	}
+	return false;
 }
 
 void Pick::Draw(sf::RenderWindow& window)

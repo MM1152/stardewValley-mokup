@@ -18,7 +18,8 @@ struct ItemInfo {
 
 	int price = 0;
 	int stock = 0;
-	
+	int quantity = 1;
+
 	ItemType itemType = ItemType::None;
 };
 

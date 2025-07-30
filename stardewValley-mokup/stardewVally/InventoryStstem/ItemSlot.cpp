@@ -4,9 +4,10 @@
 
 InUIItem* ItemSlot::dragItem = nullptr;
 
-ItemSlot::ItemSlot(const std::string& texId, const std::string& name)
+ItemSlot::ItemSlot(const std::string& texId, const std::string& fontId ,const std::string& name)
 	:GameObject(name)
 	,texId(texId)
+	,fontId(fontId)
 {
 }
 
@@ -26,6 +27,11 @@ void ItemSlot::Reset()
 
 void ItemSlot::Update(float dt)
 {
+	if (item && item->GetQuantity() <= 0) {
+		item->SetItemInfo(nullptr);
+		item = nullptr;
+	}
+
 	if (slot.getGlobalBounds().intersects(InputMgr::GetMouseUIRect())) {
 		slot.setFillColor(sf::Color(187, 187, 187));
 
@@ -42,7 +48,6 @@ void ItemSlot::Update(float dt)
 
 				SetItem(dragItem);
 				dragItem->DragItem(false);
-				
 				dragItem = copy;
 				dragItem->DragItem(true);
 			}
@@ -51,7 +56,6 @@ void ItemSlot::Update(float dt)
 				dragItem->DragItem(false);
 				dragItem = nullptr;
 			}
-		
 		}
 	}
 	else {
@@ -75,13 +79,19 @@ void ItemSlot::SetPosition(const sf::Vector2f& pos)
 
 bool ItemSlot::SetItem(InUIItem* item)
 {
-	this->item = item;
+	if (item && this->item && this->item->GetItemInfo()->itemId == item->GetItemInfo()->itemId) {
+		this->item->PlusQuantity(1);
+	}
+	else {
+		this->item = item;
+		item->SetPosition({ GetPosition().x + slot.getSize().x / 2 , GetPosition().y + slot.getSize().y / 2 });
+		item->SetItemInfo(item);
+	}
+
 	if (!item) {
 		return false;
 	}
 
-	item->SetItemInfo(item);
-	item->SetPosition({ GetPosition().x + slot.getSize().x / 2 , GetPosition().y + slot.getSize().y / 2 });
 
 	return true;
 }

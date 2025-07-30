@@ -38,16 +38,14 @@ protected:
 	NpcMgr* npcMgr = nullptr;
 	Inventory* inventory = nullptr;
 	TimeMoneyUi* timemoneyui = nullptr;
-
-
 	TileMap* tileMap;
 	Map* map;
 
 	sf::RectangleShape seedGuideRect;
-
+	
 	InGameItem* copyItem;
 	Item* item;
-
+	
 	sf::Vector2i lookDir = { 0,0 };
 
 	int quickBarIdx = -1;

@@ -71,7 +71,7 @@ void Hoe::Reset()
 
 }
 
-void Hoe::UseItem()
+bool Hoe::UseItem()
 {
 	Map* map = player->GetMap();
 
@@ -79,7 +79,7 @@ void Hoe::UseItem()
 	sf::Vector2f holePos = { player->GetPosition().x + (lookDir.x * 16.f) , player->GetPosition().y + (lookDir.y * 16.f) };
 
 	int cellIdx = map->GetCellIndex(holePos, 0);
-	if (cellIdx >= map->GetCellDatas(0).size()) return;
+	if (cellIdx >= map->GetCellDatas(0).size()) return false;
 	auto cellData = map->SequentialGetCell(cellIdx);
 	
 	StartAnimation(lookDir);
@@ -89,7 +89,9 @@ void Hoe::UseItem()
 	if (cellData.layer == 0 && cellData.idx == 25) {
 		CellData changeCellData = map->GetTextureCell(308, 0);
 		map->SetCellData(cellIdx , 0 , &changeCellData);
+		return InGameItem::UseItem();
 	}
+	return false;
 }
 
 void Hoe::Draw(sf::RenderWindow& window)

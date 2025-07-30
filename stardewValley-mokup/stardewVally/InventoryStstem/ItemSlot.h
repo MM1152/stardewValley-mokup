@@ -6,13 +6,15 @@ class ItemSlot : public GameObject
 {
 private:
 	std::string texId;
+	std::string fontId;
+
 	sf::RectangleShape slot;
-	
+
 	InUIItem* item = nullptr;
 public:
 	static InUIItem* dragItem;
 
-	ItemSlot(const std::string& texId = "", const std::string& name = "");
+	ItemSlot(const std::string& texId = "", const std::string& fontId = "", const std::string& name = "");
 	~ItemSlot() override = default;
 
 	// GameObject을(를) 통해 상속됨

@@ -12,6 +12,9 @@ private:
 protected:
 	sf::Sprite itemSp;
 	Player* player;
+
+	Item* parentItem = nullptr;
+	int quantity = 1;
 public:
 	Item(ItemInfo type, bool isUi);
 	Item() = default;
@@ -32,5 +35,10 @@ public:
 	ItemInfo* GetItemInfo() { return &iteminfo; };
 	void SetItemInfo(Item* item);
 	void SetPlayer(Player* player) { this->player = player; };
+
+	int GetQuantity() { return quantity; };
+	virtual void PlusQuantity(int quantity) { this->quantity += quantity; };
+
+	virtual bool UseItem() { return false; };
 };
 

@@ -78,7 +78,7 @@ void SceneTest::Init()
 	texIds.push_back("graphics/garlic.png");
 
 	inventory = new Inventory(INVEN_IMG_PATH"CraftImage.bmp");
-	quickBar = new QuickBar(INVEN_IMG_PATH"CraftImage.bmp");
+	quickBar = new QuickBar(INVEN_IMG_PATH"CraftImage.bmp" , "fonts/DOSGothic.ttf");
 	npc = new NpcMgr("Npc");
 	player = new Player("Player");
 	timemoney = new TimeMoneyUi("TimeMoney");
@@ -116,13 +116,10 @@ void SceneTest::Init()
 	AddGameObject(npc);
 
 	itemDataMgr::Instance().LoadShopItems("data/shop.json");
-
 	itemDataMgr::Instance().Load("data/item.json");
-
 
 	DialogueLoader::Instance().LoadFromJson("data/Dialogues.json");
 	
-	itemDataMgr::Instance().LoadShopItems("data/shop.json");
 	const auto& items = itemDataMgr::Instance().GetShopItemList("Pierre's General Store");
 	std::cout << items.size() << std::endl;
 	for (const auto& item : items)
@@ -205,16 +202,14 @@ void SceneTest::Enter()
 			};
 		}
 	}
-
 	
 	tile->Set(map.GetTextId(0), map.GetCellDatas(0));
 	forGround->Set(map.GetTextId(1), map.GetCellDatas(1));
 
-	player->SetMap(&map);
-
 	forGround->sortingLayer = SortingLayers::Foreground;
 	forGround->sortingOrder = 131;
 
+	player->SetMap(&map);
 	player->sortingLayer = SortingLayers::Foreground;
 }
 

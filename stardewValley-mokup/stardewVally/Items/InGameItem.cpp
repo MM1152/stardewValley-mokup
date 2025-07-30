@@ -12,3 +12,9 @@ void InGameItem::Update(float dt)
 	}
 }
 
+bool InGameItem::UseItem()
+{
+	parentItem->UseItem();
+	return true;
+}
+

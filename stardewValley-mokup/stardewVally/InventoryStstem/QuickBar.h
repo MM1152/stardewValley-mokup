@@ -8,13 +8,15 @@ class QuickBar : public GameObject
 {
 private:
 	std::string texId;
+	std::string fontId;
+
 	sf::RectangleShape quickBar;
 	sf::RectangleShape outLine;
 	std::vector<QuickBar_Slot*> quickBar_Slots;		
 
 	int idx = 0;
 public:
-	QuickBar(const std::string& texId = "" , const std::string& name = "");
+	QuickBar(const std::string& texId = "" , const std::string& fontId = "" , const std::string& name = "");
 	~QuickBar() override = default;
 
 	// GameObject을(를) 통해 상속됨

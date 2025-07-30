@@ -11,7 +11,7 @@ private:
 	InUIItem* item = nullptr;
 	InUIItem copyItem;
 public:
-	QuickBar_Slot(const std::string& texId="" , const std::string& name = "");
+	QuickBar_Slot(const std::string& texId="", const std::string& name = "");
 	~QuickBar_Slot() override = default;
 
 	// GameObject을(를) 통해 상속됨

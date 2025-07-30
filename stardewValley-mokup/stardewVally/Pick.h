@@ -17,7 +17,7 @@ public:
 
 	void Update(float dt) override;
 	void Reset() override;
-	void UseItem() override;
+	bool UseItem() override;
 	void Draw(sf::RenderWindow& window) override;
 	void StartAnimation(sf::Vector2i lookDir);
 };

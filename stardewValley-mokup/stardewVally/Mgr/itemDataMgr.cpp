@@ -22,6 +22,7 @@ void itemDataMgr::Load(const std::string& filename)
         info.itemDes = item["description"];
         info.price = item["price"];
         info.stock = item["stock"];
+        info.quantity = item["quantity"];
 
         if (item.contains("UiTextureRect")) {
             info.uiTextCoord.left = item["UiTextureRect"][0];
