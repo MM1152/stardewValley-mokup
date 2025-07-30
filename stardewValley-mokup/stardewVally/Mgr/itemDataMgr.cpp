@@ -4,6 +4,7 @@
 
 void itemDataMgr::Load(const std::string& filename)
 {
+    std::cout << "[DEBUG] itemDataMgr::Load called with file: " << filename << "\n";
     std::ifstream file(filename);
     if (!file.is_open()) {
         std::cerr << "JSON failed " << filename << "\n";
@@ -36,17 +37,22 @@ void itemDataMgr::Load(const std::string& filename)
             info.textureCoord.width = item["TextureRect"][2];
             info.textureCoord.height = item["TextureRect"][3];
         }
-        info.itemType = ItemType::None;
-        items.push_back(info);
         std::cout << info.itemId << std::endl;
 
-        if (item.contains("usableTiles") && item["usableTiles"].is_array()) 
+        if (item.contains("usableTiles") && item["usableTiles"].is_array())
         {
-            for (const auto& tile : item["usableTiles"]) 
+            std::cout << "Item [" << info.itemId << "] usableTiles: ";
+            for (const auto& tile : item["usableTiles"])
             {
-                info.usableTiles.push_back(tile.get<int>());
+                int tileNum = tile.get<int>();
+                info.usableTiles.push_back(tileNum);
+                std::cout << tileNum << " ";
             }
+            std::cout << std::endl;
         }
+
+        info.itemType = ItemType::None;
+        items.push_back(info); 
     }
 }
 
