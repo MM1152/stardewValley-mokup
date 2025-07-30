@@ -41,6 +41,16 @@
       "TextureRect" : [0, 26, 17, 23],
       "price" : 40,
       "stock" : 100
+    },
+    {
+      "id":"pick",
+      "name" : "Pick",
+      "description" : "Dig the stone",
+      "TextureId" : "graphics/tools.png",
+      "UiTextureRect" : [76, 91, 21, 23],
+      "TextureRect" : [0, 86, 15, 28],
+      "price" : 40,
+      "stock" : 100
     }
   ]
 }

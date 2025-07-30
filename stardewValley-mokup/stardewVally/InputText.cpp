@@ -104,8 +104,11 @@ void InputText::SetSize(const sf::Vector2f& size)
 	inputBox.setSize(size);
 }
 
-void InputText::SetString(const std::string text)
+void InputText::SetString(const std::string text , bool setInput)
 {
+	if (setInput) {
+		input = text;
+	}
 	this->text.setString(text);
 	if (text.size() * this->text.getCharacterSize() * 0.5f >= inputBox.getSize().x) {
 		inputBox.setSize({inputBoxInitSize.x + text.size() * this->text.getCharacterSize() * 0.5f, inputBox.getSize().y});

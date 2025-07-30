@@ -38,8 +38,10 @@ void Inventory::Init()
 	}
 
 	//ItemInfo sword = { "galaxy_sword" ,  ITEM_IMG_PATH"galaxy_sword.png" /*ItemType::EquipMent*/};
-	item = new InUIItem(itemDataMgr::Instance().GetItem("hoe"));
-	item->Init();
+	hoe = new InUIItem(itemDataMgr::Instance().GetItem("hoe"));
+	hoe->Init();
+	pick = new InUIItem(itemDataMgr::Instance().GetItem("pick"));
+	pick->Init();
 }
 
 void Inventory::Release()
@@ -58,8 +60,10 @@ void Inventory::Reset()
 	for (auto slot : unEquipSlots) {
 		slot->Reset();
 	}
-	item->Reset();
-	SetItem(item);
+	hoe->Reset();
+	pick->Reset();
+	SetItem(hoe);
+	SetItem(pick);
 }
 
 void Inventory::Update(float dt)

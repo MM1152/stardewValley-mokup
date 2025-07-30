@@ -19,7 +19,8 @@ private:
 	
 	QuickBar* quickBar = nullptr;
 	//TEST
-	InUIItem* item;
+	InUIItem* hoe;
+	InUIItem* pick;
 public:
 	Inventory(const std::string& texId = "" , const std::string& name = "");
 	~Inventory() override = default;
