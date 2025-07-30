@@ -26,7 +26,6 @@ public:
 
 	bool GetActive() const { return active; }
 	virtual void SetActive(bool a) { active = a; }
-
 	sf::Vector2f GetPosition() const { return position; }
 
 	virtual void SetRotation(float rot) { rotation = rot; }

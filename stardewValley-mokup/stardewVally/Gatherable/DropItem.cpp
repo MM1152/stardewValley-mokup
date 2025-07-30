@@ -2,10 +2,7 @@
 #include "DropItem.h"
 #include "Inventory.h"
 #include "Player.h"
-
-
-
-
+#include "SceneTest.h"
 DropItem::DropItem(const std::string& name,const std::string& Id)
 	: GameObject(name)
 	,dropitemId(Id)
@@ -30,6 +27,21 @@ void DropItem::Reset()
 
 void DropItem::Update(float dt)
 {
+	Map* map = player->GetMap();
+
+	sf::Vector2i lookDir = player->GetLookDir();
+	sf::Vector2f holePos = { player->GetPosition().x + (lookDir.x * 16.f) , player->GetPosition().y + (lookDir.y * 16.f) };
+	int cellIdx = map->GetCellIndex(holePos, 0);
+	CellData& cellData = map->GetCell(cellIdx, 0);
+
+	SceneTest* scene = (SceneTest*)SCENE_MGR.GetCurrentScene();
+	if (InputMgr::GetMouseButtonDown(sf::Mouse::Right) && cellData.cellPosition[0] == GetCurrentPosition())
+	{
+		std::cout << "Succe" << std::endl;
+		ItemInfo info = itemDataMgr::Instance().GetItem("hoe");
+		inventory->AddItem(info);
+		scene->RemoveDropItem(scene->GetRemoveDropItem(scene->GetDropItemList()));
+	}
 }
 
 void DropItem::Draw(sf::RenderWindow& window)

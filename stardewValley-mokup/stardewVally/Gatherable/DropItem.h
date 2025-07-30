@@ -17,6 +17,8 @@ protected:
 	Player* player = nullptr;
 	Crops* crops = nullptr;
 
+	sf::Vector2f curpos = { -1.f, -1.f };
+
 
 public:
 	DropItem(const std::string& name = "",const std::string& Id = "");
@@ -38,6 +40,8 @@ public:
 	void SetPlayer(Player* p) { player = p; };
 	void SetCrops(Crops* c) { crops = c; };
 
+	void SetCurrentPosition(sf::Vector2f pos) { curpos = pos; };
+	sf::Vector2f GetCurrentPosition() { return curpos; };
 
 };
 

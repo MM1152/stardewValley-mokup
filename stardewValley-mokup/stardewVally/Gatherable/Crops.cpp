@@ -48,17 +48,12 @@ void Crops::DropItems()
 		{
 			dropitem = new DropItem("", "graphics/garlic_seeds.png");
 			dropitem->Init();
-			dropitem->SetPosition(GetPosition());
+			dropitem->SetPosition(GetCurrentCropsPosition());
+			dropitem->SetCurrentPosition(GetCurrentCropsPosition());
 			dropitem->Reset();
 			scene->AddDropItem(dropitem);
 			scene->RemoveCrops(scene->GetRemoveCrops(scene->GetCropsList()));
 		}
-	}
-	if (player->GetPosition() == GetPosition())
-	{
-		ItemInfo info = itemDataMgr::Instance().GetItem("hoe");
-		inventory->AddItem(info);
-		scene->RemoveDropItem(scene->GetRemoveDropItem(scene->GetDropItemList()));
 	}
 }
 
