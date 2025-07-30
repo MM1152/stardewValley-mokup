@@ -57,6 +57,10 @@ public:
 	std::list<Crops*> GetCropsList();
 	Crops* GetRemoveCrops(std::list<Crops*> cropslist);
 
+	void RemoveDropItem(DropItem* dropitem);
+	std::list<DropItem*> GetDropItemList();
+	DropItem* GetRemoveDropItem(std::list<DropItem*> dropitemList);
+
 	void AddDropItem(DropItem* dropitem);
 };
 

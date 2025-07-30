@@ -3,6 +3,7 @@
 
 class Inventory;
 class Player;
+class Crops;
 
 class DropItem :
     public GameObject
@@ -14,7 +15,7 @@ protected:
 
 	Inventory* inventory = nullptr;
 	Player* player = nullptr;
-
+	Crops* crops = nullptr;
 
 
 public:
@@ -35,6 +36,7 @@ public:
 
 	void SetInventory(Inventory* inv) { inventory = inv; };
 	void SetPlayer(Player* p) { player = p; };
+	void SetCrops(Crops* c) { crops = c; };
 
 
 };

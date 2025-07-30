@@ -361,6 +361,7 @@ Crops* SceneTest::GetRemoveCrops(std::list<Crops*> cropslist)
 	}
 }
 
+
 void SceneTest::AddDropItem(DropItem* dropitem)
 {
 	AddGameObject(dropitem);
@@ -372,8 +373,33 @@ void SceneTest::AddDropItem(DropItem* dropitem)
 			it->SetPlayer(player);
 			it->SetInventory(inventory);
 			inventory->SetDropItem(it);
+			for (auto crop : cropsList)
+			{
+				it->SetCrops(crop);
+			}
 		}
 	}
 }
+void SceneTest::RemoveDropItem(DropItem* dropitem)
+{
+	dropitem->SetActive(false);
+	dropitemList.remove(dropitem);
+}
+
+std::list<DropItem*> SceneTest::GetDropItemList()
+{
+	return dropitemList;
+}
+
+DropItem* SceneTest::GetRemoveDropItem(std::list<DropItem*> dropitemList)
+{
+	for (auto it : dropitemList)
+	{
+		return it;
+	}
+}
+
+
+
 
 
