@@ -11,7 +11,7 @@ public:
 
 	void Update(float dt) override;
 
-	void DragItem();
+	void DragItem(bool isDrag);
 	bool GetDrag() { return isDrag; };
 };
 

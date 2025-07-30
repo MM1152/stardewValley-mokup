@@ -13,7 +13,8 @@ void InUIItem::Update(float dt)
 	}
 }
 
-void InUIItem::DragItem()
+void InUIItem::DragItem(bool isDrag)
 {
-	isDrag = true;
+	this->isDrag = isDrag;
 }
+

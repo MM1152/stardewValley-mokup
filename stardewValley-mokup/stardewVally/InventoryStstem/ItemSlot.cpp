@@ -29,16 +29,29 @@ void ItemSlot::Update(float dt)
 	if (slot.getGlobalBounds().intersects(InputMgr::GetMouseUIRect())) {
 		slot.setFillColor(sf::Color(187, 187, 187));
 
-		if (InputMgr::GetMouseButtonDown(sf::Mouse::Left)) {
+		if (InputMgr::GetMouseButtonDown(sf::Mouse::Left) && !dragItem) {
 			if (item) {
-				item->DragItem();
+				item->DragItem(true);
 				dragItem = item;
 				item = nullptr;
 			}
 		}
-		if (InputMgr::GetMouseButtonUp(sf::Mouse::Left) && dragItem != nullptr) {
-			SetItem(dragItem);
-			dragItem = nullptr;
+		else if (InputMgr::GetMouseButtonDown(sf::Mouse::Left) && dragItem) {
+			if (GetItem()) {
+				InUIItem* copy = GetItem();
+
+				SetItem(dragItem);
+				dragItem->DragItem(false);
+				
+				dragItem = copy;
+				dragItem->DragItem(true);
+			}
+			else {
+				SetItem(dragItem);
+				dragItem->DragItem(false);
+				dragItem = nullptr;
+			}
+		
 		}
 	}
 	else {
