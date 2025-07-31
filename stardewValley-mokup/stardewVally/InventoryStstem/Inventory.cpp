@@ -12,6 +12,9 @@ Inventory::Inventory(const std::string& texId, const std::string& name)
 
 void Inventory::Init()
 {
+	TEXTURE_MGR.Load(GRAPHICS_PATH"tools.png");
+	TEXTURE_MGR.Load(INVEN_IMG_PATH"ItemSlot.png");
+
 	sortingLayer = SortingLayers::UI;
 	sortingOrder = 0;
 
@@ -42,6 +45,9 @@ void Inventory::Init()
 	hoe->Init();
 	pick = new InUIItem(itemDataMgr::Instance().GetItem("pick"));
 	pick->Init();
+
+	SetItem(hoe);
+	SetItem(pick);
 }
 
 void Inventory::Release()
@@ -55,15 +61,12 @@ void Inventory::Reset()
 
 	for (auto slot : equipSlots) {
 		slot->Reset();
-		
 	}
 	for (auto slot : unEquipSlots) {
 		slot->Reset();
 	}
 	hoe->Reset();
 	pick->Reset();
-	SetItem(hoe);
-	SetItem(pick);
 }
 
 void Inventory::Update(float dt)

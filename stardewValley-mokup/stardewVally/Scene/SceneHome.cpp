@@ -22,6 +22,8 @@ void SceneHome::Init()
 	texIds.push_back(INVEN_IMG_PATH"ItemSlot.png");
 	texIds.push_back(GRAPHICS_PATH"farmer_base.png");
 	texIds.push_back(GRAPHICS_PATH"hats.png");
+	texIds.push_back(GRAPHICS_PATH"tools.png");
+	texIds.push_back(GRAPHICS_PATH"springobjects.png");
 	texIds.push_back("graphics/parsnip_seeds.png");
 	texIds.push_back("graphics/cauliflower_seeds.png");
 	texIds.push_back("graphics/potato_seeds.png");
@@ -44,27 +46,13 @@ void SceneHome::Init()
 	//font
 	fontIds.push_back("fonts/DOSGothic.ttf");
 
-
-
-
-	AddGameObject(inventory);
-	AddGameObject(quickBar);
 	inventory->SetQuickBar(quickBar);
-	//TimeMoney
-
 	timemoney->Setplayer(player);
-	AddGameObject(timemoney);
-
-	//player
+	timemoney->Setplayer(player);
 	player->SetInventory(inventory);
 	player->SetTimer(timemoney);
-	AddGameObject(player);
-
-	timemoney->Setplayer(player);
-
 
 	const auto& items = itemDataMgr::Instance().GetShopItemList("Pierre's General Store");
-
 	for (const auto& item : items)
 	{
 		texIds.push_back(item.itemTextureId);
@@ -72,25 +60,18 @@ void SceneHome::Init()
 
 	tile = new TileMap(VertexType::Game);
 	forGround = new TileMap(VertexType::Game);
+
 	AddGameObject(tile);
 	AddGameObject(forGround);
-
-
+	AddGameObject(inventory);
+	AddGameObject(quickBar);
+	AddGameObject(player);
+	AddGameObject(timemoney);
 	// F9 Draw Collider
 	drawCollider = true;
 	Scene::Init();
+
 	map.Load(MAP_PATH"home");
-
-	for (auto tri : map.GetTriggers()) {
-		tri->Init();
-		tri->SetPlayer(player);
-		if (tri->GetType() == TriggerType::Door) {
-			tri->callback = [this]() {
-				SCENE_MGR.ChangeScene(SceneIds::Test);
-				};
-		}
-	}
-
 }
 
 void SceneHome::Enter()
@@ -111,12 +92,22 @@ void SceneHome::Enter()
 	player->SetMap(&map);
 	player->SetPosition({ 200.f, 280.f });
 
+	for (auto tri : map.GetTriggers()) {
+		tri->Init();
+		tri->SetPlayer(player);
+		if (tri->GetType() == TriggerType::Door) {
+			tri->callback = [this]() {
+				SCENE_MGR.ChangeScene(SceneIds::Test);
+			};
+		}
+	}
+
+
 }
 
 void SceneHome::Exit()
 {
 	Scene::Exit();
-	map.Release();
 }
 
 void SceneHome::Update(float dt)

@@ -24,11 +24,13 @@ private:
 	//TEST
 	InUIItem* hoe;
 	InUIItem* pick;
+	InUIItem* seed;
 public:
 	Inventory(const std::string& texId = ""  , const std::string& name = "");
 	~Inventory() override = default;
 
 	// GameObject��(��) ���� ��ӵ�
+
 	void Init() override;
 	void Release() override;
 	void Reset() override;
@@ -38,7 +40,6 @@ public:
 	bool SetItem(InUIItem* item);
 	void SetQuickBar(QuickBar* quickBar) { this->quickBar = quickBar; };
 	bool AddItem(const ItemInfo& info);
-	bool AddItem(DropItem* drop);
 
 	QuickBar* GetQuickBar() { return quickBar; }
 	void SetDropItem(DropItem* drop) { dropitem = drop; };

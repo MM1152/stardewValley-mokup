@@ -95,20 +95,13 @@ void SceneTest::Init()
 
 	AddGameObject(sellBox);
 	AddGameObject(dialogueBox);
+	AddGameObject(shop);
 
+	AddGameObject(npc);
 
-	AddGameObject(inventory);
-	AddGameObject(quickBar);
-	
-	//TimeMoney
-
-	AddGameObject(timemoney);
-
-	//shop
 	shop->SetInventory(inventory);
 	shop->SetPlayer(player);
 	shop->SetTimeMoeyUi(timemoney);
-	AddGameObject(shop);
 	//player & npc
 
 	player->SetNpcMgr(npc);
@@ -119,9 +112,6 @@ void SceneTest::Init()
 	npc->SetTimer(timemoney);
 	npc->SetInventory(inventory);
 	npc->SetDIalogueBox(dialogueBox);
-	AddGameObject(player);
-	AddGameObject(npc);
-
 
 	sellBox->SetInventory(inventory);
 	sellBox->SetPlayer(player);
@@ -178,10 +168,22 @@ void SceneTest::Init()
 	AddGameObject(forGround);
 
 	map.Init(tile, forGround);
+	map.Load(MAP_PATH"demomap");
+	objects = map.CreateObjects();
+
 	// F9 Draw Collider
 	drawCollider = true;
 
 	Scene::Init();
+
+	AddGameObject(player);
+	AddGameObject(inventory);
+	AddGameObject(quickBar);
+	AddGameObject(timemoney);
+
+	for (auto obj : objects) {
+		AddGameObject(obj);
+	}
 }
 
 void SceneTest::Enter()
@@ -197,12 +199,7 @@ void SceneTest::Enter()
 	Scene::Enter(); //push_back
 	player->SetPosition({ 208.f, 210.f });
 
-	map.Load(MAP_PATH"demomap");
-	objects = map.CreateObjects();
-	
-	for (auto obj : objects) {
-		AddGameObject(obj);
-	}
+
 
 	for (auto tri : map.GetTriggers()) {
 		tri->Init();
@@ -227,7 +224,6 @@ void SceneTest::Enter()
 void SceneTest::Exit()
 {
 	Scene::Exit();
-	map.Release();
 }
 
 void SceneTest::Update(float dt)
@@ -235,7 +231,6 @@ void SceneTest::Update(float dt)
 	Scene::Update(dt);
 	
 	CenterView();
-	
 
 	timemoney->SettingMoney(player->GetMoney());
 	timemoney->ResetSettingMoney();

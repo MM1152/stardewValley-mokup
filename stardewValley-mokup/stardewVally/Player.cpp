@@ -277,6 +277,7 @@ void Player::Update(float dt)
 	if (map)
 	{
 		int cellIdx = map->GetCellIndex({ (float)rowX, (float)rowY}, 0);
+		if (cellIdx >= map->GetCellDatas(0).size()) return;
 		if (InputMgr::GetKeyDown(sf::Keyboard::R)) {
 			std::cout << cellIdx << std::endl;
 		}

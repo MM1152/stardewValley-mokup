@@ -23,6 +23,9 @@ void ItemSlot::Release()
 void ItemSlot::Reset()
 {
 	slot.setTexture(&TEXTURE_MGR.Get(texId));
+	if (item) {
+		item->Reset();
+	}
 }
 
 void ItemSlot::Update(float dt)

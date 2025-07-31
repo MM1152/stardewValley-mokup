@@ -11,12 +11,11 @@ private:
 	sf::Text quantityText;
 public:
 	InUIItem(ItemInfo type);
-	InUIItem(DropItem* drop);
 	InUIItem() = default;
 	~InUIItem() override = default;
 
 	void Reset() override;
-	void Update(float dt) override;
+	void Update(float dt) override;	
 	void Draw(sf::RenderWindow& window) override;
 
 	void DragItem(bool isDrag);
