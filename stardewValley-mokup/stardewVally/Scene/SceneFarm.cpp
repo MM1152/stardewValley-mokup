@@ -173,7 +173,7 @@ void SceneFarm::Init()
 	AddGameObject(forGround);
 
 	map.Init(tile, forGround);
-	map.Load(MAP_PATH"demomap");
+	map.Load(MAP_PATH"realfarm");
 	objects = map.CreateObjects();
 
 	// F9 Draw Collider
