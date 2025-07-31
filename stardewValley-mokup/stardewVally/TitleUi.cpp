@@ -61,7 +61,7 @@ void TitleUi::Init()
 	startbnt->SetTextureRect({ 0, 121, 174, 121 });
 	startbnt->onClickFunc = [this]() {
 		if (!exitview && !toolview)
-		SCENE_MGR.ChangeScene(SceneIds::Test);
+		SCENE_MGR.ChangeScene(SceneIds::Home);
 		};
 
 	loadbnt = new Button("fonts/Stardew_Valley.ttf", "title/mainchoice.png", "load");

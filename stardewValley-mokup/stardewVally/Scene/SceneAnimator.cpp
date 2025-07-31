@@ -109,6 +109,7 @@ void SceneAnimator::Draw(sf::RenderWindow& window)
 
 void SceneAnimator::DrawRectangle()
 {
+    if (filePath.empty()) return;
     if (InputMgr::GetMouseButtonDown(sf::Mouse::Left)) {
         startDrawRect = true;
         rectStartPos = ScreenToWorld(InputMgr::GetMousePosition());
@@ -121,7 +122,7 @@ void SceneAnimator::DrawRectangle()
     if (InputMgr::GetMouseButton(sf::Mouse::Left) && startDrawRect) {
         rect[rect.size() - 1]->setSize({ScreenToWorld(InputMgr::GetMousePosition()).x - rectStartPos.x,ScreenToWorld(InputMgr::GetMousePosition()).y - rectStartPos.y });
     }
-    if (InputMgr::GetMouseButtonUp(sf::Mouse::Left)) {
+    if (InputMgr::GetMouseButtonUp(sf::Mouse::Left) && startDrawRect) {
         if ((int)rect[rect.size() - 1]->getSize().x == 0 || (int)rect[rect.size() - 1]->getSize().y == 0 ) {
             delete rect[rect.size() - 1];
             rect.pop_back();
