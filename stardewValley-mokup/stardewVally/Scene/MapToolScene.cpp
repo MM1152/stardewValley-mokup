@@ -18,6 +18,10 @@ void MapToolScene::Init()
 	fontIds.push_back(FONT_PATH"DOSGothic.ttf");
 	texIds.push_back(GRAPHICS_PATH"building.png");
 	texIds.push_back("graphics/spring.bmp");
+	texIds.push_back("graphics/home.png");
+	texIds.push_back("graphics/stroe.png");
+
+
 	texIds.push_back(GRAPHICS_PATH"springobjects.png");
 
 	mouseRect.setSize({ 10, 10 });
@@ -115,7 +119,8 @@ void MapToolScene::Init()
 		drawTileIdx = 0;
 		drawCollider = false;
 		startDraw = false;
-		tilemap1->SetTexture("graphics/spring.bmp");
+		//here1/3 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+		tilemap1->SetTexture("graphics/home.png");
 		};
 	tileBNT->sortingLayer = SortingLayers::UI;
 
@@ -218,7 +223,8 @@ void MapToolScene::Enter()
 	drawTile[2].Reset();
 	gridTile->Reset();
 	Scene::Enter();
-	tilemap1->Set({ 24, 25 }, { 16.f, 16.f }, "graphics/spring.bmp");
+	//here2/3 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+	tilemap1->Set({ 24, 25 }, { 16.f, 16.f }, "graphics/home.png");
 	
 	// ++ si add tile
 	gridTile->drawGrid({ 24, 25 }, { 16.f , 16.f });
@@ -236,7 +242,8 @@ void MapToolScene::Enter()
 	drawTile[1].SetPosition({ 300 , 300 });
 	drawTile[2].SetPosition({ 300 , 300 });
 
-	drawTile[0].SetTexture("graphics/spring.bmp");
+	//here3/3 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+	drawTile[0].SetTexture("graphics/home.png");
 	drawTile[1].SetTexture(GRAPHICS_PATH"building.png");
 	drawTile[2].SetTexture(GRAPHICS_PATH"springobjects.png");
 
