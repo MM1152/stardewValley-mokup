@@ -93,3 +93,8 @@ void Button::SetTextColor(sf::Color color)
 {
 	text.setFillColor(color);
 }
+
+void Button::SetTextureRect(sf::IntRect rect)
+{
+	bnt.setTextureRect(rect);
+}

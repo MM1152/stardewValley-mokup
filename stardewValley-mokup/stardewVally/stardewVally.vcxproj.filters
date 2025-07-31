@@ -52,6 +52,8 @@
     <ClCompile Include="InteractionObject.cpp" />
     <ClCompile Include="Pick.cpp" />
     <ClCompile Include="SellBox.cpp" />
+    <ClCompile Include="Scene\SceneTitle.cpp" />
+    <ClCompile Include="TitleUi.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Collider.h" />
@@ -109,5 +111,7 @@
     <ClInclude Include="InteractionObject.h" />
     <ClInclude Include="Pick.h" />
     <ClInclude Include="SellBox.h" />
+    <ClInclude Include="Scene\SceneTitle.h" />
+    <ClInclude Include="TitleUi.h" />
   </ItemGroup>
 </Project>

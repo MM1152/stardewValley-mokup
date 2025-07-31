@@ -175,6 +175,7 @@
     <ClInclude Include="InventoryStstem\QuickBar.h" />
     <ClInclude Include="Items\ItemInfo.h" />
     <ClInclude Include="InventoryStstem\QuickBar_Slot.h" />
+    <ClInclude Include="Scene\SceneTitle.h" />
     <ClInclude Include="Scene\SceneTileChangeTest.h" />
     <ClInclude Include="SceneAnimationTest.h" />
     <ClInclude Include="Scene\SceneHome.h" />
@@ -189,6 +190,7 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="TileMap.h" />
     <ClInclude Include="TimeMoneyUi.h" />
+    <ClInclude Include="TitleUi.h" />
     <ClInclude Include="Trigger.h" />
     <ClInclude Include="Variables.h" />
   </ItemGroup>
@@ -225,6 +227,7 @@
     <ClCompile Include="Mgr\itemDataMgr.cpp" />
     <ClCompile Include="Mgr\NpcMgr.cpp" />
     <ClCompile Include="Pick.cpp" />
+    <ClCompile Include="Scene\SceneTitle.cpp" />
     <ClCompile Include="Scene\SceneAnimator.cpp" />
     <ClCompile Include="Scene\SceneTileChangeTest.cpp" />
     <ClCompile Include="SceneAnimationTest.cpp" />
@@ -244,6 +247,7 @@
     </ClCompile>
     <ClCompile Include="TileMap.cpp" />
     <ClCompile Include="TimeMoneyUi.cpp" />
+    <ClCompile Include="TitleUi.cpp" />
     <ClCompile Include="Trigger.cpp" />
     <ClCompile Include="Variables.cpp" />
   </ItemGroup>

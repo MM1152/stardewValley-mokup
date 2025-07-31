@@ -7,6 +7,8 @@
 #include "SceneTileChangeTest.h"
 #include "SceneHome.h"
 #include "SceneAnimationTest.h"
+#include "SceneTitle.h"
+
 void SceneMgr::Init()
 {
 	scenes.insert({ SceneIds::Animator, new SceneAnimator() });
@@ -17,7 +19,7 @@ void SceneMgr::Init()
 	scenes.insert({ SceneIds::ChangeTile, new SceneTileChangeTest() });
 	scenes.insert({ SceneIds::Home, new SceneHome() });
 	scenes.insert({ SceneIds::AnimationTest , new SceneAnimationTest() });
-	
+	scenes.insert({ SceneIds::Title, new SceneTitle() });
 	for (auto scene : scenes)
 	{
 		scene.second->Init();
