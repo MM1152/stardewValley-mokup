@@ -43,24 +43,28 @@ void DropItem::Update(float dt)
 			{
 				ItemInfo info = itemDataMgr::Instance().GetItem("parsnip");
 				inventory->AddItem(info);
+				cellData.ge = GatherableType::None;
 				scene->RemoveDropItem(this);
 			}
 			if (dropitemId == "graphics/garlicdrop.png")
 			{
 				ItemInfo info = itemDataMgr::Instance().GetItem("garlic");
 				inventory->AddItem(info);
+				cellData.ge = GatherableType::None;
 				scene->RemoveDropItem(this);
 			}
 			if (dropitemId == "graphics/cauliflowerdrop.png")
 			{
 				ItemInfo info = itemDataMgr::Instance().GetItem("cauliflower");
 				inventory->AddItem(info);
+				cellData.ge = GatherableType::None;
 				scene->RemoveDropItem(this);
 			}
 			if (dropitemId == "graphics/potatodrop.png")
 			{
 				ItemInfo info = itemDataMgr::Instance().GetItem("potato");
 				inventory->AddItem(info);
+				cellData.ge = GatherableType::None;
 				scene->RemoveDropItem(this);
 			}
 		}

@@ -178,7 +178,6 @@
     <ClInclude Include="InventoryStstem\QuickBar_Slot.h" />
     <ClInclude Include="Scene\SceneTitle.h" />
     <ClInclude Include="Scene\SceneTileChangeTest.h" />
-    <ClInclude Include="SceneAnimationTest.h" />
     <ClInclude Include="Scene\SceneHome.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Scene\SceneAnimator.h" />

@@ -4,15 +4,16 @@
 #include "SceneAnimator.h"
 #include "MapToolScene.h"
 #include "SceneHome.h"
-#include "SceneAnimationTest.h"
+#include "SceneTitle.h"
+
 void SceneMgr::Init()
 {
 	scenes.insert({ SceneIds::Animator, new SceneAnimator() });
 	scenes.insert({ SceneIds::Maptool, new MapToolScene() });
 	scenes.insert({ SceneIds::Test, new SceneTest() });
-	scenes.insert({ SceneIds::Animator, new SceneAnimator() });
 	scenes.insert({ SceneIds::Home, new SceneHome() });
-	scenes.insert({ SceneIds::AnimationTest , new SceneAnimationTest() });
+	scenes.insert({ SceneIds::Title, new SceneTitle() });
+
 	
 	for (auto scene : scenes)
 	{

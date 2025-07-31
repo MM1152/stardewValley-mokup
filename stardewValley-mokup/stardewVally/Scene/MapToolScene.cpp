@@ -219,12 +219,15 @@ void MapToolScene::Enter()
 	gridTile->Reset();
 	Scene::Enter();
 	tilemap1->Set({ 24, 25 }, { 16.f, 16.f }, "graphics/spring.bmp");
+	
+	// ++ si add tile
 	gridTile->drawGrid({ 24, 25 }, { 16.f , 16.f });
 
 	drawTile[0].Set({ 24, 25 }, { 16.f , 16.f });
 	drawTile[1].Set({ 24, 25 }, { 16.f , 16.f });
 	drawTile[2].Set({ 24, 25 }, { 16.f , 16.f });
 
+	//
 	tilemap1->SetPosition({FRAMEWORK.GetWindowSizeF().x / 2 + 200.f, FRAMEWORK.GetWindowSizeF().y / 2 - 260.f });
 	tilemap1->sortingLayer = SortingLayers::UI;
 	gridTile->SetPosition({ 300 , 300});
