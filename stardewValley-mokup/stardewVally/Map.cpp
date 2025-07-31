@@ -117,7 +117,7 @@ void Map::LoadCollider(const std::string path)
         colliders[colliders.size() - 1]->setSize(size);
         colliders[colliders.size() - 1]->setPosition(pos);
         colliders[colliders.size() - 1]->setFillColor(sf::Color::Transparent);
-        colliders[colliders.size() - 1]->setOutlineColor(sf::Color::Green);
+        colliders[colliders.size() - 1]->setOutlineColor(sf::Color::Red);
         colliders[colliders.size() - 1]->setOutlineThickness(1.f);
     }
 }

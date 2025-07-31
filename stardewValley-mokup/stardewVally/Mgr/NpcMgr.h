@@ -28,7 +28,7 @@ protected:
 	std::function<void()> callback; 
 	std::function<void()> talkCallback;
 	bool isShopOpened = false;
-
+	bool isOpenDiaLog = false;
 	bool isNpcMove = true;
 public:
 	NpcMgr(const std::string& name = "Npc");

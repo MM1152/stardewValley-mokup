@@ -2,7 +2,7 @@
 #include "Inventory.h"
 #include "ItemSlot.h"
 #include "QuickBar.h"
-
+#include "ItemToolTip.h"
 Inventory::Inventory(const std::string& texId, const std::string& name)
 	:GameObject(name)
 	, texId(texId)
@@ -20,6 +20,8 @@ void Inventory::Init()
 
 	inv_BackGround.setSize({ 65 * 12 + 45.f , 270 });
 	inv_BackGround.setPosition({ FRAMEWORK.GetWindowSizeF().x / 2 - 400.f , FRAMEWORK.GetWindowSizeF().y / 2 - 300.f});
+
+	toolTip = new ItemToolTip();
 
 	slotSize = 24;
 	for (int i = 0; i < 12; i++) {
@@ -45,7 +47,7 @@ void Inventory::Init()
 	hoe->Init();
 	pick = new InUIItem(itemDataMgr::Instance().GetItem("pick"));
 	pick->Init();
-
+	toolTip->Init();
 	SetItem(hoe);
 	SetItem(pick);
 }
@@ -67,21 +69,35 @@ void Inventory::Reset()
 	}
 	hoe->Reset();
 	pick->Reset();
+	toolTip->Reset();
 }
 
 void Inventory::Update(float dt)
 {
+	selectedSlot = false;
 	for (int i = 0; i < equipSlots.size(); i++) {
 		equipSlots[i]->Update(dt);
 		quickBar->SetItem(equipSlots[i]->GetItem(), i);
+		if (equipSlots[i]->GetOnMouse()) {
+			toolTip->SetItemInfo(equipSlots[i]->GetItem());
+			selectedSlot = true;
+		}
+	
 	}
 	for (auto slot : unEquipSlots) {
 		slot->Update(dt);
+		if (slot->GetOnMouse()) {
+			toolTip->SetItemInfo(slot->GetItem());
+			selectedSlot = true;
+		}
 	}
+
+	if (!selectedSlot) toolTip->SetItemInfo(nullptr);
+
 	if (ItemSlot::dragItem) {
 		ItemSlot::dragItem->Update(dt);
 	}
-	
+	toolTip->Update(dt);
 }
 
 void Inventory::Draw(sf::RenderWindow& window)
@@ -99,7 +115,7 @@ void Inventory::Draw(sf::RenderWindow& window)
 	if (ItemSlot::dragItem) {
 		ItemSlot::dragItem->Draw(window);
 	}
-
+	toolTip->Draw(window);
 }
 
 //가방 돌면서 비어있는 슬릇확인, 비어있는 곳은 true 없으면 false

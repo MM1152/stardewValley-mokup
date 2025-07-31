@@ -5,6 +5,7 @@
 #include "DropItem.h"
 #include "Crops.h"
 
+class ItemToolTip;
 class ItemSlot;
 class Inventory : public GameObject
 {
@@ -25,6 +26,10 @@ private:
 	InUIItem* hoe;
 	InUIItem* pick;
 	InUIItem* seed;
+
+	ItemToolTip* toolTip;
+
+	bool selectedSlot = false;
 public:
 	Inventory(const std::string& texId = ""  , const std::string& name = "");
 	~Inventory() override = default;

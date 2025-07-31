@@ -5,6 +5,7 @@
 enum class TriggerType{
 	None,
 	Door,
+	Bed,
 };
 
 class Player;

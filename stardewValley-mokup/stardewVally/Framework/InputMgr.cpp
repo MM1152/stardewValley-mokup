@@ -218,5 +218,10 @@ sf::Vector2i InputMgr::GetMousePosition()
 	return mousePosition; 
 }
 
+sf::Vector2f InputMgr::GetMousePositionInUI()
+{
+	return SCENE_MGR.GetCurrentScene()->ScreenToUi(mousePosition);
+}
+
 
 

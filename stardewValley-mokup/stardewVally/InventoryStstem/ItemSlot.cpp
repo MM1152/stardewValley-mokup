@@ -37,7 +37,7 @@ void ItemSlot::Update(float dt)
 
 	if (slot.getGlobalBounds().intersects(InputMgr::GetMouseUIRect())) {
 		slot.setFillColor(sf::Color(187, 187, 187));
-
+		onMouse = true;
 		if (InputMgr::GetMouseButtonDown(sf::Mouse::Left) && !dragItem) {
 			if (item) {
 				item->DragItem(true);
@@ -48,7 +48,6 @@ void ItemSlot::Update(float dt)
 		else if (InputMgr::GetMouseButtonDown(sf::Mouse::Left) && dragItem) {
 			if (GetItem()) {
 				InUIItem* copy = GetItem();
-
 				SetItem(dragItem);
 				dragItem->DragItem(false);
 				dragItem = copy;
@@ -63,6 +62,7 @@ void ItemSlot::Update(float dt)
 	}
 	else {
 		slot.setFillColor(sf::Color::White);
+		onMouse = false;
 	}
 }
 

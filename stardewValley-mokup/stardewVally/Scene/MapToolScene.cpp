@@ -37,6 +37,8 @@ void MapToolScene::Init()
 #pragma region Buttons
 
 	triggerTypeButton.push_back(new Button(FONT_PATH"DOSGothic.ttf"));
+	triggerTypeButton.push_back(new Button(FONT_PATH"DOSGothic.ttf"));
+
 	triggerTypeButton[0]->SetTextColor(sf::Color::Black);
 	triggerTypeButton[0]->SetPosition({ FRAMEWORK.GetWindowSizeF().x / 2.f , FRAMEWORK.GetWindowSizeF().y / 2.f });
 	triggerTypeButton[0]->onClickFunc = [this]() {
@@ -44,6 +46,13 @@ void MapToolScene::Init()
 		isShowTriggerBox = false;
 		drawTrigger = false;
 	};
+	triggerTypeButton[1]->SetTextColor(sf::Color::Black);
+	triggerTypeButton[1]->SetPosition({ FRAMEWORK.GetWindowSizeF().x * 0.6f , FRAMEWORK.GetWindowSizeF().y / 2.f });
+	triggerTypeButton[1]->onClickFunc = [this]() {
+		triggers[triggers.size() - 1]->SetType(TriggerType::Bed);
+		isShowTriggerBox = false;
+		drawTrigger = false;
+		};
 
 	Button* objects = new Button(FONT_PATH"DOSGothic.ttf");
 	objects->SetString("Objects");
@@ -233,7 +242,7 @@ void MapToolScene::Enter()
 	}
 
 	triggerTypeButton[0]->SetString("Door");
-
+	triggerTypeButton[1]->SetString("Bed");
 }
 
 //FIX : 버튼 클릭시 Rectagle 생성되는 버그 수정 필요
@@ -414,7 +423,7 @@ void MapToolScene::DrawColliderBox()
 			startDraw = true;
 			colliders.push_back(new sf::RectangleShape());
 			colliders[colliders.size() - 1]->setFillColor(sf::Color::Transparent);
-			colliders[colliders.size() - 1]->setOutlineColor(sf::Color::Blue);
+			colliders[colliders.size() - 1]->setOutlineColor(sf::Color::Red);
 			colliders[colliders.size() - 1]->setOutlineThickness(1.f);
 			drawStartPos = ScreenToWorld(InputMgr::GetMousePosition());
 			colliders[colliders.size() - 1]->setPosition(drawStartPos);

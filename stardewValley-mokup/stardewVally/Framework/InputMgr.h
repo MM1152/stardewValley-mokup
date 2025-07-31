@@ -62,5 +62,6 @@ public:
 	static sf::FloatRect GetMouseUIRect();
 
 	static sf::Vector2i GetMousePosition();
+	static sf::Vector2f GetMousePositionInUI();
 };
 

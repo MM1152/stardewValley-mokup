@@ -15,6 +15,7 @@
 #include "InteractionObject.h"
 #include "DropItem.h"
 #include "SellBox.h"
+#include "ItemToolTip.h"
 SceneTest::SceneTest()
 	: Scene(SceneIds::Test)
 {
@@ -93,6 +94,8 @@ void SceneTest::Init()
 	dialogueBox = new DialogueBox("DialogueBox");
 	sellBox = new SellBox("SellBox");
 
+
+
 	AddGameObject(sellBox);
 	AddGameObject(dialogueBox);
 	AddGameObject(shop);
@@ -121,6 +124,7 @@ void SceneTest::Init()
 
 	DialogueLoader::Instance().LoadFromJson("data/Dialogues.json");
 	
+
 	const auto& items = itemDataMgr::Instance().GetShopItemList("Pierre's General Store");
 	std::cout << items.size() << std::endl;
 	for (const auto& item : items)

@@ -11,6 +11,7 @@ private:
 	sf::RectangleShape slot;
 
 	InUIItem* item = nullptr;
+	bool onMouse = false;
 public:
 	static InUIItem* dragItem;
 
@@ -25,8 +26,9 @@ public:
 	void Draw(sf::RenderWindow& window) override;
 
 	void SetPosition(const sf::Vector2f& pos) override;
-	virtual bool SetItem(InUIItem* item);
 	InUIItem* GetItem() { return item; };
+	bool GetOnMouse() { return onMouse; };
+	virtual bool SetItem(InUIItem* item);
 	bool IsSetting() { return item; };
 	void RemoveItem() { item = nullptr; };
 };

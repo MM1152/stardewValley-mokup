@@ -165,6 +165,7 @@
     <ClInclude Include="Items\InUIItem.h" />
     <ClInclude Include="Items\InGameItem.h" />
     <ClInclude Include="InputText.h" />
+    <ClInclude Include="ItemToolTip.h" />
     <ClInclude Include="Mgr\itemDataMgr.h" />
     <ClInclude Include="Mgr\NpcMgr.h" />
     <ClInclude Include="Pick.h" />
@@ -219,6 +220,7 @@
     <ClCompile Include="Items\Item.cpp" />
     <ClCompile Include="InventoryStstem\ItemSlot.cpp" />
     <ClCompile Include="InventoryStstem\QuickBar.cpp" />
+    <ClCompile Include="ItemToolTip.cpp" />
     <ClCompile Include="Mgr\itemDataMgr.cpp" />
     <ClCompile Include="Mgr\NpcMgr.cpp" />
     <ClCompile Include="Pick.cpp" />

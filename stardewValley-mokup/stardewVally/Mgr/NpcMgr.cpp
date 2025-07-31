@@ -132,6 +132,7 @@ void NpcMgr::Update(float dt)
 	if (!player->GetOpenInven() && !player->GetOpenShop()) {
 		if (IsTalkCollidingPlayer(playerRect)) 
 		{
+			// 매 키 입력마다 player bool 값이 변경되는 오류발생 중
 			if (InputMgr::GetKeyDown(sf::Keyboard::X)) 
 			{
 				if (dialogueBox)
@@ -140,10 +141,11 @@ void NpcMgr::Update(float dt)
 					timemoneyui->ChangeTimer();
 					isNpcMove = false;
 				}
-				if (talkCallback)
+				if (talkCallback) 
 				{
 					talkCallback();
 				}
+			
 			}
 			else if (!talkCallback ) 
 			{
