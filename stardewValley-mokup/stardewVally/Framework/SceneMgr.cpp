@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "SceneMgr.h"
-#include "SceneTest.h"
+#include "SceneFarm.h"
 #include "SceneAnimator.h"
 #include "MapToolScene.h"
 #include "SceneHome.h"
@@ -11,7 +11,7 @@ void SceneMgr::Init()
 	scenes.insert({ SceneIds::Animator, new SceneAnimator() });
 	scenes.insert({ SceneIds::Maptool, new MapToolScene() });
 	scenes.insert({ SceneIds::Home, new SceneHome() });
-	scenes.insert({ SceneIds::Test, new SceneTest() });
+	scenes.insert({ SceneIds::Farm, new SceneFarm() });
 	scenes.insert({ SceneIds::Title, new SceneTitle() });
 
 	

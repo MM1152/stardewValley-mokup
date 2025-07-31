@@ -69,8 +69,8 @@ protected:
 	Button* colliderBNT;
 
 	Button* gotitleBNT;
-	Button* gtyesbnt;
-	Button* gtnobnt;
+	Button* gtyesBNT;
+	Button* gtnoBNT;
 
 public:
 	static int drawTileIdx;

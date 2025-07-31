@@ -3,7 +3,7 @@
 #include "Map.h"
 #include "Player.h"
 #include "Crops.h"
-#include "SceneTest.h"
+#include "SceneFarm.h"
 
 Seeds::Seeds(ItemInfo info)
 	:InGameItem(info)
@@ -24,7 +24,7 @@ bool Seeds::UseItem()
 	if (cellData.idx == 308 && GetItemInfo()->itemId == "parsnip_seeds")
 	{
 		if (cellData.ge == GatherableType::None) {
-			SceneTest* scene = (SceneTest*)SCENE_MGR.GetCurrentScene();
+			SceneFarm* scene = (SceneFarm*)SCENE_MGR.GetCurrentScene();
 			cellData.ge = GatherableType::Seed;
 			crops = new Crops;
 			crops->Init();
@@ -42,7 +42,7 @@ bool Seeds::UseItem()
 	if (cellData.idx == 308 && GetItemInfo()->itemId == "cauliflower_seeds")
 	{
 		if (cellData.ge == GatherableType::None) {
-			SceneTest* scene = (SceneTest*)SCENE_MGR.GetCurrentScene();
+			SceneFarm* scene = (SceneFarm*)SCENE_MGR.GetCurrentScene();
 			cellData.ge = GatherableType::Seed;
 			crops = new Crops;
 			crops->Init();
@@ -60,7 +60,7 @@ bool Seeds::UseItem()
 	if (cellData.idx == 308 && GetItemInfo()->itemId == "potato_seeds")
 	{
 		if (cellData.ge == GatherableType::None) {
-			SceneTest* scene = (SceneTest*)SCENE_MGR.GetCurrentScene();
+			SceneFarm* scene = (SceneFarm*)SCENE_MGR.GetCurrentScene();
 			cellData.ge = GatherableType::Seed;
 			crops = new Crops;
 			crops->Init();
@@ -78,7 +78,7 @@ bool Seeds::UseItem()
 	if (cellData.idx == 308 && GetItemInfo()->itemId == "garlic_seeds")
 	{
 		if (cellData.ge == GatherableType::None) {
-			SceneTest* scene = (SceneTest*)SCENE_MGR.GetCurrentScene();
+			SceneFarm* scene = (SceneFarm*)SCENE_MGR.GetCurrentScene();
 			cellData.ge = GatherableType::Seed;
 			crops = new Crops;
 			crops->Init();

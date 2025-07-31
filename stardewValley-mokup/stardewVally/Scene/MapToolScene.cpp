@@ -32,7 +32,7 @@ void MapToolScene::Init()
 	texIds.push_back("title/save.png");
 	texIds.push_back("title/yes.png");
 	texIds.push_back("title/no.png");
-	texIds.push_back("title/yes_or_no.png");
+	texIds.push_back("title/gotitleyes_or_no.png");
 	texIds.push_back("title/tile.png");
 	texIds.push_back("title/trigger.png");
 	texIds.push_back("title/delete.png");
@@ -242,30 +242,30 @@ void MapToolScene::Init()
 		};
 	gotitleBNT->sortingLayer = SortingLayers::UI;
 
-	gtyesbnt = new Button("fonts/Stardew_Valley.ttf", "title/yes.png", "yes");
-	gtyesbnt->SetString("         ");
-	gtyesbnt->SetScale({ 1.1f, 2.33f });
-	gtyesbnt->SetPosition({ 462.f, 415.f });
-	gtyesbnt->onClickFunc = [this]() {
+	gtyesBNT = new Button("fonts/DOSGothic.ttf", "title/yes.png", "yes");
+	gtyesBNT->SetString("         ");
+	gtyesBNT->SetScale({ 1.1f, 2.33f });
+	gtyesBNT->SetPosition({ 462.f, 415.f });
+	gtyesBNT->onClickFunc = [this]() {
 		if (gotitleview)
 		{
 			gotitleview = false;
 			SCENE_MGR.ChangeScene(SceneIds::Title);
 		}
 		};
-	gtyesbnt->sortingLayer = SortingLayers::UI;
+	gtyesBNT->sortingLayer = SortingLayers::UI;
 
-	gtnobnt = new Button("fonts/Stardew_Valley.ttf", "title/no.png", "no");
-	gtnobnt->SetString("         ");
-	gtnobnt->SetScale({ 1.1f, 2.33f });
-	gtnobnt->SetPosition({ 679.f, 415.f });
-	gtnobnt->onClickFunc = [this]() {
+	gtnoBNT = new Button("fonts/DOSGothic.ttf", "title/no.png", "no");
+	gtnoBNT->SetString("         ");
+	gtnoBNT->SetScale({ 1.1f, 2.33f });
+	gtnoBNT->SetPosition({ 679.f, 415.f });
+	gtnoBNT->onClickFunc = [this]() {
 		if (gotitleview)
 		{
 			gotitleview = false;
 		}
 		};
-	gtnobnt->sortingLayer = SortingLayers::UI;
+	gtnoBNT->sortingLayer = SortingLayers::UI;
 
 #pragma endregion
 
@@ -294,8 +294,8 @@ void MapToolScene::Init()
 	AddGameObject(loadBNT);
 
 	AddGameObject(gotitleBNT);
-	AddGameObject(gtyesbnt);
-	AddGameObject(gtnobnt);
+	AddGameObject(gtyesBNT);
+	AddGameObject(gtnoBNT);
 
 	Scene::Init();
 
@@ -343,7 +343,7 @@ void MapToolScene::Enter()
 	triggerTypeButton[0]->SetString("Door");
 	triggerTypeButton[1]->SetString("Bed");
 
-	gotitleyes_or_no.setTexture(TEXTURE_MGR.Get("title/yes_or_no.png"));
+	gotitleyes_or_no.setTexture(TEXTURE_MGR.Get("title/gotitleyes_or_no.png"));
 }
 
 //FIX : 버튼 클릭시 Rectagle 생성되는 버그 수정 필요
@@ -375,16 +375,19 @@ void MapToolScene::Update(float dt)
 	DragToMoveScreen(dt);
 	if (!gotitleview)
 	{
-		gtyesbnt->SetActive(false);
-		gtnobnt->SetActive(false);
+		gtyesBNT->SetActive(false);
+		gtnoBNT->SetActive(false);
 	}
 	else
 	{
-		gtyesbnt->SetActive(true);
-		gtnobnt->SetActive(true);
+		gtyesBNT->SetActive(true);
+		gtnoBNT->SetActive(true);
 	}
 	Scene::Update(dt);
-	
+	if (InputMgr::GetKeyDown(sf::Keyboard::Escape))
+	{
+		gotitleview = false;
+	}
 	
 }
 
@@ -417,8 +420,8 @@ void MapToolScene::Draw(sf::RenderWindow& window)
 	if (gotitleview)
 	{
 		window.draw(gotitleyes_or_no);
-		gtyesbnt->Draw(window);
-		gtnobnt->Draw(window);
+		gtyesBNT->Draw(window);
+		gtnoBNT->Draw(window);
 	}
 
 	//drawTile[2].Draw();

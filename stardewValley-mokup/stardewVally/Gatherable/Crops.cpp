@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Crops.h"
 #include "TimeMoneyUi.h"
-#include "SceneTest.h"
+#include "SceneFarm.h"
 #include "DropItem.h"
 #include "Inventory.h"
 #include "Player.h"
@@ -40,7 +40,7 @@ void Crops::DropItems()
 	int cellIdx = map->GetCellIndex(holePos, 0);
 	CellData& cellData = map->GetCell(cellIdx, 0);
 
-	SceneTest* scene = (SceneTest*)SCENE_MGR.GetCurrentScene();
+	SceneFarm* scene = (SceneFarm*)SCENE_MGR.GetCurrentScene();
 
 	if (InputMgr::GetMouseButtonDown(sf::Mouse::Left) || InputMgr::GetKeyDown(sf::Keyboard::C))
 	{

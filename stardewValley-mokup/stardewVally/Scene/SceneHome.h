@@ -2,7 +2,7 @@
 #include "Scene.h"
 #include "TileMap.h"
 #include "Shop.h"
-#include "SceneTest.h"
+#include "SceneFarm.h"
 #include "TimeMoneyUi.h"
 
 class TimeMoneyUi;

@@ -93,14 +93,14 @@ void SceneHome::Enter()
 	forGround->Set(map.GetTextId(1), map.GetCellDatas(1));
 
 	player->SetMap(&map);
-	player->SetPosition({ 200.f, 280.f });
+	player->SetPosition({ 193.f, 280.f });
 
 	for (auto tri : map.GetTriggers()) {
 		tri->Init();
 		tri->SetPlayer(player);
 		if (tri->GetType() == TriggerType::Door) {
 			tri->callback = [this]() {
-				SCENE_MGR.ChangeScene(SceneIds::Test);
+				SCENE_MGR.ChangeScene(SceneIds::Farm);
 			};
 		}
 	}

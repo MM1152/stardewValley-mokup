@@ -19,7 +19,7 @@ class Crops;
 class DropItem;
 class SellBox;
 
-class SceneTest : public Scene
+class SceneFarm : public Scene
 {
 protected:
 	NpcMgr* npc = nullptr;
@@ -39,8 +39,8 @@ protected:
 
 	bool drawCollider;
 public:
-	SceneTest();
-	~SceneTest() = default;
+	SceneFarm();
+	~SceneFarm() = default;
 
 	void Init() override;
 	void Enter() override;

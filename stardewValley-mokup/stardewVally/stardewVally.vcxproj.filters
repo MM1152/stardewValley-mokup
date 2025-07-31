@@ -37,7 +37,7 @@
     <ClCompile Include="Scene\MapToolScene.cpp" />
     <ClCompile Include="Items\Seeds.cpp" />
     <ClCompile Include="Shop.cpp" />
-    <ClCompile Include="Scene\SceneTest.cpp" />
+    <ClCompile Include="Scene\SceneFarm.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="TileMap.cpp" />
     <ClCompile Include="TimeMoneyUi.cpp" />
@@ -92,7 +92,7 @@
     <ClInclude Include="Map.h" />
     <ClInclude Include="Scene\SceneAnimator.h" />
     <ClInclude Include="Scene\MapToolScene.h" />
-    <ClInclude Include="Scene\SceneTest.h" />
+    <ClInclude Include="Scene\SceneFarm.h" />
     <ClInclude Include="Items\Seeds.h" />
     <ClInclude Include="Shop.h" />
     <ClInclude Include="stdafx.h" />
@@ -109,5 +109,6 @@
     <ClInclude Include="Scene\SceneTitle.h" />
     <ClInclude Include="TitleUi.h" />
     <ClInclude Include="ItemToolTip.h" />
+    <ClInclude Include="Scene\SceneTileChangeTest.h" />
   </ItemGroup>
 </Project>

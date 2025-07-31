@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "SceneTest.h"
+#include "SceneFarm.h"
 #include "TileMap.h"
 #include "SpriteGo.h"
 #include "Player.h"
@@ -16,12 +16,12 @@
 #include "DropItem.h"
 #include "SellBox.h"
 
-SceneTest::SceneTest()
-	: Scene(SceneIds::Test)
+SceneFarm::SceneFarm()
+	: Scene(SceneIds::Farm)
 {
 }
 
-void SceneTest::Init()
+void SceneFarm::Init()
 {
 	texIds.push_back(GRAPHICS_PATH"tools.png");
 	texIds.push_back(GRAPHICS_PATH"farmer_base.png");
@@ -193,7 +193,7 @@ void SceneTest::Init()
 	inventory->SetSellBox(sellBox);
 }
 
-void SceneTest::Enter()
+void SceneFarm::Enter()
 {
 	FRAMEWORK.GetWindow().setMouseCursorVisible(true);
 	worldView.setSize({ FRAMEWORK.GetWindowSizeF().x / 4, FRAMEWORK.GetWindowSizeF().y / 4 });
@@ -229,12 +229,12 @@ void SceneTest::Enter()
 	player->sortingLayer = SortingLayers::Foreground;
 }
 
-void SceneTest::Exit()
+void SceneFarm::Exit()
 {
 	Scene::Exit();
 }
 
-void SceneTest::Update(float dt)
+void SceneFarm::Update(float dt)
 {
 	Scene::Update(dt);
 	
@@ -261,7 +261,7 @@ void SceneTest::Update(float dt)
 	}
 }
 
-void SceneTest::Draw(sf::RenderWindow& window)
+void SceneFarm::Draw(sf::RenderWindow& window)
 {
 
 	Scene::Draw(window);
@@ -279,7 +279,7 @@ void SceneTest::Draw(sf::RenderWindow& window)
 	}
 }
 
-void SceneTest::CenterView()
+void SceneFarm::CenterView()
 {
 	// left view
 	if (player->GetPosition().x <= tile->GetLocalBounds().left + worldView.getSize().x / 2 &&
@@ -331,7 +331,7 @@ void SceneTest::CenterView()
 	}
 }
 
-void SceneTest::AddCrops(Crops* crops)
+void SceneFarm::AddCrops(Crops* crops)
 {
 	AddGameObject(crops);
 	cropsList.push_back(crops);
@@ -349,13 +349,13 @@ void SceneTest::AddCrops(Crops* crops)
 		}
 	}
 }
-void SceneTest::RemoveCrops(Crops* crops)
+void SceneFarm::RemoveCrops(Crops* crops)
 {
 	crops->SetActive(false);
 	cropsList.remove(crops);
 }
 
-void SceneTest::AddDropItem(DropItem* dropitem)
+void SceneFarm::AddDropItem(DropItem* dropitem)
 {
 	AddGameObject(dropitem);
 	dropitemList.push_back(dropitem);
@@ -374,7 +374,7 @@ void SceneTest::AddDropItem(DropItem* dropitem)
 	}
 }
 
-void SceneTest::RemoveDropItem(DropItem* dropitem)
+void SceneFarm::RemoveDropItem(DropItem* dropitem)
 {
 	dropitem->SetActive(false);
 	dropitemList.remove(dropitem);
