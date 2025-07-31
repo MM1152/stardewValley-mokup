@@ -25,7 +25,7 @@ void Button::Reset()
 		bnt.setTexture(&TEXTURE_MGR.Get(texId));
 	}
 	else {
-		//bnt.setSize({ 100.f, (float)text.getCharacterSize() });
+		bnt.setSize({ 100.f, (float)text.getCharacterSize() });
 	}
 
 }

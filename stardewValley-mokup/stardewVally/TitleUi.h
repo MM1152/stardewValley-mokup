@@ -6,7 +6,17 @@ class Button;
 class TitleUi : public GameObject
 {
 protected:
+	bool exitview = false;
+
 	sf::Sprite title;
+	sf::Sprite yes_or_no;
+	Button* startbnt;
+	Button* loadbnt;
+	Button* maptoolbnt;
+	Button* exitbnt;
+
+	Button* yesbnt;
+	Button* nobnt;
 
 public:
 	TitleUi(const std::string& name = "");
