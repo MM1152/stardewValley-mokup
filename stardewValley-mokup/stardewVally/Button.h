@@ -32,5 +32,6 @@ public:
 
 	void SetString(const std::string word);
 	void SetTextColor(sf::Color color);
+	void SetTextureRect(sf::IntRect rect);
 };
 

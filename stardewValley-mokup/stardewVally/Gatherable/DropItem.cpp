@@ -35,31 +35,34 @@ void DropItem::Update(float dt)
 	CellData& cellData = map->GetCell(cellIdx, 0);
 
 	SceneTest* scene = (SceneTest*)SCENE_MGR.GetCurrentScene();
-	if (InputMgr::GetMouseButtonDown(sf::Mouse::Right) && cellData.cellPosition[0] == GetPosition())
+	if (InputMgr::GetMouseButtonDown(sf::Mouse::Right) || InputMgr::GetKeyDown(sf::Keyboard::C))
 	{
-		if (dropitemId == "graphics/parsnipdrop.png")
-		{
-			ItemInfo info = itemDataMgr::Instance().GetItem("parsnip");
-			inventory->AddItem(info);
-			scene->RemoveDropItem(this);
-		}
-		if (dropitemId == "graphics/garlicdrop.png")
-		{
-			ItemInfo info = itemDataMgr::Instance().GetItem("garlic");
-			inventory->AddItem(info);
-			scene->RemoveDropItem(this);
-		}
-		if (dropitemId == "graphics/cauliflowerdrop.png")
-		{
-			ItemInfo info = itemDataMgr::Instance().GetItem("cauliflower");
-			inventory->AddItem(info);
-			scene->RemoveDropItem(this);
-		}
-		if (dropitemId == "graphics/potatodrop.png")
-		{
-			ItemInfo info = itemDataMgr::Instance().GetItem("potato");
-			inventory->AddItem(info);
-			scene->RemoveDropItem(this);
+		if(cellData.cellPosition[0] == GetPosition())
+		{ 
+			if (dropitemId == "graphics/parsnipdrop.png")
+			{
+				ItemInfo info = itemDataMgr::Instance().GetItem("parsnip");
+				inventory->AddItem(info);
+				scene->RemoveDropItem(this);
+			}
+			if (dropitemId == "graphics/garlicdrop.png")
+			{
+				ItemInfo info = itemDataMgr::Instance().GetItem("garlic");
+				inventory->AddItem(info);
+				scene->RemoveDropItem(this);
+			}
+			if (dropitemId == "graphics/cauliflowerdrop.png")
+			{
+				ItemInfo info = itemDataMgr::Instance().GetItem("cauliflower");
+				inventory->AddItem(info);
+				scene->RemoveDropItem(this);
+			}
+			if (dropitemId == "graphics/potatodrop.png")
+			{
+				ItemInfo info = itemDataMgr::Instance().GetItem("potato");
+				inventory->AddItem(info);
+				scene->RemoveDropItem(this);
+			}
 		}
 	}
 }

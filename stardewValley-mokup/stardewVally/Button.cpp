@@ -25,7 +25,7 @@ void Button::Reset()
 		bnt.setTexture(&TEXTURE_MGR.Get(texId));
 	}
 	else {
-		//bnt.setSize({ 100.f, (float)text.getCharacterSize() });
+		bnt.setSize({ 100.f, (float)text.getCharacterSize() });
 	}
 
 }
@@ -92,4 +92,9 @@ void Button::SetString(const std::string word)
 void Button::SetTextColor(sf::Color color)
 {
 	text.setFillColor(color);
+}
+
+void Button::SetTextureRect(sf::IntRect rect)
+{
+	bnt.setTextureRect(rect);
 }

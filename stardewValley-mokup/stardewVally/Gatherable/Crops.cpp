@@ -42,47 +42,50 @@ void Crops::DropItems()
 
 	SceneTest* scene = (SceneTest*)SCENE_MGR.GetCurrentScene();
 
-	if (InputMgr::GetMouseButtonDown(sf::Mouse::Left) && cellData.cellPosition[0] == GetCurrentCropsPosition())
+	if (InputMgr::GetMouseButtonDown(sf::Mouse::Left) || InputMgr::GetKeyDown(sf::Keyboard::C))
 	{
-		if (parsnip_interaction)
+		if (cellData.cellPosition[0] == GetCurrentCropsPosition())
 		{
-			dropitem = new DropItem("", "graphics/parsnipdrop.png");
-			dropitem->Init();
-			dropitem->SetPosition(GetCurrentCropsPosition());
-			dropitem->SetCurrentPosition(GetCurrentCropsPosition());
-			dropitem->Reset();
-			scene->AddDropItem(dropitem);
-			scene->RemoveCrops(this);
-		}
-		if (garlic_interaction)
-		{
-			dropitem = new DropItem("", "graphics/garlicdrop.png");
-			dropitem->Init();
-			dropitem->SetPosition(GetCurrentCropsPosition());
-			dropitem->SetCurrentPosition(GetCurrentCropsPosition());
-			dropitem->Reset();
-			scene->AddDropItem(dropitem);
-			scene->RemoveCrops(this);
-		}
-		if (cauliflower_interaction)
-		{
-			dropitem = new DropItem("", "graphics/cauliflowerdrop.png");
-			dropitem->Init();
-			dropitem->SetPosition(GetCurrentCropsPosition());
-			dropitem->SetCurrentPosition(GetCurrentCropsPosition());
-			dropitem->Reset();
-			scene->AddDropItem(dropitem);
-			scene->RemoveCrops(this);
-		}
-		if (potato_interaction)
-		{
-			dropitem = new DropItem("", "graphics/potatodrop.png");
-			dropitem->Init();
-			dropitem->SetPosition(GetCurrentCropsPosition());
-			dropitem->SetCurrentPosition(GetCurrentCropsPosition());
-			dropitem->Reset();
-			scene->AddDropItem(dropitem);
-			scene->RemoveCrops(this);
+			if (parsnip_interaction)
+			{
+				dropitem = new DropItem("", "graphics/parsnipdrop.png");
+				dropitem->Init();
+				dropitem->SetPosition(GetCurrentCropsPosition());
+				dropitem->SetCurrentPosition(GetCurrentCropsPosition());
+				dropitem->Reset();
+				scene->AddDropItem(dropitem);
+				scene->RemoveCrops(this);
+			}
+			if (garlic_interaction)
+			{
+				dropitem = new DropItem("", "graphics/garlicdrop.png");
+				dropitem->Init();
+				dropitem->SetPosition(GetCurrentCropsPosition());
+				dropitem->SetCurrentPosition(GetCurrentCropsPosition());
+				dropitem->Reset();
+				scene->AddDropItem(dropitem);
+				scene->RemoveCrops(this);
+			}
+			if (cauliflower_interaction)
+			{
+				dropitem = new DropItem("", "graphics/cauliflowerdrop.png");
+				dropitem->Init();
+				dropitem->SetPosition(GetCurrentCropsPosition());
+				dropitem->SetCurrentPosition(GetCurrentCropsPosition());
+				dropitem->Reset();
+				scene->AddDropItem(dropitem);
+				scene->RemoveCrops(this);
+			}
+			if (potato_interaction)
+			{
+				dropitem = new DropItem("", "graphics/potatodrop.png");
+				dropitem->Init();
+				dropitem->SetPosition(GetCurrentCropsPosition());
+				dropitem->SetCurrentPosition(GetCurrentCropsPosition());
+				dropitem->Reset();
+				scene->AddDropItem(dropitem);
+				scene->RemoveCrops(this);
+			}
 		}
 	}
 }
@@ -132,7 +135,7 @@ void Crops::SetCropsType(CropsType c)
 		GtSp.setTextureRect(seed);
 		break;
 	case CropsType::Cauliflower:
-		cropsId = "graphics/caluliflower.png";
+		cropsId = "graphics/cauliflower.png";
 		GtSp.setTextureRect(seed);
 		break;
 	case CropsType::Potato:
