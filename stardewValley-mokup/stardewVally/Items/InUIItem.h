@@ -9,6 +9,7 @@ private:
 
 	std::string fontId;
 	sf::Text quantityText;
+
 public:
 	InUIItem(ItemInfo type);
 	InUIItem(DropItem* drop);

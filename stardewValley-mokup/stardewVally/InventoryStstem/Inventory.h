@@ -43,5 +43,6 @@ public:
 	QuickBar* GetQuickBar() { return quickBar; }
 	void SetDropItem(DropItem* drop) { dropitem = drop; };
 	void SetCrops(Crops* crop) { crops = crop; };
+	void SetSellBox(SellBox* sb);
 };
 

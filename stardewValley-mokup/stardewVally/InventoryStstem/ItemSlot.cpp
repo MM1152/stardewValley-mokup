@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "ItemSlot.h"
 #include "Item.h"
+#include "SellBox.h"
 
 InUIItem* ItemSlot::dragItem = nullptr;
 
@@ -27,41 +28,52 @@ void ItemSlot::Reset()
 
 void ItemSlot::Update(float dt)
 {
-	if (item && item->GetQuantity() <= 0) {
-		item->SetItemInfo(nullptr);
-		item = nullptr;
-	}
+    if (item && item->GetQuantity() <= 0) {
+        delete item;
+        item = nullptr;
+    }
 
-	if (slot.getGlobalBounds().intersects(InputMgr::GetMouseUIRect())) {
-		slot.setFillColor(sf::Color(187, 187, 187));
+    bool isMouseOverSlot = slot.getGlobalBounds().intersects(InputMgr::GetMouseUIRect());
+    slot.setFillColor(isMouseOverSlot ? sf::Color(187, 187, 187) : sf::Color::White);
 
-		if (InputMgr::GetMouseButtonDown(sf::Mouse::Left) && !dragItem) {
-			if (item) {
-				item->DragItem(true);
-				dragItem = item;
-				item = nullptr;
-			}
-		}
-		else if (InputMgr::GetMouseButtonDown(sf::Mouse::Left) && dragItem) {
-			if (GetItem()) {
-				InUIItem* copy = GetItem();
+    if (!isMouseOverSlot)
+        return;
 
-				SetItem(dragItem);
-				dragItem->DragItem(false);
-				dragItem = copy;
-				dragItem->DragItem(true);
-			}
-			else {
-				SetItem(dragItem);
-				dragItem->DragItem(false);
-				dragItem = nullptr;
-			}
-		}
-	}
-	else {
-		slot.setFillColor(sf::Color::White);
-	}
+    if (InputMgr::GetMouseButtonDown(sf::Mouse::Left)) {
+   
+        if (sellBox && sellBox->IsBoxOpen() && item && !dragItem) 
+        {
+            sellBox->SellItem(*item);
+            delete item;
+            item = nullptr;
+            return;
+        }
+
+        if (!dragItem && item && sellBox->IsBoxClosed()) 
+        {
+            item->DragItem(true);
+            dragItem = item;
+            item = nullptr;
+            return;
+        }
+
+        if (dragItem) {
+            if (item) {
+                InUIItem* temp = item;
+                SetItem(dragItem);    
+                dragItem->DragItem(false);
+                dragItem = temp;        
+                dragItem->DragItem(true);
+            }
+            else {
+                SetItem(dragItem);
+                dragItem->DragItem(false);
+                dragItem = nullptr;
+            }
+        }
+    }
 }
+
 
 void ItemSlot::Draw(sf::RenderWindow& window)
 {
@@ -75,6 +87,11 @@ void ItemSlot::SetPosition(const sf::Vector2f& pos)
 {
 	position = pos;
 	slot.setPosition(pos);
+}
+
+void ItemSlot::SetSellBox(SellBox* sb)
+{
+    sellBox = sb;
 }
 
 bool ItemSlot::SetItem(InUIItem* item)
@@ -91,7 +108,6 @@ bool ItemSlot::SetItem(InUIItem* item)
 	if (!item) {
 		return false;
 	}
-
 
 	return true;
 }

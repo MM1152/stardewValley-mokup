@@ -81,6 +81,25 @@ void Inventory::Update(float dt)
 	
 }
 
+void Inventory::SetSellBox(SellBox* sb)
+{
+	for (auto& slot : equipSlots)
+	{
+		if (slot)
+		{
+			slot->SetSellBox(sb);
+		}
+	}
+
+	for (auto& slot : unEquipSlots)
+	{
+		if (slot)
+		{
+			slot->SetSellBox(sb);
+		}
+	}
+}
+
 void Inventory::Draw(sf::RenderWindow& window)
 {
 	window.draw(inv_BackGround);

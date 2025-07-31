@@ -15,6 +15,7 @@
 #include "InteractionObject.h"
 #include "DropItem.h"
 #include "SellBox.h"
+
 SceneTest::SceneTest()
 	: Scene(SceneIds::Test)
 {
@@ -102,12 +103,10 @@ void SceneTest::Init()
 	AddGameObject(sellBox);
 	AddGameObject(dialogueBox);
 
-
 	AddGameObject(inventory);
 	AddGameObject(quickBar);
 	inventory->SetQuickBar(quickBar);
 
-	
 	//TimeMoney
 
 	timemoney->Setplayer(player);
@@ -131,13 +130,13 @@ void SceneTest::Init()
 	AddGameObject(player);
 	AddGameObject(npc);
 
-
 	sellBox->SetInventory(inventory);
 	sellBox->SetPlayer(player);
+	sellBox->SetTimeMoeyUi(timemoney);
+
 
 	itemDataMgr::Instance().LoadShopItems("data/shop.json");
 	itemDataMgr::Instance().Load("data/item.json");
-
 	DialogueLoader::Instance().LoadFromJson("data/Dialogues.json");
 	
 	const auto& items = itemDataMgr::Instance().GetShopItemList("Pierre's General Store");
@@ -179,6 +178,7 @@ void SceneTest::Init()
 		}
 		});
 
+
 	tile = new TileMap(VertexType::Game);
 	forGround = new TileMap(VertexType::Game);
 
@@ -191,6 +191,8 @@ void SceneTest::Init()
 	drawCollider = true;
 
 	Scene::Init();
+
+	inventory->SetSellBox(sellBox);
 }
 
 void SceneTest::Enter()
@@ -230,6 +232,7 @@ void SceneTest::Enter()
 	forGround->sortingOrder = 131;
 
 	player->SetMap(&map);
+	player->SetSellBox(sellBox);
 	player->sortingLayer = SortingLayers::Foreground;
 }
 
@@ -379,6 +382,7 @@ void SceneTest::AddDropItem(DropItem* dropitem)
 		}
 	}
 }
+
 void SceneTest::RemoveDropItem(DropItem* dropitem)
 {
 	dropitem->SetActive(false);

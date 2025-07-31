@@ -10,6 +10,7 @@
 #include "Seeds.h"
 #include "Crops.h"
 #include "Pick.h"
+#include "SellBox.h"
 
 Player::Player(const std::string name)
 	:Collider(name)
@@ -109,6 +110,10 @@ void Player::Init()
 	seedGuideRect.setOutlineThickness(3);
 	seedGuideRect.setOrigin(Utils::SetOrigin(bodySprite, Origins::MC));
 	seedGuideRect.setPosition(bodySprite.getPosition());
+
+	bound.setSize({ 16.f, 24.f });
+	bound.setFillColor(sf::Color::Transparent);
+	bound.setPosition(GetPosition());
 
 	if (inventory)
 	{
@@ -229,8 +234,6 @@ void Player::Update(float dt)
 		Collider::areaBlocked(position, *this, moveOffset);
 	}
 	// openInventory > E (in / out)
-
-
 	if (!openShop)
 	{
 		if (InputMgr::GetKeyDown(sf::Keyboard::E))
@@ -240,6 +243,10 @@ void Player::Update(float dt)
 			timemoneyui->ChangeTimer();
 			inventory->SetActive(!inventory->GetActive());
 		}
+	}
+	else
+	{
+		GetisPlayer();
 	}
 	// openInven > Escape out
 	if (openInven)
@@ -252,6 +259,10 @@ void Player::Update(float dt)
 			inventory->SetActive(!inventory->GetActive());
 		}
 	}
+	else
+	{
+		GetisPlayer();
+	}
 
 	if (!openShop && !openInven) //&& fainting)
 	{
@@ -261,8 +272,9 @@ void Player::Update(float dt)
 			isPlayer = true;
 			fainting = false;
 			growup = true;
+
 		}
-	}
+	} 
 
 	sf::Vector2f playerCenter = bodySprite.getPosition();
 	sf::Vector2f offSet = (sf::Vector2f)lookDir * 16.f;
@@ -404,10 +416,6 @@ bool Player::CanUseItemOnTile(int tileIdx)
 
 	CheckCellData cellData = map->SequentialGetCell(tileIdx);
 	const auto& usable = info->usableTiles;
-	std::cout << "[DEBUG] Check tileIdx: " << tileIdx
-		<< ", usableLayer: " << usableLayer
-		<< ", cellData.layer: " << cellData.layer
-		<< ", cellData.idx: " << cellData.idx << std::endl;
 
 	if (cellData.layer != usableLayer)
 		return false;

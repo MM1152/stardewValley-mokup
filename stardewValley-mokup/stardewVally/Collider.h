@@ -4,6 +4,7 @@
 
 class Map;
 class Player;
+class SellBox;
 
 class Collider : public GameObject
 {
@@ -13,6 +14,8 @@ protected:
 public:
 	Map* map;
 	Player* player;
+	SellBox* sellBox;
+
 
 	Collider(const std::string& name = "Collider");
 	virtual ~Collider() = default;
@@ -39,7 +42,9 @@ public:
 	void areaBlocked(sf::Vector2f& position, sf::RectangleShape& shape, const sf::Vector2f& moveOffset);
 	void SetMap(Map* map);
 	void SetPlayer(Player* player);
+	void SetSellBox(SellBox* sellBox);
 	Player* GetPlayer() { return player; };
 	Map* GetMap() { return map; };
+	SellBox* GetSellBox() { return sellBox;  };
 };
 

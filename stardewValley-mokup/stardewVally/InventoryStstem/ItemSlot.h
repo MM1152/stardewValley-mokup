@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "InUIItem.h"
 
+class SellBox;
 class ItemSlot : public GameObject
 {
 private:
@@ -11,6 +12,8 @@ private:
 	sf::RectangleShape slot;
 
 	InUIItem* item = nullptr;
+	SellBox* sellBox = nullptr;
+
 public:
 	static InUIItem* dragItem;
 
@@ -29,5 +32,6 @@ public:
 	InUIItem* GetItem() { return item; };
 	bool IsSetting() { return item; };
 	void RemoveItem() { item = nullptr; };
+	void SetSellBox(SellBox* sb);
 };
 

@@ -43,7 +43,7 @@ void InUIItem::PlusQuantity(int quantity)
 {
 	Item::PlusQuantity(quantity);
 	UseItem();
-}
+} //Remove item function
 
 bool InUIItem::UseItem()
 {
