@@ -15,21 +15,36 @@ MapToolScene::MapToolScene()
 
 void MapToolScene::Init()
 {
+	///map
 	fontIds.push_back(FONT_PATH"DOSGothic.ttf");
 	texIds.push_back(GRAPHICS_PATH"building.png");
 	texIds.push_back("graphics/spring.bmp");
 	texIds.push_back("graphics/home.png");
 	texIds.push_back("graphics/stroe.png");
-
-
 	texIds.push_back(GRAPHICS_PATH"springobjects.png");
+
+	//button
+	texIds.push_back("title/object.png");
+	texIds.push_back("title/building.png");
+	texIds.push_back("title/collider.png");
+	texIds.push_back("title/gotitle.png");
+	texIds.push_back("title/load.png");
+	texIds.push_back("title/save.png");
+	texIds.push_back("title/yes.png");
+	texIds.push_back("title/no.png");
+	texIds.push_back("title/yes_or_no.png");
+	texIds.push_back("title/tile.png");
+	texIds.push_back("title/trigger.png");
+	texIds.push_back("title/delete.png");
+	texIds.push_back("title/gotitle.png");
+
 
 	mouseRect.setSize({ 10, 10 });
 
 	worldView.setSize(FRAMEWORK.GetWindowSizeF());
-	worldView.setCenter({ FRAMEWORK.GetWindowSizeF().x / 2 , FRAMEWORK.GetWindowSizeF().y / 2});
+	worldView.setCenter({ FRAMEWORK.GetWindowSizeF().x / 2 , FRAMEWORK.GetWindowSizeF().y / 2 });
 
-	uiView.setSize(FRAMEWORK.GetWindowSizeF());	
+	uiView.setSize(FRAMEWORK.GetWindowSizeF());
 	uiView.setCenter({ FRAMEWORK.GetWindowSizeF().x / 2 , FRAMEWORK.GetWindowSizeF().y / 2 });
 
 	dragAreaRect.setFillColor(sf::Color::Transparent);
@@ -37,6 +52,8 @@ void MapToolScene::Init()
 	dragAreaRect.setOutlineThickness(1.f);
 	dragAreaRect.setSize({ 0,0 });
 
+	gotitleyes_or_no.setScale({ 1.3f, 1.3f });
+	gotitleyes_or_no.setPosition({ 375.f, 200.f });
 
 #pragma region Buttons
 
@@ -46,148 +63,215 @@ void MapToolScene::Init()
 	triggerTypeButton[0]->SetTextColor(sf::Color::Black);
 	triggerTypeButton[0]->SetPosition({ FRAMEWORK.GetWindowSizeF().x / 2.f , FRAMEWORK.GetWindowSizeF().y / 2.f });
 	triggerTypeButton[0]->onClickFunc = [this]() {
-		triggers[triggers.size() - 1]->SetType(TriggerType::Door);
-		isShowTriggerBox = false;
-		drawTrigger = false;
-	};
+		if (!gotitleview)
+		{
+			triggers[triggers.size() - 1]->SetType(TriggerType::Door);
+			isShowTriggerBox = false;
+			drawTrigger = false;
+		}
+		};
 	triggerTypeButton[1]->SetTextColor(sf::Color::Black);
 	triggerTypeButton[1]->SetPosition({ FRAMEWORK.GetWindowSizeF().x * 0.6f , FRAMEWORK.GetWindowSizeF().y / 2.f });
 	triggerTypeButton[1]->onClickFunc = [this]() {
-		triggers[triggers.size() - 1]->SetType(TriggerType::Bed);
-		isShowTriggerBox = false;
-		drawTrigger = false;
+		if (!gotitleview)
+		{
+			triggers[triggers.size() - 1]->SetType(TriggerType::Bed);
+			isShowTriggerBox = false;
+			drawTrigger = false;
+		}
 		};
 
-	Button* objects = new Button(FONT_PATH"DOSGothic.ttf");
-	objects->SetString("Objects");
-	objects->SetTextColor(sf::Color::Black);
-	objects->SetPosition({ FRAMEWORK.GetWindowSizeF().x / 1.35f, 50.f });
+	// buttons
+	objects = new Button(FONT_PATH"DOSGothic.ttf", "title/object.png");
+	objects->SetString("        ");
+	objects->SetScale({ 1.f, 1.2f });
+	objects->SetPosition({ FRAMEWORK.GetWindowSizeF().x / 1.37f, 50.f });
 	objects->onClickFunc = [this]() {
-		drawTileIdx = 2;
-		drawTrigger = false;
-		drawCollider = false;
-		startDraw = false;
-		tilemap1->SetTexture(GRAPHICS_PATH"springobjects.png");
-	};
+		if (!gotitleview)
+		{
+			drawTileIdx = 2;
+			drawTrigger = false;
+			drawCollider = false;
+			startDraw = false;
+			tilemap1->SetTexture(GRAPHICS_PATH"springobjects.png");
+		}
+		};
 	objects->sortingLayer = SortingLayers::UI;
 
-	Button* triggerButton = new Button(FONT_PATH"DOSGothic.ttf");
-	triggerButton->SetString("Trigger");
-	triggerButton->SetTextColor(sf::Color::Black);
+	triggerButton = new Button(FONT_PATH"DOSGothic.ttf", "title/trigger.png");
+	triggerButton->SetString("        ");
+	triggerButton->SetScale({ 1.f, 1.2f });
 	triggerButton->SetPosition({ FRAMEWORK.GetWindowSizeF().x / 1.6f, 50.f });
 	triggerButton->onClickFunc = [this]() {
-		drawTrigger = true;
-		drawCollider = false;
-		startDraw = false;
-	};
-
+		if (!gotitleview)
+		{
+			drawTrigger = true;
+			drawCollider = false;
+			startDraw = false;
+		}
+		};
 	triggerButton->sortingLayer = SortingLayers::UI;
 	AddGameObject(triggerButton);
 
 
-	Button* deleteBNT = new Button(FONT_PATH"DOSGothic.ttf");
-	deleteBNT->SetString("Delete");
-	deleteBNT->SetTextColor(sf::Color::Black);
+	deleteBNT = new Button(FONT_PATH"DOSGothic.ttf", "title/delete.png");
+	deleteBNT->SetString("        ");
+	deleteBNT->SetScale({ 1.f, 1.2f });
 	deleteBNT->SetPosition({ FRAMEWORK.GetWindowSizeF().x / 1.2f , 0 });
 	deleteBNT->onClickFunc = [this]() {
-		cellData.idx = -1;
-		drawTrigger = false; 
-		drawCollider = false;
-		startDraw = false;
-		index = 0;
-	};
+		if (!gotitleview)
+		{
+			cellData.idx = -1;
+			drawTrigger = false;
+			drawCollider = false;
+			startDraw = false;
+			index = 0;
+		}
+		};
 	deleteBNT->sortingLayer = SortingLayers::UI;
 
-	Button* buildingBNT = new Button(FONT_PATH"DOSGothic.ttf");
-	buildingBNT->SetString("Building");
-	buildingBNT->SetTextColor(sf::Color::Black);
+	buildingBNT = new Button(FONT_PATH"DOSGothic.ttf", "title/building.png");
+	buildingBNT->SetString("        ");
+	buildingBNT->SetScale({ 1.f, 1.2f });
 	buildingBNT->SetPosition({ FRAMEWORK.GetWindowSizeF().x / 1.37f , 0 });
 	buildingBNT->onClickFunc = [this]() {
-		drawTileIdx = 1;
-		drawTrigger = false;
-		drawCollider = false;
-		startDraw = false;
-		tilemap1->SetTexture(GRAPHICS_PATH"building.png");
+		if (!gotitleview)
+		{
+			drawTileIdx = 1;
+			drawTrigger = false;
+			drawCollider = false;
+			startDraw = false;
+			tilemap1->SetTexture(GRAPHICS_PATH"building.png");
+		}
 		};
 	buildingBNT->sortingLayer = SortingLayers::UI;
 
-	Button* tileBNT = new Button(FONT_PATH"DOSGothic.ttf");
-	tileBNT->SetString("Tile");
-	tileBNT->SetTextColor(sf::Color::Black);
-	tileBNT->SetPosition({ FRAMEWORK.GetWindowSizeF().x / 1.5f , 0 });
+	tileBNT = new Button(FONT_PATH"DOSGothic.ttf", "title/tile.png");
+	tileBNT->SetString("        ");
+	tileBNT->SetScale({ 1.f, 1.2f });
+	tileBNT->SetPosition({ FRAMEWORK.GetWindowSizeF().x / 1.6f , 0 });
 	tileBNT->onClickFunc = [this]() {
-		drawTileIdx = 0;
-		drawCollider = false;
-		startDraw = false;
-		//here1/3 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-		tilemap1->SetTexture("graphics/home.png");
+		if (!gotitleview)
+		{
+			drawTileIdx = 0;
+			drawCollider = false;
+			startDraw = false;
+			//here1/3 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+			tilemap1->SetTexture("graphics/home.png");
+		}
 		};
 	tileBNT->sortingLayer = SortingLayers::UI;
 
-	Button* saveBNT = new Button(FONT_PATH"DOSGothic.ttf");
-	saveBNT->SetString("SAVE");
-	saveBNT->SetTextColor(sf::Color::Black);
-	saveBNT->SetPosition({ FRAMEWORK.GetWindowSizeF().x / 1.3f, FRAMEWORK.GetWindowSizeF().y - 100.f });
+	saveBNT = new Button(FONT_PATH"DOSGothic.ttf", "title/save.png");
+	saveBNT->SetString("        ");
+	saveBNT->SetScale({ 1.f, 1.2f });
+	saveBNT->SetPosition({ FRAMEWORK.GetWindowSizeF().x / 1.37f, FRAMEWORK.GetWindowSizeF().y - 100.f });
 	saveBNT->onClickFunc = [this]() {
-		std::cout << "MapData/" + inputText->GetString() + ".csv" << std::endl;
-		map.Save("MapData/"+ inputText->GetString() + ".csv", drawTile[0].GetTextureId(), drawTile[0].GetCellDatas(), drawTile[0].GetCellCount());
-		map.Save("MapData/" + inputText->GetString() + "forGround.csv", drawTile[1].GetTextureId(), drawTile[1].GetCellDatas(), drawTile[1].GetCellCount());
-		map.Save("MapData/" + inputText->GetString() + "objects.csv" , drawTile[2].GetTextureId(), drawTile[2].GetCellDatas(), drawTile[2].GetCellCount());
-		map.Save("MapData/" + inputText->GetString() + "collider.csv" , colliders);
-		map.Save("MapData/" + inputText->GetString() + "trigger.csv", triggers);
-		
+		if (!gotitleview)
+		{
+			std::cout << "MapData/" + inputText->GetString() + ".csv" << std::endl;
+			map.Save("MapData/" + inputText->GetString() + ".csv", drawTile[0].GetTextureId(), drawTile[0].GetCellDatas(), drawTile[0].GetCellCount());
+			map.Save("MapData/" + inputText->GetString() + "forGround.csv", drawTile[1].GetTextureId(), drawTile[1].GetCellDatas(), drawTile[1].GetCellCount());
+			map.Save("MapData/" + inputText->GetString() + "objects.csv", drawTile[2].GetTextureId(), drawTile[2].GetCellDatas(), drawTile[2].GetCellCount());
+			map.Save("MapData/" + inputText->GetString() + "collider.csv", colliders);
+			map.Save("MapData/" + inputText->GetString() + "trigger.csv", triggers);
+		}
+
 		//Utils::SaveMapData("MapData/map1.csv" , drawTile[0].GetVaData(), drawTile[0].GetCellCount() , drawTile[0].GetTextureId());
 		//Utils::SaveMapData("MapData/map1_forGround.csv", drawTile[1].GetVaData(), drawTile[1].GetCellCount(), drawTile[1].GetTextureId());
 		};
 	saveBNT->sortingLayer = SortingLayers::UI;
 
-	Button* loadBNT = new Button(FONT_PATH"DOSGothic.ttf");
-	loadBNT->SetString("LOAD");
-	loadBNT->SetTextColor(sf::Color::Black);
-	loadBNT->SetPosition({ FRAMEWORK.GetWindowSizeF().x / 1.5f, FRAMEWORK.GetWindowSizeF().y - 100.f });
+	loadBNT = new Button(FONT_PATH"DOSGothic.ttf", "title/load.png");
+	loadBNT->SetString("        ");
+	loadBNT->SetScale({ 1.f, 1.2f });
+	loadBNT->SetPosition({ FRAMEWORK.GetWindowSizeF().x / 1.6f, FRAMEWORK.GetWindowSizeF().y - 100.f });
 	loadBNT->onClickFunc = [this]() {
-		std::string filePath = Utils::OpenFileDialog();
-		if (filePath.empty()) return;
-		std::vector<std::string> sliceMapFilePath = Utils::Split(filePath , '.');
-		std::vector<std::string> sliceMapId = Utils::Split(sliceMapFilePath[0], '\\');
-		std::string mapFilePath = MAP_PATH+sliceMapId[sliceMapId.size() - 1];
-		std::string mapId = sliceMapId[sliceMapId.size() - 1];
-		
-		map.Load(mapFilePath);
-		inputText->SetString(mapId , true);
+		if (!gotitleview) {
+			std::string filePath = Utils::OpenFileDialog();
+			if (filePath.empty()) return;
+			std::vector<std::string> sliceMapFilePath = Utils::Split(filePath, '.');
+			std::vector<std::string> sliceMapId = Utils::Split(sliceMapFilePath[0], '\\');
+			std::string mapFilePath = MAP_PATH + sliceMapId[sliceMapId.size() - 1];
+			std::string mapId = sliceMapId[sliceMapId.size() - 1];
 
-		drawTile[0].Set(map.GetTextId(0), map.GetCellDatas(0));
-		drawTile[1].Set(map.GetTextId(1), map.GetCellDatas(1));
-		drawTile[2].Set(map.GetTextId(2), map.GetCellDatas(2));
-		colliders.clear();
-		colliders = map.GetColliders();
-		
-		for (auto collider : colliders) {
-			collider->setPosition({ collider->getPosition().x + 300.f , collider->getPosition().y + 300.f });
+			map.Load(mapFilePath);
+			inputText->SetString(mapId, true);
+
+			drawTile[0].Set(map.GetTextId(0), map.GetCellDatas(0));
+			drawTile[1].Set(map.GetTextId(1), map.GetCellDatas(1));
+			drawTile[2].Set(map.GetTextId(2), map.GetCellDatas(2));
+			colliders.clear();
+			colliders = map.GetColliders();
+
+			for (auto collider : colliders) {
+				collider->setPosition({ collider->getPosition().x + 300.f , collider->getPosition().y + 300.f });
+			}
+			triggers.clear();
+			triggers = map.GetTriggers();
+			for (auto trigger : triggers) {
+				trigger->SetPosition({ trigger->GetPosition().x + 300.f , trigger->GetPosition().y + 300.f });
+			}
 		}
-		triggers.clear();
-		triggers = map.GetTriggers();
-		for (auto trigger: triggers) {
-			trigger->SetPosition({ trigger->GetPosition().x + 300.f , trigger->GetPosition().y + 300.f });
-		}
-	};
+		};
 	loadBNT->sortingLayer = SortingLayers::UI;
 
-	Button* colliderBNT = new Button(FONT_PATH"DOSGothic.ttf");
-	colliderBNT->SetString("Collider");
-	colliderBNT->SetTextColor(sf::Color::Black);
+	colliderBNT = new Button(FONT_PATH"DOSGothic.ttf", "title/collider.png");
+	colliderBNT->SetString("        ");
+	colliderBNT->SetScale({ 1.f, 1.2f });
 	colliderBNT->SetPosition({ FRAMEWORK.GetWindowSizeF().x / 1.2f , 50.f });
 	colliderBNT->onClickFunc = [this]() {
-		drawCollider = true;
-		drawTrigger = false;
-		index = -1;
+		if (!gotitleview)
+		{
+			drawCollider = true;
+			drawTrigger = false;
+			index = -1;
+		}
 		};
 	colliderBNT->sortingLayer = SortingLayers::UI;
+
+	gotitleBNT = new Button(FONT_PATH"DOSGothic.ttf", "title/gotitle.png");
+	gotitleBNT->SetString("        ");
+	gotitleBNT->SetScale({ 1.f, 1.2f });
+	gotitleBNT->SetPosition({ FRAMEWORK.GetWindowSizeF().x / 1.2f, FRAMEWORK.GetWindowSizeF().y - 100.f });
+	gotitleBNT->onClickFunc = [this]() {
+		if (!gotitleview)
+		{
+			gotitleview = true;
+		}
+		};
+	gotitleBNT->sortingLayer = SortingLayers::UI;
+
+	gtyesbnt = new Button("fonts/Stardew_Valley.ttf", "title/yes.png", "yes");
+	gtyesbnt->SetString("         ");
+	gtyesbnt->SetScale({ 1.1f, 2.33f });
+	gtyesbnt->SetPosition({ 462.f, 415.f });
+	gtyesbnt->onClickFunc = [this]() {
+		if (gotitleview)
+		{
+			gotitleview = false;
+			SCENE_MGR.ChangeScene(SceneIds::Title);
+		}
+		};
+	gtyesbnt->sortingLayer = SortingLayers::UI;
+
+	gtnobnt = new Button("fonts/Stardew_Valley.ttf", "title/no.png", "no");
+	gtnobnt->SetString("         ");
+	gtnobnt->SetScale({ 1.1f, 2.33f });
+	gtnobnt->SetPosition({ 679.f, 415.f });
+	gtnobnt->onClickFunc = [this]() {
+		if (gotitleview)
+		{
+			gotitleview = false;
+		}
+		};
+	gtnobnt->sortingLayer = SortingLayers::UI;
+
 #pragma endregion
 
 	inputText = new InputText(FONT_PATH"DOSGothic.ttf");
 	inputText->SetTextColor(sf::Color::Black);
-	inputText->SetPosition({ saveBNT->GetPosition().x - 100.f, saveBNT->GetPosition().y - 50.f});
+	inputText->SetPosition({ saveBNT->GetPosition().x - 100.f, saveBNT->GetPosition().y - 50.f });
 	tilemap1 = (TileMap*)AddGameObject(new TileMap(VertexType::Palette));
 	//tilemap1->getIndexFunc = [this](sf::Vector2f* index) {
 	//	texcoor[0] = index[0];
@@ -197,7 +281,7 @@ void MapToolScene::Init()
 	//};
 
 	gridTile = new TileMap(VertexType::Grid);
-	drawTile = new TileMap[3]{ TileMap(VertexType::Draw) ,TileMap(VertexType::Draw) , TileMap(VertexType::Draw) };	
+	drawTile = new TileMap[3]{ TileMap(VertexType::Draw) ,TileMap(VertexType::Draw) , TileMap(VertexType::Draw) };
 
 	AddGameObject(tilemap1);
 	AddGameObject(saveBNT);
@@ -208,6 +292,11 @@ void MapToolScene::Init()
 	AddGameObject(colliderBNT);
 	AddGameObject(objects);
 	AddGameObject(loadBNT);
+
+	AddGameObject(gotitleBNT);
+	AddGameObject(gtyesbnt);
+	AddGameObject(gtnobnt);
+
 	Scene::Init();
 
 	drawTile[0].Init();
@@ -225,7 +314,7 @@ void MapToolScene::Enter()
 	Scene::Enter();
 	//here2/3 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 	tilemap1->Set({ 24, 25 }, { 16.f, 16.f }, "graphics/home.png");
-	
+
 	// ++ si add tile
 	gridTile->drawGrid({ 24, 25 }, { 16.f , 16.f });
 
@@ -234,9 +323,9 @@ void MapToolScene::Enter()
 	drawTile[2].Set({ 24, 25 }, { 16.f , 16.f });
 
 	//
-	tilemap1->SetPosition({FRAMEWORK.GetWindowSizeF().x / 2 + 200.f, FRAMEWORK.GetWindowSizeF().y / 2 - 260.f });
+	tilemap1->SetPosition({ FRAMEWORK.GetWindowSizeF().x / 2 + 200.f, FRAMEWORK.GetWindowSizeF().y / 2 - 260.f });
 	tilemap1->sortingLayer = SortingLayers::UI;
-	gridTile->SetPosition({ 300 , 300});
+	gridTile->SetPosition({ 300 , 300 });
 
 	drawTile[0].SetPosition({ 300 , 300 });
 	drawTile[1].SetPosition({ 300 , 300 });
@@ -253,6 +342,8 @@ void MapToolScene::Enter()
 
 	triggerTypeButton[0]->SetString("Door");
 	triggerTypeButton[1]->SetString("Bed");
+
+	gotitleyes_or_no.setTexture(TEXTURE_MGR.Get("title/yes_or_no.png"));
 }
 
 //FIX : 버튼 클릭시 Rectagle 생성되는 버그 수정 필요
@@ -266,7 +357,7 @@ void MapToolScene::Update(float dt)
 		DrawColliderBox();
 		DrawTriggerBox();
 	}
-	
+
 	if (isShowTriggerBox) {
 		for (auto tri : triggerTypeButton) {
 			tri->Update(dt);
@@ -276,14 +367,25 @@ void MapToolScene::Update(float dt)
 	if (InputMgr::GetKeyDown(sf::Keyboard::Enter)) {
 		SCENE_MGR.ChangeScene(SceneIds::ChangeTile);
 	}
-	
+
 	if (InputMgr::GetMouseButtonUp(sf::Mouse::Left)) {
 		isDragArea = false;
 	}
 
 	DragToMoveScreen(dt);
+	if (!gotitleview)
+	{
+		gtyesbnt->SetActive(false);
+		gtnobnt->SetActive(false);
+	}
+	else
+	{
+		gtyesbnt->SetActive(true);
+		gtnobnt->SetActive(true);
+	}
 	Scene::Update(dt);
-
+	
+	
 }
 
 void MapToolScene::Draw(sf::RenderWindow& window)
@@ -299,7 +401,7 @@ void MapToolScene::Draw(sf::RenderWindow& window)
 	for (auto tri : triggers) {
 		tri->Draw(window);
 	}
-	
+
 
 	Scene::Draw(window);
 	window.draw(mouseRect);
@@ -311,7 +413,13 @@ void MapToolScene::Draw(sf::RenderWindow& window)
 			type->Draw(window);
 		}
 	}
-	
+
+	if (gotitleview)
+	{
+		window.draw(gotitleyes_or_no);
+		gtyesbnt->Draw(window);
+		gtnobnt->Draw(window);
+	}
 
 	//drawTile[2].Draw();
 }

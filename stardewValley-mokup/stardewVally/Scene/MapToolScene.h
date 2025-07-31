@@ -24,6 +24,10 @@ protected:
 	bool drawTrigger = false;
 	bool isShowTriggerBox = false;
 
+	//gotitle
+	bool gotitleview = false;
+	sf::Sprite gotitleyes_or_no;
+
 	std::vector<sf::RectangleShape*> colliders;
 	std::vector<Trigger*> triggers;
 	std::vector<Button*> triggerTypeButton;
@@ -54,6 +58,20 @@ protected:
 	sf::RectangleShape mouseRect;
 	sf::RectangleShape rightBackGround;
 	sf::RectangleShape dragAreaRect;
+
+	Button* objects;
+	Button* triggerButton;
+	Button* deleteBNT;
+	Button* buildingBNT;
+	Button* tileBNT;
+	Button* saveBNT;
+	Button* loadBNT;
+	Button* colliderBNT;
+
+	Button* gotitleBNT;
+	Button* gtyesbnt;
+	Button* gtnobnt;
+
 public:
 	static int drawTileIdx;
 	MapToolScene();
@@ -72,5 +90,7 @@ public:
 	void DrawTile();
 	void DrawColliderBox();
 	void DrawTriggerBox();
+
+	void Setgotitleview(bool view) { gotitleview = view; }
 };
 
