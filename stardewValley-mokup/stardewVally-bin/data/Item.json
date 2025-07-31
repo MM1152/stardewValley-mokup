@@ -70,7 +70,7 @@
     },
     {
       "id":"parsnip",
-      "name" : "Parsnip",
+      "name" : "parsnip",
       "description" : "parsnip",
       "TextureId" : "graphics/springobjects.png",
       "UiTextureRect" : [0, 16, 16, 16],

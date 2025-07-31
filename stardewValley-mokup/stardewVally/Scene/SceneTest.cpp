@@ -78,7 +78,7 @@ void SceneTest::Init()
 
 	//crops
 	texIds.push_back("graphics/parsnip.png");
-	texIds.push_back("graphics/caluliflower.png");
+	texIds.push_back("graphics/cauliflower.png");
 	texIds.push_back("graphics/potato.png");
 	texIds.push_back("graphics/garlic.png");
 
@@ -193,7 +193,7 @@ void SceneTest::Init()
 void SceneTest::Enter()
 {
 	FRAMEWORK.GetWindow().setMouseCursorVisible(true);
-	worldView.setSize({ FRAMEWORK.GetWindowSizeF().x / 6, FRAMEWORK.GetWindowSizeF().y / 6 });
+	worldView.setSize({ FRAMEWORK.GetWindowSizeF().x / 4, FRAMEWORK.GetWindowSizeF().y / 4 });
 
 	uiView.setSize(FRAMEWORK.GetWindowSizeF());
 	uiView.setCenter({ FRAMEWORK.GetWindowSizeF().x / 2 , FRAMEWORK.GetWindowSizeF().y / 2 });

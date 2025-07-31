@@ -48,6 +48,7 @@ bool Seeds::UseItem()
 			crops->Init();
 			crops->Setidx(cellIdx);
 			crops->SetPosition(cellData.cellPosition[0]);
+			crops->SetCurrentCropsPosition(cellData.cellPosition[0]);
 			crops->SetCropsType(Crops::CropsType::Cauliflower);
 			crops->Reset();
 			scene->AddCrops(crops);
@@ -65,6 +66,7 @@ bool Seeds::UseItem()
 			crops->Init();
 			crops->Setidx(cellIdx);
 			crops->SetPosition(cellData.cellPosition[0]);
+			crops->SetCurrentCropsPosition(cellData.cellPosition[0]);
 			crops->SetCropsType(Crops::CropsType::Potato);
 			crops->Reset();
 			scene->AddCrops(crops);
