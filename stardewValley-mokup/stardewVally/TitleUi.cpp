@@ -52,7 +52,7 @@ void TitleUi::Init()
 	yes_or_no.setPosition({ 375.f, 200.f });
 
 
-	startbnt = new Button("fonts/Stardew_Valley.ttf", "graphics/mainchoice.png", "start");
+	startbnt = new Button("fonts/Stardew_Valley.ttf", "title/mainchoice.png", "start");
 	startbnt->SetOrigin(Origins::MC);
 	startbnt->SetScale({ 1.05f, 4.8f });
 	startbnt->SetPosition({ 243.f, 555.f });
@@ -61,7 +61,7 @@ void TitleUi::Init()
 		SCENE_MGR.ChangeScene(SceneIds::Test);
 		};
 
-	loadbnt = new Button("fonts/Stardew_Valley.ttf", "graphics/mainchoice.png", "load");
+	loadbnt = new Button("fonts/Stardew_Valley.ttf", "title/mainchoice.png", "load");
 	loadbnt->SetOrigin(Origins::MC);
 	loadbnt->SetScale({ 1.05f, 4.8f });
 	loadbnt->SetPosition({ 449.f, 555.f });
@@ -70,7 +70,7 @@ void TitleUi::Init()
 		std::cout << "저장된 파일이 없습니다." << std::endl;
 		};
 
-	maptoolbnt = new Button("fonts/Stardew_Valley.ttf", "graphics/mainchoice.png", "maptool");
+	maptoolbnt = new Button("fonts/Stardew_Valley.ttf", "title/mainchoice.png", "maptool");
 	maptoolbnt->SetOrigin(Origins::MC);
 	maptoolbnt->SetScale({ 1.05f, 4.8f });
 	maptoolbnt->SetPosition({ 655.f, 555.f });
@@ -79,7 +79,7 @@ void TitleUi::Init()
 		SCENE_MGR.ChangeScene(SceneIds::Maptool);
 		};
 
-	exitbnt = new Button("fonts/Stardew_Valley.ttf", "graphics/mainchoice.png", "exit");
+	exitbnt = new Button("fonts/Stardew_Valley.ttf", "title/mainchoice.png", "exit");
 	exitbnt->SetOrigin(Origins::MC);
 	exitbnt->SetScale({ 1.05f, 4.8f });
 	exitbnt->SetPosition({ 863.f, 555.f });
@@ -89,7 +89,7 @@ void TitleUi::Init()
 		};
 
 
-	yesbnt = new Button("fonts/Stardew_Valley.ttf", "graphics/yes.png", "exit");
+	yesbnt = new Button("fonts/Stardew_Valley.ttf", "title/yes.png", "exit");
 	yesbnt->SetOrigin(Origins::MC);
 	yesbnt->SetScale({ 1.1f, 2.33f });
 	yesbnt->SetPosition({ 462.f, 415.f });
@@ -100,7 +100,7 @@ void TitleUi::Init()
 		}
 		};
 
-	nobnt = new Button("fonts/Stardew_Valley.ttf", "graphics/no.png", "exit");
+	nobnt = new Button("fonts/Stardew_Valley.ttf", "title/no.png", "exit");
 	nobnt->SetOrigin(Origins::MC);
 	nobnt->SetScale({ 1.1f, 2.33f });
 	nobnt->SetPosition({ 679.f, 415.f });
@@ -118,8 +118,8 @@ void TitleUi::Release()
 
 void TitleUi::Reset()
 {
-	title.setTexture(TEXTURE_MGR.Get("graphics/main.bmp"));
-	yes_or_no.setTexture(TEXTURE_MGR.Get("graphics/yes_or_no.png"));
+	title.setTexture(TEXTURE_MGR.Get("title/main.bmp"));
+	yes_or_no.setTexture(TEXTURE_MGR.Get("title/yes_or_no.png"));
 	startbnt->Reset();
 	startbnt->SetString("            ");
 	loadbnt->Reset();

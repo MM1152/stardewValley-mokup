@@ -8,11 +8,11 @@ SceneTitle::SceneTitle()
 
 void SceneTitle::Init()
 {
-	texIds.push_back("graphics/main.bmp");
-	texIds.push_back("graphics/mainchoice.png");
-	texIds.push_back("graphics/yes_or_no.png");
-	texIds.push_back("graphics/yes.png");
-	texIds.push_back("graphics/no.png");
+	texIds.push_back("title/main.bmp");
+	texIds.push_back("title/mainchoice.png");
+	texIds.push_back("title/yes_or_no.png");
+	texIds.push_back("title/yes.png");
+	texIds.push_back("title/no.png");
 
 
 	fontIds.push_back("fonts/Stardew_Valley.ttf");
