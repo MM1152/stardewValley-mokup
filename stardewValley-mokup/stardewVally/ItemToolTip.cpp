@@ -31,7 +31,8 @@ void ItemToolTip::Reset()
 	toolTipBottom.setPosition({ toolTipTop.getPosition().x , (toolTipTop.getLocalBounds().height * toolTipTop.getScale().y) + toolTipTop.getPosition().y });
 
 	textTop.setFillColor(sf::Color::Black);
-	textBottom.setFillColor(sf::Color::Black);
+	textBottom.setFillColor(sf::Color(64,64,64));
+	textBottom.setCharacterSize(30);
 }
 
 void ItemToolTip::Update(float dt)
@@ -64,9 +65,29 @@ void ItemToolTip::SetItemInfo(Item* info)
 
 	this->info = info->GetItemInfo();
 	SetString(textTop , this->info->itemName);
+	SetString(textBottom, this->info->itemDes);
 }
 
 void ItemToolTip::SetString(sf::Text& text, const std::string& word)
 {
-	text.setString(word);
+	int size = text.getCharacterSize() * word.size() * 0.5f;
+	float tooltipSizeX = toolTipTop.getLocalBounds().width * toolTipTop.getScale().x;
+
+
+	int splitSize = size / tooltipSizeX;
+
+	if (splitSize == 0) {
+		text.setString(word);
+	}
+	else {
+		std::vector<std::string> words = Utils::Split(word , (int)word.size() / splitSize);
+		std::string newString;
+
+		for (int i = 0; i < words.size(); i++) {
+			newString += words[i];
+			newString += "\n";
+		}
+
+		text.setString(newString);
+	}
 }

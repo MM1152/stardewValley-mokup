@@ -406,10 +406,9 @@ bool Player::CanUseItemOnTile(int tileIdx)
 
 	CheckCellData cellData = map->SequentialGetCell(tileIdx);
 	const auto& usable = info->usableTiles;
-	std::cout << "[DEBUG] Check tileIdx: " << tileIdx
-		<< ", usableLayer: " << usableLayer
-		<< ", cellData.layer: " << cellData.layer
-		<< ", cellData.idx: " << cellData.idx << std::endl;
+	//std::cout << "[DEBUG] Check tileIdx: " << tileIdx
+	//	<< ", usableLayer: " <<  << cellData.layer
+	//	<< ", cellData.idx: " << cellData.idx << std::endl;
 
 	if (cellData.layer != usableLayer)
 		return false;

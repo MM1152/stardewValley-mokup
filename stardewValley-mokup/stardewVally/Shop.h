@@ -6,6 +6,7 @@ class Inventory;
 class Button;
 class TimeMoneyUi;
 class Player;
+class ItemToolTip;
 class Shop : public GameObject
 {
 protected:
@@ -29,7 +30,7 @@ protected:
     Inventory* inventory = nullptr;
     TimeMoneyUi* timeMoneyUi = nullptr;
     Player* player = nullptr;
-
+    ItemToolTip* toolTip;
     std::vector<Button*> buyButtons;
 
 public:

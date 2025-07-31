@@ -6,6 +6,7 @@
 #include "Button.h"
 #include "Player.h"
 #include "TimeMoneyUi.h"
+#include "ItemToolTip.h"
 
 Shop::Shop(const std::string& name)
 	: GameObject(name)
@@ -49,7 +50,8 @@ void Shop::SetOrigin(Origins preset)
 
 void Shop::Init()
 {
-
+    toolTip = new ItemToolTip();
+    toolTip->Init();
 }
 
 void Shop::Release()
@@ -79,6 +81,7 @@ void Shop::Reset()
     itemSlot_bg.setTexture(TEXTURE_MGR.Get("graphics/itemSlot_bg.png"));
 
     font = FONT_MGR.Get("fonts/Stardew_Valley.ttf");
+    toolTip->Reset();
 }
 
 void Shop::Update(float dt) 
@@ -88,6 +91,8 @@ void Shop::Update(float dt)
 
     for (auto btn : buyButtons)
         btn->Update(dt);
+
+    toolTip->Update(dt);
 }
 
 void Shop::Draw(sf::RenderWindow& window)

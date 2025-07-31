@@ -407,6 +407,32 @@ std::vector<std::string> Utils::Split(std::string word, const char spilitWord)
     return splits;
 }
 
+std::vector<std::string> Utils::Split(std::string word, int cnt)
+{
+    std::vector<std::string> split;
+
+    int splitCnt = 0;
+    std::string splitWord;
+    auto iter = word.begin();
+    while (iter != word.end()) {
+        if (splitCnt == cnt) {
+            split.push_back(splitWord);
+            splitWord.clear();
+            splitCnt = 0;
+        }
+        
+        splitWord += *iter;
+
+        iter++;
+        splitCnt++;
+    }
+
+    if (!splitWord.empty()) {
+        split.push_back(splitWord);
+    }
+    return split;
+}
+
 int Utils::FindStringIdx(std::vector<std::string> words, const std::string findword)
 {
     int idx = 0;
