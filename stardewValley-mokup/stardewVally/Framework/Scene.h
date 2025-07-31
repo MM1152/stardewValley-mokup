@@ -1,5 +1,19 @@
 #pragma once
 
+class TimeMoneyUi;
+class Player;
+class NpcMgr;
+class Shop;
+class Collider;
+class TimeMoneyUi;
+class Map;
+class Inventory;
+class QuickBar;
+class DialogueBox;
+class Crops;
+class DropItem;
+class SellBox;
+
 class Scene
 {
 protected:
@@ -17,6 +31,16 @@ protected:
 	sf::View worldView;
 
 	void ApplyPendingChanges();
+
+	static Player* player;
+	static TimeMoneyUi* timemoney;
+	static Inventory* inventory;
+	static QuickBar* quickBar;
+
+	static bool releasePlayer;
+	static bool releaseTimeMoney;
+	static bool releaseInven;
+	static bool releaseQuick;
 
 public:
 	const SceneIds Id;

@@ -88,13 +88,7 @@ void SceneTest::Init()
 	texIds.push_back("graphics/garlicdrop.png");
 	texIds.push_back("graphics/parsnipdrop.png");
 
-
-
-	inventory = new Inventory(INVEN_IMG_PATH"CraftImage.bmp");
-	quickBar = new QuickBar(INVEN_IMG_PATH"CraftImage.bmp" , "fonts/DOSGothic.ttf");
 	npc = new NpcMgr("Npc");
-	player = new Player("Player");
-	timemoney = new TimeMoneyUi("TimeMoney");
 	shop = new Shop("shop");
 	dialogueBox = new DialogueBox("DialogueBox");
 	sellBox = new SellBox("SellBox");
@@ -105,12 +99,9 @@ void SceneTest::Init()
 
 	AddGameObject(inventory);
 	AddGameObject(quickBar);
-	inventory->SetQuickBar(quickBar);
-
 	
 	//TimeMoney
 
-	timemoney->Setplayer(player);
 	AddGameObject(timemoney);
 
 	//shop

@@ -29,10 +29,7 @@
     <ClCompile Include="Mgr\itemDataMgr.cpp" />
     <ClCompile Include="Mgr\NpcMgr.cpp" />
     <ClCompile Include="Scene\SceneAnimator.cpp" />
-    <ClCompile Include="Scene\SceneTileChangeTest.cpp" />
-    <ClCompile Include="SceneAnimationTest.cpp" />
     <ClCompile Include="Scene\SceneHome.cpp" />
-    <ClCompile Include="Scene\LoadMapDataScene.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="InventoryStstem\QuickBar_Slot.cpp" />
@@ -88,10 +85,7 @@
     <ClInclude Include="InventoryStstem\QuickBar.h" />
     <ClInclude Include="Items\ItemInfo.h" />
     <ClInclude Include="InventoryStstem\QuickBar_Slot.h" />
-    <ClInclude Include="Scene\SceneTileChangeTest.h" />
-    <ClInclude Include="SceneAnimationTest.h" />
     <ClInclude Include="Scene\SceneHome.h" />
-    <ClInclude Include="Scene\LoadMapDataScene.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Scene\SceneAnimator.h" />
     <ClInclude Include="Scene\MapToolScene.h" />

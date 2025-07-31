@@ -45,15 +45,11 @@ void SceneHome::Init()
 	fontIds.push_back("fonts/DOSGothic.ttf");
 
 
-	inventory = new Inventory(INVEN_IMG_PATH"CraftImage.bmp");
-	quickBar = new QuickBar(INVEN_IMG_PATH"CraftImage.bmp");
-	player = new Player("Player");
-	timemoney = new TimeMoneyUi("TimeMoney");
+
 
 	AddGameObject(inventory);
 	AddGameObject(quickBar);
 	inventory->SetQuickBar(quickBar);
-
 	//TimeMoney
 
 	timemoney->Setplayer(player);
@@ -64,6 +60,7 @@ void SceneHome::Init()
 	player->SetTimer(timemoney);
 	AddGameObject(player);
 
+	timemoney->Setplayer(player);
 
 
 	const auto& items = itemDataMgr::Instance().GetShopItemList("Pierre's General Store");
@@ -81,9 +78,19 @@ void SceneHome::Init()
 
 	// F9 Draw Collider
 	drawCollider = true;
-
 	Scene::Init();
-	
+	map.Load(MAP_PATH"home");
+
+	for (auto tri : map.GetTriggers()) {
+		tri->Init();
+		tri->SetPlayer(player);
+		if (tri->GetType() == TriggerType::Door) {
+			tri->callback = [this]() {
+				SCENE_MGR.ChangeScene(SceneIds::Test);
+				};
+		}
+	}
+
 }
 
 void SceneHome::Enter()
@@ -96,17 +103,7 @@ void SceneHome::Enter()
 	sf::Vector2f windowSize = FRAMEWORK.GetWindowSizeF();
 
 	Scene::Enter(); //push_back
-	map.Load(MAP_PATH"home");
-
-	for (auto tri : map.GetTriggers()) {
-		tri->Init();
-		tri->SetPlayer(player);
-		if (tri->GetType() == TriggerType::Door) {
-			tri->callback = [this]() {
-				SCENE_MGR.ChangeScene(SceneIds::Test);
-			};
-		}
-	}
+	
 
 	tile->Set(map.GetTextId(0), map.GetCellDatas(0));
 	forGround->Set(map.GetTextId(1), map.GetCellDatas(1));

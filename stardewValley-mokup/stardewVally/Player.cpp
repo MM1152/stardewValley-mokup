@@ -162,12 +162,13 @@ void Player::Reset()
 		useItem = false;
 		body.Play(ANIMATION_PATH"playerbackward.csv");
 		hand.Play(ANIMATION_PATH"playerbackwardhand.csv");
-		});
+	});
+
 	body.AddEvent("playeruseitemleft", 3, [this]() {
 		useItem = false;
 		body.Play(ANIMATION_PATH"playerleft.csv");
 		hand.Play(ANIMATION_PATH"playerlefthand.csv");
-		});
+	});
 
 	speed = 100;
 	SetOrigin(Origins::BC);

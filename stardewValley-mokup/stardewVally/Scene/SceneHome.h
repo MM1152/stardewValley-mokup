@@ -16,12 +16,6 @@ class QuickBar;
 class SceneHome : public Scene
 {
 protected:
-	Player* player = nullptr;
-	Collider* collider = nullptr;
-	TimeMoneyUi* timemoney = nullptr;
-	Inventory* inventory = nullptr;
-	QuickBar* quickBar = nullptr;
-
 	TileMap* tile;
 	TileMap* forGround;
 

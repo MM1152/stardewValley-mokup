@@ -1,5 +1,31 @@
 #include "stdafx.h"
+#include "SceneTest.h"
+#include "TileMap.h"
+#include "SpriteGo.h"
+#include "Player.h"
+#include "NpcMgr.h"
+#include "Shop.h"
+#include "Collider.h"
+#include "TimeMoneyUi.h"
+#include "Inventory.h"
+#include "QuickBar.h"
+#include "DialogueBox.h"
+#include "DialogueLoader.h"
+#include "Crops.h"
+#include "InteractionObject.h"
+#include "DropItem.h"
+#include "SellBox.h"
 #include "Scene.h"
+
+Player* Scene::player;
+TimeMoneyUi* Scene::timemoney;
+Inventory* Scene::inventory;
+QuickBar* Scene::quickBar;
+
+bool Scene::releasePlayer;
+bool Scene::releaseTimeMoney;
+bool Scene::releaseInven;
+bool Scene::releaseQuick;
 
 Scene::Scene(SceneIds id)
 	: Id(id)
@@ -8,6 +34,13 @@ Scene::Scene(SceneIds id)
 
 void Scene::Init()
 {
+	if (!player) {
+		inventory = new Inventory(INVEN_IMG_PATH"CraftImage.bmp" , "Inven");
+		quickBar = new QuickBar(INVEN_IMG_PATH"CraftImage.bmp", "fonts/DOSGothic.ttf" , "QuickBar");
+		player = new Player("Player");
+		timemoney = new TimeMoneyUi("TimeMoney");
+	}
+
 	for (auto obj : gameObjects)
 	{
 		obj->Init();
@@ -25,8 +58,23 @@ void Scene::Release()
 	
 	for (auto obj : gameObjects)
 	{
-		obj->Release();
-		delete obj;
+		if (obj == player && releasePlayer) continue;
+		if (obj == inventory && releaseInven) continue;
+		if (obj == quickBar && releaseQuick) continue;
+		if (obj == timemoney && releaseTimeMoney) continue;
+
+		if (obj) {
+			obj->Release();
+		}
+		if (obj) {
+			delete obj;
+		}
+
+		if (obj == player) releasePlayer = true;
+		if (obj == inventory) releaseInven = true;
+		if (obj == quickBar) releaseQuick = true;
+		if (obj == timemoney) releaseTimeMoney = true;
+
 	}
 	gameObjects.clear();
 }

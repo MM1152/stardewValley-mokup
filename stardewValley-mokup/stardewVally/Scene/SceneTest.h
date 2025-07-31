@@ -22,13 +22,9 @@ class SellBox;
 class SceneTest : public Scene
 {
 protected:
-	Player* player = nullptr;
 	NpcMgr* npc = nullptr;
 	Shop* shop = nullptr;
 	Collider* collider = nullptr;
-	TimeMoneyUi* timemoney = nullptr;
-	Inventory* inventory = nullptr;
-	QuickBar* quickBar = nullptr;
 	DialogueBox* dialogueBox = nullptr;
 	SellBox* sellBox = nullptr;
 
