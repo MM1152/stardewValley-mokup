@@ -51,6 +51,8 @@ void TitleUi::Init()
 	yes_or_no.setScale({ 1.3f, 1.3f });
 	yes_or_no.setPosition({ 375.f, 200.f });
 
+	tool.setScale({ 1.3f, 1.3f });
+	tool.setPosition({ 375.f, 200.f });
 
 	startbnt = new Button("fonts/Stardew_Valley.ttf", "title/mainchoice.png", "start");
 	startbnt->SetOrigin(Origins::MC);
@@ -58,6 +60,7 @@ void TitleUi::Init()
 	startbnt->SetPosition({ 243.f, 555.f });
 	startbnt->SetTextureRect({ 0, 121, 174, 121 });
 	startbnt->onClickFunc = [this]() {
+		if (!exitview && !toolview)
 		SCENE_MGR.ChangeScene(SceneIds::Test);
 		};
 
@@ -67,16 +70,18 @@ void TitleUi::Init()
 	loadbnt->SetPosition({ 449.f, 555.f });
 	loadbnt->SetTextureRect({ 174, 121, 174, 121 });
 	loadbnt->onClickFunc = [this]() {
+		if (!exitview && !toolview)
 		std::cout << "저장된 파일이 없습니다." << std::endl;
 		};
 
-	maptoolbnt = new Button("fonts/Stardew_Valley.ttf", "title/mainchoice.png", "maptool");
-	maptoolbnt->SetOrigin(Origins::MC);
-	maptoolbnt->SetScale({ 1.05f, 4.8f });
-	maptoolbnt->SetPosition({ 655.f, 555.f });
-	maptoolbnt->SetTextureRect({ 348, 121, 174, 121 });
-	maptoolbnt->onClickFunc = [this]() {
-		SCENE_MGR.ChangeScene(SceneIds::Maptool);
+	toolbnt = new Button("fonts/Stardew_Valley.ttf", "title/mainchoice.png", "toolbnt");
+	toolbnt->SetOrigin(Origins::MC);
+	toolbnt->SetScale({ 1.05f, 4.8f });
+	toolbnt->SetPosition({ 655.f, 555.f });
+	toolbnt->SetTextureRect({ 348, 121, 174, 121 });
+	toolbnt->onClickFunc = [this]() {
+		if (!exitview && !toolview)
+			toolview = true;
 		};
 
 	exitbnt = new Button("fonts/Stardew_Valley.ttf", "title/mainchoice.png", "exit");
@@ -85,11 +90,12 @@ void TitleUi::Init()
 	exitbnt->SetPosition({ 863.f, 555.f });
 	exitbnt->SetTextureRect({ 522, 121, 174, 121 });
 	exitbnt->onClickFunc = [this]() {
+		if (!exitview && !toolview)
 		exitview = true;
 		};
 
 
-	yesbnt = new Button("fonts/Stardew_Valley.ttf", "title/yes.png", "exit");
+	yesbnt = new Button("fonts/Stardew_Valley.ttf", "title/yes.png", "yes");
 	yesbnt->SetOrigin(Origins::MC);
 	yesbnt->SetScale({ 1.1f, 2.33f });
 	yesbnt->SetPosition({ 462.f, 415.f });
@@ -100,7 +106,7 @@ void TitleUi::Init()
 		}
 		};
 
-	nobnt = new Button("fonts/Stardew_Valley.ttf", "title/no.png", "exit");
+	nobnt = new Button("fonts/Stardew_Valley.ttf", "title/no.png", "no");
 	nobnt->SetOrigin(Origins::MC);
 	nobnt->SetScale({ 1.1f, 2.33f });
 	nobnt->SetPosition({ 679.f, 415.f });
@@ -108,6 +114,27 @@ void TitleUi::Init()
 		if (exitview)
 		{
 			exitview = false;
+		}
+		};
+
+	maptoolbnt = new Button("fonts/Stardew_Valley.ttf", "title/maptool.png", "maptoolbnt");
+	maptoolbnt->SetOrigin(Origins::MC);
+	maptoolbnt->SetScale({ 1.1f, 2.33f });
+	maptoolbnt->SetPosition({ 462.f, 415.f });
+	maptoolbnt->onClickFunc = [this]() {
+		if (toolview)
+		{
+			SCENE_MGR.ChangeScene(SceneIds::Maptool);
+		}
+		};
+	animatorbnt = new Button("fonts/Stardew_Valley.ttf", "title/animator.png", "animatorbnt");
+	animatorbnt->SetOrigin(Origins::MC);
+	animatorbnt->SetScale({ 1.1f, 2.33f });
+	animatorbnt->SetPosition({ 679.f, 415.f });
+	animatorbnt->onClickFunc = [this]() {
+		if (toolview)
+		{
+			SCENE_MGR.ChangeScene(SceneIds::Animator);
 		}
 		};
 }
@@ -120,12 +147,13 @@ void TitleUi::Reset()
 {
 	title.setTexture(TEXTURE_MGR.Get("title/main.bmp"));
 	yes_or_no.setTexture(TEXTURE_MGR.Get("title/yes_or_no.png"));
+	tool.setTexture(TEXTURE_MGR.Get("title/choicetool.png"));
 	startbnt->Reset();
 	startbnt->SetString("            ");
 	loadbnt->Reset();
 	loadbnt->SetString("            ");
-	maptoolbnt->Reset();
-	maptoolbnt->SetString("            ");
+	toolbnt->Reset();
+	toolbnt->SetString("            ");
 	exitbnt->Reset();
 	exitbnt->SetString("            ");
 
@@ -133,16 +161,40 @@ void TitleUi::Reset()
 	yesbnt->SetString("         ");
 	nobnt->Reset();
 	nobnt->SetString("         ");
+
+	maptoolbnt->Reset();
+	maptoolbnt->SetString("         ");
+	animatorbnt->Reset();
+	animatorbnt->SetString("         ");
 }
 
 void TitleUi::Update(float dt)
 {
 	startbnt->Update(dt);
 	loadbnt->Update(dt);
-	maptoolbnt->Update(dt);
+	toolbnt->Update(dt);
 	exitbnt->Update(dt);
+
 	yesbnt->Update(dt);
 	nobnt->Update(dt);
+
+	maptoolbnt->Update(dt);
+	animatorbnt->Update(dt);
+
+	if (exitview)
+	{
+		if (InputMgr::GetKeyDown(sf::Keyboard::Escape))
+		{
+			exitview = false;
+		}
+	}
+	if (toolview)
+	{
+		if (InputMgr::GetKeyDown(sf::Keyboard::Escape))
+		{
+			toolview = false;
+		}
+	}
 }
 
 void TitleUi::Draw(sf::RenderWindow& window)
@@ -150,7 +202,7 @@ void TitleUi::Draw(sf::RenderWindow& window)
 	window.draw(title);
 	startbnt->Draw(window);
 	loadbnt->Draw(window);
-	maptoolbnt->Draw(window);
+	toolbnt->Draw(window);
 	exitbnt->Draw(window);
 
 	if (exitview)
@@ -158,5 +210,12 @@ void TitleUi::Draw(sf::RenderWindow& window)
 		window.draw(yes_or_no);
 		yesbnt->Draw(window);
 		nobnt->Draw(window);
+	}
+
+	if (toolview)
+	{
+		window.draw(tool);
+		maptoolbnt->Draw(window);
+		animatorbnt->Draw(window);
 	}
 }

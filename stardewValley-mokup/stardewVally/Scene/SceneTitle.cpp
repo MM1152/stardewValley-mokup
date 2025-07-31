@@ -13,6 +13,9 @@ void SceneTitle::Init()
 	texIds.push_back("title/yes_or_no.png");
 	texIds.push_back("title/yes.png");
 	texIds.push_back("title/no.png");
+	texIds.push_back("title/choicetool.png");
+	texIds.push_back("title/maptool.png");
+	texIds.push_back("title/animator.png");
 
 
 	fontIds.push_back("fonts/Stardew_Valley.ttf");
