@@ -3,6 +3,7 @@
 #include "Map.h"
 #include "Player.h"
 #include "InteractionObject.h"
+#include "sellBox.h"
 
 Collider::Collider(const std::string& name)
 	: GameObject(name)
@@ -260,6 +261,12 @@ void Collider::SetMap(Map* map)
 void Collider::SetPlayer(Player* player)
 {
 	this->player = player;
+}
+
+void Collider::SetSellBox(SellBox* sellBox)
+{                
+	this->sellBox = sellBox;
+	shapes.push_back(&sellBox->GetRect());
 }
 
 

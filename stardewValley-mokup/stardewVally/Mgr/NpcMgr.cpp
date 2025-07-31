@@ -128,30 +128,33 @@ void NpcMgr::Update(float dt)
 
 
 	//Talk
-
 	if (!player->GetOpenInven() && !player->GetOpenShop()) {
-		if (IsTalkCollidingPlayer(playerRect)) 
+		if (IsTalkCollidingPlayer(playerRect))
 		{
-			// 매 키 입력마다 player bool 값이 변경되는 오류발생 중
-			if (InputMgr::GetKeyDown(sf::Keyboard::X)) 
+			if (InputMgr::GetKeyDown(sf::Keyboard::X))
 			{
-				if (dialogueBox)
+
+				if (dialogueBox && !dialogueBox->IsActive())
 				{
+					dialogueBox->isDialogueShowing(); 
 					player->ChangeisPlayer();
 					timemoneyui->ChangeTimer();
 					isNpcMove = false;
+
+					if (talkCallback)
+					{
+						talkCallback();
+					}
 				}
-				if (talkCallback) 
-				{
-					talkCallback();
-				}
-			
-			}
-			else if (!talkCallback ) 
-			{
-				isNpcMove = true;
 			}
 		}
+	}
+
+	if (dialogueBox && !dialogueBox->IsActive() && !player->GetisPlayer())
+	{
+		player->ChangeisPlayer();
+		timemoneyui->ChangeTimer();
+		isNpcMove = true; 
 	}
 
 

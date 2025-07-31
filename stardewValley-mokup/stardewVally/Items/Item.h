@@ -41,7 +41,7 @@ public:
 	void SetItemInfo(Item* item);
 	void SetPlayer(Player* player) { this->player = player; };
 
-	int GetQuantity() { return quantity; };
+	int GetQuantity() { return quantity;};
 	virtual void PlusQuantity(int quantity) { this->quantity += quantity; };
 
 	virtual bool UseItem() { return false; };

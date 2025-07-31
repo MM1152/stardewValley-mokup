@@ -2,6 +2,8 @@
 #include "SellBox.h"
 #include "Inventory.h"
 #include "Player.h"
+#include "InUIItem.h"
+#include "TImeMoneyUi.h"
 
 SellBox::SellBox(const std::string& name)
 	: GameObject(name)
@@ -63,45 +65,52 @@ void SellBox::Reset()
 	sf::FloatRect currentBounds = sellBoxSprite.getGlobalBounds();
 	boxRect.setSize({ currentBounds.width + 10, currentBounds.height + 10});
 	boxRect.setPosition(sellBoxSprite.getPosition().x-5, sellBoxSprite.getPosition().y);
-	boxRect.setFillColor(sf::Color(0, 0, 255, 150));
+	boxRect.setFillColor(sf::Color(0, 0, 0, 0));
+
+	boxBlockRect.setSize({currentBounds.width- 3, currentBounds.height-9});
+	boxBlockRect.setPosition(sellBoxSprite.getPosition().x + 1.5, sellBoxSprite.getPosition().y + 5);
+	//boxBlockRect.setFillColor(sf::Color(0,0,0,0));
+	//boxBlockRect.setOutlineThickness(1.5);
+	//boxBlockRect.setOutlineColor(sf::Color::Green);
 }
 
 void SellBox::Update(float dt)
 {
-
-	playerRect.setPosition(player->GetPosition()); 
+	playerRect.setPosition(player->GetPosition());
 	playerRect.setSize(player->GetGlobalBounds().getSize());
 
 	player->SetPosition(playerRect.getPosition());
 
-	if (IsCollidingBox(playerRect))
+	if (!inventory->GetActive() && IsCollidingBox(playerRect))
 	{
 		if (InputMgr::GetMouseButtonDown(sf::Mouse::Left))
 		{
-			bool active = !inventory->GetActive();
-			inventory->SetActive(active);
+			BoxOpen();
+			inventory->SetActive(true);
 
-			if (active)
-			{
-				sf::Vector2f invPos = inventory->GetPosition();
-				inventory->SetPosition({ invPos.x, invPos.y + 200.f });
-			}
+			inventory->SetPosition({ FRAMEWORK.GetWindowSizeF().x / 2 - 400.f , FRAMEWORK.GetWindowSizeF().y / 2 - 300.f });
 		}
-		else if (InputMgr::GetKeyDown(sf::Keyboard::Escape))
-		{
-			inventory->SetActive(!active);
-		}
+	}
+
+
+
+	if (inventory->GetActive() && InputMgr::GetKeyDown(sf::Keyboard::Escape))
+	{
+		inventory->SetActive(false);
+		BoxClosed();
 	}
 }
 
 void SellBox::Draw(sf::RenderWindow& window)
 {
 	window.draw(sellBoxSprite);
+	window.draw(boxRect);
+	//window.draw(boxBlockRect);
 }
 
 //void SellBox::setCallBack(std::function<void()> cb)
 //{
-//	callback = cb;
+//	callback = cb; 
 //}
 
 bool SellBox::IsCollidingBox(sf::RectangleShape rect)
@@ -118,8 +127,27 @@ bool SellBox::IsCollidingBox(sf::RectangleShape rect)
 		rectPos.y < boxPos.y + boxSize.y;
 }
 
-void SellBox::SetInventory(Inventory* inven)
+void SellBox::SellItem(Item& item)
 {
+	if (player == nullptr || timeMoneyUi == nullptr)
+	{
+		std::cout << "SellBox Player or TimeMoneyUi is null\n";
+		return;
+	}
+
+	ItemInfo* itemInfo = item.GetItemInfo();
+
+	int quantity = item.GetQuantity();
+	int sellPrice = itemInfo->price * quantity;
+
+	player->SetMoney(player->GetMoney() + sellPrice);
+	timeMoneyUi->SettingMoney(player->GetMoney());
+
+}
+
+
+void SellBox::SetInventory(Inventory* inven)
+{ 
 	inventory = inven;
 }
 
@@ -138,3 +166,23 @@ Player* SellBox::GetPlayer()
 	return player;
 }
 
+void SellBox::BoxOpen()
+{
+	isBoxOpen = true;
+	std::cout << "SellBox opened\n";
+}
+
+void SellBox::BoxClosed()
+{
+	isBoxOpen = false;
+}
+
+bool SellBox::IsBoxOpen()
+{
+	return isBoxOpen;
+}
+
+bool SellBox::IsBoxClosed()
+{
+	return !isBoxOpen;
+}

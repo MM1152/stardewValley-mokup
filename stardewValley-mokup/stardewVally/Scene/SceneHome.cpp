@@ -63,6 +63,7 @@ void SceneHome::Init()
 
 	AddGameObject(tile);
 	AddGameObject(forGround);
+
 	AddGameObject(inventory);
 	AddGameObject(quickBar);
 	AddGameObject(player);
@@ -72,6 +73,8 @@ void SceneHome::Init()
 	Scene::Init();
 
 	map.Load(MAP_PATH"home");
+
+
 }
 
 void SceneHome::Enter()
@@ -101,8 +104,6 @@ void SceneHome::Enter()
 			};
 		}
 	}
-
-
 }
 
 void SceneHome::Exit()

@@ -22,7 +22,7 @@ void Inventory::Init()
 	inv_BackGround.setPosition({ FRAMEWORK.GetWindowSizeF().x / 2 - 400.f , FRAMEWORK.GetWindowSizeF().y / 2 - 300.f});
 
 	toolTip = new ItemToolTip();
-
+	
 	slotSize = 24;
 	for (int i = 0; i < 12; i++) {
 		ItemSlot* itemSlot = new ItemSlot(INVEN_IMG_PATH"ItemSlot.png");
@@ -98,6 +98,25 @@ void Inventory::Update(float dt)
 		ItemSlot::dragItem->Update(dt);
 	}
 	toolTip->Update(dt);
+}
+
+void Inventory::SetSellBox(SellBox* sb)
+{
+	for (auto& slot : equipSlots)
+	{
+		if (slot)
+		{
+			slot->SetSellBox(sb);
+		}
+	}
+
+	for (auto& slot : unEquipSlots)
+	{
+		if (slot)
+		{
+			slot->SetSellBox(sb);
+		}
+	}
 }
 
 void Inventory::Draw(sf::RenderWindow& window)

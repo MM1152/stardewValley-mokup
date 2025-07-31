@@ -3,6 +3,9 @@
 
 class Inventory;
 class Player;
+class Item;
+class InGameItem;
+class TimeMoneyUi;
 class SellBox : public GameObject
 {
 protected:
@@ -14,8 +17,15 @@ protected:
 
 	Inventory* inventory;
 	Player* player;
+	Item* item; 
+	InGameItem* copyItem;
+
+	TimeMoneyUi* timeMoneyUi = nullptr;
+
+	bool isBoxOpen = false;
 
 	sf::RectangleShape boxRect;
+	sf::RectangleShape boxBlockRect;
 	sf::RectangleShape playerRect;
 
 
@@ -37,8 +47,22 @@ public:
 	//void setCallBack(std::function<void()> cb);
 	bool IsCollidingBox(sf::RectangleShape rect);
 	void SetInventory(Inventory* inven);
-	Inventory* GetInventory();
 	void SetPlayer(Player* p);
+	void SetItem(Item* i) { item = i; }
+	void SellItem(Item& item);
+	void SetTimeMoeyUi(TimeMoneyUi* tmu) { timeMoneyUi = tmu; }
+	Inventory* GetInventory();
 	Player* GetPlayer();
+	Item* GetItem();
+
+	void BoxOpen();
+	void BoxClosed();
+	bool IsBoxOpen();
+	bool IsBoxClosed();
+
+	sf::RectangleShape& GetRect()
+	{
+		return boxBlockRect;
+	}
 };
 

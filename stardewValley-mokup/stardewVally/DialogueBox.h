@@ -16,7 +16,7 @@ protected:
 	DialogueInfo loadedDialogue;
 
 	bool isDialogueShow = false; 
-
+	bool isActive;
 	std::function<void()> onCloseCallback;
 
 public:
@@ -42,5 +42,9 @@ public:
 
 	bool IsLastLine();
 	void NextLine();
+	bool IsActive() const
+	{
+		return isActive;
+	}
 };
 

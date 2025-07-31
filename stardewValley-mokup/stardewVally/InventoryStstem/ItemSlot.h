@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "InUIItem.h"
 
+class SellBox;
 class ItemSlot : public GameObject
 {
 private:
@@ -12,13 +13,14 @@ private:
 
 	InUIItem* item = nullptr;
 	bool onMouse = false;
+	SellBox* sellBox = nullptr;
+
 public:
 	static InUIItem* dragItem;
 
 	ItemSlot(const std::string& texId = "", const std::string& fontId = "", const std::string& name = "");
 	~ItemSlot() override = default;
 
-	// GameObject을(를) 통해 상속됨
 	void Init() override;
 	void Release() override;
 	void Reset() override;
@@ -31,5 +33,6 @@ public:
 	virtual bool SetItem(InUIItem* item);
 	bool IsSetting() { return item; };
 	void RemoveItem() { item = nullptr; };
+	void SetSellBox(SellBox* sb);
 };
 
