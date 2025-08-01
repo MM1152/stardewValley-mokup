@@ -314,11 +314,7 @@ void MapToolScene::Enter()
 	Scene::Enter();
 	//here2/3 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 	tilemap1->Set({ 24, 25 }, { 16.f, 16.f }, "graphics/spring.bmp");
-	gridTile->drawGrid({ 30, 30 }, { 16.f , 16.f });
-	drawTile[0].Set({ 30, 30 }, { 16.f , 16.f });
-	drawTile[1].Set({ 30, 30 }, { 16.f , 16.f });
-	drawTile[2].Set({ 30, 30 }, { 16.f , 16.f });
-	
+
 	// ++ si add tile
 	gridTile->drawGrid({ 45, 30}, { 16.f , 16.f });
 
