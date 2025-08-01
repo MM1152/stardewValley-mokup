@@ -11,6 +11,7 @@
 #include "Crops.h"
 #include "Pick.h"
 #include "SellBox.h"
+#include "DialogueBox.h"
 
 Player::Player(const std::string name)
 	:Collider(name)
@@ -234,35 +235,45 @@ void Player::Update(float dt)
 	{
 		Collider::areaBlocked(position, *this, moveOffset);
 	}
-	// openInventory > E (in / out)
+	
 	if (!openShop)
 	{
 		if (InputMgr::GetKeyDown(sf::Keyboard::E))
 		{
-			ChangeisPlayer();
-			ChangeOpenInven();
+			if (!openInven) 
+			{
+				SetIsPlayer(false);
+				openInven = true;
+				inventory->SetActive(true);
+			}
+			else 
+			{
+				SetIsPlayer(true); 
+				openInven = false;
+				inventory->SetActive(false);
+			}
+
 			timemoneyui->ChangeTimer();
-			inventory->SetActive(!inventory->GetActive());
 		}
 	}
 	else
 	{
-		GetisPlayer();
+		GetIsPlayer();
 	}
 	// openInven > Escape out
 	if (openInven)
 	{
 		if (InputMgr::GetKeyDown(sf::Keyboard::Escape))
 		{
-			ChangeisPlayer();
-			ChangeOpenInven();
+			SetIsPlayer(true);
+			openInven = false;
+			inventory->SetActive(false);
 			timemoneyui->ChangeTimer();
-			inventory->SetActive(!inventory->GetActive());
 		}
 	}
 	else
 	{
-		GetisPlayer();
+		GetIsPlayer();
 	}
 
 	if (!openShop && !openInven) //&& fainting)
@@ -276,6 +287,13 @@ void Player::Update(float dt)
 
 		}
 	} 
+
+	if (!openShop && !openInven && dialogueBox && !dialogueBox->IsActive() && !npcMgr->GetIsTalking() && !isPlayer)
+	{
+		SetIsPlayer(true);
+	}
+
+
 
 	sf::Vector2f playerCenter = bodySprite.getPosition();
 	sf::Vector2f offSet = (sf::Vector2f)lookDir * 16.f;
@@ -418,17 +436,12 @@ bool Player::CanUseItemOnTile(int tileIdx)
 
 	CheckCellData cellData = map->SequentialGetCell(tileIdx);
 	const auto& usable = info->usableTiles;
-	//std::cout << "[DEBUG] Check tileIdx: " << tileIdx
-	//	<< ", usableLayer: " <<  << cellData.layer
-	//	<< ", cellData.idx: " << cellData.idx << std::endl;
 
 	if (cellData.layer != usableLayer)
 		return false;
 
 	return std::find(usable.begin(), usable.end(), cellData.idx) != usable.end();
 }
-
-
 
 void Player::SetInventory(Inventory* inven)
 {
@@ -449,3 +462,14 @@ TimeMoneyUi* Player::GetTimer()
 {
 	return timemoneyui;
 }
+
+void Player::SetDialogueBox(DialogueBox* dialogue)
+{
+	dialogueBox = dialogue;
+}
+
+DialogueBox* Player::GetDialogueBox()
+{
+	return dialogueBox;
+}
+

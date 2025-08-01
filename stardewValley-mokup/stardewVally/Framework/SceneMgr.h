@@ -9,7 +9,7 @@ protected:
 
 	std::unordered_map<SceneIds, Scene*> scenes;
 
-	SceneIds startScene = SceneIds::Maptool;
+	SceneIds startScene = SceneIds::Test;
 	SceneIds currentScene = SceneIds::None;
 	SceneIds nextScene = SceneIds::None;
 public:
@@ -22,7 +22,7 @@ public:
 
 	void Update(float dt);
 	void Draw(sf::RenderWindow& window);
-};
+}; 
 
 #define SCENE_MGR (SceneMgr::Instance())
 

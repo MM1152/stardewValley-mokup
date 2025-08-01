@@ -91,13 +91,15 @@ void SellBox::Update(float dt)
 			inventory->SetPosition({ FRAMEWORK.GetWindowSizeF().x / 2 - 400.f , FRAMEWORK.GetWindowSizeF().y / 2 - 300.f });
 		}
 	}
-
-
-
 	if (inventory->GetActive() && InputMgr::GetKeyDown(sf::Keyboard::Escape))
 	{
 		inventory->SetActive(false);
 		BoxClosed();
+
+		if (player)
+		{
+			player->SetIsPlayer(true);
+		}
 	}
 }
 

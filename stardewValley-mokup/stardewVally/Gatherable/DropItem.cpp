@@ -42,6 +42,7 @@ void DropItem::Update(float dt)
 			if (dropitemId == "graphics/parsnipdrop.png")
 			{
 				ItemInfo info = itemDataMgr::Instance().GetItem("parsnip");
+		
 				inventory->AddItem(info);
 				cellData.ge = GatherableType::None;
 				scene->RemoveDropItem(this);
@@ -69,6 +70,7 @@ void DropItem::Update(float dt)
 			}
 		}
 	}
+	inventory->Update(dt);
 }
 
 void DropItem::Draw(sf::RenderWindow& window)

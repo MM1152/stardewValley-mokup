@@ -71,18 +71,19 @@ void NpcMgr::Reset()
 
 void NpcMgr::Update(float dt)
 {
-	
-	std::srand(static_cast<unsigned>(std::time(nullptr)));
+	moveTimer += dt;
 
-	float axisX = (std::rand() % 3) - 1;
-	float axisY = (std::rand() % 3) - 1;
-
-	direction = sf::Vector2f(axisX, axisY);
-
-	sf::Vector2f moveOffset = { axisX * speed * dt, axisY * speed * dt };
+	if (isNpcMove && moveTimer >= moveInterval)
+	{
+		moveTimer = 0.f;
+		float axisX = (std::rand() % 3) - 1;
+		float axisY = (std::rand() % 3) - 1;
+		direction = sf::Vector2f(axisX, axisY);
+	}
 
 	if (isNpcMove)
 	{
+		sf::Vector2f moveOffset = direction * speed * dt;
 		sf::Vector2f talkPos = npcTalkSprite.getPosition();
 		Collider::areaBlocked(talkPos, npcTalkSprite, moveOffset);
 		npcTalkSprite.setPosition(talkPos);
@@ -100,7 +101,7 @@ void NpcMgr::Update(float dt)
 			if (InputMgr::GetKeyDown(sf::Keyboard::Z)) 
 			{
 				player->ChangeOpenShop();
-				player->ChangeisPlayer();
+				player->SetIsPlayer(false);
 				timemoneyui->ChangeTimer();
 				inventory->SetActive(!inventory->GetActive());
 				if (callback)
@@ -116,7 +117,7 @@ void NpcMgr::Update(float dt)
 		if (InputMgr::GetKeyDown(sf::Keyboard::Escape)) 
 		{
 			player->ChangeOpenShop();
-			player->ChangeisPlayer();
+			player->SetIsPlayer(true);
 			timemoneyui->ChangeTimer();
 			inventory->SetActive(!inventory->GetActive());
 			if (callback)
@@ -133,11 +134,10 @@ void NpcMgr::Update(float dt)
 		{
 			if (InputMgr::GetKeyDown(sf::Keyboard::X))
 			{
-
+				
 				if (dialogueBox && !dialogueBox->IsActive())
 				{
 					dialogueBox->isDialogueShowing(); 
-					player->ChangeisPlayer();
 					timemoneyui->ChangeTimer();
 					isNpcMove = false;
 
@@ -148,13 +148,6 @@ void NpcMgr::Update(float dt)
 				}
 			}
 		}
-	}
-
-	if (dialogueBox && !dialogueBox->IsActive() && !player->GetisPlayer())
-	{
-		player->ChangeisPlayer();
-		timemoneyui->ChangeTimer();
-		isNpcMove = true; 
 	}
 
 
@@ -183,6 +176,7 @@ bool NpcMgr::IsCollidingPlayer(sf::RectangleShape playerRect)
 
 bool NpcMgr::IsTalkCollidingPlayer(sf::RectangleShape rect)
 {
+	
 	sf::Vector2f npcPos = npcTalkSprite.getPosition();
 	sf::Vector2f npcSize = npcTalkSprite.getGlobalBounds().getSize();
 
