@@ -67,10 +67,10 @@ CellData Map::GetTextureCell(const int idx, const int layer)
         return textureCellData;
     }
 
-    textureCellData.cellTextCoord[0] = { idx % count.x * 16.f, idx / count.x * 16.f };
-    textureCellData.cellTextCoord[1] = { (idx % count.x + 1) * 16.f, idx / count.x * 16.f };
-    textureCellData.cellTextCoord[2] = { (idx % count.x + 1) * 16.f, (idx / count.x + 1) * 16.f };
-    textureCellData.cellTextCoord[3] = { idx % count.x * 16.f, (idx / count.x + 1) * 16.f };
+    textureCellData.cellTextCoord[0] = { idx % 24 * 16.f, idx / 24 * 16.f };
+    textureCellData.cellTextCoord[1] = { (idx % 24 + 1) * 16.f, idx / 24 * 16.f };
+    textureCellData.cellTextCoord[2] = { (idx % 24 + 1) * 16.f, (idx / 24 + 1) * 16.f };
+    textureCellData.cellTextCoord[3] = { idx % 24 * 16.f, (idx / 24 + 1) * 16.f };
 
     std::cout << textureCellData.cellTextCoord << std::endl;
     textureCellData.idx = idx;
@@ -157,10 +157,10 @@ void Map::Load(const std::string path , int layer)
                 cellData.cellTextCoord[3] = { 0, 0 };
             }
             else {
-                cellData.cellTextCoord[0] = { row[j] % row.size() * 16.f, row[j] / row.size() * 16.f };
-                cellData.cellTextCoord[1] = { (row[j] % row.size() + 1) * 16.f, row[j] / row.size() * 16.f };
-                cellData.cellTextCoord[2] = { (row[j] % row.size() + 1) * 16.f, (row[j] / row.size() + 1) * 16.f };
-                cellData.cellTextCoord[3] = { row[j] % row.size() * 16.f, (row[j] / row.size() + 1) * 16.f };
+                cellData.cellTextCoord[0] = { row[j] % 24 * 16.f, row[j] / 24 * 16.f };
+                cellData.cellTextCoord[1] = { (row[j] % 24 + 1) * 16.f, row[j] / 24 * 16.f };
+                cellData.cellTextCoord[2] = { (row[j] % 24 + 1) * 16.f, (row[j] / 24 + 1) * 16.f };
+                cellData.cellTextCoord[3] = { row[j] % 24 * 16.f, (row[j] / 24 + 1) * 16.f };
             }
             cellData.cellPosition[0] = { j * 16.f , (i - 1) * 16.f};
             cellData.cellPosition[1] = { (j + 1) * 16.f , (i - 1) * 16.f };

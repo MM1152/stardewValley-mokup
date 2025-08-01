@@ -73,7 +73,7 @@ void SceneHome::Init()
 	drawCollider = true;
 	Scene::Init();
 
-	map.Load(MAP_PATH"test");
+	map.Load(MAP_PATH"home");
 
 
 }
