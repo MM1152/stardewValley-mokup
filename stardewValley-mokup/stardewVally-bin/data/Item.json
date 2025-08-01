@@ -113,6 +113,19 @@
       "quantity": 100,
       "usableTiles" : [34],
       "usableLayer" : 2
+    },
+    {
+      "id":"stone",
+      "name" : "Stone",
+      "description" : "Stone",
+      "TextureId" : "graphics/springobjects.png",
+      "UiTextureRect" : [208, 16, 224, 16],
+      "TextureRect" : [208, 16, 224, 16],
+      "price" : 10,
+      "stock" : 100,
+      "quantity": 100,
+      "usableTiles" : [],
+      "usableLayer" : 2
     }
   ]
 }

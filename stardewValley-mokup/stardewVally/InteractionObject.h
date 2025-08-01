@@ -5,10 +5,11 @@ struct CellData;
 class InteractionObject : public GameObject
 {
 private:
-	sf::Sprite objectSp;
-	sf::RectangleShape rect;
 	std::string texId;
 	CellData* cellData;
+protected:
+	sf::Sprite objectSp;
+	sf::RectangleShape rect;
 public:
 	InteractionObject(const std::string& texId, CellData* cellData , const std::string& name = "");
 	~InteractionObject() override = default;

@@ -159,6 +159,7 @@ void MapToolScene::Init()
 		drawTile[0].Set(map.GetTextId(0), map.GetCellDatas(0));
 		drawTile[1].Set(map.GetTextId(1), map.GetCellDatas(1));
 		drawTile[2].Set(map.GetTextId(2), map.GetCellDatas(2));
+		gridTile->drawGrid(map.GetCount() , {16,16});
 		colliders.clear();
 		colliders = map.GetColliders();
 		

@@ -62,9 +62,6 @@ void InteractionObject::Reset()
 
 	objectSp.setPosition(cellData->cellPosition[0]);
 
-	this->rect.setSize({16 , 16});
-	this->rect.setPosition(objectSp.getPosition());
-
 	sortingLayer = SortingLayers::Foreground;
 	sortingOrder = objectSp.getPosition().y;
 }

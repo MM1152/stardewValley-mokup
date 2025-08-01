@@ -1,12 +1,12 @@
 #pragma once
 #include "stdafx.h"
 #include "Trigger.h"
-#include "InteractionObject.h"
+
+class TileMap;
+class InteractionObject;
 enum GatherableType{
 	None,
 	Seed,
-	Stone,
-	Grass,
 };
 
 struct CellData {
@@ -26,8 +26,7 @@ struct CheckCellData {
 
 std::ostream& operator <<(std::ostream& ost, sf::Vector2f cellTextCoord[4]);
 
-class TileMap;
-class InteractionObject;
+
 class Map
 {
 private:

@@ -52,6 +52,8 @@
     <ClCompile Include="Scene\SceneTitle.cpp" />
     <ClCompile Include="TitleUi.cpp" />
     <ClCompile Include="ItemToolTip.cpp" />
+    <ClCompile Include="Stone.cpp" />
+    <ClCompile Include="Grass.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Collider.h" />
@@ -109,5 +111,8 @@
     <ClInclude Include="Scene\SceneTitle.h" />
     <ClInclude Include="TitleUi.h" />
     <ClInclude Include="ItemToolTip.h" />
+    <ClInclude Include="Scene\SceneTileChangeTest.h" />
+    <ClInclude Include="Stone.h" />
+    <ClInclude Include="Grass.h" />
   </ItemGroup>
 </Project>

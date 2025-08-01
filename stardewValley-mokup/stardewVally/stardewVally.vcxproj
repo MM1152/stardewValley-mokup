@@ -138,6 +138,7 @@
   <ItemGroup>
     <ClInclude Include="Collider.h" />
     <ClInclude Include="Button.h" />
+    <ClInclude Include="Grass.h" />
     <ClInclude Include="Items\DropItemInfo.h" />
     <ClInclude Include="Gatherable\DropItem.h" />
     <ClInclude Include="Gatherable\Gatherable.h" />
@@ -187,6 +188,7 @@
     <ClInclude Include="SellBox.h" />
     <ClInclude Include="Shop.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Stone.h" />
     <ClInclude Include="TileMap.h" />
     <ClInclude Include="TimeMoneyUi.h" />
     <ClInclude Include="TitleUi.h" />
@@ -213,6 +215,7 @@
     <ClCompile Include="Framework\SpriteGo.cpp" />
     <ClCompile Include="Framework\TextGo.cpp" />
     <ClCompile Include="Framework\Utils.cpp" />
+    <ClCompile Include="Grass.cpp" />
     <ClCompile Include="HitBox.cpp" />
     <ClCompile Include="InteractionObject.cpp" />
     <ClCompile Include="Items\Hoe.cpp" />
@@ -242,6 +245,7 @@
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Stone.cpp" />
     <ClCompile Include="TileMap.cpp" />
     <ClCompile Include="TimeMoneyUi.cpp" />
     <ClCompile Include="TitleUi.cpp" />

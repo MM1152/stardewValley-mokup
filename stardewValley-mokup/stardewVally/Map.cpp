@@ -1,8 +1,10 @@
 #include "stdafx.h"
 #include "Map.h"
 #include "TileMap.h"
-#include "InteractionObject.h"
 #include <Windows.h>
+#include "Stone.h"
+#include "Grass.h"
+
 std::ostream& operator <<(std::ostream& ost, sf::Vector2f cellTextCoord[4]) {
     ost << cellTextCoord[0].x << ", " << cellTextCoord[0].y << ", " << cellTextCoord[1].x << ", " << cellTextCoord[1].y << ", " << cellTextCoord[2].x << ", " << cellTextCoord[2].y << ", " << cellTextCoord[3].x << ", " << cellTextCoord[3].y << ", ";
 
@@ -76,7 +78,7 @@ CellData Map::GetTextureCell(const int idx, const int layer)
     textureCellData.idx = idx;
 
     return textureCellData;
-}
+}   
 
 void Map::SetCellData(int idx, int layer, const CellData* cellData)
 {
@@ -211,13 +213,22 @@ std::vector<InteractionObject*>& Map::CreateObjects()
     
     for (int i = 0; i < objects.size(); i++) {
         if (objects[i].idx == 34) {
-            InteractionObject* ob = new InteractionObject(GetTextId(2), &objects[i]);
+            InteractionObject* ob = new Stone(GetTextId(2), &objects[i]);
             ob->Reset();
             objects[i].interactionObj = ob;
             this->objects.push_back(ob);
         }
         else if (objects[i].idx == 313) {
-
+            InteractionObject* ob = new Grass(GetTextId(2), &objects[i]);
+            ob->Reset();
+            objects[i].interactionObj = ob;
+            this->objects.push_back(ob);
+        }
+        else {
+            InteractionObject* ob = new InteractionObject(GetTextId(2), &objects[i]);
+            ob->Reset();
+            objects[i].interactionObj = ob;
+            this->objects.push_back(ob);
         }
     }
     return this->objects;
