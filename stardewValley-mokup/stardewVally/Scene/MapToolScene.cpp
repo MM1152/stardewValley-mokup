@@ -158,7 +158,7 @@ void MapToolScene::Init()
 			drawCollider = false;
 			startDraw = false;
 			//change here1/3 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-			tilemap1->SetTexture("graphics/villige.png");
+			tilemap1->SetTexture("graphics/spring.bmp");
 		}
 		};
 	tileBNT->sortingLayer = SortingLayers::UI;
@@ -323,14 +323,14 @@ void MapToolScene::Enter()
 	gridTile->Reset();
 	Scene::Enter();
 	//here2/3 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-	tilemap1->Set({ 24, 25 }, { 16.f, 16.f }, "graphics/villige.png");
+	tilemap1->Set({ 24, 25 }, { 16.f, 16.f }, "graphics/spring.bmp");
 
 	// ++ si add tile
-	gridTile->drawGrid({ 35, 35}, { 16.f , 16.f });
+	gridTile->drawGrid({ 45, 45 }, { 16.f , 16.f });
 
-	drawTile[0].Set({ 35, 35 }, { 16.f , 16.f });
-	drawTile[1].Set({ 35, 35 }, { 16.f , 16.f });
-	drawTile[2].Set({ 35, 35 }, { 16.f , 16.f });
+	drawTile[0].Set({ 45, 35 }, { 16.f , 16.f });
+	drawTile[1].Set({ 45, 35 }, { 16.f , 16.f });
+	drawTile[2].Set({ 45, 35 }, { 16.f , 16.f });
 
 	//
 	tilemap1->SetPosition({ FRAMEWORK.GetWindowSizeF().x / 2 + 200.f, FRAMEWORK.GetWindowSizeF().y / 2 - 260.f });
@@ -342,7 +342,7 @@ void MapToolScene::Enter()
 	drawTile[2].SetPosition({ 300 , 300 });
 
 	//change here3/3 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-	drawTile[0].SetTexture("graphics/villige.png");
+	drawTile[0].SetTexture("graphics/spring.bmp");
 	drawTile[1].SetTexture(GRAPHICS_PATH"building.png");
 	drawTile[2].SetTexture(GRAPHICS_PATH"springobjects.png");
 

@@ -207,7 +207,8 @@ void Player::Update(float dt)
 	if (item) 
 	{
 		copyItem->Update(dt);
-		if (InputMgr::GetKeyDown(sf::Keyboard::Z)) 
+		if (InputMgr::GetKeyDown(sf::Keyboard::Z) || 
+			InputMgr::GetMouseButtonDown(sf::Mouse::Left)) 
 		{
 			copyItem->UseItem();	
 		}
