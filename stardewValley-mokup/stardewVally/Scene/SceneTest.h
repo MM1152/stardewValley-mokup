@@ -55,7 +55,6 @@ public:
 	void RemoveCrops(Crops* crops);
 
 	void RemoveDropItem(DropItem* dropitem);
-
 	void AddDropItem(DropItem* dropitem);
 };
 

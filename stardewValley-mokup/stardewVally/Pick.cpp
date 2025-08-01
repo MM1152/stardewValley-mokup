@@ -87,9 +87,18 @@ bool Pick::UseItem()
 	player->PlayUseItemAnimation(lookDir);
 	startAnimation = true;
 
+	if (cellData.idx == 313) {
+		CellData changeCellData = map->GetTextureCell(-1, 2);
+		cellData.interactionObj->Interaction();
+		cellData.interactionObj = nullptr;
+
+		map->SetCellData(cellIdx, 2, &changeCellData);
+		return InGameItem::UseItem();
+	}
+
 	if (cellData.idx == 34) {
 		CellData changeCellData = map->GetTextureCell(-1, 2);
-		cellData.interactionObj->SetActive(false);
+		cellData.interactionObj->Interaction();
 		cellData.interactionObj = nullptr;
 		
 		map->SetCellData(cellIdx, 2, &changeCellData);

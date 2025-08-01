@@ -15,6 +15,7 @@
 #include "InteractionObject.h"
 #include "DropItem.h"
 #include "SellBox.h"
+#include "DropItemFix.h"
 
 SceneTest::SceneTest()
 	: Scene(SceneIds::Test)
@@ -258,6 +259,24 @@ void SceneTest::Update(float dt)
 			it->GrowUp();
 		}
 		player->SetGrowup(false);
+	}	
+
+	for (auto item : dropList) {
+		if (item->GetActive()) {
+			item->Update(dt);
+		}
+	}
+	
+	auto findIter = dropList.begin();
+
+	while (findIter != dropList.end()) {
+		if (!(*findIter)->GetActive()) {
+			findIter = dropList.erase(findIter);
+		}
+		else {
+			findIter++;
+		}
+
 	}
 }
 
@@ -276,6 +295,9 @@ void SceneTest::Draw(sf::RenderWindow& window)
 		for (auto tri : map.GetTriggers()) {
 			tri->Draw(window);
 		}
+	}
+	for (auto item : dropList) {
+		item->Draw(window);
 	}
 }
 

@@ -13,6 +13,7 @@ class DialogueBox;
 class Crops;
 class DropItem;
 class SellBox;
+class DropItemFix;
 
 class Scene
 {
@@ -42,6 +43,8 @@ protected:
 	static bool releaseInven;
 	static bool releaseQuick;
 
+	std::list<DropItemFix*> dropList;
+
 public:
 	const SceneIds Id;
 
@@ -64,11 +67,12 @@ public:
 	std::vector<GameObject*> FindGameObjects(const std::string& name);
 	void FindGameObjects(const std::string& name, std::vector<GameObject*>& results);
 
-
 	sf::Vector2f ScreenToWorld(sf::Vector2i screenPos);
 	sf::Vector2i WorldToScreen(sf::Vector2f worldPos);
 	sf::Vector2f ScreenToUi(sf::Vector2i screePos);
 	sf::Vector2i UiToScreen(sf::Vector2f worldPos);
+
+	void SetDropItem(DropItemFix* dropitem);
 };
 
 struct DrawOrderComparer

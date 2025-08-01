@@ -7,6 +7,6 @@ public:
 	~Grass() override = default;
 
 	void Reset() override;
-
+	void Interaction() override;
 };
 

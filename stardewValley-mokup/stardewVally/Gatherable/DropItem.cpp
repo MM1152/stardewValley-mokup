@@ -67,13 +67,6 @@ void DropItem::Update(float dt)
 				cellData.ge = GatherableType::None;
 				scene->RemoveDropItem(this);
 			}
-			if (dropitemId == "graphics/potatodrop.png")
-			{
-				ItemInfo info = itemDataMgr::Instance().GetItem("potato");
-				inventory->AddItem(info);
-				cellData.ge = GatherableType::None;
-				scene->RemoveDropItem(this);
-			}
 		}
 	}
 }

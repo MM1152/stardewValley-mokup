@@ -138,6 +138,7 @@
   <ItemGroup>
     <ClInclude Include="Collider.h" />
     <ClInclude Include="Button.h" />
+    <ClInclude Include="DropItemFix.h" />
     <ClInclude Include="Grass.h" />
     <ClInclude Include="Items\DropItemInfo.h" />
     <ClInclude Include="Gatherable\DropItem.h" />
@@ -198,6 +199,7 @@
   <ItemGroup>
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="DropItemFix.cpp" />
     <ClCompile Include="DropItemInfo.cpp" />
     <ClCompile Include="Gatherable\DropItem.cpp" />
     <ClCompile Include="Gatherable\Gatherable.cpp" />

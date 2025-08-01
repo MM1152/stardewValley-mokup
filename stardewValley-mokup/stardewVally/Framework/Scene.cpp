@@ -16,6 +16,7 @@
 #include "DropItem.h"
 #include "SellBox.h"
 #include "Scene.h"
+#include "DropItemFix.h"
 
 Player* Scene::player;
 TimeMoneyUi* Scene::timemoney;
@@ -158,6 +159,7 @@ void Scene::ApplyPendingChanges()
 	for (GameObject* go : objectsToRemove)
 	{
 		gameObjects.remove(go);
+		auto iter = std::find(dropList.begin() , dropList.end() , go);
 		if (go != nullptr)
 		{
 			go->Release();
@@ -260,4 +262,12 @@ sf::Vector2f Scene::ScreenToUi(sf::Vector2i screenPos)
 sf::Vector2i Scene::UiToScreen(sf::Vector2f uiPos)
 {
 	return FRAMEWORK.GetWindow().mapCoordsToPixel(uiPos, uiView);
+}
+
+void Scene::SetDropItem(DropItemFix* dropitem)
+{
+	dropitem->Init();
+	dropitem->Reset();
+	dropitem->SetPlayer(player);
+	dropList.push_back(dropitem);
 }

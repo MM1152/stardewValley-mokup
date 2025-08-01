@@ -7,6 +7,7 @@ public:
 	~Stone() override = default;
 
 	void Reset() override;
+	void Interaction() override;
 };
 
 	

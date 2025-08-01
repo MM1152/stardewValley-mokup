@@ -6,10 +6,11 @@ class InteractionObject : public GameObject
 {
 private:
 	std::string texId;
-	CellData* cellData;
 protected:
 	sf::Sprite objectSp;
 	sf::RectangleShape rect;
+	CellData* cellData;
+
 public:
 	InteractionObject(const std::string& texId, CellData* cellData , const std::string& name = "");
 	~InteractionObject() override = default;

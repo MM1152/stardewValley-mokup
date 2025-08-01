@@ -224,7 +224,7 @@ std::vector<InteractionObject*>& Map::CreateObjects()
             objects[i].interactionObj = ob;
             this->objects.push_back(ob);
         }
-        else {
+        else if(objects[i].idx != -1){
             InteractionObject* ob = new InteractionObject(GetTextId(2), &objects[i]);
             ob->Reset();
             objects[i].interactionObj = ob;
