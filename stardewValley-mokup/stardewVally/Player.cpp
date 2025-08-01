@@ -187,9 +187,9 @@ void Player::Reset()
 	speed = 100;
 	SetOrigin(Origins::BC);
 	sf::FloatRect center = bodySprite.getLocalBounds();
-	handSprite.setOrigin({ center.width / 2 + 1.5f, center.height / 2 + 5.9f });
-	hatSprite.setOrigin({ center.width / 2 + 3.f, center.height / 2 + 20.f });
-	shirtSprite.setOrigin({ center.width / 2 - 2.05f, center.height / 2 + 2.1f });
+	handSprite.setOrigin({ center.width / 3 + 4.5f, center.height / 2 + 5.f });
+	hatSprite.setOrigin({ center.width / 2 + 3.3f, center.height / 2 + 19.f });
+	shirtSprite.setOrigin({ center.width / 3 + 0.45f, center.height / 2 + 1.9f });
 
 
 	sf::FloatRect currentBounds = bodySprite.getGlobalBounds();
@@ -378,7 +378,7 @@ void Player::PlayMoveAnimation(sf::Vector2f dir)
 		shirt.Play(ANIMATION_PATH"shirtleft.csv");
 
 		SetScale({ 1,1 });
-		handSprite.setOrigin({ center.width / 2 + 2.f, center.height / 2 + 5.f });
+		handSprite.setOrigin({ center.width / 3 + 4.5f, center.height / 2 + 5.f });
 		lookDir = { 1 , 0 };
 	}
 	else if (dir.x < 0) {
@@ -388,7 +388,7 @@ void Player::PlayMoveAnimation(sf::Vector2f dir)
 		shirt.Play(ANIMATION_PATH"shirtleft.csv");
 
 		SetScale({ -1,1 });
-		handSprite.setOrigin({ center.width / 2 + 2.f, center.height / 2 + 5.f });
+		handSprite.setOrigin({ center.width / 3 + 4.75f, center.height / 2 + 5.f });
 		lookDir = { -1 , 0 };
 	}
 	else if (dir.y > 0) {
@@ -398,7 +398,7 @@ void Player::PlayMoveAnimation(sf::Vector2f dir)
 		shirt.Play(ANIMATION_PATH"shirtforward.csv");
 
 		SetScale({ 1,1 });
-		handSprite.setOrigin({ center.width / 2 + 2.f, center.height / 2 + 5.f });
+		handSprite.setOrigin({ center.width / 3.f + 4.5f, center.height / 2 + 5.f });
 		
 		lookDir = { 0 , 1 };
 	}
@@ -409,11 +409,11 @@ void Player::PlayMoveAnimation(sf::Vector2f dir)
 		shirt.Play(ANIMATION_PATH"shirtbackward.csv");
 		SetScale({ 1,1 });
 		lookDir = { 0 , -1 };
-		handSprite.setOrigin({ (center.width + center.left) / 2 + 2.5f, center.height / 2 + 5.9f });
+		handSprite.setOrigin({ (center.width + center.left) / 3 + 3.75f, center.height / 2 + 5.9f });
 	}
 	SetOrigin(Origins::BC);
 
-	hatSprite.setOrigin({ center.width / 2 + 3.f, center.height / 2 + 20.f });
+	hatSprite.setOrigin({ center.width / 2 + 3.3f, center.height / 2 + 19.f });
 	
 }
 
@@ -425,13 +425,13 @@ void Player::PlayUseItemAnimation(sf::Vector2i dir)
 	if (dir.x == 1) {
 		body.Play(ANIMATION_PATH"playerUseItemLeft.csv");
 		hand.Play(ANIMATION_PATH"playerUseItemHandLeft.csv");
-		handSprite.setOrigin({ (center.width + center.left) / 2 + 2.5f, center.height / 2 + 15.f });
+		handSprite.setOrigin({ (center.width + center.left) / 3 + 4.5f, center.height / 2 + 15.f });
 		SetScale({ 1,1 });
 	}
 	else if (dir.x == -1) {
 		body.Play(ANIMATION_PATH"playerUseItemLeft.csv");
 		hand.Play(ANIMATION_PATH"playerUseItemHandLeft.csv");
-		handSprite.setOrigin({ (center.width + center.left) / 2 + 2.5f, center.height / 2 + 15.f });
+		handSprite.setOrigin({ (center.width + center.left) / 3 + 4.75f, center.height / 2 + 15.f });
 		SetScale({ -1,1 });
 	}
 	else if (dir.y == 1) {
