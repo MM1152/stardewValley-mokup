@@ -52,6 +52,8 @@
     <ClCompile Include="Scene\SceneTitle.cpp" />
     <ClCompile Include="TitleUi.cpp" />
     <ClCompile Include="ItemToolTip.cpp" />
+    <ClCompile Include="Scene\SceneVillige.cpp" />
+    <ClCompile Include="Scene\SceneStore.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Collider.h" />
@@ -110,5 +112,7 @@
     <ClInclude Include="TitleUi.h" />
     <ClInclude Include="ItemToolTip.h" />
     <ClInclude Include="Scene\SceneTileChangeTest.h" />
+    <ClInclude Include="Scene\SceneVillige.h" />
+    <ClInclude Include="Scene\SceneStore.h" />
   </ItemGroup>
 </Project>

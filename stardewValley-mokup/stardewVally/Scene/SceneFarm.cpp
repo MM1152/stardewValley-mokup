@@ -27,7 +27,6 @@ void SceneFarm::Init()
 	texIds.push_back(GRAPHICS_PATH"farmer_base.png");
 	texIds.push_back(GRAPHICS_PATH"hats.png");
 	texIds.push_back("graphics/testC.png");
-	texIds.push_back("graphics/shop_bg.png");
 	texIds.push_back(INVEN_IMG_PATH"ItemSlot.png");
 	texIds.push_back("graphics/uiBox.png");
 
@@ -88,6 +87,10 @@ void SceneFarm::Init()
 	texIds.push_back("graphics/cauliflowerdrop.png");
 	texIds.push_back("graphics/garlicdrop.png");
 	texIds.push_back("graphics/parsnipdrop.png");
+
+	//test
+	texIds.push_back("graphics/villige.png");
+
 
 	npc = new NpcMgr("Npc");
 	shop = new Shop("shop");
@@ -173,7 +176,7 @@ void SceneFarm::Init()
 	AddGameObject(forGround);
 
 	map.Init(tile, forGround);
-	map.Load(MAP_PATH"realfarm");
+	map.Load(MAP_PATH"farm");
 	objects = map.CreateObjects();
 
 	// F9 Draw Collider
@@ -196,7 +199,7 @@ void SceneFarm::Init()
 void SceneFarm::Enter()
 {
 	FRAMEWORK.GetWindow().setMouseCursorVisible(true);
-	worldView.setSize({ FRAMEWORK.GetWindowSizeF().x / 4, FRAMEWORK.GetWindowSizeF().y / 4 });
+	worldView.setSize({ FRAMEWORK.GetWindowSizeF().x / 3, FRAMEWORK.GetWindowSizeF().y / 3 });
 
 	uiView.setSize(FRAMEWORK.GetWindowSizeF());
 	uiView.setCenter({ FRAMEWORK.GetWindowSizeF().x / 2 , FRAMEWORK.GetWindowSizeF().y / 2 });
@@ -204,16 +207,22 @@ void SceneFarm::Enter()
 	sf::Vector2f windowSize = FRAMEWORK.GetWindowSizeF();
 
 	Scene::Enter(); //push_back
-	player->SetPosition({ 208.f, 210.f });
-
-
 
 	for (auto tri : map.GetTriggers()) {
 		tri->Init();
+
 		tri->SetPlayer(player);
-		if (tri->GetType() == TriggerType::Door) {
+		if (tri->GetType() == TriggerType::Door) 
+		{
 			tri->callback = [this]() {
 				SCENE_MGR.ChangeScene(SceneIds::Home);
+			};
+		}
+		if (tri->GetType() == TriggerType::Bed)
+		{
+			tri->callback = [this]() {
+				player->SetPosition({ 40.f, 240.f });
+				SCENE_MGR.ChangeScene(SceneIds::Village);
 			};
 		}
 	}

@@ -29,6 +29,8 @@ enum class SceneIds
 	Title,
 	Home,
 	Farm,
+	Village,
+	Store,
 	Animator,
 	Maptool,
 	ChangeTile,

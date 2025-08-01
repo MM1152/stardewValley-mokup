@@ -176,6 +176,8 @@
     <ClInclude Include="InventoryStstem\QuickBar.h" />
     <ClInclude Include="Items\ItemInfo.h" />
     <ClInclude Include="InventoryStstem\QuickBar_Slot.h" />
+    <ClInclude Include="Scene\SceneStore.h" />
+    <ClInclude Include="Scene\SceneVillige.h" />
     <ClInclude Include="Scene\SceneTitle.h" />
     <ClInclude Include="Scene\SceneTileChangeTest.h" />
     <ClInclude Include="Scene\SceneHome.h" />
@@ -227,6 +229,8 @@
     <ClCompile Include="Mgr\itemDataMgr.cpp" />
     <ClCompile Include="Mgr\NpcMgr.cpp" />
     <ClCompile Include="Pick.cpp" />
+    <ClCompile Include="Scene\SceneStore.cpp" />
+    <ClCompile Include="Scene\SceneVillige.cpp" />
     <ClCompile Include="Scene\SceneTitle.cpp" />
     <ClCompile Include="Scene\SceneAnimator.cpp" />
     <ClCompile Include="Scene\SceneHome.cpp" />

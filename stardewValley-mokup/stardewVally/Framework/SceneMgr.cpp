@@ -5,6 +5,8 @@
 #include "MapToolScene.h"
 #include "SceneHome.h"
 #include "SceneTitle.h"
+#include "SceneVillige.h"
+#include "SceneStore.h"
 
 void SceneMgr::Init()
 {
@@ -13,6 +15,8 @@ void SceneMgr::Init()
 	scenes.insert({ SceneIds::Home, new SceneHome() });
 	scenes.insert({ SceneIds::Farm, new SceneFarm() });
 	scenes.insert({ SceneIds::Title, new SceneTitle() });
+	scenes.insert({ SceneIds::Village, new SceneVillige() });
+	scenes.insert({ SceneIds::Store, new SceneStore() });
 
 	
 	for (auto scene : scenes)
