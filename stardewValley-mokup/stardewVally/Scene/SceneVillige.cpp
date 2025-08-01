@@ -10,6 +10,8 @@
 #include "Inventory.h"
 #include "QuickBar.h"
 #include "Map.h"
+#include "DialogueBox.h"
+#include "DialogueLoader.h"
 
 SceneVillige::SceneVillige()
 	: Scene(SceneIds::Village)
@@ -19,7 +21,6 @@ SceneVillige::SceneVillige()
 void SceneVillige::Init()
 {
 	texIds.push_back("graphics/spring.bmp");
-	texIds.push_back("graphics/testC.png");
 	texIds.push_back("graphics/uitest.png");
 	texIds.push_back(INVEN_IMG_PATH"ItemSlot.png");
 	texIds.push_back(GRAPHICS_PATH"farmer_base.png");
@@ -30,6 +31,10 @@ void SceneVillige::Init()
 	texIds.push_back("graphics/cauliflower_seeds.png");
 	texIds.push_back("graphics/potato_seeds.png");
 	texIds.push_back("graphics/garlic_seeds.png");
+	texIds.push_back("graphics/uiBox.png");
+
+	texIds.push_back("graphics/npcTalk.png");
+	texIds.push_back("graphics/pierre_photo.png");
 
 	texIds.push_back("graphics/portraitsBox.png");
 	texIds.push_back("graphics/Pierre.png");
@@ -47,18 +52,69 @@ void SceneVillige::Init()
 
 	//font
 	fontIds.push_back("fonts/DOSGothic.ttf");
+	fontIds.push_back("fonts/DungGeunMo.ttf");
+	fontIds.push_back("fonts/SDMiSaeng.ttf");
+	fontIds.push_back("fonts/Stardew_Valley.ttf");
 
 	inventory->SetQuickBar(quickBar);
 	timemoney->Setplayer(player);
 	timemoney->Setplayer(player);
+	player->SetNpcMgr(npc);
 	player->SetInventory(inventory);
 	player->SetTimer(timemoney);
+	player->SetDialogueBox(dialogueBox);
+
+	npc = new NpcMgr("Npc");
+	dialogueBox = new DialogueBox("DialogueBox");
+
+	AddGameObject(npc);
+	AddGameObject(dialogueBox);
+
+	npc->SetPlayer(player);
+	npc->SetTimer(timemoney);
+	npc->SetInventory(inventory);
+	npc->SetDIalogueBox(dialogueBox);
+;
+	DialogueLoader::Instance().LoadFromJson("data/Dialogues.json");
 
 	const auto& items = itemDataMgr::Instance().GetShopItemList("Pierre's General Store");
 	for (const auto& item : items)
 	{
 		texIds.push_back(item.itemTextureId);
 	}
+
+	npc->setTalkCallBack([this]() {
+		const std::string npcName = "Pierre";
+
+		if (!dialogueBox->isDialogueShowing())
+		{
+			dialogueBox->LoadDialogue(npcName);
+			dialogueBox->ShowDialogue();
+
+			npc->SetNpcMove(false);
+			npc->SetIsTalking(true);
+
+			player->SetIsPlayer(false);
+
+
+		}
+		else
+		{
+			if (dialogueBox->IsLastLine())
+			{
+				dialogueBox->CloseDialogue();
+				npc->SetNpcMove(true);
+				npc->SetIsTalking(false);
+
+				timemoney->ChangeTimer();
+				player->SetIsPlayer(true);
+			}
+			else
+			{
+				dialogueBox->NextLine();
+			}
+		}
+		});
 
 	tile = new TileMap(VertexType::Game);
 	forGround = new TileMap(VertexType::Game);
@@ -75,7 +131,6 @@ void SceneVillige::Init()
 	AddGameObject(player);
 	AddGameObject(timemoney);
 	map.Load(MAP_PATH"Villige");
-
 
 }
 

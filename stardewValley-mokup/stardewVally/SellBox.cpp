@@ -60,7 +60,7 @@ void SellBox::Reset()
 {
 	sellBoxSprite.setTexture(TEXTURE_MGR.Get("graphics/sellbox.png"));
 	sellBoxSprite.setScale(1.f, 1.f);
-	sellBoxSprite.setPosition({ 280.f,190.f });
+	sellBoxSprite.setPosition({ 440.f,230.f });
 
 	sf::FloatRect currentBounds = sellBoxSprite.getGlobalBounds();
 	boxRect.setSize({ currentBounds.width + 10, currentBounds.height + 10});
@@ -69,9 +69,9 @@ void SellBox::Reset()
 
 	boxBlockRect.setSize({currentBounds.width- 3, currentBounds.height-9});
 	boxBlockRect.setPosition(sellBoxSprite.getPosition().x + 1.5, sellBoxSprite.getPosition().y + 5);
-	//boxBlockRect.setFillColor(sf::Color(0,0,0,0));
-	//boxBlockRect.setOutlineThickness(1.5);
-	//boxBlockRect.setOutlineColor(sf::Color::Green);
+	boxBlockRect.setFillColor(sf::Color(0,0,0,0));
+	boxBlockRect.setOutlineThickness(1.5);
+	boxBlockRect.setOutlineColor(sf::Color::Green);
 }
 
 void SellBox::Update(float dt)

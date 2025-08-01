@@ -190,6 +190,7 @@
     <ClInclude Include="Items\Seeds.h" />
     <ClInclude Include="SellBox.h" />
     <ClInclude Include="Shop.h" />
+    <ClInclude Include="SoundPlayer.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Stone.h" />
     <ClInclude Include="TileMap.h" />
@@ -248,6 +249,7 @@
     <ClCompile Include="SellBox.cpp" />
     <ClCompile Include="Shop.cpp" />
     <ClCompile Include="Scene\SceneFarm.cpp" />
+    <ClCompile Include="SoundPlayer.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>

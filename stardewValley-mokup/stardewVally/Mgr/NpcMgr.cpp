@@ -61,12 +61,12 @@ void NpcMgr::Reset()
 
 	Utils::SetOrigin(npcSprite, Origins::BC);
 
-	npcSprite.setPosition({ 70.f, 150.f });
+	npcSprite.setPosition({100.f, 100.f });
 
 	npcTalkSprite.setTexture(TEXTURE_MGR.Get("graphics/npcTalk.png"));
 	npcTalkSprite.setScale(1.f, 1.f);
 	Utils::SetOrigin(npcTalkSprite, Origins::MC);
-	npcTalkSprite.setPosition(npcSprite.getPosition());
+	npcTalkSprite.setPosition(200.f, 200.f);
 }
 
 void NpcMgr::Update(float dt)

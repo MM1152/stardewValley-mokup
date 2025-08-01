@@ -13,13 +13,16 @@ class TimeMoneyUi;
 class Map;
 class Inventory;
 class QuickBar;
+class DialogueBox;
+class NpcMgr;
 
 class SceneVillige : public Scene
 {
 protected:
 	TileMap* tile;
 	TileMap* forGround;
-
+	DialogueBox* dialogueBox;
+	NpcMgr* npc;
 	Map map;
 
 	bool drawCollider;

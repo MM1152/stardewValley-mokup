@@ -20,6 +20,8 @@ void SceneTitle::Init()
 
 	fontIds.push_back("fonts/Stardew_Valley.ttf");
 
+	soundPlayer.Load("titleBgm", "sound/Stardew-Valley-Overture.wav");
+
 	titleui = new TitleUi;
 	AddGameObject(titleui);
 
@@ -29,6 +31,8 @@ void SceneTitle::Init()
 
 void SceneTitle::Enter()
 {
+
+	soundPlayer.Play("titleBgm");
 	worldView.setSize({ FRAMEWORK.GetWindowSizeF()});
 	worldView.setCenter({ titleui->GetPosition().x / 2 , titleui->GetPosition().y / 2 });
 
@@ -36,6 +40,11 @@ void SceneTitle::Enter()
 	uiView.setCenter({ FRAMEWORK.GetWindowSizeF().x / 2 , FRAMEWORK.GetWindowSizeF().y / 2 });
 
 	Scene::Enter();
+}
+
+void SceneTitle::Exit()
+{
+	soundPlayer.Stop("titleBgm");
 }
 
 void SceneTitle::Update(float dt)

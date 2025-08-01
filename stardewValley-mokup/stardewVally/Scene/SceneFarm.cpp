@@ -27,23 +27,22 @@ void SceneFarm::Init()
 	texIds.push_back(GRAPHICS_PATH"tools.png");
 	texIds.push_back(GRAPHICS_PATH"farmer_base.png");
 	texIds.push_back(GRAPHICS_PATH"hats.png");
-	texIds.push_back("graphics/testC.png");
-	texIds.push_back(INVEN_IMG_PATH"ItemSlot.png");
-	texIds.push_back("graphics/uiBox.png");
+	texIds.push_back(INVEN_IMG_PATH"ItemSlot.png"); 
+	texIds.push_back("graphics/uiBox.png");  //npc
 
 	//npc
-	texIds.push_back("graphics/npcTest.png");
-	texIds.push_back("graphics/npcTalk.png");
-	texIds.push_back("graphics/pierre_photo.png");
+	//texIds.push_back("graphics/npcTest.png");
+	//texIds.push_back("graphics/npcTalk.png");
+	//texIds.push_back("graphics/pierre_photo.png");
 
 	//shop items
-	texIds.push_back("graphics/parsnip_seeds.png");
-	texIds.push_back("graphics/cauliflower_seeds.png");
-	texIds.push_back("graphics/potato_seeds.png");
-	texIds.push_back("graphics/garlic_seeds.png");
+	texIds.push_back("graphics/parsnip_seeds.png"); //
+	texIds.push_back("graphics/cauliflower_seeds.png"); //c
+	texIds.push_back("graphics/potato_seeds.png"); //
+	texIds.push_back("graphics/garlic_seeds.png"); //
 
-	texIds.push_back("graphics/portraitsBox.png");
-	texIds.push_back("graphics/Pierre.png");
+	texIds.push_back("graphics/portraitsBox.png"); //c
+	texIds.push_back("graphics/Pierre.png"); //c
 	texIds.push_back("graphics/itemSlot_bg.png");
 
 	texIds.push_back("graphics/sellbox.png");
@@ -99,17 +98,9 @@ void SceneFarm::Init()
 	sellBox = new SellBox("SellBox");
 
 	AddGameObject(sellBox);
-	AddGameObject(dialogueBox);
-	AddGameObject(shop);
-	AddGameObject(npc);
 
 	inventory->SetQuickBar(quickBar);
 	timemoney->Setplayer(player);
-
-	shop->SetInventory(inventory);
-	shop->SetPlayer(player);
-	shop->SetTimeMoeyUi(timemoney);
-	//player & npc
 
 	player->SetNpcMgr(npc);
 	player->SetInventory(inventory);
@@ -125,7 +116,6 @@ void SceneFarm::Init()
 	sellBox->SetPlayer(player);
 	sellBox->SetTimeMoeyUi(timemoney);
 
-
 	itemDataMgr::Instance().LoadShopItems("data/shop.json");
 	itemDataMgr::Instance().Load("data/item.json");
 	DialogueLoader::Instance().LoadFromJson("data/Dialogues.json");
@@ -136,51 +126,6 @@ void SceneFarm::Init()
 	{
 		texIds.push_back(item.itemTextureId);
 	}
-
-	npc->setCallBack([this]() {
-		if (!shop->isUiShowing())
-		{
-			shop->ShowUi();
-		}
-		else
-		{
-			shop->CloseUi();
-		}
-		});
-
-	npc->setTalkCallBack([this]() {
-		const std::string npcName = "Pierre";
-
-		if (!dialogueBox->isDialogueShowing())
-		{
-			dialogueBox->LoadDialogue(npcName);
-			dialogueBox->ShowDialogue();
-
-			npc->SetNpcMove(false);
-			npc->SetIsTalking(true);
-		
-			player->SetIsPlayer(false);
-			
-			
-		}
-		else
-		{
-			if (dialogueBox->IsLastLine())
-			{
-				dialogueBox->CloseDialogue();
-				npc->SetNpcMove(true);
-				npc->SetIsTalking(false);
-
-				timemoney->ChangeTimer();
-				player->SetIsPlayer(true);
-			}
-			else
-			{
-				dialogueBox->NextLine();
-			}
-		}
-		});
-
 
 	tile = new TileMap(VertexType::Game);
 	forGround = new TileMap(VertexType::Game);

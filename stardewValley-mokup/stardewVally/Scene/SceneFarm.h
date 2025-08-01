@@ -4,6 +4,7 @@
 #include "Shop.h"
 #include "SceneHome.h"
 #include "TimeMoneyUi.h"
+#include "SoundPlayer.h"
 
 class TimeMoneyUi;
 class Player;
@@ -18,6 +19,7 @@ class DialogueBox;
 class Crops;
 class DropItem;
 class SellBox;
+class SoundPlayer;
 
 class SceneFarm : public Scene
 {
@@ -34,6 +36,7 @@ protected:
 
 	TileMap* tile;
 	TileMap* forGround;
+	SoundPlayer soundPlayer;
 
 	Map map;
 
