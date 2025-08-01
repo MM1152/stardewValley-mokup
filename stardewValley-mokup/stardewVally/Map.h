@@ -26,14 +26,6 @@ struct CheckCellData {
 
 std::ostream& operator <<(std::ostream& ost, sf::Vector2f cellTextCoord[4]);
 
-
-//������ �ʸ��� Ư�� �ε����� Ư�� ������ �� �־����
-//��� ����?
-//MAP���� �ε��Ҷ� ��ȯ���Ѽ� ���� �Ѱ��ش�?
-//�ٵ� �̰� ������ Ÿ�ϻ����� 16*16 �̴ϱ� ��ȯ�� Load���� �������ش�?
-//�׷� TILEMAP�� set������ va�� �޾�?
-//�ƴ��� CellData�� ä��� �Ǵ°Ű�
-//��ġ
 class TileMap;
 class InteractionObject;
 class Map
@@ -53,8 +45,6 @@ private:
 	void LoadCollider(const std::string path);
 	void Load(const std::string path, int layer);
 	void LoadTrigger(const std::string path);
-
-	
 
 	void Init() {};
 public:

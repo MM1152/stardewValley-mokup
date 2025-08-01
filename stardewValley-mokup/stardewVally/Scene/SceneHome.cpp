@@ -17,6 +17,7 @@ SceneHome::SceneHome()
 
 void SceneHome::Init()
 {
+	texIds.push_back("graphics/spring.bmp");
 	texIds.push_back("graphics/testC.png");
 	texIds.push_back("graphics/uitest.png");
 	texIds.push_back(INVEN_IMG_PATH"ItemSlot.png");

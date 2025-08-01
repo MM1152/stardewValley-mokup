@@ -67,8 +67,6 @@ void InteractionObject::Reset()
 
 	sortingLayer = SortingLayers::Foreground;
 	sortingOrder = objectSp.getPosition().y;
-
-	std::cout << "SortingOrder : " << sortingOrder << std::endl;
 }
 
 void InteractionObject::Update(float dt)
@@ -78,4 +76,10 @@ void InteractionObject::Update(float dt)
 void InteractionObject::Draw(sf::RenderWindow& window)
 {
 	window.draw(objectSp);
+}
+
+void InteractionObject::Interaction()
+{
+	SetActive(false);
+	rect.setSize({ 0,0 });
 }

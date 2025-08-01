@@ -312,13 +312,19 @@ void MapToolScene::Enter()
 	drawTile[2].Reset();
 	gridTile->Reset();
 	Scene::Enter();
-	//change here2/3 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-	// ++ si add tile here <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+	//here2/3 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 	tilemap1->Set({ 24, 25 }, { 16.f, 16.f }, "graphics/spring.bmp");
 	gridTile->drawGrid({ 30, 30 }, { 16.f , 16.f });
 	drawTile[0].Set({ 30, 30 }, { 16.f , 16.f });
 	drawTile[1].Set({ 30, 30 }, { 16.f , 16.f });
 	drawTile[2].Set({ 30, 30 }, { 16.f , 16.f });
+	
+	// ++ si add tile
+	gridTile->drawGrid({ 45, 30}, { 16.f , 16.f });
+
+	drawTile[0].Set({ 45, 30 }, { 16.f , 16.f });
+	drawTile[1].Set({ 45, 30 }, { 16.f , 16.f });
+	drawTile[2].Set({ 45, 30 }, { 16.f , 16.f });
 
 	//
 	tilemap1->SetPosition({ FRAMEWORK.GetWindowSizeF().x / 2 + 200.f, FRAMEWORK.GetWindowSizeF().y / 2 - 260.f });
@@ -344,7 +350,7 @@ void MapToolScene::Enter()
 	gotitleyes_or_no.setTexture(TEXTURE_MGR.Get("title/gotitleyes_or_no.png"));
 }
 
-//FIX : ¹öÆ° Å¬¸¯½Ã Rectagle »ý¼ºµÇ´Â ¹ö±× ¼öÁ¤ ÇÊ¿ä
+//FIX : ï¿½ï¿½Æ° Å¬ï¿½ï¿½ï¿½ï¿½ Rectagle ï¿½ï¿½ï¿½ï¿½ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½
 void MapToolScene::Update(float dt)
 {
 	mouseRect.setPosition((sf::Vector2f)InputMgr::GetMousePosition());
