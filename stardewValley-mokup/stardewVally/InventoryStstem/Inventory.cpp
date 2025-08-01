@@ -119,6 +119,12 @@ void Inventory::SetSellBox(SellBox* sb)
 	}
 }
 
+void Inventory::SetActive(bool isActive)
+{
+	GameObject::SetActive(isActive);
+	
+}
+
 void Inventory::Draw(sf::RenderWindow& window)
 {
 	window.draw(inv_BackGround);

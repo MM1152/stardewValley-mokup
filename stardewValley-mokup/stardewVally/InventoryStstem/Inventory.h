@@ -50,5 +50,7 @@ public:
 	void SetDropItem(DropItem* drop) { dropitem = drop; };
 	void SetCrops(Crops* crop) { crops = crop; };
 	void SetSellBox(SellBox* sb);
+
+	void SetActive(bool isActive) override;
 };
 

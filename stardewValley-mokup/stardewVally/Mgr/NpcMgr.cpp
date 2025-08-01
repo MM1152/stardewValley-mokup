@@ -104,6 +104,7 @@ void NpcMgr::Update(float dt)
 				player->SetIsPlayer(false);
 				timemoneyui->ChangeTimer();
 				inventory->SetActive(!inventory->GetActive());
+				player->SetOpenInventory(inventory->GetActive());
 				if (callback)
 				{
 					callback();
@@ -120,6 +121,7 @@ void NpcMgr::Update(float dt)
 			player->SetIsPlayer(true);
 			timemoneyui->ChangeTimer();
 			inventory->SetActive(!inventory->GetActive());
+			player->SetOpenInventory(inventory->GetActive());
 			if (callback)
 			{
 				callback();

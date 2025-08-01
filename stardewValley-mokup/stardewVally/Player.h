@@ -85,6 +85,8 @@ public:
 	void SetDialogueBox(DialogueBox* dialogue);
 	DialogueBox* GetDialogueBox();
 	
+	void SetOpenInventory(bool isOpen) { openInven = isOpen; };
+
 	virtual sf::FloatRect GetLocalBounds() const
 	{
 		return bodySprite.getLocalBounds();

@@ -205,15 +205,11 @@ void MapToolScene::Init()
 
 			inputText->SetString(mapId, true);
 
+			colliders.clear();
+			colliders = map.GetColliders();
+
 			for (auto collider : colliders) {
 				collider->setPosition({ collider->getPosition().x + 300.f , collider->getPosition().y + 300.f });
-
-				colliders.clear();
-				colliders = map.GetColliders();
-
-				for (auto collider : colliders) {
-					collider->setPosition({ collider->getPosition().x + 300.f , collider->getPosition().y + 300.f });
-				}
 			}
 
 			triggers.clear();
