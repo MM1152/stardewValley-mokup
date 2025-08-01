@@ -75,8 +75,6 @@ void SceneVillige::Init()
 	AddGameObject(player);
 	AddGameObject(timemoney);
 	map.Load(MAP_PATH"Villige");
-
-
 }
 
 void SceneVillige::Enter()

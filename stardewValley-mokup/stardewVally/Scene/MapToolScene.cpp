@@ -196,26 +196,30 @@ void MapToolScene::Init()
 			std::string mapFilePath = MAP_PATH + sliceMapId[sliceMapId.size() - 1];
 			std::string mapId = sliceMapId[sliceMapId.size() - 1];
 
+			map.Load(mapFilePath);
+
+			drawTile[0].Set(map.GetTextId(0), map.GetCellDatas(0));
+			drawTile[1].Set(map.GetTextId(1), map.GetCellDatas(1));
+			drawTile[2].Set(map.GetTextId(2), map.GetCellDatas(2));
+			gridTile->drawGrid(map.GetCount() , {16,16});
+
+			inputText->SetString(mapId, true);
 
 			for (auto collider : colliders) {
 				collider->setPosition({ collider->getPosition().x + 300.f , collider->getPosition().y + 300.f });
-				map.Load(mapFilePath);
-				inputText->SetString(mapId, true);
 
-				drawTile[0].Set(map.GetTextId(0), map.GetCellDatas(0));
-				drawTile[1].Set(map.GetTextId(1), map.GetCellDatas(1));
-				drawTile[2].Set(map.GetTextId(2), map.GetCellDatas(2));
 				colliders.clear();
 				colliders = map.GetColliders();
 
 				for (auto collider : colliders) {
 					collider->setPosition({ collider->getPosition().x + 300.f , collider->getPosition().y + 300.f });
 				}
-				triggers.clear();
-				triggers = map.GetTriggers();
-				for (auto trigger : triggers) {
-					trigger->SetPosition({ trigger->GetPosition().x + 300.f , trigger->GetPosition().y + 300.f });
-				}
+			}
+
+			triggers.clear();
+			triggers = map.GetTriggers();
+			for (auto trigger : triggers) {
+				trigger->SetPosition({ trigger->GetPosition().x + 300.f , trigger->GetPosition().y + 300.f });
 			}
 		}
 	};
