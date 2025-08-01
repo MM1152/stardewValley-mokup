@@ -24,6 +24,13 @@ protected:
 
 	Button* loadBNT;
 	Button* saveBNT;
+	
+	sf::Sprite gtyes_or_no;
+	bool gotitleView = false;
+	Button* gttitlebnt;
+	Button* gtyesbnt;
+	Button* gtnobnt;
+
 
 	float timer = 0; 
 	float previewFrame = 30;

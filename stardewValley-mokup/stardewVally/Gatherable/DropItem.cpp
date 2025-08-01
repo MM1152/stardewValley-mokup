@@ -2,7 +2,7 @@
 #include "DropItem.h"
 #include "Inventory.h"
 #include "Player.h"
-#include "SceneTest.h"
+#include "SceneFarm.h"
 DropItem::DropItem(const std::string& name,const std::string& Id)
 	: GameObject(name)
 	,dropitemId(Id)
@@ -34,7 +34,7 @@ void DropItem::Update(float dt)
 	int cellIdx = map->GetCellIndex(holePos, 0);
 	CellData& cellData = map->GetCell(cellIdx, 0);
 
-	SceneTest* scene = (SceneTest*)SCENE_MGR.GetCurrentScene();
+	SceneFarm* scene = (SceneFarm*)SCENE_MGR.GetCurrentScene();
 	if (InputMgr::GetMouseButtonDown(sf::Mouse::Right) || InputMgr::GetKeyDown(sf::Keyboard::C))
 	{
 		if(cellData.cellPosition[0] == GetPosition())

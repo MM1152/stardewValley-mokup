@@ -2,10 +2,11 @@
 #include "Scene.h"
 #include "TileMap.h"
 #include "Shop.h"
-#include "SceneFarm.h"
+#include "SceneHome.h"
 #include "TimeMoneyUi.h"
+#include "SceneFarm.h"
+#include "SceneVillige.h"
 
-class TimeMoneyUi;
 class Player;
 class Collider;
 class TimeMoneyUi;
@@ -13,7 +14,7 @@ class Map;
 class Inventory;
 class QuickBar;
 
-class SceneHome : public Scene
+class SceneStore : public Scene
 {
 protected:
 	TileMap* tile;
@@ -24,8 +25,8 @@ protected:
 	bool drawCollider;
 
 public:
-	SceneHome();
-	~SceneHome() = default;
+	SceneStore();
+	~SceneStore() = default;
 
 	void Init() override;
 	void Enter() override;
@@ -35,4 +36,5 @@ public:
 
 	void Draw(sf::RenderWindow& window) override;
 };
+
 

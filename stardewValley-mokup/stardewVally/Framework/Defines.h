@@ -27,15 +27,13 @@ enum class SceneIds
 {
 	None = -1,
 	Title,
-	Test,
 	Home,
-	Game,
-	Dev1,
+	Farm,
+	Village,
+	Store,
 	Animator,
 	Maptool,
-	LoadMapTest,
 	ChangeTile,
-	AnimationTest,
 	Count,
 };
 

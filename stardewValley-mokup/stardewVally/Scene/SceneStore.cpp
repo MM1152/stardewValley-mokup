@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "SceneHome.h"
+#include "SceneStore.h"
 #include "TileMap.h"
 #include "SpriteGo.h"
 #include "Player.h"
@@ -10,14 +10,15 @@
 #include "Inventory.h"
 #include "QuickBar.h"
 #include "Map.h"
-SceneHome::SceneHome()
-	: Scene(SceneIds::Home)
+
+SceneStore::SceneStore()
+	: Scene(SceneIds::Store)
 {
 }
 
-void SceneHome::Init()
+void SceneStore::Init()
 {
-	texIds.push_back("graphics/spring.bmp");
+	texIds.push_back("graphics/store.png");
 	texIds.push_back("graphics/testC.png");
 	texIds.push_back("graphics/uitest.png");
 	texIds.push_back(INVEN_IMG_PATH"ItemSlot.png");
@@ -37,7 +38,7 @@ void SceneHome::Init()
 	texIds.push_back(INVEN_IMG_PATH"CraftImage.bmp");
 
 	//Map Load
-	texIds.push_back(GRAPHICS_PATH"home.png");
+	texIds.push_back(GRAPHICS_PATH"villige.png");
 	texIds.push_back(GRAPHICS_PATH"building.png");
 
 	//TimeUi
@@ -65,58 +66,60 @@ void SceneHome::Init()
 	AddGameObject(tile);
 	AddGameObject(forGround);
 
+
+	// F9 Draw Collider
+	drawCollider = true;
+	Scene::Init();
 	AddGameObject(inventory);
 	AddGameObject(quickBar);
 	AddGameObject(player);
 	AddGameObject(timemoney);
-	// F9 Draw Collider
-	drawCollider = true;
-	Scene::Init();
-
-	map.Load(MAP_PATH"home");
+	map.Load(MAP_PATH"store");
 
 
 }
 
-void SceneHome::Enter()
+void SceneStore::Enter()
 {
 	FRAMEWORK.GetWindow().setMouseCursorVisible(true);
-	worldView.setSize({ FRAMEWORK.GetWindowSizeF().x / 3, FRAMEWORK.GetWindowSizeF().y / 3});
+	worldView.setSize({ FRAMEWORK.GetWindowSizeF().x / 3, FRAMEWORK.GetWindowSizeF().y / 3 });
 	uiView.setSize(FRAMEWORK.GetWindowSizeF());
 	uiView.setCenter({ FRAMEWORK.GetWindowSizeF().x / 2 , FRAMEWORK.GetWindowSizeF().y / 2 });
 
 	sf::Vector2f windowSize = FRAMEWORK.GetWindowSizeF();
 
 	Scene::Enter(); //push_back
-	
+
 
 	tile->Set(map.GetTextId(0), map.GetCellDatas(0));
 	forGround->Set(map.GetTextId(1), map.GetCellDatas(1));
 
 	player->SetMap(&map);
-	player->SetPosition({ 193.f, 280.f });
 
-	for (auto tri : map.GetTriggers()) {
+
+	for (auto tri : map.GetTriggers())
+	{
 		tri->Init();
 		tri->SetPlayer(player);
-		if (tri->GetType() == TriggerType::Door) {
+		if (tri->GetType() == TriggerType::Door)
+		{
 			tri->callback = [this]() {
-				player->SetPosition({ 375.f, 250.f });
-				SCENE_MGR.ChangeScene(SceneIds::Farm);
-			};
+				player->SetPosition({ 492.f, 250.f });
+				SCENE_MGR.ChangeScene(SceneIds::Village);
+				};
 		}
 	}
 }
 
-void SceneHome::Exit()
+void SceneStore::Exit()
 {
 	Scene::Exit();
 }
 
-void SceneHome::Update(float dt)
+void SceneStore::Update(float dt)
 {
 	Scene::Update(dt);
-	worldView.setCenter({ 235.f, 230.f });
+	worldView.setCenter(player->GetPosition());
 	timemoney->SettingMoney(player->GetMoney());
 	timemoney->ResetSettingMoney();
 
@@ -129,7 +132,7 @@ void SceneHome::Update(float dt)
 	}
 }
 
-void SceneHome::Draw(sf::RenderWindow& window)
+void SceneStore::Draw(sf::RenderWindow& window)
 {
 	Scene::Draw(window);
 	window.setView(worldView);

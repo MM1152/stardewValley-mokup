@@ -124,6 +124,7 @@ void TitleUi::Init()
 	maptoolbnt->onClickFunc = [this]() {
 		if (toolview)
 		{
+			toolview = false;
 			SCENE_MGR.ChangeScene(SceneIds::Maptool);
 		}
 		};
@@ -134,6 +135,7 @@ void TitleUi::Init()
 	animatorbnt->onClickFunc = [this]() {
 		if (toolview)
 		{
+			toolview = false;
 			SCENE_MGR.ChangeScene(SceneIds::Animator);
 		}
 		};
@@ -183,14 +185,14 @@ void TitleUi::Update(float dt)
 
 	if (exitview)
 	{
-		if (InputMgr::GetKeyDown(sf::Keyboard::Escape))
+		if (InputMgr::GetKeyDown(sf::Keyboard::Escape) || InputMgr::GetMouseButtonDown(sf::Mouse::Right))
 		{
 			exitview = false;
 		}
 	}
 	if (toolview)
 	{
-		if (InputMgr::GetKeyDown(sf::Keyboard::Escape))
+		if (InputMgr::GetKeyDown(sf::Keyboard::Escape) || InputMgr::GetMouseButtonDown(sf::Mouse::Right))
 		{
 			toolview = false;
 		}

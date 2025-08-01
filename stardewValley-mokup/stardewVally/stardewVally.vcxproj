@@ -178,13 +178,15 @@
     <ClInclude Include="InventoryStstem\QuickBar.h" />
     <ClInclude Include="Items\ItemInfo.h" />
     <ClInclude Include="InventoryStstem\QuickBar_Slot.h" />
+    <ClInclude Include="Scene\SceneStore.h" />
+    <ClInclude Include="Scene\SceneVillige.h" />
     <ClInclude Include="Scene\SceneTitle.h" />
     <ClInclude Include="Scene\SceneTileChangeTest.h" />
     <ClInclude Include="Scene\SceneHome.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Scene\SceneAnimator.h" />
     <ClInclude Include="Scene\MapToolScene.h" />
-    <ClInclude Include="Scene\SceneTest.h" />
+    <ClInclude Include="Scene\SceneFarm.h" />
     <ClInclude Include="Items\Seeds.h" />
     <ClInclude Include="SellBox.h" />
     <ClInclude Include="Shop.h" />
@@ -232,6 +234,8 @@
     <ClCompile Include="Mgr\itemDataMgr.cpp" />
     <ClCompile Include="Mgr\NpcMgr.cpp" />
     <ClCompile Include="Pick.cpp" />
+    <ClCompile Include="Scene\SceneStore.cpp" />
+    <ClCompile Include="Scene\SceneVillige.cpp" />
     <ClCompile Include="Scene\SceneTitle.cpp" />
     <ClCompile Include="Scene\SceneAnimator.cpp" />
     <ClCompile Include="Scene\SceneHome.cpp" />
@@ -243,7 +247,7 @@
     <ClCompile Include="Items\Seeds.cpp" />
     <ClCompile Include="SellBox.cpp" />
     <ClCompile Include="Shop.cpp" />
-    <ClCompile Include="Scene\SceneTest.cpp" />
+    <ClCompile Include="Scene\SceneFarm.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
