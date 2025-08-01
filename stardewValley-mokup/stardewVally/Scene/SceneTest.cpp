@@ -111,6 +111,7 @@ void SceneTest::Init()
 	player->SetNpcMgr(npc);
 	player->SetInventory(inventory);
 	player->SetTimer(timemoney);
+	player->SetDialogueBox(dialogueBox);
 
 	npc->SetPlayer(player);
 	npc->SetTimer(timemoney);
@@ -145,18 +146,30 @@ void SceneTest::Init()
 		});
 
 	npc->setTalkCallBack([this]() {
-		const std::string npcName = "Pierre"; 
+		const std::string npcName = "Pierre";
 
 		if (!dialogueBox->isDialogueShowing())
 		{
 			dialogueBox->LoadDialogue(npcName);
 			dialogueBox->ShowDialogue();
+
+			npc->SetNpcMove(false);
+			npc->SetIsTalking(true);
+		
+			player->SetIsPlayer(false);
+			
+			
 		}
 		else
 		{
 			if (dialogueBox->IsLastLine())
 			{
 				dialogueBox->CloseDialogue();
+				npc->SetNpcMove(true);
+				npc->SetIsTalking(false);
+
+				timemoney->ChangeTimer();
+				player->SetIsPlayer(true);
 			}
 			else
 			{

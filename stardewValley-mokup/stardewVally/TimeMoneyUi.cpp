@@ -143,7 +143,7 @@ void TimeMoneyUi::Update(float dt)
 				{
 					isTimer = false;
 					player->ChangeFainting();
-					player->ChangeisPlayer();
+					player->SetIsPlayer(false);
 				}
 			}
 			istime = Utils::TostringTime(hour, minute);

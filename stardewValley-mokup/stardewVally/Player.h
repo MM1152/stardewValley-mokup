@@ -10,6 +10,7 @@ class TimeMoneyUi;
 class TileMap;
 class Map;
 class Crops;
+class DialogueBox;
 
 class Player : public Collider
 {
@@ -39,6 +40,7 @@ protected:
 	Inventory* inventory = nullptr;
 	TimeMoneyUi* timemoneyui = nullptr;
 	TileMap* tileMap;
+	DialogueBox* dialogueBox = nullptr;
 
 	sf::RectangleShape seedGuideRect;
 	
@@ -79,6 +81,9 @@ public:
 
 	void SetTimer(TimeMoneyUi* time);
 	TimeMoneyUi* GetTimer();
+
+	void SetDialogueBox(DialogueBox* dialogue);
+	DialogueBox* GetDialogueBox();
 	
 	virtual sf::FloatRect GetLocalBounds() const
 	{
@@ -90,15 +95,6 @@ public:
 		return bound.getGlobalBounds();
 	}
 
-	//player move
-	void ChangeisPlayer()
-	{
-		isPlayer = !isPlayer;
-	}
-	bool GetisPlayer()
-	{
-		return isPlayer;
-	}
 	//openinventory
 	void ChangeOpenInven()
 	{
@@ -144,5 +140,15 @@ public:
 	void SetMoney(int m)
 	{
 		money = m;
+	}
+
+	void SetIsPlayer(bool value)
+	{
+		isPlayer = value;
+	}
+
+	bool GetIsPlayer() const
+	{
+		return isPlayer;
 	}
 };

@@ -208,7 +208,6 @@ bool Inventory::AddItem(const ItemInfo& info)
 			return true;
 		}
 	}
-	
 
 	delete newItem;
 	return false;

@@ -25,11 +25,15 @@ protected:
 	Inventory* inventory = nullptr;
 	DialogueBox* dialogueBox = nullptr;
 
+	float moveTimer = 0.f;
+	float moveInterval = 2.f;
+
 	std::function<void()> callback; 
 	std::function<void()> talkCallback;
 	bool isShopOpened = false;
 	bool isOpenDiaLog = false;
 	bool isNpcMove = true;
+	bool isTalking = false;
 public:
 	NpcMgr(const std::string& name = "Npc");
 	virtual ~NpcMgr() = default;
@@ -61,6 +65,11 @@ public:
 
 	void SetDIalogueBox(DialogueBox* dialogue);
 	DialogueBox* GetDialogueBox();
+
+	void SetNpcMove(bool move) { isNpcMove = move; }
+	void SetIsTalking(bool talking) { isTalking = talking; }
+	bool GetIsTalking() const { return isTalking; }
+
 
 };
 
