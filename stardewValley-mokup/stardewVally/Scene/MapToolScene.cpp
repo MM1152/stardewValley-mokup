@@ -20,7 +20,7 @@ void MapToolScene::Init()
 	texIds.push_back(GRAPHICS_PATH"building.png");
 	texIds.push_back("graphics/spring.bmp");
 	texIds.push_back("graphics/home.png");
-	texIds.push_back("graphics/stroe.png");
+	texIds.push_back("graphics/store.png");
 	texIds.push_back(GRAPHICS_PATH"springobjects.png");
 	texIds.push_back("graphics/villige.png");
 

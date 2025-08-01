@@ -111,7 +111,7 @@ void SceneVillige::Enter()
 		if (tri->GetType() == TriggerType::Bed)
 		{
 			tri->callback = [this]() {
-				player->SetPosition({ 40.f, 240.f });
+				player->SetPosition({ 95.f, 225.f });
 				SCENE_MGR.ChangeScene(SceneIds::Store);
 				};
 		}

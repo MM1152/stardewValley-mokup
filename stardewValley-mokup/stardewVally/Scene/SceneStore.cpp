@@ -18,7 +18,7 @@ SceneStore::SceneStore()
 
 void SceneStore::Init()
 {
-	texIds.push_back("graphics/spring.bmp");
+	texIds.push_back("graphics/store.png");
 	texIds.push_back("graphics/testC.png");
 	texIds.push_back("graphics/uitest.png");
 	texIds.push_back(INVEN_IMG_PATH"ItemSlot.png");
@@ -74,7 +74,7 @@ void SceneStore::Init()
 	drawCollider = true;
 	Scene::Init();
 
-	map.Load(MAP_PATH"Villige");
+	map.Load(MAP_PATH"store");
 
 
 }
@@ -119,7 +119,7 @@ void SceneStore::Exit()
 void SceneStore::Update(float dt)
 {
 	Scene::Update(dt);
-	worldView.setCenter({ 235.f, 230.f });
+	worldView.setCenter(player->GetPosition());
 	timemoney->SettingMoney(player->GetMoney());
 	timemoney->ResetSettingMoney();
 
