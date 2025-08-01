@@ -24,6 +24,7 @@ void Player::SetPosition(const sf::Vector2f& pos)
 	bodySprite.setPosition(pos);
 	handSprite.setPosition(pos);
 	hatSprite.setPosition(pos);
+	shirtSprite.setPosition(pos);
 	bound.setPosition(pos);
 }
 
@@ -33,6 +34,7 @@ void Player::SetRotation(float rot)
 	bodySprite.setRotation(rot);
 	handSprite.setRotation(rot);
 	hatSprite.setRotation(rot);
+	shirtSprite.setRotation(rot);
 	bound.setRotation(rot);
 }
 
@@ -42,6 +44,7 @@ void Player::SetScale(const sf::Vector2f& s)
 	bodySprite.setScale(s);
 	handSprite.setScale(s);
 	hatSprite.setScale(s);
+	shirtSprite.setScale(s);
 	bound.setScale(s);
 }
 
@@ -122,6 +125,7 @@ void Player::Init()
 	body.SetTarget(&bodySprite);
 	hand.SetTarget(&handSprite);
 	hat.SetTarget(&hatSprite);
+	shirt.SetTarget(&shirtSprite);
 
 	if(inventory)
 		inventory->SetActive(false);
@@ -140,6 +144,9 @@ void Player::Reset()
 	ANI_CLIP_MGR.Load(ANIMATION_PATH"hat1left.csv");
 	ANI_CLIP_MGR.Load(ANIMATION_PATH"hat1backward.csv");
 	ANI_CLIP_MGR.Load(ANIMATION_PATH"hat1forward.csv");
+	ANI_CLIP_MGR.Load(ANIMATION_PATH"shirtleft.csv");
+	ANI_CLIP_MGR.Load(ANIMATION_PATH"shirtbackward.csv");
+	ANI_CLIP_MGR.Load(ANIMATION_PATH"shirtforward.csv");
 	ANI_CLIP_MGR.Load(ANIMATION_PATH"playerleft.csv");
 	ANI_CLIP_MGR.Load(ANIMATION_PATH"playerforward.csv");
 	ANI_CLIP_MGR.Load(ANIMATION_PATH"playerbackward.csv");
@@ -157,6 +164,7 @@ void Player::Reset()
 	body.Play(ANIMATION_PATH"playerforward.csv");
 	hand.Play(ANIMATION_PATH"playerforwardhand.csv");
 	hat.Play(ANIMATION_PATH"hat1forward.csv");
+	shirt.Play(ANIMATION_PATH"shirtforward.csv");
 
 	body.AddEvent("playeruseitem", 3, [this]() {
 		useItem = false;
@@ -181,6 +189,8 @@ void Player::Reset()
 	sf::FloatRect center = bodySprite.getLocalBounds();
 	handSprite.setOrigin({ center.width / 2 + 1.5f, center.height / 2 + 5.9f });
 	hatSprite.setOrigin({ center.width / 2 + 3.f, center.height / 2 + 20.f });
+	shirtSprite.setOrigin({ center.width / 2 - 2.05f, center.height / 2 + 2.1f });
+
 
 	sf::FloatRect currentBounds = bodySprite.getGlobalBounds();
 	bound.setSize({ currentBounds.width - 5, currentBounds.height -20});
@@ -337,11 +347,13 @@ void Player::Draw(sf::RenderWindow& window)
 		window.draw(handSprite);
 		window.draw(bodySprite);
 		window.draw(hatSprite);
+		window.draw(shirtSprite);
 	}
 	else {
 		window.draw(bodySprite);
 		window.draw(handSprite);
 		window.draw(hatSprite);
+		window.draw(shirtSprite);
 		if (item) {
 			copyItem->Draw(window);
 		}
@@ -363,6 +375,7 @@ void Player::PlayMoveAnimation(sf::Vector2f dir)
 		body.Play(ANIMATION_PATH"playerleft.csv");
 		hand.Play(ANIMATION_PATH"playerlefthand.csv");
 		hat.Play(ANIMATION_PATH"hat1left.csv");
+		shirt.Play(ANIMATION_PATH"shirtleft.csv");
 
 		SetScale({ 1,1 });
 		handSprite.setOrigin({ center.width / 2 + 2.f, center.height / 2 + 5.f });
@@ -372,6 +385,8 @@ void Player::PlayMoveAnimation(sf::Vector2f dir)
 		body.Play(ANIMATION_PATH"playerleft.csv");
 		hand.Play(ANIMATION_PATH"playerlefthand.csv");
 		hat.Play(ANIMATION_PATH"hat1left.csv");
+		shirt.Play(ANIMATION_PATH"shirtleft.csv");
+
 		SetScale({ -1,1 });
 		handSprite.setOrigin({ center.width / 2 + 2.f, center.height / 2 + 5.f });
 		lookDir = { -1 , 0 };
@@ -380,6 +395,8 @@ void Player::PlayMoveAnimation(sf::Vector2f dir)
 		body.Play(ANIMATION_PATH"playerforward.csv");
 		hand.Play(ANIMATION_PATH"playerforwardhand.csv");
 		hat.Play(ANIMATION_PATH"hat1forward.csv");
+		shirt.Play(ANIMATION_PATH"shirtforward.csv");
+
 		SetScale({ 1,1 });
 		handSprite.setOrigin({ center.width / 2 + 2.f, center.height / 2 + 5.f });
 		
@@ -389,6 +406,7 @@ void Player::PlayMoveAnimation(sf::Vector2f dir)
 		body.Play(ANIMATION_PATH"playerbackward.csv");
 		hand.Play(ANIMATION_PATH"playerbackwardhand.csv");
 		hat.Play(ANIMATION_PATH"hat1backward.csv");
+		shirt.Play(ANIMATION_PATH"shirtbackward.csv");
 		SetScale({ 1,1 });
 		lookDir = { 0 , -1 };
 		handSprite.setOrigin({ (center.width + center.left) / 2 + 2.5f, center.height / 2 + 5.9f });
@@ -396,6 +414,7 @@ void Player::PlayMoveAnimation(sf::Vector2f dir)
 	SetOrigin(Origins::BC);
 
 	hatSprite.setOrigin({ center.width / 2 + 3.f, center.height / 2 + 20.f });
+	
 }
 
 void Player::PlayUseItemAnimation(sf::Vector2i dir)

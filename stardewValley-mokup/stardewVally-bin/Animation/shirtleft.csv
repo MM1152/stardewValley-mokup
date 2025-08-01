@@ -1,0 +1,5 @@
+ID,FPS,LoopType (0: Single. 1: Loop)
+shirtleft,10,1
+
+TEXTURE ID,LEFT,TOP,WIDTH,HEIGHT,FLIPX(0:Fale. 1:True)
+graphics/shirts.png,54.565041,264.225555,11.453125,9.859375,0

@@ -18,6 +18,8 @@ protected:
 	Animator body;
 	Animator hand;
 	Animator hat;
+	Animator shirt;
+
 	//player move
 	sf::RectangleShape bound;
 	bool isPlayer = true;
@@ -32,6 +34,7 @@ protected:
 	sf::Sprite bodySprite;
 	sf::Sprite handSprite;
 	sf::Sprite hatSprite;
+	sf::Sprite shirtSprite;
 
 	float speed = 100.f;
 	int money = 500;
