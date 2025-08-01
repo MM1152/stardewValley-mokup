@@ -26,6 +26,8 @@ public:
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
 
+	virtual void Interaction();
+
 	sf::RectangleShape& GetRectangle() { return rect; };
 };
 
