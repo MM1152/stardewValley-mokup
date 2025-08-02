@@ -24,6 +24,10 @@ SceneFarm::SceneFarm()
 
 void SceneFarm::Init()
 {
+	if (shader.loadFromFile("vertex_shader.vert", "fragment_shader.frag")){
+		std::cout << "FAIL TO LOAD SHADER" << std::endl;
+	}
+
 	texIds.push_back(GRAPHICS_PATH"tools.png");
 	texIds.push_back(GRAPHICS_PATH"farmer_base.png");
 	texIds.push_back(GRAPHICS_PATH"hats.png");

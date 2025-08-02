@@ -33,7 +33,7 @@ void SelectDiaLog::Reset()
 	downButton->Reset();
 
 	topButton->SetString("                                           Sleep");
-	downButton->SetString("                                        No Sleep");
+	downButton->SetString("                                       Not Sleep");
 
 	topButton->SetPosition(backGround.getPosition() + buttonPadding);
 	downButton->SetPosition({ backGround.getPosition().x + buttonPadding.x , backGround.getPosition().y + buttonPadding.y + 40.f});

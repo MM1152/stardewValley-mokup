@@ -27,13 +27,14 @@ void Trigger::Reset()
 void Trigger::Update(float dt)
 {
 	if (player) {
-		if (player->GetGlobalBounds().intersects(rect.getGlobalBounds())) {
+		bool isIntersect = player->GetGlobalBounds().intersects(rect.getGlobalBounds());
+		if (isIntersect && !inTrigger) {
 			if (callback) {
 				callback();
 				inTrigger = true;
 			}
 		}
-		else {
+		else if(!isIntersect){
 			inTrigger = false;
 		}
 	}

@@ -290,7 +290,7 @@ void Player::Update(float dt)
 
 	if (!openShop && !openInven) //&& fainting)
 	{
-		if (InputMgr::GetKeyDown(sf::Keyboard::Return))
+		if (InputMgr::GetKeyDown(sf::Keyboard::F10))
 		{
 			timemoneyui->Changeth();
 			isPlayer = true;

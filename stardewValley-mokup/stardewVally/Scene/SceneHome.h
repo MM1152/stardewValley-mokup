@@ -18,6 +18,11 @@ class SceneHome : public Scene
 protected:
 	TileMap* tile;
 	TileMap* forGround;
+	
+	sf::RectangleShape blackOutEffect;
+	float maxDuration = 2.f;
+	float curDuration = 2.f;
+	bool fadeOut = true;
 
 	Map map;
 
@@ -34,8 +39,8 @@ public:
 	void Enter() override;
 	void Exit() override;
 	void Update(float dt) override;
-
-
 	void Draw(sf::RenderWindow& window) override;
+
+	void SceneClosed(float dt);
 };
 

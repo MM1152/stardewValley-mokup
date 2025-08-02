@@ -64,6 +64,8 @@ void SceneHome::Init()
 	tile = new TileMap(VertexType::Game);
 	forGround = new TileMap(VertexType::Game);
 
+	
+	
 	AddGameObject(bedDiaLog);
 	AddGameObject(tile);
 	AddGameObject(forGround);
@@ -84,6 +86,11 @@ void SceneHome::Init()
 void SceneHome::Enter()
 {
 	FRAMEWORK.GetWindow().setMouseCursorVisible(true);
+
+	blackOutEffect.setFillColor(sf::Color(0,0,0,0));
+	
+	blackOutEffect.setSize(FRAMEWORK.GetWindowSizeF());
+
 	worldView.setSize({ FRAMEWORK.GetWindowSizeF().x / 3, FRAMEWORK.GetWindowSizeF().y / 3});
 	uiView.setSize(FRAMEWORK.GetWindowSizeF());
 	uiView.setCenter({ FRAMEWORK.GetWindowSizeF().x / 2 , FRAMEWORK.GetWindowSizeF().y / 2 });
@@ -119,10 +126,12 @@ void SceneHome::Enter()
 
 	bedDiaLog->returnIdxFunc = [this](int sleep) {
 		isSleep = (bool)sleep;
-		player->SetIsPlayer(true);
 
 		if (isSleep) {
 			player->SetGrowup(true);
+		}
+		else {
+			player->SetIsPlayer(true);
 		}
 	};
 }
@@ -144,16 +153,18 @@ void SceneHome::Update(float dt)
 	}
 
 	for (auto tri : map.GetTriggers()) {
-		if (!tri->InTrigger()) {
-			tri->Update(dt);
-		}
+		tri->Update(dt);
 	}
+	SceneClosed(dt);
 }
 
 void SceneHome::Draw(sf::RenderWindow& window)
 {
 	Scene::Draw(window);
+	window.setView(uiView);
+	window.draw(blackOutEffect);
 	window.setView(worldView);
+	
 	if (drawCollider)
 	{
 		for (auto col : map.GetColliders())
@@ -166,3 +177,29 @@ void SceneHome::Draw(sf::RenderWindow& window)
 		}
 	}
 }
+
+void SceneHome::SceneClosed(float dt)
+{
+	if (isSleep) {
+		if (fadeOut) {
+			curDuration -= dt;
+			blackOutEffect.setFillColor(sf::Color(0, 0, 0, (int)(255 * (1.0f - (curDuration / maxDuration)))));
+		}
+		else if (!fadeOut) {
+			curDuration += dt;
+			blackOutEffect.setFillColor(sf::Color(0, 0, 0, (int)(255 - (255 * (curDuration / maxDuration)))));
+		}
+
+		if (curDuration < 0) {
+			curDuration = 0;
+			fadeOut = false;
+		}
+		else if (curDuration > maxDuration) {
+			curDuration = maxDuration;
+			isSleep = false;
+			fadeOut = true;
+			player->SetIsPlayer(true);
+		}
+	}
+}
+
