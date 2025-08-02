@@ -83,6 +83,11 @@ void Button::SetOrigin(Origins preset)
 	Utils::SetOrigin(bnt, preset);
 }
 
+void Button::SetButtonColor(sf::Color color)
+{
+	bnt.setFillColor(color);
+}
+
 void Button::SetString(const std::string word)
 {
 	text.setString(word);

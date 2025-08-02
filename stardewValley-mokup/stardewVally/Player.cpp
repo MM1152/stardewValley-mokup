@@ -137,6 +137,7 @@ void Player::Release()
 
 void Player::Reset()
 {
+	prevDir = { -1,-1 };
 	ANI_CLIP_MGR.Load(ANIMATION_PATH"hat1left.csv");
 	ANI_CLIP_MGR.Load(ANIMATION_PATH"hat1backward.csv");
 	ANI_CLIP_MGR.Load(ANIMATION_PATH"hat1forward.csv");
@@ -158,23 +159,39 @@ void Player::Reset()
 	hand.Play(ANIMATION_PATH"playerforwardhand.csv");
 	hat.Play(ANIMATION_PATH"hat1forward.csv");
 
+
+	hand.AddEvent("playeruseitemhandleft", 3, [this]() {
+		sf::FloatRect center = bodySprite.getLocalBounds();
+		handSprite.setOrigin({ center.width / 2 + 2.f, center.height / 2 + 5.f });
+		});
+
+	hand.AddEvent("playeruseitemhandrigth", 3, [this]() {
+		sf::FloatRect center = bodySprite.getLocalBounds();
+		handSprite.setOrigin({ center.width / 2 + 2.f, center.height / 2 + 5.f });
+		});
+
 	body.AddEvent("playeruseitem", 3, [this]() {
+		isPlayer = true;
 		useItem = false;
 		body.Play(ANIMATION_PATH"playerforward.csv");
 		hand.Play(ANIMATION_PATH"playerforwardhand.csv");
 	});
 
 	body.AddEvent("playeruseitemback", 3, [this]() {
+		isPlayer = true;
 		useItem = false;
 		body.Play(ANIMATION_PATH"playerbackward.csv");
 		hand.Play(ANIMATION_PATH"playerbackwardhand.csv");
 	});
 
 	body.AddEvent("playeruseitemleft", 3, [this]() {
+		isPlayer = true;
 		useItem = false;
 		body.Play(ANIMATION_PATH"playerleft.csv");
 		hand.Play(ANIMATION_PATH"playerlefthand.csv");
 	});
+
+
 
 	speed = 100;
 	SetOrigin(Origins::BC);
@@ -218,21 +235,23 @@ void Player::Update(float dt)
 	
 	float moveX = InputMgr::GetAxisRaw(Axis::Horizontal);
 	float moveY = InputMgr::GetAxisRaw(Axis::Vertical);
+	
 
-	PlayMoveAnimation({moveX , moveY});
 	if (moveX != 0 || moveY != 0 || useItem) {
-		body.Update(dt);
 		hand.Update(dt);
+		body.Update(dt);
 	}
-
-	movement.x = moveX * speed * dt;
-	movement.y = moveY * speed * dt;
-	sf::Vector2f moveOffset(movement.x, movement.y);
-
-	bound.setPosition(bodySprite.getPosition());
 
 	if (isPlayer)
 	{
+		PlayMoveAnimation({ moveX , moveY });
+
+		movement.x = moveX * speed * dt;
+		movement.y = moveY * speed * dt;
+		sf::Vector2f moveOffset(movement.x, movement.y);
+
+		bound.setPosition(bodySprite.getPosition());
+
 		Collider::areaBlocked(position, *this, moveOffset);
 	}
 	
@@ -256,10 +275,7 @@ void Player::Update(float dt)
 			timemoneyui->ChangeTimer();
 		}
 	}
-	else
-	{
-		GetIsPlayer();
-	}
+
 	// openInven > Escape out
 	if (openInven)
 	{
@@ -271,10 +287,6 @@ void Player::Update(float dt)
 			timemoneyui->ChangeTimer();
 		}
 	}
-	else
-	{
-		GetIsPlayer();
-	}
 
 	if (!openShop && !openInven) //&& fainting)
 	{
@@ -284,16 +296,13 @@ void Player::Update(float dt)
 			isPlayer = true;
 			fainting = false;
 			growup = true;
-
 		}
 	} 
 
-	if (!openShop && !openInven && dialogueBox && !dialogueBox->IsActive() && !npcMgr->GetIsTalking() && !isPlayer)
-	{
-		SetIsPlayer(true);
-	}
-
-
+	//if (!openShop && !openInven && dialogueBox && !dialogueBox->IsActive() && !npcMgr->GetIsTalking() && !isPlayer)
+	//{
+	//	SetIsPlayer(true);
+	//}
 
 	sf::Vector2f playerCenter = bodySprite.getPosition();
 	sf::Vector2f offSet = (sf::Vector2f)lookDir * 16.f;
@@ -400,6 +409,7 @@ void Player::PlayMoveAnimation(sf::Vector2f dir)
 void Player::PlayUseItemAnimation(sf::Vector2i dir)
 {
 	useItem = true;
+	isPlayer = false;
 	sf::FloatRect center = bodySprite.getLocalBounds();
 
 	if (dir.x == 1) {

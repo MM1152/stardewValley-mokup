@@ -21,6 +21,7 @@ void Trigger::Release()
 
 void Trigger::Reset()
 {
+	inTrigger = false;
 }
 
 void Trigger::Update(float dt)
@@ -29,7 +30,11 @@ void Trigger::Update(float dt)
 		if (player->GetGlobalBounds().intersects(rect.getGlobalBounds())) {
 			if (callback) {
 				callback();
+				inTrigger = true;
 			}
+		}
+		else {
+			inTrigger = false;
 		}
 	}
 }

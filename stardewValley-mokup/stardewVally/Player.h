@@ -85,6 +85,7 @@ public:
 	void SetDialogueBox(DialogueBox* dialogue);
 	DialogueBox* GetDialogueBox();
 	
+	sf::Vector2f GetSelectCellPosition() { return seedGuideRect.getPosition(); };
 	void SetOpenInventory(bool isOpen) { openInven = isOpen; };
 
 	virtual sf::FloatRect GetLocalBounds() const

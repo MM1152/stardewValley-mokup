@@ -19,7 +19,7 @@ void DropItemFix::Reset()
 
 void DropItemFix::Update(float dt)
 {
-	if (player && InputMgr::GetKeyDown(sf::Keyboard::C)) {
+	if (player && InputMgr::GetKeyDown(sf::Keyboard::C) && player->GetSelectCellPosition() == GetPosition()) {
 		Inventory* inv = player->GetInventory();
 		inv->AddItem(*GetItemInfo());
 		inv->Update(dt);

@@ -10,6 +10,8 @@
 #include "Inventory.h"
 #include "QuickBar.h"
 #include "Map.h"
+#include "SelectDiaLog.h"
+
 SceneHome::SceneHome()
 	: Scene(SceneIds::Home)
 {
@@ -29,24 +31,24 @@ void SceneHome::Init()
 	texIds.push_back("graphics/cauliflower_seeds.png");
 	texIds.push_back("graphics/potato_seeds.png");
 	texIds.push_back("graphics/garlic_seeds.png");
-
 	texIds.push_back("graphics/portraitsBox.png");
 	texIds.push_back("graphics/Pierre.png");
 	texIds.push_back("graphics/itemSlot_bg.png");
-
 	texIds.push_back(INVEN_IMG_PATH"CraftImage.bmp");
-
 	//Map Load
 	texIds.push_back(GRAPHICS_PATH"home.png");
 	texIds.push_back(GRAPHICS_PATH"building.png");
-
 	//TimeUi
 	texIds.push_back("graphics/clock.png");
 	texIds.push_back("graphics/moneyFont.png");
-
 	//font
 	fontIds.push_back("fonts/DOSGothic.ttf");
+	
 
+	bedDiaLog = new SelectDiaLog();
+	
+
+	bedDiaLog->SetActive(false);
 	inventory->SetQuickBar(quickBar);
 	timemoney->Setplayer(player);
 	timemoney->Setplayer(player);
@@ -62,6 +64,7 @@ void SceneHome::Init()
 	tile = new TileMap(VertexType::Game);
 	forGround = new TileMap(VertexType::Game);
 
+	AddGameObject(bedDiaLog);
 	AddGameObject(tile);
 	AddGameObject(forGround);
 
@@ -98,6 +101,7 @@ void SceneHome::Enter()
 
 	for (auto tri : map.GetTriggers()) {
 		tri->Init();
+		tri->Reset();
 		tri->SetPlayer(player);
 		if (tri->GetType() == TriggerType::Door) {
 			tri->callback = [this]() {
@@ -105,7 +109,22 @@ void SceneHome::Enter()
 				SCENE_MGR.ChangeScene(SceneIds::Farm);
 			};
 		}
+		if (tri->GetType() == TriggerType::Bed) {
+			tri->callback = [this]() {
+				bedDiaLog->Show();
+				player->SetIsPlayer(false);
+			};
+		}
 	}
+
+	bedDiaLog->returnIdxFunc = [this](int sleep) {
+		isSleep = (bool)sleep;
+		player->SetIsPlayer(true);
+
+		if (isSleep) {
+			player->SetGrowup(true);
+		}
+	};
 }
 
 void SceneHome::Exit()
@@ -125,7 +144,9 @@ void SceneHome::Update(float dt)
 	}
 
 	for (auto tri : map.GetTriggers()) {
-		tri->Update(dt);
+		if (!tri->InTrigger()) {
+			tri->Update(dt);
+		}
 	}
 }
 

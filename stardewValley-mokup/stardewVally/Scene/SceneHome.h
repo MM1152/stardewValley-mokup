@@ -12,7 +12,7 @@ class TimeMoneyUi;
 class Map;
 class Inventory;
 class QuickBar;
-
+class SelectDiaLog;
 class SceneHome : public Scene
 {
 protected:
@@ -21,8 +21,11 @@ protected:
 
 	Map map;
 
-	bool drawCollider;
+	SelectDiaLog* bedDiaLog;
 
+	bool inBedTrigger = false;
+	bool drawCollider;
+	bool isSleep;
 public:
 	SceneHome();
 	~SceneHome() = default;

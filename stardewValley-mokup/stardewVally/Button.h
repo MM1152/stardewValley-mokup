@@ -30,6 +30,8 @@ public:
 	void SetOrigin(const sf::Vector2f& o) override;
 	void SetOrigin(Origins preset) override;
 
+	void SetButtonColor(sf::Color color);
+
 	void SetString(const std::string word);
 	void SetTextColor(sf::Color color);
 	void SetTextureRect(sf::IntRect rect);

@@ -141,6 +141,12 @@ void Shop::LoadShopItems(const std::vector<ItemInfo>& items)
 {
     shopItems = items;
 
+    for (auto bnt : buyButtons) {
+        delete bnt;
+    }
+
+    buyButtons.clear();
+
     itemSprites.clear();
     itemNameTexts.clear();
     itemDescTexts.clear();

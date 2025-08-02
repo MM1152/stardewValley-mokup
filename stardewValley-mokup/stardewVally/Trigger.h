@@ -14,7 +14,7 @@ class Trigger : public GameObject
 private:
 	sf::RectangleShape rect;
 	TriggerType type;
-
+	bool inTrigger = false;
 	Player* player;
 public:
 	std::function<void()> callback;
@@ -35,5 +35,7 @@ public:
 	void SetType(const TriggerType type) { this->type = type; };
 	void SetPlayer(Player* player) { this->player = player; };
 	TriggerType GetType() { return type; };
+
+	bool InTrigger() { return inTrigger; };
 };
 

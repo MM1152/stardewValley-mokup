@@ -197,26 +197,21 @@ void MapToolScene::Init()
 			std::string mapId = sliceMapId[sliceMapId.size() - 1];
 
 			map.Load(mapFilePath);
-
-			drawTile[0].Set(map.GetTextId(0), map.GetCellDatas(0));
-			drawTile[1].Set(map.GetTextId(1), map.GetCellDatas(1));
-			drawTile[2].Set(map.GetTextId(2), map.GetCellDatas(2));
-			gridTile->drawGrid(map.GetCount() , {16,16});
-
 			inputText->SetString(mapId, true);
 
-			colliders.clear();
-			colliders = map.GetColliders();
-
-			for (auto collider : colliders) {
-				collider->setPosition({ collider->getPosition().x + 300.f , collider->getPosition().y + 300.f });
-			}
-
-			triggers.clear();
-			triggers = map.GetTriggers();
-			for (auto trigger : triggers) {
-				trigger->SetPosition({ trigger->GetPosition().x + 300.f , trigger->GetPosition().y + 300.f });
-			}
+		drawTile[0].Set(map.GetTextId(0), map.GetCellDatas(0));
+		drawTile[1].Set(map.GetTextId(1), map.GetCellDatas(1));
+		drawTile[2].Set(map.GetTextId(2), map.GetCellDatas(2));
+		colliders.clear();
+		colliders = map.GetColliders();
+		
+		for (auto collider : colliders) {
+			collider->setPosition({ collider->getPosition().x + 300.f , collider->getPosition().y + 300.f });
+		}
+		triggers.clear();
+		triggers = map.GetTriggers();
+		for (auto trigger: triggers) {
+			trigger->SetPosition({ trigger->GetPosition().x + 300.f , trigger->GetPosition().y + 300.f });
 		}
 	};
 	loadBNT->sortingLayer = SortingLayers::UI;
@@ -232,7 +227,7 @@ void MapToolScene::Init()
 			drawTrigger = false;
 			index = -1;
 		}
-	};
+		};
 	colliderBNT->sortingLayer = SortingLayers::UI;
 
 	gotitleBNT = new Button(FONT_PATH"DOSGothic.ttf", "title/gotitle.png");
@@ -244,7 +239,7 @@ void MapToolScene::Init()
 		{
 			gotitleview = true;
 		}
-	};
+		};
 	gotitleBNT->sortingLayer = SortingLayers::UI;
 
 	gtyesBNT = new Button("fonts/DOSGothic.ttf", "title/yes.png", "yes");
@@ -257,7 +252,7 @@ void MapToolScene::Init()
 			gotitleview = false;
 			SCENE_MGR.ChangeScene(SceneIds::Title);
 		}
-	};
+		};
 	gtyesBNT->sortingLayer = SortingLayers::UI;
 
 	gtnoBNT = new Button("fonts/DOSGothic.ttf", "title/no.png", "no");
@@ -269,7 +264,7 @@ void MapToolScene::Init()
 		{
 			gotitleview = false;
 		}
-	};
+		};
 	gtnoBNT->sortingLayer = SortingLayers::UI;
 
 #pragma endregion
@@ -309,7 +304,6 @@ void MapToolScene::Init()
 	drawTile[2].Init();
 	gridTile->Init();
 }
-
 
 void MapToolScene::Enter()
 {
