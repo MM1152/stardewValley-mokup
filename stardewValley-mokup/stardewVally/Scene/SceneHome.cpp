@@ -19,6 +19,7 @@ SceneHome::SceneHome()
 
 void SceneHome::Init()
 {
+	
 	texIds.push_back("graphics/spring.bmp");
 	texIds.push_back("graphics/testC.png");
 	texIds.push_back("graphics/uitest.png");
@@ -85,6 +86,7 @@ void SceneHome::Init()
 
 void SceneHome::Enter()
 {
+
 	FRAMEWORK.GetWindow().setMouseCursorVisible(true);
 
 	blackOutEffect.setFillColor(sf::Color(0,0,0,0));
@@ -98,8 +100,6 @@ void SceneHome::Enter()
 	sf::Vector2f windowSize = FRAMEWORK.GetWindowSizeF();
 
 	Scene::Enter(); //push_back
-	
-
 	tile->Set(map.GetTextId(0), map.GetCellDatas(0));
 	forGround->Set(map.GetTextId(1), map.GetCellDatas(1));
 

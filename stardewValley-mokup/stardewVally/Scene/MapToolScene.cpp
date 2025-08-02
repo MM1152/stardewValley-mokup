@@ -199,21 +199,23 @@ void MapToolScene::Init()
 			map.Load(mapFilePath);
 			inputText->SetString(mapId, true);
 
-		drawTile[0].Set(map.GetTextId(0), map.GetCellDatas(0));
-		drawTile[1].Set(map.GetTextId(1), map.GetCellDatas(1));
-		drawTile[2].Set(map.GetTextId(2), map.GetCellDatas(2));
-		colliders.clear();
-		colliders = map.GetColliders();
-		
-		for (auto collider : colliders) {
-			collider->setPosition({ collider->getPosition().x + 300.f , collider->getPosition().y + 300.f });
+			drawTile[0].Set(map.GetTextId(0), map.GetCellDatas(0));
+			drawTile[1].Set(map.GetTextId(1), map.GetCellDatas(1));
+			drawTile[2].Set(map.GetTextId(2), map.GetCellDatas(2));
+			colliders.clear();
+			colliders = map.GetColliders();
+
+			for (auto collider : colliders) {
+				collider->setPosition({ collider->getPosition().x + 300.f , collider->getPosition().y + 300.f });
+			}
+			triggers.clear();
+			triggers = map.GetTriggers();
+			for (auto trigger : triggers) {
+				trigger->SetPosition({ trigger->GetPosition().x + 300.f , trigger->GetPosition().y + 300.f });
+			}
 		}
-		triggers.clear();
-		triggers = map.GetTriggers();
-		for (auto trigger: triggers) {
-			trigger->SetPosition({ trigger->GetPosition().x + 300.f , trigger->GetPosition().y + 300.f });
-		}
-	};
+		};
+
 	loadBNT->sortingLayer = SortingLayers::UI;
 
 	colliderBNT = new Button(FONT_PATH"DOSGothic.ttf", "title/collider.png");
@@ -303,10 +305,9 @@ void MapToolScene::Init()
 	drawTile[1].Init();
 	drawTile[2].Init();
 	gridTile->Init();
-}
 
-void MapToolScene::Enter()
-{
+}
+void MapToolScene::Enter() {
 	drawTile[0].Reset();
 	drawTile[1].Reset();
 	drawTile[2].Reset();
@@ -316,7 +317,7 @@ void MapToolScene::Enter()
 	tilemap1->Set({ 24, 25 }, { 16.f, 16.f }, "graphics/villige.png");
 
 	// ++ si add tile
-	gridTile->drawGrid({ 35, 35}, { 16.f , 16.f });
+	gridTile->drawGrid({ 35, 35 }, { 16.f , 16.f });
 
 	drawTile[0].Set({ 35, 35 }, { 16.f , 16.f });
 	drawTile[1].Set({ 35, 35 }, { 16.f , 16.f });
@@ -388,7 +389,7 @@ void MapToolScene::Update(float dt)
 	{
 		gotitleview = false;
 	}
-	
+
 }
 
 void MapToolScene::Draw(sf::RenderWindow& window)

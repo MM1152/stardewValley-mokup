@@ -57,6 +57,7 @@
     <ClCompile Include="DropItemFix.cpp" />
     <ClCompile Include="Scene\SceneVillige.cpp" />
     <ClCompile Include="Scene\SceneStore.cpp" />
+    <ClCompile Include="SelectDiaLog.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Collider.h" />
@@ -120,5 +121,10 @@
     <ClInclude Include="DropItemFix.h" />
     <ClInclude Include="Scene\SceneVillige.h" />
     <ClInclude Include="Scene\SceneStore.h" />
+    <ClInclude Include="SelectDiaLog.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="vertex_shader.vert" />
+    <None Include="fragment_shader.frag" />
   </ItemGroup>
 </Project>

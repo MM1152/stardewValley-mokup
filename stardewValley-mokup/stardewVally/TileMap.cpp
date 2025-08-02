@@ -184,67 +184,13 @@ void TileMap::Reset()
 //16.9
 //4.3
 void TileMap::Update(float dt){
-	
-	/*if (type == VertexType::Palette) 
-	{
-		if (InputMgr::GetMouseButtonDown(sf::Mouse::Left) && InArea((sf::Vector2f)InputMgr::GetMousePosition())) {
-			int xIndex = (int)((int)(InputMgr::GetMousePosition().x - GetPosition().x)) / 16 * 4;
-			int yIndex = (int)((int)(InputMgr::GetMousePosition().y - GetPosition().y)) / 16 * 4;
-			index = xIndex + cellCount.x * yIndex;
-
-			if (index >= cellCount.x * cellCount.y * 4) index = -1;
-
-			if (getIndexFunc && index != -1) {
-				sf::Vector2f texcoor[4];
-				texcoor[0] = va[index].texCoords;
-				texcoor[1] = va[index + 1].texCoords;
-				texcoor[2] = va[index + 2].texCoords;
-				texcoor[3] = va[index + 3].texCoords;
-
-				getIndexFunc(texcoor);
-			}
-		}
-	}
-
-	if (type == VertexType::Draw) 
-	{
-		if (InputMgr::GetMouseButton(sf::Mouse::Left) && InArea(scene->ScreenToWorld(InputMgr::GetMousePosition()))) {
-			int xIndex = (int)((int)(scene->ScreenToWorld(InputMgr::GetMousePosition()).x - GetPosition().x)) / 16 * 4;
-			int yIndex = (int)((int)(scene->ScreenToWorld(InputMgr::GetMousePosition()).y - GetPosition().y)) / 16 * 4;
-
-			index = xIndex + cellCount.x * yIndex;
-
-			if (index >= cellCount.x * cellCount.y * 4) index = -1;
-
-			if (setTextCoorFunc) {
-				sf::Vector2f* texCoor = setTextCoorFunc();
-				
-				if (texCoor[2].x == 0 && texCoor[2].y == 0) {
-					va[index].color = sf::Color::Transparent;
-					va[index + 1].color = sf::Color::Transparent;
-					va[index + 2].color = sf::Color::Transparent;
-					va[index + 3].color = sf::Color::Transparent;
-					return;
-				}
-
-				va[index].color = sf::Color::White;
-				va[index + 1].color = sf::Color::White;
-				va[index + 2].color = sf::Color::White;
-				va[index + 3].color = sf::Color::White;
-
-				va[index].texCoords = texCoor[0];
-				va[index + 1].texCoords = texCoor[1];
-				va[index + 2].texCoords = texCoor[2];
-				va[index + 3].texCoords = texCoor[3];
-			}
-		}
-	}*/
 }
 
 void TileMap::Draw(sf::RenderWindow& window)
 {
 	sf::RenderStates state;
 	state.texture = texture;
+	state.shader = shader;
 	state.transform = transform;
 	window.draw(va, state);	
 }
@@ -280,6 +226,20 @@ void TileMap::SetTexture(const std::string texId)
 {
 	spriteSheetId = texId;
 	texture = &TEXTURE_MGR.Get(texId);
+}
+
+void TileMap::SetShader()
+{
+	shader = new sf::Shader();
+	shader->loadFromFile("fragment_shader.frag" , sf::Shader::Type::Fragment);
+	if (!shader->isAvailable()) {
+		std::cout << "FAIL TO LOAD SHADER" << std::endl;
+		delete shader;
+		return;
+	}
+
+	shader->setUniform("u_texture", *texture);
+	loadShader = true;
 }
 
 void TileMap::SetCellData(int idx, CellData& celldata)

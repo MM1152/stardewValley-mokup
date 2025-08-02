@@ -19,6 +19,9 @@ protected:
 	std::vector<CellData> cellData;
 	sf::VertexArray va;
 
+	sf::Shader* shader;
+	bool loadShader = false;
+
 	Scene* scene;
 
 	std::string spriteSheetId;
@@ -34,7 +37,7 @@ public:
 	std::function<void(sf::Vector2f*)> getIndexFunc;
 	std::function<sf::Vector2f*()> setTextCoorFunc;
 
-	TileMap(VertexType type, const std::string& name = "");
+	TileMap(const VertexType type, const std::string& name = "");
 	virtual ~TileMap() = default;
 
 	void Set(const sf::Vector2i& count, const sf::Vector2f& size, const std::string texId);
@@ -59,6 +62,7 @@ public:
 
 	void SetTexture(const std::string tex);
 	void SetScene(Scene* scene) { this->scene = scene; };
+	void SetShader();
 
 	sf::Vector2i GetCellCount() { return cellCount; };
 	std::string GetTextureId() { return spriteSheetId; };

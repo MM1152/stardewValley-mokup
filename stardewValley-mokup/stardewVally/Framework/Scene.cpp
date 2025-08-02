@@ -23,6 +23,9 @@ TimeMoneyUi* Scene::timemoney;
 Inventory* Scene::inventory;
 QuickBar* Scene::quickBar;
 
+float Scene::maxHour = 24.0f;
+float Scene::curHour;
+
 bool Scene::releasePlayer;
 bool Scene::releaseTimeMoney;
 bool Scene::releaseInven;

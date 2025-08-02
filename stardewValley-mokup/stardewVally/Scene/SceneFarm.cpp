@@ -24,9 +24,7 @@ SceneFarm::SceneFarm()
 
 void SceneFarm::Init()
 {
-	if (shader.loadFromFile("vertex_shader.vert", "fragment_shader.frag")){
-		std::cout << "FAIL TO LOAD SHADER" << std::endl;
-	}
+
 
 	texIds.push_back(GRAPHICS_PATH"tools.png");
 	texIds.push_back(GRAPHICS_PATH"farmer_base.png");
@@ -216,6 +214,7 @@ void SceneFarm::Init()
 
 void SceneFarm::Enter()
 {
+
 	FRAMEWORK.GetWindow().setMouseCursorVisible(true);
 	worldView.setSize({ FRAMEWORK.GetWindowSizeF().x / 3, FRAMEWORK.GetWindowSizeF().y / 3 });
 
@@ -254,6 +253,10 @@ void SceneFarm::Enter()
 	player->SetMap(&map);
 	player->SetSellBox(sellBox);
 	player->sortingLayer = SortingLayers::Foreground;
+
+	tile->SetShader();
+	forGround->SetShader();
+
 }
 
 void SceneFarm::Exit()

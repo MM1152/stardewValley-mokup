@@ -38,6 +38,7 @@ protected:
 	static Inventory* inventory;
 	static QuickBar* quickBar;
 
+
 	static bool releasePlayer;
 	static bool releaseTimeMoney;
 	static bool releaseInven;
@@ -46,6 +47,9 @@ protected:
 	std::list<DropItemFix*> dropList;
 
 public:
+	static float maxHour;
+	static float curHour;
+
 	const SceneIds Id;
 
 	Scene(SceneIds id);
