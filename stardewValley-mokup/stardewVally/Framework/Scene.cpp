@@ -23,8 +23,8 @@ TimeMoneyUi* Scene::timemoney;
 Inventory* Scene::inventory;
 QuickBar* Scene::quickBar;
 
-float Scene::maxHour = 24.0f;
-float Scene::curHour;
+float Scene::maxHour = 40.0f;
+float Scene::curHour = 6.f;
 
 bool Scene::releasePlayer;
 bool Scene::releaseTimeMoney;
@@ -120,6 +120,7 @@ void Scene::Update(float dt)
 			obj->Update(dt);
 		}
 	}
+
 }
 
 

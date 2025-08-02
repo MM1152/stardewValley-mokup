@@ -121,6 +121,8 @@ void TimeMoneyUi::Update(float dt)
 			{
 				minute = 0;
 				hour += 1;
+				Scene::curHour = allHour;
+				allHour++;
 				if (hour == 12)
 				{
 					if (!ampm)
@@ -595,6 +597,8 @@ void TimeMoneyUi::Changeth()
 	if (!ampm && hour <= 2 || !ampm && hour == 12)
 	{
 		hour = 6;
+		allHour = 6;
+		Scene::curHour = allHour;
 		minute = 0;
 		isTimer = true;
 	}
@@ -602,6 +606,8 @@ void TimeMoneyUi::Changeth()
 	{
 		th += 1;
 		hour = 6;
+		allHour = 6;
+		Scene::curHour = allHour;
 		minute = 0;
 		isTimer = true;
 		if (th > 28)

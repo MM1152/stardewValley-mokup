@@ -48,6 +48,7 @@ protected:
 
 	//meridem -> change(am / pm) = hour = 12 -> hour > 12 (hour = 1) / mitute += 10 if(minute > 50){hour += 1) 
 	int hour = 6;
+	int allHour = 6;
 	int minute = 0;
 	std::string istime;
 	sf::Text meridiem;

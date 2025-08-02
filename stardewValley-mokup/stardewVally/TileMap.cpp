@@ -183,14 +183,22 @@ void TileMap::Reset()
 }
 //16.9
 //4.3
-void TileMap::Update(float dt){
+void TileMap::Update(float dt)
+{
+	if (loadShader) {
+		if (Scene::curHour > 16) {
+			shader->setUniform("darkness", (Scene::curHour - 6) / Scene::maxHour);
+		}
+	}
 }
 
 void TileMap::Draw(sf::RenderWindow& window)
 {
 	sf::RenderStates state;
 	state.texture = texture;
-	state.shader = shader;
+	if (loadShader) {
+		state.shader = shader;
+	}
 	state.transform = transform;
 	window.draw(va, state);	
 }
@@ -239,6 +247,7 @@ void TileMap::SetShader()
 	}
 
 	shader->setUniform("u_texture", *texture);
+	shader->setUniform("darkness", Scene::curHour / Scene::maxHour);
 	loadShader = true;
 }
 

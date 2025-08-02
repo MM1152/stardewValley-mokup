@@ -256,7 +256,7 @@ void SceneFarm::Enter()
 
 	tile->SetShader();
 	forGround->SetShader();
-
+	
 }
 
 void SceneFarm::Exit()
