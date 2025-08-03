@@ -14,7 +14,7 @@ private:
 	sf::RectangleShape outLine;
 	std::vector<QuickBar_Slot*> quickBar_Slots;		
 
-	int idx = 0;
+	int idx = -1;
 public:
 	QuickBar(const std::string& texId = "" , const std::string& fontId = "" , const std::string& name = "");
 	~QuickBar() override = default;

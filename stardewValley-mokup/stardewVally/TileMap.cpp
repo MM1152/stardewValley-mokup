@@ -238,7 +238,6 @@ void TileMap::SetTexture(const std::string texId)
 
 void TileMap::SetShader()
 {
-	shader = new sf::Shader();
 	shader->loadFromFile("fragment_shader.frag" , sf::Shader::Type::Fragment);
 	if (!shader->isAvailable()) {
 		std::cout << "FAIL TO LOAD SHADER" << std::endl;

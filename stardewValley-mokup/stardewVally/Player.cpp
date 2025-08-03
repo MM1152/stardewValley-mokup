@@ -141,6 +141,7 @@ void Player::Release()
 
 void Player::Reset()
 {
+	SetActive(true);
 	prevDir = { -1,-1 };
 	ANI_CLIP_MGR.Load(ANIMATION_PATH"hat1left.csv");
 	ANI_CLIP_MGR.Load(ANIMATION_PATH"hat1backward.csv");
@@ -214,6 +215,10 @@ void Player::Reset()
 	bound.setOrigin(Utils::SetOrigin(bound, Origins::BC));
 	bound.setFillColor(sf::Color(0, 0, 255, 100));
 	bound.setPosition(GetPosition());
+
+	if (item) {
+		copyItem->Reset();
+	}
 }
 
 void Player::Update(float dt)

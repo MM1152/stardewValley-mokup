@@ -26,6 +26,8 @@ void QuickBar::Init()
 	}
 
 	outLine.setSize({53 , 53});
+
+	
 }
 
 void QuickBar::Release()
@@ -47,8 +49,6 @@ void QuickBar::Reset()
 		quickBar_Slots[i]->Reset();
 	}
 
-	outLine.setPosition(quickBar_Slots[0]->GetPosition().x + 9.f,
-		quickBar_Slots[0]->GetPosition().y + 6.f);
 }
 
 void QuickBar::Update(float dt)
@@ -85,7 +85,9 @@ void QuickBar::Draw(sf::RenderWindow& window)
 	for (auto slot : quickBar_Slots) {
 		slot->Draw(window);
 	}
-	window.draw(outLine);
+	if (idx != -1) {
+		window.draw(outLine);
+	}
 
 }
 
@@ -96,7 +98,10 @@ void QuickBar::SetItem(InUIItem* item, int idx)
 
 Item* QuickBar::GetItem()
 {
-	return quickBar_Slots[idx]->GetItem();
+	if (idx != -1) {
+		return quickBar_Slots[idx]->GetItem();
+	}
+	return nullptr;
 }
 
 

@@ -113,8 +113,9 @@ void SceneHome::Enter()
 		tri->SetPlayer(player);
 		if (tri->GetType() == TriggerType::Door) {
 			tri->callback = [this]() {
-				player->SetPosition({ 375.f, 250.f });
 				SCENE_MGR.ChangeScene(SceneIds::Farm);
+				player->SetPosition({ 375.f, 250.f });
+				player->SetActive(false);
 			};
 		}
 		if (tri->GetType() == TriggerType::Bed) {

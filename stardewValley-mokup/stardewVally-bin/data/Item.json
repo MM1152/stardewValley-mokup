@@ -66,6 +66,8 @@
       "TextureRect" : [0, 86, 15, 28],
       "price" : 40,
       "stock" : 100,
+      "usableTiles" : [34, 313],
+      "usableLayer" : 2,
       "quantity": 1
     },
     {

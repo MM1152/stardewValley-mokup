@@ -255,8 +255,8 @@ void SceneFarm::Enter()
 	player->SetSellBox(sellBox);
 	player->sortingLayer = SortingLayers::Foreground;
 
-	tile->SetShader();
-	forGround->SetShader();
+	//tile->SetShader();
+	//forGround->SetShader();
 	
 }
 
