@@ -139,6 +139,13 @@ bool Shop::isUiShowing()
 
 void Shop::LoadShopItems(const std::vector<ItemInfo>& items)
 {
+    for (auto btn : buyButtons)
+    {
+        delete btn;
+    }
+
+    buyButtons.clear();
+
     shopItems = items;
 
     for (auto bnt : buyButtons) {
@@ -185,14 +192,6 @@ void Shop::LoadShopItems(const std::vector<ItemInfo>& items)
         nameText.setFillColor(sf::Color::Black);
         nameText.setPosition(x - 50.f * bgScale.x, y + i * spacingY - 30.f * bgScale.y);
         itemNameTexts.push_back(nameText);
-
- /*     sf::Text descText;
-        descText.setFont(font);
-        descText.setString(info.itemDes);
-        descText.setCharacterSize(14);
-        descText.setFillColor(sf::Color::Black);
-        descText.setPosition(x + 50.f, y + i * spacingY + 20);
-        itemDescTexts.push_back(descText);*/
 
         sf::Text priceText;
         priceText.setFont(font);

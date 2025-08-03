@@ -10,6 +10,9 @@
 #include "Inventory.h"
 #include "QuickBar.h"
 #include "Map.h"
+#include "DialogueBox.h"
+#include "DialogueLoader.h"
+
 
 SceneStore::SceneStore()
 	: Scene(SceneIds::Store)
@@ -19,7 +22,6 @@ SceneStore::SceneStore()
 void SceneStore::Init()
 {
 	texIds.push_back("graphics/store.png");
-	texIds.push_back("graphics/testC.png");
 	texIds.push_back("graphics/uitest.png");
 	texIds.push_back(INVEN_IMG_PATH"ItemSlot.png");
 	texIds.push_back(GRAPHICS_PATH"farmer_base.png");
@@ -31,6 +33,9 @@ void SceneStore::Init()
 	texIds.push_back("graphics/cauliflower_seeds.png");
 	texIds.push_back("graphics/potato_seeds.png");
 	texIds.push_back("graphics/garlic_seeds.png");
+
+	texIds.push_back("graphics/npcTest.png");
+	texIds.push_back("graphics/pierre_photo.png");
 
 	texIds.push_back("graphics/portraitsBox.png");
 	texIds.push_back("graphics/Pierre.png");
@@ -49,17 +54,51 @@ void SceneStore::Init()
 	//font
 	fontIds.push_back("fonts/DOSGothic.ttf");
 
+	npc = new NpcMgr("Npc"); //c
+	shop = new Shop("shop"); //c
+	dialogueBox = new DialogueBox("DialogueBox"); //c
+
+	AddGameObject(shop);
+	AddGameObject(npc);
+
+	shop->SetInventory(inventory);
+	shop->SetPlayer(player);
+	shop->SetTimeMoeyUi(timemoney);
+
+	npc->SetPlayer(player);
+	npc->SetTimer(timemoney);
+	npc->SetInventory(inventory);
+	npc->SetDIalogueBox(dialogueBox);
+
 	inventory->SetQuickBar(quickBar);
 	timemoney->Setplayer(player);
 	timemoney->Setplayer(player);
+
+	player->SetNpcMgr(npc);
 	player->SetInventory(inventory);
 	player->SetTimer(timemoney);
+	player->SetDialogueBox(dialogueBox);
+
+	itemDataMgr::Instance().LoadShopItems("data/shop.json");
+	itemDataMgr::Instance().Load("data/item.json");
 
 	const auto& items = itemDataMgr::Instance().GetShopItemList("Pierre's General Store");
 	for (const auto& item : items)
 	{
 		texIds.push_back(item.itemTextureId);
 	}
+
+	npc->setCallBack([this]() {
+		if (!shop->isUiShowing())
+		{
+			shop->ShowUi();
+		}
+		else
+		{
+			shop->CloseUi();
+		}
+		});
+
 
 	tile = new TileMap(VertexType::Game);
 	forGround = new TileMap(VertexType::Game);

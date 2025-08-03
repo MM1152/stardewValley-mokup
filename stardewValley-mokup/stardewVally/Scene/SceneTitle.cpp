@@ -38,6 +38,11 @@ void SceneTitle::Enter()
 	Scene::Enter();
 }
 
+void SceneTitle::Exit()
+{
+
+}
+
 void SceneTitle::Update(float dt)
 {
 	Scene::Update(dt);

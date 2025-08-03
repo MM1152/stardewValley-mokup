@@ -44,7 +44,6 @@ public:
 	void Reset() override;
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
-	//void setCallBack(std::function<void()> cb);
 	bool IsCollidingBox(sf::RectangleShape rect);
 	void SetInventory(Inventory* inven);
 	void SetPlayer(Player* p);

@@ -58,6 +58,7 @@
     <ClCompile Include="Scene\SceneVillige.cpp" />
     <ClCompile Include="Scene\SceneStore.cpp" />
     <ClCompile Include="SelectDiaLog.cpp" />
+    <ClCompile Include="SoundMgr.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Collider.h" />
@@ -122,6 +123,7 @@
     <ClInclude Include="Scene\SceneVillige.h" />
     <ClInclude Include="Scene\SceneStore.h" />
     <ClInclude Include="SelectDiaLog.h" />
+    <ClInclude Include="SoundMgr.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="vertex_shader.vert" />

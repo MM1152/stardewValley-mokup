@@ -13,12 +13,18 @@ class TimeMoneyUi;
 class Map;
 class Inventory;
 class QuickBar;
+class Shop;
+class NpcMgr;
+class DialogueBox;
 
 class SceneStore : public Scene
 {
 protected:
 	TileMap* tile;
 	TileMap* forGround;
+	Shop* shop;
+	NpcMgr* npc;
+	DialogueBox* dialogueBox;
 
 	Map map;
 
