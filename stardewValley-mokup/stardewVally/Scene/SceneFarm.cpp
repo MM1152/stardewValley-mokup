@@ -29,6 +29,7 @@ void SceneFarm::Init()
 	texIds.push_back(GRAPHICS_PATH"tools.png");
 	texIds.push_back(GRAPHICS_PATH"farmer_base.png");
 	texIds.push_back(GRAPHICS_PATH"hats.png");
+	texIds.push_back(GRAPHICS_PATH"shirts.png");
 	texIds.push_back("graphics/testC.png");
 	texIds.push_back(INVEN_IMG_PATH"ItemSlot.png");
 	texIds.push_back("graphics/uiBox.png");
