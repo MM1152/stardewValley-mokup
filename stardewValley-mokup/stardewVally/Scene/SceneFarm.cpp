@@ -25,7 +25,6 @@ SceneFarm::SceneFarm()
 void SceneFarm::Init()
 {
 
-
 	texIds.push_back(GRAPHICS_PATH"tools.png");
 	texIds.push_back(GRAPHICS_PATH"farmer_base.png");
 	texIds.push_back(GRAPHICS_PATH"hats.png");
@@ -163,6 +162,10 @@ void SceneFarm::Init()
 
 void SceneFarm::Enter()
 {
+	SOUND_MGR.Load(SoundType::DOOROPEN, "sound/doorOpen.mp3");
+	SOUND_MGR.Load(SoundType::FARM, "sound/farm.mp3");
+
+	SOUND_MGR.Play(SoundType::FARM);
 
 	FRAMEWORK.GetWindow().setMouseCursorVisible(true);
 	worldView.setSize({ FRAMEWORK.GetWindowSizeF().x / 3, FRAMEWORK.GetWindowSizeF().y / 3 });
@@ -182,6 +185,7 @@ void SceneFarm::Enter()
 		{
 			tri->callback = [this]() {
 				SCENE_MGR.ChangeScene(SceneIds::Home);
+				SOUND_MGR.Play(SoundType::DOOROPEN);
 			};
 		}
 		if (tri->GetType() == TriggerType::Bed)
@@ -189,6 +193,7 @@ void SceneFarm::Enter()
 			tri->callback = [this]() {
 				player->SetPosition({ 40.f, 240.f });
 				SCENE_MGR.ChangeScene(SceneIds::Village);
+				SOUND_MGR.Stop(SoundType::FARM);
 			};
 		}
 	}

@@ -19,7 +19,6 @@ SceneHome::SceneHome()
 
 void SceneHome::Init()
 {
-	
 	texIds.push_back("graphics/spring.bmp");
 	texIds.push_back("graphics/testC.png");
 	texIds.push_back("graphics/uitest.png");
@@ -87,6 +86,8 @@ void SceneHome::Init()
 
 void SceneHome::Enter()
 {
+	SOUND_MGR.Load(SoundType::DOOROPEN , "sound/doorOpen.mp3");
+
 
 	FRAMEWORK.GetWindow().setMouseCursorVisible(true);
 
@@ -115,6 +116,7 @@ void SceneHome::Enter()
 			tri->callback = [this]() {
 				SCENE_MGR.ChangeScene(SceneIds::Farm);
 				player->SetPosition({ 375.f, 250.f });
+				SOUND_MGR.Play(SoundType::DOOROPEN);
 				player->SetActive(false);
 			};
 		}
