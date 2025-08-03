@@ -186,6 +186,7 @@ void SceneFarm::Enter()
 			tri->callback = [this]() {
 				SCENE_MGR.ChangeScene(SceneIds::Home);
 				SOUND_MGR.Play(SoundType::DOOROPEN);
+				SOUND_MGR.Stop(SoundType::FARM);
 			};
 		}
 		if (tri->GetType() == TriggerType::Bed)

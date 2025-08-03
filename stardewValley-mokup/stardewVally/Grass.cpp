@@ -10,8 +10,10 @@ Grass::Grass(const std::string& texId, CellData* cellData, const std::string& na
 void Grass::Reset()
 {
 	InteractionObject::Reset();
-	rect.setSize({ 16,16 });
-	rect.setPosition(cellData->cellPosition[0]);
+	if (!isBroken) {
+		this->rect.setSize({ 16 , 16 });
+		this->rect.setPosition(objectSp.getPosition());
+	}
 }
 
 void Grass::Interaction()

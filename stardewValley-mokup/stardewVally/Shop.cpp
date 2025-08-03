@@ -52,6 +52,9 @@ void Shop::Init()
 {
     toolTip = new ItemToolTip();
     toolTip->Init();
+    SOUND_MGR.Load(SoundType::MENUOPEN, "sound/menuopen.mp3");
+    SOUND_MGR.Load(SoundType::MENUSELECT, "sound/menu_select.mp3");
+    SOUND_MGR.Load(SoundType::MENUCLOSE, "sound/menuclose.mp3");
 }
 
 void Shop::Release()
@@ -121,6 +124,8 @@ void Shop::Draw(sf::RenderWindow& window)
 
 void Shop::ShowUi()
 {
+    SOUND_MGR.Play(SoundType::MENUOPEN);
+    SOUND_MGR.Play(SoundType::MENUCLOSE);
     isUiShow = true;
 
 	const std::vector<ItemInfo>& items = itemDataMgr::Instance().GetShopItemList("Pierre's General Store");
@@ -203,6 +208,8 @@ void Shop::LoadShopItems(const std::vector<ItemInfo>& items)
 
         btn->onClickFunc = [this, i]() {
             const ItemInfo& item = shopItems[i];
+            SOUND_MGR.Play(SoundType::MENUSELECT);
+
             if (inventory && player)
             {
                 int price = item.price;

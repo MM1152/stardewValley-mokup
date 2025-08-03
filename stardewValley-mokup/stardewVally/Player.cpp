@@ -108,6 +108,8 @@ void Player::SetItem(Item* item)
 
 void Player::Init()
 {
+	SOUND_MGR.Load(SoundType::TOOLSWAP , "sound/toolSwap.mp3");
+
 	seedGuideRect.setSize({16.f, 16.f});
 	seedGuideRect.setFillColor(sf::Color(0, 255, 0, 100));
 	seedGuideRect.setOutlineColor(sf::Color(102, 255, 0, 135));
@@ -230,6 +232,7 @@ void Player::Update(float dt)
 		quickBarIdx = inventory->GetQuickBar()->GetQuickBarIdx();
 		if (item) {
 			SetItem(item);
+			SOUND_MGR.Play(SoundType::TOOLSWAP);
 			copyItem->Init();
 			copyItem->Reset();
 			copyItem->SetPlayer(this);

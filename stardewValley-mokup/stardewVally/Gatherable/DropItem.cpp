@@ -13,7 +13,7 @@ void DropItem::Init()
 {
 	sortingLayer = SortingLayers::Foreground;
 	sortingOrder = 0;
-
+	SOUND_MGR.Load(SoundType::GETITEM, "sound/getItem.mp3");
 }
 
 void DropItem::Release()
@@ -39,6 +39,7 @@ void DropItem::Update(float dt)
 	{
 		if(cellData.cellPosition[0] == GetPosition())
 		{ 
+			SOUND_MGR.Play(SoundType::GETITEM);
 			if (dropitemId == "graphics/parsnipdrop.png")
 			{
 				ItemInfo info = itemDataMgr::Instance().GetItem("parsnip");

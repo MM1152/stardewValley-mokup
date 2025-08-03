@@ -77,6 +77,6 @@ void InteractionObject::Draw(sf::RenderWindow& window)
 
 void InteractionObject::Interaction()
 {
-	SetActive(false);
+	isBroken = true;
 	rect.setSize({ 0,0 });
 }

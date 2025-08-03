@@ -71,23 +71,23 @@ void NpcMgr::Reset()
 
 void NpcMgr::Update(float dt)
 {
-	moveTimer += dt;
+	//moveTimer += dt;
 
-	if (isNpcMove && moveTimer >= moveInterval)
-	{
-		moveTimer = 0.f;
-		float axisX = (std::rand() % 3) - 1;
-		float axisY = (std::rand() % 3) - 1;
-		direction = sf::Vector2f(axisX, axisY);
-	}
+	//if (isNpcMove && moveTimer >= moveInterval)
+	//{
+	//	moveTimer = 0.f;
+	//	float axisX = (std::rand() % 3) - 1;
+	//	float axisY = (std::rand() % 3) - 1;
+	//	direction = sf::Vector2f(axisX, axisY);
+	//}
 
-	if (isNpcMove)
-	{
-		sf::Vector2f moveOffset = direction * speed * dt;
-		sf::Vector2f talkPos = npcTalkSprite.getPosition();
-		Collider::areaBlocked(talkPos, npcTalkSprite, moveOffset);
-		npcTalkSprite.setPosition(talkPos);
-	}
+	//if (isNpcMove)
+	//{
+	//	sf::Vector2f moveOffset = direction * speed * dt;
+	//	sf::Vector2f talkPos = npcTalkSprite.getPosition();
+	//	Collider::areaBlocked(talkPos, npcTalkSprite, moveOffset);
+	//	npcTalkSprite.setPosition(talkPos);
+	//}
 
 	playerRect.setPosition(player->GetPosition());
 	playerRect.setSize(player->GetGlobalBounds().getSize());

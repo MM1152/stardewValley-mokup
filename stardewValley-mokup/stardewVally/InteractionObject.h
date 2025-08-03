@@ -10,7 +10,7 @@ protected:
 	sf::Sprite objectSp;
 	sf::RectangleShape rect;
 	CellData* cellData;
-
+	bool isBroken = false;
 public:
 	InteractionObject(const std::string& texId, CellData* cellData , const std::string& name = "");
 	~InteractionObject() override = default;

@@ -132,7 +132,12 @@ void SceneHome::Enter()
 		isSleep = (bool)sleep;
 
 		if (isSleep) {
+			if (!timemoney->GetIsChangeDay()) {
+				timemoney->Changeth();
+				timemoney->Reset();
+			}
 			player->SetGrowup(true);
+			timemoney->SetIsChangeDay(false);
 		}
 		else {
 			player->SetIsPlayer(true);

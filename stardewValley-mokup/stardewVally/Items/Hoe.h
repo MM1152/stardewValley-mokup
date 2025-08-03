@@ -17,6 +17,7 @@ public:
 	~Hoe() override = default;
 
 	void Update(float dt) override;
+	void Init() override;
 	void Reset() override;
 	bool UseItem() override;
 	void Draw(sf::RenderWindow& window) override;

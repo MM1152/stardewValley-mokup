@@ -9,6 +9,12 @@ DropItemFix::DropItemFix(ItemInfo type , CellData* cellData)
 {
 }
 
+void DropItemFix::Init()
+{
+	InGameItem::Init();
+	SOUND_MGR.Load(SoundType::GETITEM, "sound/getItem.mp3");
+}
+
 void DropItemFix::Reset()
 {
 	InGameItem::Reset();
@@ -20,6 +26,7 @@ void DropItemFix::Reset()
 void DropItemFix::Update(float dt)
 {
 	if (player && InputMgr::GetKeyDown(sf::Keyboard::C) && player->GetSelectCellPosition() == GetPosition()) {
+		SOUND_MGR.Play(SoundType::GETITEM);
 		Inventory* inv = player->GetInventory();
 		inv->AddItem(*GetItemInfo());
 		inv->Update(dt);

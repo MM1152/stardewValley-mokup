@@ -10,6 +10,7 @@ public:
 	DropItemFix(ItemInfo type , CellData* cellData);
 	~DropItemFix() override = default;
 
+	void Init() override;
 	void Reset() override;
 	void Update(float dt) override;
 };
