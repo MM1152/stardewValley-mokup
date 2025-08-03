@@ -57,6 +57,7 @@
     <ClCompile Include="DropItemFix.cpp" />
     <ClCompile Include="Scene\SceneVillige.cpp" />
     <ClCompile Include="Scene\SceneStore.cpp" />
+    <ClCompile Include="SoundMgr.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Collider.h" />
@@ -120,5 +121,6 @@
     <ClInclude Include="DropItemFix.h" />
     <ClInclude Include="Scene\SceneVillige.h" />
     <ClInclude Include="Scene\SceneStore.h" />
+    <ClInclude Include="SoundMgr.h" />
   </ItemGroup>
 </Project>

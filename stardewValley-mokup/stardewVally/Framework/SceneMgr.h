@@ -1,4 +1,5 @@
 #pragma once
+#include "Singleton.h"
 class SceneMgr : public Singleton<SceneMgr>
 {
 	friend class Singleton<SceneMgr>;
