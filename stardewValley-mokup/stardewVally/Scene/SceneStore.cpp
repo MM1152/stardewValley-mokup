@@ -108,7 +108,6 @@ void SceneStore::Init()
 
 
 	// F9 Draw Collider
-	drawCollider = true;
 	Scene::Init();
 	AddGameObject(inventory);
 	AddGameObject(quickBar);

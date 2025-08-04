@@ -37,7 +37,7 @@ protected:
 
 	Map map;
 
-	bool drawCollider;
+	bool drawCollider = false;
 public:
 	SceneFarm();
 	~SceneFarm() = default;

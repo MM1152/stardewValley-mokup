@@ -76,7 +76,6 @@ void SceneHome::Init()
 	AddGameObject(player);
 	AddGameObject(timemoney);
 	// F9 Draw Collider
-	drawCollider = true;
 	Scene::Init();
 
 	map.Load(MAP_PATH"home");

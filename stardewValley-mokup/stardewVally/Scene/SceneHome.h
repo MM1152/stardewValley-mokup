@@ -29,7 +29,7 @@ protected:
 	SelectDiaLog* bedDiaLog;
 
 	bool inBedTrigger = false;
-	bool drawCollider;
+	bool drawCollider = false;
 	bool isSleep;
 public:
 	SceneHome();

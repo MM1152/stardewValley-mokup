@@ -144,7 +144,6 @@ void SceneFarm::Init()
 	objects = map.CreateObjects();
 
 	// F9 Draw Collider
-	drawCollider = true;
 
 	Scene::Init();
 

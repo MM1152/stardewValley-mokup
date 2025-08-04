@@ -124,7 +124,6 @@ void SceneVillige::Init()
 	AddGameObject(forGround);
 
 	// F9 Draw Collider
-	drawCollider = true;
 	Scene::Init();
 
 	AddGameObject(inventory);

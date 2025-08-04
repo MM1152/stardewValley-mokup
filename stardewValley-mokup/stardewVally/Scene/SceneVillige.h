@@ -25,7 +25,7 @@ protected:
 	NpcMgr* npc;
 	Map map;
 
-	bool drawCollider;
+	bool drawCollider = false;
 
 public:
 	SceneVillige();
