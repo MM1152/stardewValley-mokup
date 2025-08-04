@@ -27,6 +27,7 @@ void SelectDiaLog::Reset()
 	FONT_MGR.Load(FONT_PATH"SDMiSaeng.ttf");
 
 	backGround.setTexture(TEXTURE_MGR.Get(GRAPHICS_PATH"shop_bg.png"));
+	backGround.setPosition({ FRAMEWORK.GetWindowSizeF().x * 0.225f , FRAMEWORK.GetWindowSizeF().y - backGround.getLocalBounds().height * 0.7f});
 	backGround.setScale({1 , 0.3f});
 
 	topButton->Reset();

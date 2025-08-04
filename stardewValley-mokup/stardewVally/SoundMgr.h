@@ -8,10 +8,13 @@ enum class SoundType {
     FARM,
     VILLIGE,
     SFX,
+    HOE,
     MENUOPEN,
     MENUCLOSE,
+    MENUSELECT,
     DOOROPEN,
-
+    GETITEM,
+    TOOLSWAP,
 };
 class SoundMgr : public Singleton<SoundMgr>
 {

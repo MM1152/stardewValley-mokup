@@ -8,6 +8,11 @@ Pick::Pick(ItemInfo info)
 	:InGameItem(info)
 {
 }
+void Pick::Init()
+{
+	InGameItem::Init();
+	SOUND_MGR.Load(SoundType::HOE , "sound/hoe.mp3");
+}
 void Pick::Update(float dt)
 {
 	InGameItem::Update(dt);
@@ -88,6 +93,7 @@ bool Pick::UseItem()
 	startAnimation = true;
 
 	if (cellData.idx == 313) {
+		SOUND_MGR.Play(SoundType::HOE);
 		CellData changeCellData = map->GetTextureCell(-1, 2);
 		cellData.interactionObj->Interaction();
 		cellData.interactionObj = nullptr;
@@ -97,6 +103,7 @@ bool Pick::UseItem()
 	}
 
 	if (cellData.idx == 34) {
+		SOUND_MGR.Play(SoundType::HOE);
 		CellData changeCellData = map->GetTextureCell(-1, 2);
 		cellData.interactionObj->Interaction();
 		cellData.interactionObj = nullptr;

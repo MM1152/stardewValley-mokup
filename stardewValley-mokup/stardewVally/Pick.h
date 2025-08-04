@@ -15,6 +15,7 @@ public:
 	Pick(ItemInfo info);
 	~Pick() override = default;
 
+	void Init() override;
 	void Update(float dt) override;
 	void Reset() override;
 	bool UseItem() override;

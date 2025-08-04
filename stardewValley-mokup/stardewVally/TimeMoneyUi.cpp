@@ -111,7 +111,7 @@ void TimeMoneyUi::Reset()
 void TimeMoneyUi::Update(float dt)
 {
 	// Time
-	if (isTimer && !player->GetFainting())
+	if (isTimer)
 	{
 		minuteTimer += dt;
 		if (minuteTimer > minuteMaxTimer)
@@ -144,8 +144,6 @@ void TimeMoneyUi::Update(float dt)
 				if (!ampm && hour == 2)
 				{
 					isTimer = false;
-					player->ChangeFainting();
-					player->SetIsPlayer(false);
 				}
 			}
 			istime = Utils::TostringTime(hour, minute);
@@ -594,6 +592,7 @@ void TimeMoneyUi::ResetSettingMoney()
 
 void TimeMoneyUi::Changeth()
 {
+	isChangeDays = true;
 	if (!ampm && hour <= 2 || !ampm && hour == 12)
 	{
 		hour = 6;
@@ -615,6 +614,7 @@ void TimeMoneyUi::Changeth()
 			th = 1;
 		}
 	}
+	isdow = Utils::TostringDOW(th);
 }
 
 void TimeMoneyUi::Setplayer(Player* player)

@@ -137,6 +137,7 @@ void Collider::areaBlocked(sf::Vector2f& position, GameObject& sprite, const sf:
 {
 	position.x += moveOffset.x;
 	sprite.SetPosition(position);
+
 	for (auto shape : shapes)
 	{
 		if (IsColliding(sprite))

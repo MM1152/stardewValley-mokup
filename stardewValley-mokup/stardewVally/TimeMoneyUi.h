@@ -58,7 +58,7 @@ protected:
 	float minuteMaxTimer = 7.f;
 
 	Player* player;
-
+	bool isChangeDays = false;
 public:
 	TimeMoneyUi(const std::string& name = "");
 	virtual ~TimeMoneyUi() = default;
@@ -94,7 +94,8 @@ public:
 	}
 
 	void Changeth();
-
+	bool GetIsChangeDay() { return isChangeDays; };
+	void SetIsChangeDay(bool isChange) { isChangeDays = isChange; };
 	void Setplayer(Player* player);
 	Player* GetPlayer();
 

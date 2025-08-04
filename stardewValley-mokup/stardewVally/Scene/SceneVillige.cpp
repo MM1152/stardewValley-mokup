@@ -20,6 +20,8 @@ SceneVillige::SceneVillige()
 
 void SceneVillige::Init()
 {
+	SOUND_MGR.Load(SoundType::VILLIGE, "sound/villige.mp3");
+
 	texIds.push_back("graphics/spring.bmp");
 	texIds.push_back("graphics/uitest.png");
 	texIds.push_back(INVEN_IMG_PATH"ItemSlot.png");
@@ -135,6 +137,7 @@ void SceneVillige::Init()
 
 void SceneVillige::Enter()
 {
+	SOUND_MGR.Play(SoundType::VILLIGE);
 	FRAMEWORK.GetWindow().setMouseCursorVisible(true);
 	worldView.setSize({ FRAMEWORK.GetWindowSizeF().x / 3, FRAMEWORK.GetWindowSizeF().y / 3 });
 	uiView.setSize(FRAMEWORK.GetWindowSizeF());
@@ -160,6 +163,7 @@ void SceneVillige::Enter()
 			tri->callback = [this]() {
 				player->SetPosition({ 700.f, 300.f });
 				SCENE_MGR.ChangeScene(SceneIds::Farm);
+				SOUND_MGR.Stop(SoundType::VILLIGE);
 				};
 		}
 		if (tri->GetType() == TriggerType::Bed)

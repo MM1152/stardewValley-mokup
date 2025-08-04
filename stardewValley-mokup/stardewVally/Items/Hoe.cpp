@@ -19,6 +19,12 @@ void Hoe::Update(float dt)
 	}
 }
 
+void Hoe::Init()
+{
+	InGameItem::Init();
+	SOUND_MGR.Load(SoundType::HOE, "sound/hoe.mp3");
+}
+
 void Hoe::Reset()
 {
 	InGameItem::Reset();
@@ -87,6 +93,7 @@ bool Hoe::UseItem()
 	startAnimation = true;
 
 	if (cellData.layer == 0 && cellData.idx == 25) {
+		SOUND_MGR.Play(SoundType::HOE);
 		CellData changeCellData = map->GetTextureCell(308, 0);
 		map->SetCellData(cellIdx , 0 , &changeCellData);
 		return InGameItem::UseItem();

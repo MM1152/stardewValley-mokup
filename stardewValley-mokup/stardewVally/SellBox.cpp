@@ -50,6 +50,8 @@ void SellBox::SetOrigin(Origins preset)
 
 void SellBox::Init()
 {
+	SOUND_MGR.Load(SoundType::MENUOPEN, "sound/menuopen.mp3");
+	SOUND_MGR.Load(SoundType::MENUCLOSE, "sound/menuclose.mp3");
 }
 
 void SellBox::Release()
@@ -85,6 +87,7 @@ void SellBox::Update(float dt)
 	{
 		if (InputMgr::GetMouseButtonDown(sf::Mouse::Left))
 		{
+			
 			BoxOpen();
 			inventory->SetActive(true);
 
@@ -171,11 +174,13 @@ Player* SellBox::GetPlayer()
 void SellBox::BoxOpen()
 {
 	isBoxOpen = true;
+	SOUND_MGR.Play(SoundType::MENUOPEN);
 	std::cout << "SellBox opened\n";
 }
 
 void SellBox::BoxClosed()
 {
+	SOUND_MGR.Play(SoundType::MENUCLOSE);
 	isBoxOpen = false;
 }
 
